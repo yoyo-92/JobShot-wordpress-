@@ -27,16 +27,6 @@ function frontpage_view_pickups_func(){
     );
     $posts = get_posts($args);
 
-    if(count($posts)<5){
-      $args = array(
-        'post_type' => array($item_type),
-        'post_status' => array( 'publish' ),
-        'orderby' => 'rand',
-        'showposts'=>5
-      );
-      $posts = get_posts($args);
-    }
-
     $card_html = '<div class="cards-container">';
 
     foreach($posts as $post){
