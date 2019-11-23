@@ -1,5 +1,4 @@
 <?php
-
 function my_esc_sql($str){
     return mb_ereg_replace('(_%#)', '#¥1', $str);
 }
@@ -94,6 +93,7 @@ function view_custom_search_func($atts){
 
     $posts_per_page = 10;
     $page_no = get_query_var('paged')? get_query_var('paged') : 1;
+    $reccomend=false;
 
     $args = array(
         'posts_per_page' => $posts_per_page,
@@ -113,21 +113,6 @@ function view_custom_search_func($atts){
         }
         $args += array('meta_query' => $metaquerysp);
     }
-    if (isset($_GET['sort'])) {
-        $sort = my_esc_sql($_GET['sort']);
-        switch($sort){
-            case 'popular':
-                $args += array('meta_key' => 'week_views_count','orderby' => 'meta_value_num',);
-                break;
-            case 'new':
-                $args += array('order'   => 'DESC',);
-                break;
-            case 'recommend':
-                $args += array('meta_key' => 'day_views_count','orderby' => 'meta_value_num',);
-                break;
-        }
-    }
-
     if($item_type=="event"){
         $args += array('orderby' => 'meta_value','meta_key' => '開催日','order'   => 'DESC','meta_query' => array('value' => date('Y/m/d'),'compare' => '>=','type' => 'DATE'));
     }
@@ -188,8 +173,33 @@ function view_custom_search_func($atts){
         }
     }
     $args += array('tax_query' => $tax_query);
+  
+  
+    if (isset($_GET['sort'])) {
+        $sort = my_esc_sql($_GET['sort']);
+        switch($sort){
+            case 'popular':
+                $args += array('meta_key' => 'week_views_count','orderby' => 'meta_value_num',);
+                break;
+            case 'new':
+                $args += array('order'   => 'DESC',);
+                break;
+            case 'recommend':
+            	unset($args['posts_per_page']);
+            	$args += array(
+                	'posts_per_page' => -1,
+            	);
+                break;
+        }
+    }
 
-    $cat_query = new WP_Query($args);
+
+    
+    if($sort == 'recommend'){
+    	$cat_query = recommend_score($args);
+    }else{
+        $cat_query = new WP_Query($args);
+    }
     $html = paginate($cat_query->max_num_pages, get_query_var( 'paged' ), $cat_query->found_posts, $posts_per_page);
   	$html .= '<div class="cards-container">';
     while ($cat_query->have_posts()): $cat_query->the_post();
@@ -202,5 +212,72 @@ function view_custom_search_func($atts){
     return $html;
 }
 add_shortcode('view_custom_search', 'view_custom_search_func');
+
+function recommend_score($args){
+    $cat_query=new WP_Query($args);
+    $posts=get_posts( $args );
+    $posts_c=count($posts);
+  	$cat_query->found_posts=$posts_c;
+    $cat_query->max_num_pages=ceil($posts_c/10);
+    $sort=array();
+    $score=0;
+  	if(is_user_logged_in()){
+    	$future_occupations = get_user_meta(wp_get_current_user()->ID,'future_occupations',false)[0];
+	}
+    foreach($posts as $post){
+        $post_id = $post->ID;
+        $occupation=get_the_terms( $post_id, 'occupation' )[0]->name;
+    	$score = get_post_meta($post_id, 'recommend_score', true);
+        if(in_array($occupation,$future_occupations)){
+            $score+=50;
+        }else{
+        }
+        $sort[]=$score;
+	}
+    array_multisort($sort, SORT_DESC, SORT_NUMERIC, $posts);
+    $paged = 0 == get_query_var( 'paged', 0 ) ? 1 : get_query_var( 'paged', 1 );
+    $cat_query->posts=array_slice($posts, ($paged-1)*10,$paged*10);
+    return $cat_query;
+}
+
+//おすすめの点数の詳細表示用。使い終わったら非常に処理が重くなるのですぐに元に戻す。
+/* function recommend_score($args){
+    $cat_query=new WP_Query($args);
+    $posts=get_posts( $args );
+    $posts_c=count($posts);
+  	$cat_query->found_posts=$posts_c;
+    $cat_query->max_num_pages=ceil($posts_c/10);
+    $sort=array();
+    $score=0;
+    $score1=array();
+    $score2=array();
+    $score3=array();
+  	if(is_user_logged_in()){
+    	$future_occupations = get_user_meta(wp_get_current_user()->ID,'future_occupations',false)[0];
+	}
+    foreach($posts as $post){
+        $post_id = $post->ID;*/
+        //$score1[]+=(20-(int)do_shortcode(' [cfdb-count form="/インターン応募.*/" filter="job-id='.$post_id.'"]'))*6;
+        /*$score2[]+=(int)get_post_meta($post_id, 'week_views_count', true)*4;
+        $occupation=get_the_terms( $post_id, 'occupation' )[0]->name;
+    	$score = get_post_meta($post_id, 'recommend_score', true);
+        if(in_array($occupation,$future_occupations)){
+            $score+=50;
+            $score3[]+=50;
+        }else{
+		  	$score3[]+=0;
+        }
+        $sort[]=$score;
+	}
+    array_multisort($sort, SORT_DESC, SORT_NUMERIC, $posts,$score1,$score2,$score3);
+    print_r($score1);
+    print_r($score2);
+    print_r($score3);
+    print_r($sort);
+    $paged = 0 == get_query_var( 'paged', 0 ) ? 1 : get_query_var( 'paged', 1 );
+    $cat_query->posts=array_slice($posts, ($paged-1)*10,$paged*10);
+    return $cat_query;
+} */
+
 
 ?>

@@ -33,11 +33,17 @@ function add_column($column_name, $post_id) {
             }
         }
         if ( $column_name == 'week_views_count' ) {
-            $stitle = get_post_meta($post_id, 'week_views_count', true);
-            if ( isset($stitle) && $stitle ) {
-                echo attribute_escape($stitle);
-            } else {
-                echo __('None');
+            $stitles =array();
+            $stitles[]+=get_post_meta($post_id, 'week_views_count', true);
+            $stitles[]+=get_post_meta($post_id, 'week_views_count1', true);
+            $stitles[]+=get_post_meta($post_id, 'week_views_count2', true);
+            $stitles[]+=get_post_meta($post_id, 'week_views_count3', true);
+            foreach($stitles as $stitle){
+                if ( isset($stitle) && $stitle ) {
+                    echo attribute_escape($stitle)."<br>";
+                } else {
+                    echo __('None')."<br>";
+                }
             }
         }
         if ( $column_name == 'day_views_count' ) {
@@ -101,6 +107,20 @@ function setDayViews() {
     }
 }
 
+function setRecScore() {
+    $post_id = get_the_ID();
+    $custom_key = 'recommend_score';
+    $recommend_score = get_post_meta($post_id, $custom_key, true);
+    $formname = 'インターン応募';
+    $score=(20-(int)do_shortcode(' [cfdb-count form="/'.$formname.'.*/" filter="job-id='.$post_id.'"]'))*6;
+    $score+=(int)get_post_meta($post_id, 'week_views_count', true)*4;
+    if ($recommend_score === '') {
+        delete_post_meta($post_id, $custom_key);
+        add_post_meta($post_id, $custom_key, $score);
+    } else {
+        update_post_meta($post_id, $custom_key, $score);
+    }
+}
 
 function my_add_weekly( $schedules ) {
 	$schedules['weekly'] = array(
@@ -133,6 +153,7 @@ function reset_day_ranking() {
     foreach($posts as $post){
         $post_id=$post->ID;
         update_post_meta($post_id, $custom_key, '0');
+	  	setRecScore();
     }
 }
 add_action ( 'reset_day_ranking_cron', 'reset_day_ranking' );
@@ -145,9 +166,15 @@ function reset_week_ranking() {
         'posts_per_page' => -1
     );
     $custom_key = 'week_views_count';
+    $custom_key1 = 'week_views_count1';
+    $custom_key2 = 'week_views_count2';
+    $custom_key3 = 'week_views_count3';
     $posts = get_posts( $args );
     foreach($posts as $post){
         $post_id=$post->ID;
+        update_post_meta($post_id, $custom_key3, get_post_meta($post_id, 'week_views_count2', true));
+        update_post_meta($post_id, $custom_key2, get_post_meta($post_id, 'week_views_count1', true));
+        update_post_meta($post_id, $custom_key1, get_post_meta($post_id, 'week_views_count', true));
         update_post_meta($post_id, $custom_key, '0');
     }
 }
