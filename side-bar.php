@@ -97,17 +97,17 @@ function side_bar_widget_func(){
     $html = '
     <h3 class="widgettitle">特別コンテンツ</h3>
     <p>
-        <a href="https://builds-story.com/interview"><img class=" wp-image-5404 aligncenter" src="https://builds-story.com/wp-content/uploads/2019/09/c7b52d093ae61f8c6d8350c2f44d6aaf-e1568541207179.png"></a>
+        <a href="https://builds-story.com/interview"><img class="special_contents_img wp-image-5404 aligncenter" src="https://builds-story.com/wp-content/uploads/2019/09/c7b52d093ae61f8c6d8350c2f44d6aaf-e1568541207179.png"></a>
         <br>
-        <a href="https://builds-story.com/gift_money"><img class=" wp-image-5404 aligncenter" src="https://builds-story.com/wp-content/uploads/2019/10/0cc52848b5f9663458606f357ee63b46.png"></a>
+        <a href="https://builds-story.com/gift_money"><img class="special_contents_img wp-image-5404 aligncenter" src="https://builds-story.com/wp-content/uploads/2019/10/0cc52848b5f9663458606f357ee63b46.png"></a>
         <br>
-        <a href="https://builds-story.com/?event=%e5%a4%a7%e6%89%8b%e5%ae%b6%e5%85%b7%e3%83%a1%e3%83%bc%e3%82%ab%e3%83%bc%e5%8f%82%e5%8a%a0%ef%bc%81-%e9%ab%98%e5%ad%a6%e6%ad%b4%e7%94%9f%e5%90%91%e3%81%91-1%e5%88%86%e3%83%94%e3%83%83%e3%83%81"><img class=" wp-image-5404 aligncenter" src="https://builds-story.com/wp-content//uploads/2019/11/93afe8fc32856925c7187c7df002736d.png"></a>
+        <a href="https://builds-story.com/?event=%e5%a4%a7%e6%89%8b%e5%ae%b6%e5%85%b7%e3%83%a1%e3%83%bc%e3%82%ab%e3%83%bc%e5%8f%82%e5%8a%a0%ef%bc%81-%e9%ab%98%e5%ad%a6%e6%ad%b4%e7%94%9f%e5%90%91%e3%81%91-1%e5%88%86%e3%83%94%e3%83%83%e3%83%81"><img class="special_contents_img wp-image-5404 aligncenter" src="https://builds-story.com/wp-content//uploads/2019/11/93afe8fc32856925c7187c7df002736d.png"></a>
         <br>
-        <a href="https://builds-story.com/?event=%e9%95%b7%e6%9c%9f%e3%82%a4%e3%83%b3%e3%82%bf%e3%83%bc%e3%83%b3%e6%8e%a1%e7%94%a8%e3%82%82%e3%81%82%e3%82%8a%ef%bc%81%ef%bc%9f-king-x-jobshot%e5%90%88%e5%90%8c%e5%8b%89%e5%bc%b7%e4%bc%9a"><img class=" wp-image-5404 aligncenter" src="https://builds-story.com/wp-content/uploads/2019/11/157a23972c1752eff669068fd415ad24.png"></a>
+        <a href="https://builds-story.com/?event=%e9%95%b7%e6%9c%9f%e3%82%a4%e3%83%b3%e3%82%bf%e3%83%bc%e3%83%b3%e6%8e%a1%e7%94%a8%e3%82%82%e3%81%82%e3%82%8a%ef%bc%81%ef%bc%9f-king-x-jobshot%e5%90%88%e5%90%8c%e5%8b%89%e5%bc%b7%e4%bc%9a"><img class="special_contents_img wp-image-5404 aligncenter" src="https://builds-story.com/wp-content/uploads/2019/11/157a23972c1752eff669068fd415ad24.png"></a>
         <br>
-        <a href="https://builds-story.com/?event=flutter%e3%82%92%e5%ad%a6%e3%81%b3%e3%81%9f%e3%81%84%e4%ba%ba%e9%9b%86%e3%81%be%e3%82%8c%ef%bc%81-finc-x-jobshot%e3%82%a8%e3%83%b3%e3%82%b8%e3%83%8b%e3%82%a2%e5%8b%89%e5%bc%b7%e4%bc%9a"><img class=" wp-image-5404 aligncenter" src="https://builds-story.com/wp-content/uploads/2019/11/3267f35874d4724c1cfa098482b03a3a.png"></a>
+        <a href="https://builds-story.com/?event=flutter%e3%82%92%e5%ad%a6%e3%81%b3%e3%81%9f%e3%81%84%e4%ba%ba%e9%9b%86%e3%81%be%e3%82%8c%ef%bc%81-finc-x-jobshot%e3%82%a8%e3%83%b3%e3%82%b8%e3%83%8b%e3%82%a2%e5%8b%89%e5%bc%b7%e4%bc%9a"><img class="special_contents_img wp-image-5404 aligncenter" src="https://builds-story.com/wp-content/uploads/2019/11/3267f35874d4724c1cfa098482b03a3a.png"></a>
         <br>
-        <a href="https://builds-story.com/?event=%e3%80%90%e5%ad%a6%e7%94%9f%e3%81%af%e8%b5%b7%e6%a5%ad%e3%81%97%e3%82%8d%e3%80%91skyland-vcxjobshot%e3%82%b3%e3%83%a9%e3%83%9c%e3%82%a4%e3%83%99%e3%83%b3%e3%83%88"><img class=" wp-image-5404 aligncenter" src="https://builds-story.com/wp-content/uploads/2019/11/f3f966d826e3770c27867fabe1aef959.png"></a>
+        <a href="https://builds-story.com/?event=%e3%80%90%e5%ad%a6%e7%94%9f%e3%81%af%e8%b5%b7%e6%a5%ad%e3%81%97%e3%82%8d%e3%80%91skyland-vcxjobshot%e3%82%b3%e3%83%a9%e3%83%9c%e3%82%a4%e3%83%99%e3%83%b3%e3%83%88"><img class="special_contents_img wp-image-5404 aligncenter" src="https://builds-story.com/wp-content/uploads/2019/11/f3f966d826e3770c27867fabe1aef959.png"></a>
     </p>';
     return $html;
 }
@@ -119,57 +119,8 @@ function option_menu_logo(){
     // if(in_array("company", $current_user_roles)){
     //     return;
     // }
-    $style_html = '
-    <style>
-    .option-container{
-    }
-    .main_menu_title{
-        text-align: center;
-        color: #03c4b0;
-        line-height: 1.8;
-        font-size: 30px;
-        font-weight: 600 !important;
-        margin-bottom: 20px;
-    }
-    .menu_title{
-        text-align: center;
-        color: #03c4b0;
-        line-height: 1.8;
-        font-size: 24px;
-        font-weight: 600 !important;
-        margin-bottom: 20px;
-    }
-    .menu_text{
-        font-size: 15px;
-        text-align: center;
-        line-height: 2;
-        margin-top: 20px;
-        padding: 10px 20px;
-    }
-    .logo-option{
-        text-align: center;
-        font-size: 30px;
-        padding: 10px 0;
-    }
-    .logo-option .price{
-        color: #03c4b0;
-        margin-left: 20px;
-    }
-    .logo-option .tax{
-        font-size: 12px;
-        color: #9DA0A4;
-    }
-    .option_faq{
-    }
-    .option_faq div{
-        text-align: center;
-        background-color: #03c4b042;
-        padding: 1.5em 10px;
-        margin: 10px;
-      }
-    </style>';
     $entry_html = '<a href="https://builds-story.com/published_contact"><button class="button button-apply">お申し込み</button></a>';
-    $html = $style_html.'
+    $html = '
     <h3 class="widget-title">トップページにロゴを掲載</h3>
     <div class="option-container">
         <p><img class="alignnone size-full wp-image-7216" src="https://builds-story.com/wp-content/uploads/2019/11/439c69c10814e06fa2ed2f54a241b543.png" alt="" width="1702" height="720" /></p>
@@ -218,19 +169,25 @@ function option_menu_logo(){
         <hr>
         <div class="option_menu_others">
             <h4 class="menu_title">オプション一覧</h4>
-            <div class="scholarship-flow-figure">
-              <ul class="scholarship-feature">
-                <li>
-                  <p><i class="fas fa-pencil-alt big_icon"></i></p>
-                  <p class="scholarship-flow-figure-text"><span class="emphasis-text">トップページにロゴ掲載</span></p>
+            <div class="option_menu_container">
+              <ul class="option_menu_list">
+                <li class="option_box">
+                  <a href="https://builds-story.com/option_menu/logo" class="option_img">
+                    <div><i class="option_icon"></i></div>
+                  </a>
+                  <p class="option_text"><span class="">トップページ<br>ロゴ掲載</span></p>
                 </li>
-                <li>
-                  <p><i class="far fa-calendar-alt big_icon"></i></p>
-                  <p class="scholarship-flow-figure-text"><span class="emphasis-text">トップページに募集を掲載</span></p>
+                <li class="option_box">
+                  <a href="https://builds-story.com/option_menu/post" class="option_img">
+                    <div><i class="option_icon"></i></div>
+                  </a>
+                  <p class="option_text"><span class="">トップページ<br>募集を掲載</span></p>
                 </li>
-                <li>
-                  <p><i class="far fa-handshake big_icon"></i></p>
-                  <p class="scholarship-flow-figure-text"><span class="emphasis-text">長期インターン合同説明会に参加する</span></p>
+                <li class="option_box">
+                  <a href="https://builds-story.com/option_menu/event" class="option_img">
+                    <div><i class="option_icon"></i></div>
+                  </a>
+                  <p class="option_text"><span class="">長期インターン<br>合同説明会</span></p>
                 </li>
               </ul>
             </div>
@@ -248,57 +205,8 @@ function option_menu_post(){
     // if(in_array("company", $current_user_roles)){
     //     return;
     // }
-    $style_html = '
-    <style>
-    .option-container{
-    }
-    .main_menu_title{
-        text-align: center;
-        color: #03c4b0;
-        line-height: 1.8;
-        font-size: 30px;
-        font-weight: 600 !important;
-        margin-bottom: 20px;
-    }
-    .menu_title{
-        text-align: center;
-        color: #03c4b0;
-        line-height: 1.8;
-        font-size: 24px;
-        font-weight: 600 !important;
-        margin-bottom: 20px;
-    }
-    .menu_text{
-        font-size: 15px;
-        text-align: center;
-        line-height: 2;
-        margin-top: 20px;
-        padding: 10px 20px;
-    }
-    .logo-option{
-        text-align: center;
-        font-size: 30px;
-        padding: 10px 0;
-    }
-    .logo-option .price{
-        color: #03c4b0;
-        margin-left: 20px;
-    }
-    .logo-option .tax{
-        font-size: 12px;
-        color: #9DA0A4;
-    }
-    .option_faq{
-    }
-    .option_faq div{
-        text-align: center;
-        background-color: #03c4b042;
-        padding: 1.5em 10px;
-        margin: 10px;
-      }
-    </style>';
     $entry_html = '<a href="https://builds-story.com/published_contact"><button class="button button-apply">お申し込み</button></a>';
-    $html = $style_html.'
+    $html = '
     <h3 class="widget-title">トップページに募集を掲載</h3>
     <div class="option-container">
         <p><img class="" src="https://builds-story.com/wp-content/uploads/2019/11/efebe7f3c5973e9f462c4e30a375b6f4.png" alt="" width="" height="100%" /></p>
@@ -347,19 +255,25 @@ function option_menu_post(){
         <hr>
         <div class="option_menu_others">
             <h4 class="menu_title">オプション一覧</h4>
-            <div class="scholarship-flow-figure">
-              <ul class="scholarship-feature">
-                <li>
-                  <p><i class="fas fa-pencil-alt big_icon"></i></p>
-                  <p class="scholarship-flow-figure-text"><span class="emphasis-text">トップページにロゴ掲載</span></p>
+            <div class="option_menu_container">
+              <ul class="option_menu_list">
+                <li class="option_box">
+                  <a href="https://builds-story.com/option_menu/logo" class="option_img">
+                    <div><i class="option_icon"></i></div>
+                  </a>
+                  <p class="option_text"><span class="">トップページ<br>ロゴ掲載</span></p>
                 </li>
-                <li>
-                  <p><i class="far fa-calendar-alt big_icon"></i></p>
-                  <p class="scholarship-flow-figure-text"><span class="emphasis-text">トップページに募集を掲載</span></p>
+                <li class="option_box">
+                  <a href="https://builds-story.com/option_menu/post" class="option_img">
+                    <div><i class="option_icon"></i></div>
+                  </a>
+                  <p class="option_text"><span class="">トップページ<br>募集を掲載</span></p>
                 </li>
-                <li>
-                  <p><i class="far fa-handshake big_icon"></i></p>
-                  <p class="scholarship-flow-figure-text"><span class="emphasis-text">長期インターン合同説明会に参加する</span></p>
+                <li class="option_box">
+                  <a href="https://builds-story.com/option_menu/event" class="option_img">
+                    <div><i class="option_icon"></i></div>
+                  </a>
+                  <p class="option_text"><span class="">長期インターン<br>合同説明会</span></p>
                 </li>
               </ul>
             </div>
@@ -377,58 +291,6 @@ function option_menu_event(){
     // if(in_array("company", $current_user_roles)){
     //     return;
     // }
-    $style_html = '
-    <style>
-    #post-7244 .sharedaddy{
-        display: none;
-    }
-    .option-container{
-    }
-    .main_menu_title{
-        text-align: center;
-        color: #03c4b0;
-        line-height: 1.8;
-        font-size: 30px;
-        font-weight: 600 !important;
-        margin-bottom: 20px;
-    }
-    .menu_title{
-        text-align: center;
-        color: #03c4b0;
-        line-height: 1.8;
-        font-size: 24px;
-        font-weight: 600 !important;
-        margin-bottom: 20px;
-    }
-    .menu_text{
-        font-size: 15px;
-        text-align: center;
-        line-height: 2;
-        margin-top: 20px;
-        padding: 10px 20px;
-    }
-    .logo-option{
-        text-align: center;
-        font-size: 30px;
-        padding: 10px 0;
-    }
-    .logo-option .price{
-        color: #03c4b0;
-        margin-left: 20px;
-    }
-    .logo-option .tax{
-        font-size: 12px;
-        color: #9DA0A4;
-    }
-    .option_faq{
-    }
-    .option_faq div{
-        text-align: center;
-        background-color: #03c4b042;
-        padding: 1.5em 10px;
-        margin: 10px;
-      }
-    </style>';
     $args = array(
         'post_type' => array( 'event'),
         'post_status' => array( 'publish' ),
@@ -454,7 +316,7 @@ function option_menu_event(){
     endwhile;
   	$event_html .= '</div>';
     $entry_html = '<a href="https://builds-story.com/published_contact"><button class="button button-apply">お申し込み</button></a>';
-    $html = $style_html.'
+    $html = '
     <h3 class="widget-title">長期インターン合同説明会に参加する</h3>
     <div class="option-container">
         <p><img class="" src="https://builds-story.com/wp-content/uploads/2019/11/efebe7f3c5973e9f462c4e30a375b6f4.png" alt="" width="" height="100%" /></p>
@@ -507,19 +369,25 @@ function option_menu_event(){
         <hr>
         <div class="option_menu_others">
             <h4 class="menu_title">オプション一覧</h4>
-            <div class="scholarship-flow-figure">
-              <ul class="scholarship-feature">
-                <li>
-                  <p><i class="fas fa-pencil-alt big_icon"></i></p>
-                  <p class="scholarship-flow-figure-text"><span class="emphasis-text">トップページにロゴ掲載</span></p>
+            <div class="option_menu_container">
+              <ul class="option_menu_list">
+                <li class="option_box">
+                  <a href="https://builds-story.com/option_menu/logo" class="option_img">
+                    <div><i class="option_icon"></i></div>
+                  </a>
+                  <p class="option_text"><span class="">トップページ<br>ロゴ掲載</span></p>
                 </li>
-                <li>
-                  <p><i class="far fa-calendar-alt big_icon"></i></p>
-                  <p class="scholarship-flow-figure-text"><span class="emphasis-text">トップページに募集を掲載</span></p>
+                <li class="option_box">
+                  <a href="https://builds-story.com/option_menu/post" class="option_img">
+                    <div><i class="option_icon"></i></div>
+                  </a>
+                  <p class="option_text"><span class="">トップページ<br>募集を掲載</span></p>
                 </li>
-                <li>
-                  <p><i class="far fa-handshake big_icon"></i></p>
-                  <p class="scholarship-flow-figure-text"><span class="emphasis-text">長期インターン合同説明会に参加する</span></p>
+                <li class="option_box">
+                  <a href="https://builds-story.com/option_menu/event" class="option_img">
+                    <div><i class="option_icon"></i></div>
+                  </a>
+                  <p class="option_text"><span class="">長期インターン<br>合同説明会</span></p>
                 </li>
               </ul>
             </div>

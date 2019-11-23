@@ -23,7 +23,7 @@ function frontpage_view_pickups_func(){
         'meta_key' => 'day_views_count',
         'orderby' => 'meta_value_num',
         'order'=>'DESC',
-        'showposts'=>5
+        'showposts'=>10
     );
     $posts = get_posts($args);
 
