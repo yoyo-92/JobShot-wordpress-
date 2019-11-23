@@ -97,7 +97,6 @@ function view_applylist_func_test ( $atts ) {
         $phtml.='<p>'."全".$participant_num."件".'<p>';
         $phtml.=
         do_shortcode('[cfdb-html form="/'.$formname.'.*/" orderby="Submitted desc" filter="job-id='.$post_id.'"]
-        {{BEFORE}}
         <font size="2">
             <table class="tbl02" style="font-size: small;">
             <thead>
@@ -116,7 +115,6 @@ function view_applylist_func_test ( $atts ) {
                 </tr>
             </thead>
             <tbody>
-            {{/BEFORE}}
                 <tr>
                 <th>
                     <a href="/user?um_user=${your-id}" style="color:white"><p><font size="1">[get_user_ruby field=login value="${your-id}"]</font><br>${your-name}</p><div>[get_avatar_sc user_login="${your-id}"]</div></a>
@@ -144,11 +142,9 @@ function view_applylist_func_test ( $atts ) {
                     <p>[get_user_bussiness_type field=login value="${your-id}"]</p>
                 </td>
                 </tr>
-            {{AFTER}}
             </tbody>
             </table>
         </font>
-        {{/AFTER}}
         [/cfdb-html]');
         $phtml.='<p>'."全".$participant_num."件".'<p>';
     }
