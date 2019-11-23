@@ -5,83 +5,72 @@ window.addEventListener('load', function () {
         str[i].innerHTML = '<a href="http://builds-story.com/regist" class="um-button um-alt">新規登録</a>';
       }
 });
+
 /* top_accordion_script */
-const accs = document.getElementsByClassName('select-dropdown-check')
-const shadows = document.getElementsByClassName('select-dropdown-shadow')
+const accs = document.getElementsByClassName('select-dropdown-check');
+const shadows = document.getElementsByClassName('select-dropdown-shadow');
 
 function closeOthers(i) {
   for (let j = 0; j < accs.length; j++) {
     if (i !== j) {
-      accs[j].checked = false
+      accs[j].checked = false;
     }
   }
 }
 
 function closeAll() {
   for (let j = 0; j < accs.length; j++) {
-    accs[j].checked = false
+    accs[j].checked = false;
   }
 }
 
 for (let i = 0; i < accs.length; i++) {
   accs[i].addEventListener('click', () => {
-    closeOthers(i)
-  })
+    closeOthers(i);
+  });
 }
 
 for (let i = 0; i < accs.length; i++) {
   shadows[i].addEventListener('click', () => {
-    closeAll()
-  })
+    closeAll();
+  });
 }
 
 /* card_aline_fix */
-const containers = document.getElementsByClassName('cards-container')
+const containers = document.getElementsByClassName('cards-container');
 
 for (let j = 0; j < containers.length; j ++) {
-    const container = containers[j]
-    const num = container.childNodes.length
+    const container = containers[j];
+    const num = container.childNodes.length;
 
     for (let i = 0; i < num; i++) {
-        const emptyElm = document.createElement('div')
-        emptyElm.classList.add('card', 'empty')
-        container.appendChild(emptyElm)
+        const emptyElm = document.createElement('div');
+        emptyElm.classList.add('card', 'empty');
+        container.appendChild(emptyElm);
     }
 }
 
-/* bxSlider */
-$(function(){
-	 $('.slider').bxSlider({
-		auto: true,
-		pause: 3000,
-		adaptiveHeight: true,
-		adaptiveHeightSpeed: 100,
-		autoHover: true,
-		autoControls: true,
-		autoControlsCombine: true,
-	});
-});
 
 
 /* top-page */
 function slide() {
-    if($('.searched-icon').hasClass('searched-icon-change')) {
-        $('.searched-icon').removeClass('searched-icon-change');
-        $('searched').css('color','#03c4b0','background-color','#fff');
+    if(jQuery('.searched-icon').hasClass('searched-icon-change')) {
+        jQuery('.searched-icon').removeClass('searched-icon-change');
+        jQuery('searched').css('color','#03c4b0','background-color','#fff');
     }else {
-        $('.searched-icon').addClass('searched-icon-change');
-        $('searched').css('color','#fff','background-color','#03c4b0');
+        jQuery('.searched-icon').addClass('searched-icon-change');
+        jQuery('searched').css('color','#fff','background-color','#03c4b0');
     }
 
-    $('.search-container').slideToggle('fast');
+    jQuery('.search-container').slideToggle('fast');
 }
-$(function() {
-    $('.searched').attr('onclick', 'slide()');
+jQuery(function() {
+    jQuery('.searched').attr('onclick', 'slide()');
 });
 
-$(function() {
-    $('#footer #text-9 .textwidget p a br').remove();
-    $('#post-1600 .um-misc-ul li a br').remove();
+jQuery(function() {
+    jQuery('#footer #text-9 .textwidget p a br').remove();
+    jQuery('#post-1600 .um-misc-ul li a br').remove();
 });
 
 
@@ -126,3 +115,309 @@ function clickBtn3() {
         }
     }
 }
+
+jQuery(function($){
+    // formの送信ボタンが押されたときの処理
+    $( '#testform' ).submit( function(event){
+        // クリックイベントをこれ以上伝播させない
+        event.preventDefault();
+ 
+        // フォームデータから、サーバへ送信するデータを作成
+        var fd = new FormData( this );
+ 
+        // サーバー側で何の処理をするかを指定。後ほどphp側で実装する
+        fd.append('action'  , 'ajax_base' );
+ 
+        // ajaxの通信
+        $.ajax({
+            type: 'POST',
+            url: ajaxurl,
+            data: fd,
+            processData: false,
+            contentType: false,
+            success: function( response ){
+                $("#base").html(response);
+                $("#resultarea").html("基本情報を更新しました");
+                $(".um-editor-base").removeClass("active");
+                $(".um-edit-btn-base").removeClass("active");
+                $(".um-field-area-base").removeClass("inactive");
+            },
+            error: function( response ){
+                $("#base").html( "error" );
+            }
+        });
+        return false;
+    });
+});
+
+jQuery(function($){
+    // formの送信ボタンが押されたときの処理
+    $( '#testform2' ).submit( function(event){
+        // クリックイベントをこれ以上伝播させない
+        event.preventDefault();
+ 
+        // フォームデータから、サーバへ送信するデータを作成
+        var fd = new FormData( this );
+ 
+        // サーバー側で何の処理をするかを指定。後ほどphp側で実装する
+        fd.append('action'  , 'ajax_univ' );
+ 
+        // ajaxの通信
+        $.ajax({
+            type: 'POST',
+            url: ajaxurl,
+            data: fd,
+            processData: false,
+            contentType: false,
+            success: function( response ){
+                $("#univ").html(response);
+                $("#resultarea2").html("学歴を更新しました");
+                $(".um-editor-univ").removeClass("active");
+                $(".um-edit-btn-univ").removeClass("active");
+                $(".um-field-area-univ").removeClass("inactive");
+            },
+            error: function( response ){
+                $("#univ").html( "error" );
+            }
+        });
+        return false;
+    });
+});
+
+jQuery(function($){
+    // formの送信ボタンが押されたときの処理
+    $( '#testform3' ).submit( function(event){
+        // クリックイベントをこれ以上伝播させない
+        event.preventDefault();
+ 
+        // フォームデータから、サーバへ送信するデータを作成
+        var fd = new FormData( this );
+ 
+        // サーバー側で何の処理をするかを指定。後ほどphp側で実装する
+        fd.append('action'  , 'ajax_abroad' );
+ 
+        // ajaxの通信
+        $.ajax({
+            type: 'POST',
+            url: ajaxurl,
+            data: fd,
+            processData: false,
+            contentType: false,
+            success: function( response ){
+                $("#abroad").html(response);
+                $("#resultarea3").html("留学を更新しました");
+                $(".um-editor-abroad").removeClass("active");
+                $(".um-edit-btn-abroad").removeClass("active");
+                $(".um-field-area-abroad").removeClass("inactive");
+            },
+            error: function( response ){
+                $("#aborad").html( "error" );
+            }
+        });
+        return false;
+    });
+});
+
+jQuery(function($){
+    // formの送信ボタンが押されたときの処理
+    $( '#testform4' ).submit( function(event){
+        // クリックイベントをこれ以上伝播させない
+        event.preventDefault();
+ 
+        // フォームデータから、サーバへ送信するデータを作成
+        var fd = new FormData( this );
+ 
+        // サーバー側で何の処理をするかを指定。後ほどphp側で実装する
+        fd.append('action'  , 'ajax_programming' );
+ 
+        // ajaxの通信
+        $.ajax({
+            type: 'POST',
+            url: ajaxurl,
+            data: fd,
+            processData: false,
+            contentType: false,
+            success: function( response ){
+                $("#programming").html(response);
+                $("#resultarea4").html("プログラミングを更新しました");
+                $(".um-editor-programming").removeClass("active");
+                $(".um-edit-btn-programming").removeClass("active");
+                $(".um-field-area-programming").removeClass("inactive");
+            },
+            error: function( response ){
+                $("#programming").html( "error" );
+            }
+        });
+        return false;
+    });
+});
+
+jQuery(function($){
+    // formの送信ボタンが押されたときの処理
+    $( '#testform5' ).submit( function(event){
+        // クリックイベントをこれ以上伝播させない
+        event.preventDefault();
+ 
+        // フォームデータから、サーバへ送信するデータを作成
+        var fd = new FormData( this );
+ 
+        // サーバー側で何の処理をするかを指定。後ほどphp側で実装する
+        fd.append('action'  , 'ajax_skill' );
+ 
+        // ajaxの通信
+        $.ajax({
+            type: 'POST',
+            url: ajaxurl,
+            data: fd,
+            processData: false,
+            contentType: false,
+            success: function( response ){
+                $("#skills").html(response);
+                $("#resultarea5").html("資格・その他スキルを更新しました");
+                $(".um-editor-skill").removeClass("active");
+                $(".um-edit-btn-skill").removeClass("active");
+                $(".um-field-area-skill").removeClass("inactive");
+            },
+            error: function( response ){
+                $("#skills").html( "error" );
+            }
+        });
+        return false;
+    });
+});
+
+jQuery(function($){
+    // formの送信ボタンが押されたときの処理
+    $( '#testform6' ).submit( function(event){
+        // クリックイベントをこれ以上伝播させない
+        event.preventDefault();
+ 
+        // フォームデータから、サーバへ送信するデータを作成
+        var fd = new FormData( this );
+ 
+        // サーバー側で何の処理をするかを指定。後ほどphp側で実装する
+        fd.append('action'  , 'ajax_community' );
+ 
+        // ajaxの通信
+        $.ajax({
+            type: 'POST',
+            url: ajaxurl,
+            data: fd,
+            processData: false,
+            contentType: false,
+            success: function( response ){
+                $("#community").html(response);
+                $("#resultarea6").html("コミュニティを更新しました");
+                $(".um-editor-community").removeClass("active");
+                $(".um-edit-btn-community").removeClass("active");
+                $(".um-field-area-community").removeClass("inactive");
+            },
+            error: function( response ){
+                $("#community").html( "error" );
+            }
+        });
+        return false;
+    });
+});
+
+jQuery(function($){
+    // formの送信ボタンが押されたときの処理
+    $( '#testform7' ).submit( function(event){
+        // クリックイベントをこれ以上伝播させない
+        event.preventDefault();
+ 
+        // フォームデータから、サーバへ送信するデータを作成
+        var fd = new FormData( this );
+ 
+        // サーバー側で何の処理をするかを指定。後ほどphp側で実装する
+        fd.append('action'  , 'ajax_intern' );
+ 
+        // ajaxの通信
+        $.ajax({
+            type: 'POST',
+            url: ajaxurl,
+            data: fd,
+            processData: false,
+            contentType: false,
+            success: function( response ){
+                $("#intern").html(response);
+                $("#resultarea7").html("長期インターンを更新しました");
+                $(".um-editor-internship").removeClass("active");
+                $(".um-edit-btn-internship").removeClass("active");
+                $(".um-field-area-internship").removeClass("inactive");
+            },
+            error: function( response ){
+                $("#intern").html( "error" );
+            }
+        });
+        return false;
+    });
+});
+
+jQuery(function($){
+    // formの送信ボタンが押されたときの処理
+    $( '#testform8' ).submit( function(event){
+        // クリックイベントをこれ以上伝播させない
+        event.preventDefault();
+ 
+        // フォームデータから、サーバへ送信するデータを作成
+        var fd = new FormData( this );
+ 
+        // サーバー側で何の処理をするかを指定。後ほどphp側で実装する
+        fd.append('action'  , 'ajax_interest' );
+ 
+        // ajaxの通信
+        $.ajax({
+            type: 'POST',
+            url: ajaxurl,
+            data: fd,
+            processData: false,
+            contentType: false,
+            success: function( response ){
+                $("#interest").html(response);
+                $("#resultarea8").html("興味・関心を更新しました");
+                $(".um-editor-interest").removeClass("active");
+                $(".um-edit-btn-interest").removeClass("active");
+                $(".um-field-area-interest").removeClass("inactive");
+            },
+            error: function( response ){
+                $("#interest").html( "error" );
+            }
+        });
+        return false;
+    });
+});
+
+jQuery(function($){
+    // formの送信ボタンが押されたときの処理
+    $( '#testform9' ).submit( function(event){
+        // クリックイベントをこれ以上伝播させない
+        event.preventDefault();
+ 
+        // フォームデータから、サーバへ送信するデータを作成
+        var fd = new FormData( this );
+ 
+        // サーバー側で何の処理をするかを指定。後ほどphp側で実装する
+        fd.append('action'  , 'ajax_experience' );
+ 
+        // ajaxの通信
+        $.ajax({
+            type: 'POST',
+            url: ajaxurl,
+            data: fd,
+            processData: false,
+            contentType: false,
+            success: function( response ){
+                $("#experience").html(response);
+                $("#resultarea9").html("学生時代の経験を更新しました");
+                $(".um-editor-experience").removeClass("active");
+                $(".um-edit-btn-experience").removeClass("active");
+                $(".um-field-area-experience").removeClass("inactive");
+            },
+            error: function( response ){
+                $("#experience").html( "error" );
+            }
+        });
+        return false;
+    });
+});
