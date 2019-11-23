@@ -1,0 +1,156 @@
+<?php
+
+function is_bot() {
+    $ua = $_SERVER['HTTP_USER_AGENT'];
+    $bot = array("googlebot","msnbot","yahoo");
+    foreach( $bot as $bot ) {
+      if (stripos( $ua, $bot ) !== false){
+        return true;
+      }
+    }
+    return false;
+}
+
+function manage_posts_columns($columns) {
+    if(current_user_can( 'administrator' )){
+        $columns['post_views_count'] = 'Total閲覧数';
+        $columns['week_views_count'] = 'Week閲覧数';
+        $columns['day_views_count'] = 'Day閲覧数';
+        $columns['apply_count'] = '応募数';
+        unset($columns['date']);
+        unset($columns['wpmem_block']);
+    }
+    return $columns;
+}
+function add_column($column_name, $post_id) {
+    if(current_user_can( 'administrator' )){
+        if ( $column_name == 'post_views_count' ) {
+            $stitle = get_post_meta($post_id, 'post_views_count', true);
+            if ( isset($stitle) && $stitle ) {
+                echo attribute_escape($stitle);
+            } else {
+                echo __('None');
+            }
+        }
+        if ( $column_name == 'week_views_count' ) {
+            $stitle = get_post_meta($post_id, 'week_views_count', true);
+            if ( isset($stitle) && $stitle ) {
+                echo attribute_escape($stitle);
+            } else {
+                echo __('None');
+            }
+        }
+        if ( $column_name == 'day_views_count' ) {
+            $stitle = get_post_meta($post_id, 'day_views_count', true);
+            if ( isset($stitle) && $stitle ) {
+                echo attribute_escape($stitle);
+            } else {
+                echo __('None');
+            }
+        }
+        if ( $column_name == 'apply_count' ) {
+            $formname = 'インターン応募';
+            $stitle = do_shortcode(' [cfdb-count form="/'.$formname.'.*/" filter="job-id='.$post_id.'"]');
+            if ( isset($stitle) && $stitle ) {
+                echo attribute_escape($stitle);
+            } else {
+                echo __('None');
+            }
+        }
+    }
+}
+add_filter( 'manage_internship_posts_columns', 'manage_posts_columns' );
+add_action( 'manage_internship_posts_custom_column', 'add_column', 10, 2 );
+
+function setPostViews() {
+    $post_id = get_the_ID();
+    $custom_key = 'post_views_count';
+    $view_count = get_post_meta($post_id, $custom_key, true);
+    if ($view_count === '') {
+        delete_post_meta($post_id, $custom_key);
+        add_post_meta($post_id, $custom_key, '0');
+    } else {
+        $view_count++;
+        update_post_meta($post_id, $custom_key, $view_count);
+    }
+}
+
+function setWeekViews() {
+    $post_id = get_the_ID();
+    $custom_key = 'week_views_count';
+    $view_count = get_post_meta($post_id, $custom_key, true);
+    if ($view_count === '') {
+        delete_post_meta($post_id, $custom_key);
+        add_post_meta($post_id, $custom_key, '0');
+    } else {
+        $view_count++;
+        update_post_meta($post_id, $custom_key, $view_count);
+    }
+}
+
+function setDayViews() {
+    $post_id = get_the_ID();
+    $custom_key = 'day_views_count';
+    $view_count = get_post_meta($post_id, $custom_key, true);
+    if ($view_count === '') {
+        delete_post_meta($post_id, $custom_key);
+        add_post_meta($post_id, $custom_key, '0');
+    } else {
+        $view_count++;
+        update_post_meta($post_id, $custom_key, $view_count);
+    }
+}
+
+
+function my_add_weekly( $schedules ) {
+	$schedules['weekly'] = array(
+		'interval' => 604800,
+		'display' => __('Once Weekly')
+	);
+	return $schedules;
+}
+add_filter( 'cron_schedules', 'my_add_weekly' );
+
+function my_activation() {
+	if ( ! wp_next_scheduled( 'reset_week_ranking_cron' ) ) {
+		wp_schedule_event( time(), 'weekly', 'reset_week_ranking_cron' );
+    }
+    if ( ! wp_next_scheduled( 'reset_day_ranking_cron' ) ) {
+		wp_schedule_event( time(), 'daily', 'reset_day_ranking_cron' );
+	}
+}
+add_action('wp', 'my_activation');
+
+function reset_day_ranking() {
+	$args = array(
+        'post_status' => array('publish'),
+        'post_type' => array('internship'),
+        'order' => 'DESC',
+        'posts_per_page' => -1
+    );
+    $posts = get_posts( $args );
+    $custom_key = 'day_views_count';
+    foreach($posts as $post){
+        $post_id=$post->ID;
+        update_post_meta($post_id, $custom_key, '0');
+    }
+}
+add_action ( 'reset_day_ranking_cron', 'reset_day_ranking' );
+
+function reset_week_ranking() {
+	$args = array(
+        'post_status' => array('publish'),
+        'post_type' => array('internship'),
+        'order' => 'DESC',
+        'posts_per_page' => -1
+    );
+    $custom_key = 'week_views_count';
+    $posts = get_posts( $args );
+    foreach($posts as $post){
+        $post_id=$post->ID;
+        update_post_meta($post_id, $custom_key, '0');
+    }
+}
+add_action ( 'reset_week_ranking_cron', 'reset_week_ranking' );
+
+?>
