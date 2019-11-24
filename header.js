@@ -121,13 +121,13 @@ jQuery(function($){
     $( '#testform' ).submit( function(event){
         // クリックイベントをこれ以上伝播させない
         event.preventDefault();
- 
+
         // フォームデータから、サーバへ送信するデータを作成
         var fd = new FormData( this );
- 
+
         // サーバー側で何の処理をするかを指定。後ほどphp側で実装する
         fd.append('action'  , 'ajax_base' );
- 
+
         // ajaxの通信
         $.ajax({
             type: 'POST',
@@ -138,9 +138,13 @@ jQuery(function($){
             success: function( response ){
                 $("#base").html(response);
                 $("#resultarea").html("基本情報を更新しました");
+                $("#resultarea").css('display','block');
                 $(".um-editor-base").removeClass("active");
                 $(".um-edit-btn-base").removeClass("active");
                 $(".um-field-area-base").removeClass("inactive");
+                setTimeout(function(){
+                    jQuery("#resultarea").fadeOut();
+                 }, 5000);
             },
             error: function( response ){
                 $("#base").html( "error" );
@@ -155,13 +159,13 @@ jQuery(function($){
     $( '#testform2' ).submit( function(event){
         // クリックイベントをこれ以上伝播させない
         event.preventDefault();
- 
+
         // フォームデータから、サーバへ送信するデータを作成
         var fd = new FormData( this );
- 
+
         // サーバー側で何の処理をするかを指定。後ほどphp側で実装する
         fd.append('action'  , 'ajax_univ' );
- 
+
         // ajaxの通信
         $.ajax({
             type: 'POST',
@@ -172,9 +176,13 @@ jQuery(function($){
             success: function( response ){
                 $("#univ").html(response);
                 $("#resultarea2").html("学歴を更新しました");
+                $("#resultarea2").css('display','block');
                 $(".um-editor-univ").removeClass("active");
                 $(".um-edit-btn-univ").removeClass("active");
                 $(".um-field-area-univ").removeClass("inactive");
+                setTimeout(function(){
+                    jQuery("#resultarea2").fadeOut();
+                 }, 5000);
             },
             error: function( response ){
                 $("#univ").html( "error" );
@@ -189,13 +197,13 @@ jQuery(function($){
     $( '#testform3' ).submit( function(event){
         // クリックイベントをこれ以上伝播させない
         event.preventDefault();
- 
+
         // フォームデータから、サーバへ送信するデータを作成
         var fd = new FormData( this );
- 
+
         // サーバー側で何の処理をするかを指定。後ほどphp側で実装する
         fd.append('action'  , 'ajax_abroad' );
- 
+
         // ajaxの通信
         $.ajax({
             type: 'POST',
@@ -206,9 +214,13 @@ jQuery(function($){
             success: function( response ){
                 $("#abroad").html(response);
                 $("#resultarea3").html("留学を更新しました");
+                $("#resultarea3").css('display','block');
                 $(".um-editor-abroad").removeClass("active");
                 $(".um-edit-btn-abroad").removeClass("active");
                 $(".um-field-area-abroad").removeClass("inactive");
+                setTimeout(function(){
+                    jQuery("#resultarea3").fadeOut();
+                 }, 5000);
             },
             error: function( response ){
                 $("#aborad").html( "error" );
@@ -223,13 +235,13 @@ jQuery(function($){
     $( '#testform4' ).submit( function(event){
         // クリックイベントをこれ以上伝播させない
         event.preventDefault();
- 
+
         // フォームデータから、サーバへ送信するデータを作成
         var fd = new FormData( this );
- 
+
         // サーバー側で何の処理をするかを指定。後ほどphp側で実装する
         fd.append('action'  , 'ajax_programming' );
- 
+
         // ajaxの通信
         $.ajax({
             type: 'POST',
@@ -240,9 +252,13 @@ jQuery(function($){
             success: function( response ){
                 $("#programming").html(response);
                 $("#resultarea4").html("プログラミングを更新しました");
+                $("#resultarea4").css('display','block');
                 $(".um-editor-programming").removeClass("active");
                 $(".um-edit-btn-programming").removeClass("active");
                 $(".um-field-area-programming").removeClass("inactive");
+                setTimeout(function(){
+                    jQuery("#resultarea4").fadeOut();
+                 }, 5000);
             },
             error: function( response ){
                 $("#programming").html( "error" );
@@ -257,13 +273,13 @@ jQuery(function($){
     $( '#testform5' ).submit( function(event){
         // クリックイベントをこれ以上伝播させない
         event.preventDefault();
- 
+
         // フォームデータから、サーバへ送信するデータを作成
         var fd = new FormData( this );
- 
+
         // サーバー側で何の処理をするかを指定。後ほどphp側で実装する
         fd.append('action'  , 'ajax_skill' );
- 
+
         // ajaxの通信
         $.ajax({
             type: 'POST',
@@ -274,9 +290,13 @@ jQuery(function($){
             success: function( response ){
                 $("#skills").html(response);
                 $("#resultarea5").html("資格・その他スキルを更新しました");
+                $("#resultarea5").css('display','block');
                 $(".um-editor-skill").removeClass("active");
                 $(".um-edit-btn-skill").removeClass("active");
                 $(".um-field-area-skill").removeClass("inactive");
+                setTimeout(function(){
+                    jQuery("#resultarea5").fadeOut();
+                 }, 5000);
             },
             error: function( response ){
                 $("#skills").html( "error" );
@@ -291,13 +311,13 @@ jQuery(function($){
     $( '#testform6' ).submit( function(event){
         // クリックイベントをこれ以上伝播させない
         event.preventDefault();
- 
+
         // フォームデータから、サーバへ送信するデータを作成
         var fd = new FormData( this );
- 
+
         // サーバー側で何の処理をするかを指定。後ほどphp側で実装する
         fd.append('action'  , 'ajax_community' );
- 
+
         // ajaxの通信
         $.ajax({
             type: 'POST',
@@ -308,9 +328,13 @@ jQuery(function($){
             success: function( response ){
                 $("#community").html(response);
                 $("#resultarea6").html("コミュニティを更新しました");
+                $("#resultarea6").css('display','block');
                 $(".um-editor-community").removeClass("active");
                 $(".um-edit-btn-community").removeClass("active");
                 $(".um-field-area-community").removeClass("inactive");
+                setTimeout(function(){
+                    jQuery("#resultarea6").fadeOut();
+                 }, 5000);
             },
             error: function( response ){
                 $("#community").html( "error" );
@@ -325,13 +349,13 @@ jQuery(function($){
     $( '#testform7' ).submit( function(event){
         // クリックイベントをこれ以上伝播させない
         event.preventDefault();
- 
+
         // フォームデータから、サーバへ送信するデータを作成
         var fd = new FormData( this );
- 
+
         // サーバー側で何の処理をするかを指定。後ほどphp側で実装する
         fd.append('action'  , 'ajax_intern' );
- 
+
         // ajaxの通信
         $.ajax({
             type: 'POST',
@@ -342,9 +366,13 @@ jQuery(function($){
             success: function( response ){
                 $("#intern").html(response);
                 $("#resultarea7").html("長期インターンを更新しました");
+                $("#resultarea7").css('display','block');
                 $(".um-editor-internship").removeClass("active");
                 $(".um-edit-btn-internship").removeClass("active");
                 $(".um-field-area-internship").removeClass("inactive");
+                setTimeout(function(){
+                    jQuery("#resultarea7").fadeOut();
+                 }, 5000);
             },
             error: function( response ){
                 $("#intern").html( "error" );
@@ -359,13 +387,13 @@ jQuery(function($){
     $( '#testform8' ).submit( function(event){
         // クリックイベントをこれ以上伝播させない
         event.preventDefault();
- 
+
         // フォームデータから、サーバへ送信するデータを作成
         var fd = new FormData( this );
- 
+
         // サーバー側で何の処理をするかを指定。後ほどphp側で実装する
         fd.append('action'  , 'ajax_interest' );
- 
+
         // ajaxの通信
         $.ajax({
             type: 'POST',
@@ -376,9 +404,13 @@ jQuery(function($){
             success: function( response ){
                 $("#interest").html(response);
                 $("#resultarea8").html("興味・関心を更新しました");
+                $("#resultarea8").css('display','block');
                 $(".um-editor-interest").removeClass("active");
                 $(".um-edit-btn-interest").removeClass("active");
                 $(".um-field-area-interest").removeClass("inactive");
+                setTimeout(function(){
+                    jQuery("#resultarea8").fadeOut();
+                 }, 5000);
             },
             error: function( response ){
                 $("#interest").html( "error" );
@@ -393,13 +425,10 @@ jQuery(function($){
     $( '#testform9' ).submit( function(event){
         // クリックイベントをこれ以上伝播させない
         event.preventDefault();
- 
         // フォームデータから、サーバへ送信するデータを作成
         var fd = new FormData( this );
- 
         // サーバー側で何の処理をするかを指定。後ほどphp側で実装する
         fd.append('action'  , 'ajax_experience' );
- 
         // ajaxの通信
         $.ajax({
             type: 'POST',
@@ -410,9 +439,13 @@ jQuery(function($){
             success: function( response ){
                 $("#experience").html(response);
                 $("#resultarea9").html("学生時代の経験を更新しました");
+                $("#resultarea9").css('display','block');
                 $(".um-editor-experience").removeClass("active");
                 $(".um-edit-btn-experience").removeClass("active");
                 $(".um-field-area-experience").removeClass("inactive");
+                setTimeout(function(){
+                    jQuery("#resultarea9").fadeOut();
+                 }, 5000);
             },
             error: function( response ){
                 $("#experience").html( "error" );
