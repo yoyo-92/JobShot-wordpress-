@@ -75,11 +75,6 @@ function company_side_bar_func($content){
             </div>
         </div>
     </div>';
-    if($company_user_login == 40){
-        return  $html;
-    }else{
-        return;
-    }
     if(in_array("company", $current_user_roles)){
         return $html;
     }else{
