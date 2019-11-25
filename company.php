@@ -674,6 +674,32 @@ function view_company_contents_func_test(){
             $image_url = $company_image_url;
         }
         $favorite_count = get_favorites_count($post_id);
+        switch(get_ja_post_status($post_id)){
+            case '下書き':
+                $status_html = '
+                    <select name="post_status">
+                        <option value="draft" selected>下書き</option>
+                        <option value="publish">公開済</option>
+                        <option value="private">非公開</option>
+                    </select>';
+                break;
+            case '公開済':
+                $status_html = '
+                    <select name="post_status">
+                        <option value="draft">下書き</option>
+                        <option value="publish" selected>公開済</option>
+                        <option value="private">非公開</option>
+                    </select>';
+                break;
+            case '非公開':
+                $status_html = '
+                    <select name="post_status">
+                        <option value="draft">下書き</option>
+                        <option value="publish">公開済</option>
+                        <option value="private" selected>非公開</option>
+                    </select>';
+                break;
+        }
         $relate_html.='
             <tr>
                 <td label="タイトル" class="manage_post_title">
@@ -681,9 +707,14 @@ function view_company_contents_func_test(){
                     <div><strong>'.get_the_title( $post_id ).'</strong><br><div class="card-category">'.$occupation.'</div>'.$edit_link.'</div>
                 </td>
                 <td label="ステータス" class="manage_post_status">
-                    <div>
-                        <p>'.get_ja_post_status($post_id).'<br>公開日：'.get_the_time("Y/m/d",$post_id).'<br>最終編集日：'.get_the_modified_time("Y/m/d",$post_id).'<p>
-                    </div>
+                    <form action="" method="POST">
+                        <div>
+                            <p>'.$status_html.'<br>作成日：'.get_the_time("Y/m/d",$post_id).'<br>最終編集日：'.get_the_modified_time("Y/m/d",$post_id).'<p>
+                            <input type="hidden" name="update_intern_status" value="update_intern_status">
+                            <input type="hidden" name="post_id" value="'.$post_id.'">
+                            <input type="submit" value="更新">
+                        </div>
+                    </form>
                 </td>
                 <td label="お気に入り数">
                     <p><a href="https://builds-story.com/manage-favorite?pid='.$post_id.'"><b>'.$favorite_count.'名</b></a></p>
@@ -716,4 +747,16 @@ function get_ja_post_status($post_id){
     }
     return $ja_status;
 }
+
+function update_intern_status(){
+    if(!empty($_POST["update_intern_status"])){
+        $post_id = $_POST["post_id"];
+        $post_status = $_POST["post_status"];
+        wp_update_post(array(
+            'ID'    =>  $post_id,
+            'post_status'   =>  $post_status,
+        ));
+    }
+}
+add_action('template_redirect', 'update_intern_status');
 ?>
