@@ -79,16 +79,11 @@ function template_company_info2_func($content){
   </style>';
 
   if($company_name == $current_user_name){
-      $edit_tab__html = '
-      <div style="margin-left: auto;">
-              <a class="btn btn-default pull-right" href="https://builds-story.com/company_manage_application"><button class="button detail">応募・スカウト管理</button></a>
-      </div>';
       $edit_company_html = '<div><a href="https://builds-story.com/edit_company?post_id='.$post_id.'"><button class="button favorite innactive" style="width:100%;">編集する</button></a></div>';
       $edit_job_html = '<div class="company_edit"><a href="https://builds-story.com/new_post_job"><button class="button favorite innactive" style="width:40%; margin-top:15px; background-color:#f9b539; border-radius: 5px;">新規募集</button></a></div>';
       $edit_internship_html = '<div class="company_edit"><a href="https://builds-story.com/new_post_internship"><button class="button favorite innactive" style="width:40%; margin-top:15px; background-color:#f9b539; border-radius: 5px;">新規募集</button></a></div>';
       $edit_event_html = '<div class="company_edit"><a href=""><button class="button favorite innactive" style="width:40%; margin-top:15px; background-color:#f9b539; border-radius: 5px;">新規投稿</button></a></div>';
   }else{
-      $edit_tab__html = '';
       $edit_company_html = '';
       $edit_job_html = '';
       $edit_internship_html = '';
@@ -141,7 +136,6 @@ function template_company_info2_func($content){
   $html= $style_html.'
   <div style="display:flex;">
       <div class="job-name job-title">'.$company_name.'</div>
-      '.$edit_tab__html.'
   </div>
   '.$top_content_html.'
   <div class="tabs">

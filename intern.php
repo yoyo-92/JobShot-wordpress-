@@ -807,6 +807,9 @@ function new_internship_form(){
       width: 280px;
       line-height: 1.7;
     }
+    .new_intern_occupation input{
+      margin-right: 5px;
+    }
     .new_intern_feature{
       display: flex;
       flex-wrap: wrap;
@@ -821,6 +824,9 @@ function new_internship_form(){
     .new_intern_address div label{
       font-weight: normal;
     }
+    .new_intern_feature input{
+      margin-right: 5px;
+    }
     .new_intern_table textarea{
       height: auto;
     }
@@ -830,9 +836,68 @@ function new_internship_form(){
         margin-left: -20px;
       }
     }
+    .submitbox{
+      border: 1px solid #ccd0d4;
+      box-shadow: 0 1px 1px rgba(0,0,0,.04);
+      width: 330px;
+      float: right;
+    }
+    .minor_publishing_actions{
+      height: 51px;
+      display: flex;
+    }
+    .save_action{
+      margin: 9px;
+      border: 1px solid #04a4cc;
+      border-radius: 5px;
+    }
+    .preview_action{
+      margin: 9px;
+      margin-left: 35px;
+      border: 1px solid #04a4cc;
+      border-radius: 5px;
+    }
+    .save_post_button{
+      color: #04a4cc !important;
+      border-color: #04a4cc !important;
+      background: #f3f5f6 !important;
+    }
+    .major_publishing_actions{
+      display: flex;
+      padding: 10px;
+      flex-flow: row-reverse;
+      background-color: #f3f5f6;
+      border-top: 1px solid #ccd0d4;
+    }
+    .publishing_action{
+      background-color: #04a4cc;
+      border-radius: 20px;
+    }
+    .publishing_action input{
+      background-color: #04a4cc;
+      color: white;
+    }
   </style>
   <script src='https://ajaxzip3.github.io/ajaxzip3.js' charset='UTF-8'></script>";
   $ajaxzip3 = "AjaxZip3.zip2addr(this,'','address','address');";
+  $post_button_html = '
+  <div class="submitbox">
+    <div id="minor-publishing">
+      <div class="minor_publishing_actions">
+        <div class="save_action">
+          <input type="submit" name="save" id="save-post" value="下書きとして保存" class="button save_post_button">
+        </div>
+	      <div class="preview_action">
+          <input type="submit" name="preview" id="save-post" value="プレビュー" class="button save_post_button">
+        </div>
+      </div>
+    </div>
+    <div class="major_publishing_actions">
+      <div class="publishing_action">
+        <input type="submit" name="publish" id="publish" class="button button-primary button-large" value="公開">
+      </div>
+    </div>
+  </div>';
 
   $edit_html =  $style_html.'
   <h2 class="maintitle">インターン情報</h2>
@@ -844,7 +909,7 @@ function new_internship_form(){
                   <tr>
                       <th>募集タイトル*</th>
                       <td>
-                          <div class="company-name"><input class="input-width" type="text" min="0" name="post_title" id="" value="" required></div>
+                          <div class="company-name"><input class="input-width" type="text" min="0" name="post_title" id="" value="" placeholder="(例) ××出身者直下で学ぶ××インターン" required></div>
                       </td>
                   </tr>
                   <tr>
@@ -907,7 +972,7 @@ function new_internship_form(){
                   <tr>
                       <th align="left" nowrap="nowrap">身につくスキル*</th>
                       <td>
-                          <div class="company-capital"><textarea name="skills" id="" cols="30" rows="8" placeholder="(例)&#13;&#10;・SEO対策&#13;&#10;・0→1の思考力&#13;&#10;・問題解決力&#13;&#10;・メディア運営ノウハウ&#13;&#10;・デジタルマーケにおける企画・分析・思考力" required></textarea></div>
+                          <div class="company-capital"><textarea name="skills" id="" cols="30" rows="8" placeholder="(例)&#13;&#10;・マーケティングスキル全般&#13;&#10;・0→1の思考力&#13;&#10;・問題解決力&#13;&#10;・メディア運営ノウハウ&#13;&#10;・デジタルマーケにおける企画・分析・思考力" required></textarea></div>
                       </td>
                   </tr>
                   <tr>
@@ -980,9 +1045,7 @@ function new_internship_form(){
           </table>
       </p>
       <input type="hidden" name="new_post_intern" value="new_post_intern">
-      <div class="company_edit">
-        <input class="button favorite innactive" style="width:40%; margin-top:15px; background-color:#f9b539; border-radius: 5px;" type="submit" value="投稿する">
-      </div>
+      '.$post_button_html.'
     </div>
   </form>';
   return $edit_html;
@@ -1026,7 +1089,16 @@ function new_company_post_internship(){
       if($insert_id) {
           //配列$post_valueに上書き用の値を追加、変更
           $post_value['ID'] = $insert_id; // 下書きした記事のIDを渡す。
-          $post_value['post_status'] = 'publish'; // 公開ステータスをこの時点で公開にする。
+          if(!empty($_POST["save"])){
+            $post_status = "draft";
+          }
+          if(!empty($_POST["preview"])){
+            $post_status = "draft";
+          }
+          if(!empty($_POST["publish"])){
+            $post_status = "publish";
+          }
+          $post_value['post_status'] = $post_status; // 公開ステータスを$post_statusで
 
           update_post_meta($insert_id, '事業内容', $company_bussiness);
           update_post_meta($insert_id, '募集タイトル', $post_title);
