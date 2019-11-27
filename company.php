@@ -698,7 +698,7 @@ function view_company_contents_func_test(){
             <tr>
                 <td label="タイトル" class="manage_post_title">
                     <p><img src="'.$image_url.'"></p>
-                    <div><strong>'.get_the_title( $post_id ).'</strong><br><div class="card-category">'.$occupation.'</div>'.$edit_link.'</div>
+                    <div><strong><a href="'.get_permalink( $post_id ).'">'.get_the_title( $post_id ).'</a></strong><br><div class="card-category">'.$occupation.'</div>'.$edit_link.'</div>
                 </td>
                 <td label="ステータス" class="manage_post_status">
                     <form action="" method="POST">

@@ -95,7 +95,7 @@ function template_internship2_func($content){
     </div>';
     $button_html = '
     <div class="company_edit" style="text-align:right;">
-      <a href="https://builds-story.com/edit_internship?post_id='.$post_id.'" style="margin-right:5px;">編集する</a><a href="'.get_delete_post_link($post_id).'" style="margin-right:5px;">削除する</a><a href="https://builds-story.com/?company='.$company_name.'">企業ページに戻る</a>
+      <a href="https://builds-story.com/edit_internship?post_id='.$post_id.'" style="margin-right:5px;">編集する</a><a href="'.get_delete_post_link($post_id).'" style="margin-right:5px;">削除する</a>
     </div>';
   }else{
     $button_html = '';
@@ -499,6 +499,24 @@ function edit_internship_info(){
         $feature_html .= '<div><label class=""><input type="checkbox" name="feature[]" id="" value="'.$feature.'">'.$feature.'</label></div>';
       }
     }
+    $post_button_html = '
+    <div class="submitbox">
+      <div id="minor-publishing">
+        <div class="minor_publishing_actions">
+          <div class="save_action">
+            <input type="submit" name="save" id="save-post" value="下書きとして保存" class="button save_post_button">
+          </div>
+          <div class="preview_action">
+            <input type="submit" name="preview" id="save-post" value="プレビュー" class="button save_post_button">
+          </div>
+        </div>
+      </div>
+      <div class="major_publishing_actions">
+        <div class="publishing_action">
+          <input type="submit" name="publish" id="publish" class="button button-primary button-large" value="公開">
+        </div>
+      </div>
+    </div>';
 
     $style_html = "
     <style type='text/css'>
@@ -608,7 +626,7 @@ function edit_internship_info(){
                     <tr>
                         <th>募集タイトル*</th>
                         <td>
-                            <div class="company-name"><input class="input-width" type="text" min="0" name="post_title" id="" value="'.$post_title.'" required></div>
+                            <div class="company-name"><input class="input-width" type="text" min="0" name="post_title" id="" value="'.$post_title.'" placeholder="(例) ××出身者直下で学ぶ××インターン" required></div>
                         </td>
                     </tr>
                     <tr>
@@ -620,7 +638,7 @@ function edit_internship_info(){
                     <tr>
                         <th align="left" nowrap="nowrap">仕事の概要*</th>
                         <td>
-                            <div class="company-representative"><textarea name="intern_contents" id="" cols="30" rows="5" required>'.$intern_contents.'</textarea></div>
+                            <div class="company-representative"><textarea name="intern_contents" id="" cols="30" rows="12" placeholder="(例)&#13;&#10;未経験者の方には初歩的なものからやっていただきます。&#13;&#10;研修期間後業務の幅を広げていきます。&#13;&#10;提案資料の作成、企業概要書の作成、売り手・買い手のソーシング、成約に至るまで、M＆Aのプロセスをサポートして頂きます。&#13;&#10;会計士、弁護士やコンサルタントと同じ職場なので、さまざまな経験・スキルを得られます！" required>'.$intern_contents.'</textarea></div>
                         </td>
                     </tr>
                     <tr>
@@ -632,37 +650,37 @@ function edit_internship_info(){
                     <tr>
                         <th align="left" nowrap="nowrap">給与*</th>
                         <td>
-                            <div class="company-established"><input class="input-width" type="text" min="0" name="salary" id="" value="'.$salary.'" required></div>
+                            <div class="company-established"><input class="input-width" type="text" min="0" name="salary" id="" value="'.$salary.'" placeholder="(例) 時給1000円" required></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">勤務可能時間*</th>
                         <td>
-                            <div class="company-address"><input class="input-width" type="text" min="0" name="worktime" id="" value="'.$worktime.'" required></div>
+                            <div class="company-address"><input class="input-width" type="text" min="0" name="worktime" id="" value="'.$worktime.'" placeholder="(例) 平日9:00-19:00" required></div>
                         </td>
                     </tr>
                     <tr>
                       <th align="left" nowrap="nowrap">勤務条件*</th>
                       <td>
-                          <div class="company-address"><input class="input-width" type="text" min="0" name="day_requirements" value="'.$requirements.'" required></div>
+                          <div class="company-address"><input class="input-width" type="text" min="0" name="day_requirements" value="'.$requirements.'" placeholder="(例) 1日4時間〜、週3日〜" required></div>
                       </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">応募資格*</th>
                         <td>
-                            <div class="company-capital"><textarea name="skill_requirements" id="" cols="30" rows="5" required>'.$skill_requirements.'</textarea></div>
+                            <div class="company-capital"><textarea name="skill_requirements" id="" cols="30" rows="8" placeholder="(例)&#13;&#10;・最後までやり遂げる力がある&#13;&#10;・MOS全般扱える&#13;&#10;・TOEIC700点以上&#13;&#10;・簿記2級以上&#13;&#10;・1.2年生" required>'.$skill_requirements.'</textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">求める人物像*</th>
                         <td>
-                            <div class="company-representative"><textarea name="require_person" id="" cols="30" rows="5" required>'.$require_person.'</textarea></div>
+                            <div class="company-representative"><textarea name="require_person" id="" cols="30" rows="8" placeholder="(例)&#13;&#10;・素直な人&#13;&#10;・チームワークが取れる人&#13;&#10;・責任感がある人&#13;&#10;・会社運営に関わりたい人&#13;&#10;・仕事を楽しめる人" required>'.$require_person.'</textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">身につくスキル*</th>
                         <td>
-                            <div class="company-capital"><textarea name="skills" id="" cols="30" rows="5">'.$skills.'</textarea></div>
+                            <div class="company-capital"><textarea name="skills" id="" cols="30" rows="8" placeholder="(例)&#13;&#10;・マーケティングスキル全般&#13;&#10;・0→1の思考力&#13;&#10;・問題解決力&#13;&#10;・メディア運営ノウハウ&#13;&#10;・デジタルマーケにおける企画・分析・思考力">'.$skills.'</textarea></div>
                         </td>
                     </tr>
                     <tr>
@@ -672,15 +690,15 @@ function edit_internship_info(){
                         </td>
                     </tr>
                     <tr>
+                      <th align="left" nowrap="nowrap">働いているインターン生の声</th>
+                      <td>
+                          <div class="company-capital"><textarea name="intern_student_voice" id="" cols="30" rows="5">'.$intern_student_voice.'</textarea></div>
+                      </td>
+                    </tr>
+                    <tr>
                         <th align="left" nowrap="nowrap">インターン卒業生の内定先</th>
                         <td>
                             <div class="company-capital"><textarea name="prospective_employer" id="" cols="30" rows="5">'.$prospective_employer.'</textarea></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th align="left" nowrap="nowrap">働いているインターン生の声</th>
-                        <td>
-                            <div class="company-capital"><textarea name="intern_student_voice" id="" cols="30" rows="5">'.$intern_student_voice.'</textarea></div>
                         </td>
                     </tr>
                     <tr>
@@ -690,7 +708,7 @@ function edit_internship_info(){
                               <div class="preview">
                                 <div class="preview-img"></div>
                                 <img src="'.$image_url.'">
-                                <input accept="image/*" id="imgFile" type="file" name="picture" required>
+                                <input accept="image/*" id="imgFile" type="file" name="picture">
                               </div>
                               <p>※600×400サイズ推奨</p>
                           </div>
@@ -746,8 +764,7 @@ function edit_internship_info(){
         </p>
         <input type="hidden" name="edit_intern" value="edit_intern">
         <div class="company_edit">
-          <input class="button favorite innactive" style="width:40%; margin-top:15px; background-color:#f9b539; border-radius: 5px;" type="submit" value="更新する">
-          <a class="button favorite innactive" style="width:40%; margin-top:15px; border-radius: 5px;" href="https://builds-story.com/?company='.$company_name.'">戻る</a>
+          '.$post_button_html.'
         </div>
       </div>
     </form>';
@@ -850,7 +867,42 @@ function update_internship_info(){
     if($_FILES["picture4"]){
       add_custom_image($post_id, "イメージ画像4", $picture4);
     }
-    header('Location: https://builds-story.com/?company='.$company_name);
+    if(!empty($_POST["save"])){
+      $post_status = "draft";
+    }
+    if(!empty($_POST["preview"])){
+      $post_status = "draft";
+    }
+    if(!empty($_POST["publish"])){
+      $post_status = "publish";
+    }
+    $post_value = array(
+      'post_author' => get_current_user_id(),
+      'post_title' => $post_title,
+      'post_type' => 'internship',
+      'post_status' => $post_status,
+      'ID' => $post_id,
+    );
+    $insert_id2 = wp_insert_post($post_value); //上書き（投稿ステータスを公開に）
+
+    if($insert_id2) {
+        /* 投稿に成功した時の処理等を記述 */
+        if(!empty($_POST["publish"])){
+          header('Location: '.get_permalink($insert_id2));
+        }
+        if(!empty($_POST["preview"])){
+          header('Location: '.get_permalink($insert_id2));
+        }
+        if(!empty($_POST["save"])){
+          header('Location: https://builds-story.com/manage_post?posttype=internship');
+        }
+        die();
+        $html = '<p>success</p>';
+    } else {
+        /* 投稿に失敗した時の処理等を記述 */
+        $html = '<p>error1</p>';
+    }
+    header('Location: https://builds-story.com/manage_post?posttype=internship');
     die();
   }
 }

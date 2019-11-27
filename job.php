@@ -108,7 +108,7 @@ function template_job2_func($content){
       </div>';
       $button_html = '
       <div class="company_edit" style="text-align:right;">
-        <a href="https://builds-story.com/edit_job?post_id='.$post_id.'" style="margin-right:5px;">編集する</a><a href="'.get_delete_post_link($post_id).'" style="margin-right:5px;">削除する</a><a href="https://builds-story.com/?company='.$company_name.'">企業ページに戻る</a>
+        <a href="https://builds-story.com/edit_job?post_id='.$post_id.'" style="margin-right:5px;">編集する</a><a href="'.get_delete_post_link($post_id).'" style="margin-right:5px;">削除する</a>
       </div>';
     }else{
       $button_html = '';
