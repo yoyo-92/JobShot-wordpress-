@@ -442,9 +442,9 @@ function edit_internship_info(){
     $occupation_html = '';
     foreach($occupation_array as $occupation_key => $occupation_value){
       if($regist_occupation == $occupation_value){
-        $occupation_html .= '<input type="radio" name="occupation" value="'.$occupation_key.'" checked="checked" />'.$occupation_value;
+        $occupation_html .= '<div><input type="radio" name="occupation" value="'.$occupation_key.'" checked="checked" />'.$occupation_value.'</div>';
       }else{
-        $occupation_html .= '<input type="radio" name="occupation" value="'.$occupation_key.'" />'.$occupation_value;
+        $occupation_html .= '<div><input type="radio" name="occupation" value="'.$occupation_key.'" />'.$occupation_value.'</div>';
       }
     }
     $salary = get_field("給与",$post_id);
@@ -494,9 +494,9 @@ function edit_internship_info(){
     $feature_html = '';
     foreach($features_array as $feature){
       if(in_array($feature, $features, true)){
-        $feature_html .= '<label class="feature-label"><input type="checkbox" name="feature[]" id="" value="'.$feature.'" checked>'.$feature.'</label>';
+        $feature_html .= '<div><label class=""><input type="checkbox" name="feature[]" id="" value="'.$feature.'" checked>'.$feature.'</label></div>';
       }else{
-        $feature_html .= '<label class="feature-label"><input type="checkbox" name="feature[]" id="" value="'.$feature.'">'.$feature.'</label>';
+        $feature_html .= '<div><label class=""><input type="checkbox" name="feature[]" id="" value="'.$feature.'">'.$feature.'</label></div>';
       }
     }
 
@@ -518,6 +518,84 @@ function edit_internship_info(){
       .input-file input[type='file'] {
         opacity: 0;
       }
+      .new_intern_occupation{
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .new_intern_occupation div{
+        width: 280px;
+        line-height: 1.7;
+      }
+      .new_intern_occupation input{
+        margin-right: 5px;
+      }
+      .new_intern_feature{
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .new_intern_feature div{
+        width: 280px;
+        line-height: 1.7;
+      }
+      .new_intern_feature div label{
+        font-weight: normal;
+      }
+      .new_intern_address div label{
+        font-weight: normal;
+      }
+      .new_intern_feature input{
+        margin-right: 5px;
+      }
+      .new_intern_table textarea{
+        height: auto;
+      }
+      @media screen and (max-width: 480px) {
+        .new_intern_table td{
+          width: 60%;
+          margin-left: -20px;
+        }
+      }
+      .submitbox{
+        border: 1px solid #ccd0d4;
+        box-shadow: 0 1px 1px rgba(0,0,0,.04);
+        width: 330px;
+        float: right;
+      }
+      .minor_publishing_actions{
+        height: 51px;
+        display: flex;
+      }
+      .save_action{
+        margin: 9px;
+        border: 1px solid #04a4cc;
+        border-radius: 5px;
+      }
+      .preview_action{
+        margin: 9px;
+        margin-left: 35px;
+        border: 1px solid #04a4cc;
+        border-radius: 5px;
+      }
+      .save_post_button{
+        color: #04a4cc !important;
+        border-color: #04a4cc !important;
+        background: #f3f5f6 !important;
+      }
+      .major_publishing_actions{
+        display: flex;
+        padding: 10px;
+        flex-flow: row-reverse;
+        background-color: #f3f5f6;
+        border-top: 1px solid #ccd0d4;
+      }
+      .publishing_action{
+        background-color: #04a4cc;
+        border-radius: 20px;
+      }
+      .publishing_action input{
+        background-color: #04a4cc;
+        color: white;
+      }
     </style>";
 
     $edit_html =  $style_html.'
@@ -525,66 +603,72 @@ function edit_internship_info(){
     <form action="https://builds-story.com/edit_internship?post_id='.$post_id.'" method="POST" enctype="multipart/form-data">
       <div class="tab_content_description">
         <p class="c-txtsp">
-            <table class="demo01">
+            <table class="demo01 new_intern_table">
                 <tbody>
                     <tr>
-                        <th>募集タイトル</th>
+                        <th>募集タイトル*</th>
                         <td>
-                            <div class="company-name"><input class="input-width" type="text" min="0" name="post_title" id="" value="'.$post_title.'"></div>
+                            <div class="company-name"><input class="input-width" type="text" min="0" name="post_title" id="" value="'.$post_title.'" required></div>
                         </td>
                     </tr>
                     <tr>
-                        <th align="left" nowrap="nowrap">職種</th>
+                        <th align="left" nowrap="nowrap">職種*</th>
                         <td>
-                            <div class="company-established">'.$occupation_html.'</div>
+                            <div class="company-established new_intern_occupation">'.$occupation_html.'</div>
                         </td>
                     </tr>
                     <tr>
-                        <th align="left" nowrap="nowrap">給与</th>
+                        <th align="left" nowrap="nowrap">仕事の概要*</th>
                         <td>
-                            <div class="company-established"><input class="input-width" type="text" min="0" name="salary" id="" value="'.$salary.'"></div>
+                            <div class="company-representative"><textarea name="intern_contents" id="" cols="30" rows="5" required>'.$intern_contents.'</textarea></div>
                         </td>
                     </tr>
                     <tr>
-                        <th align="left" nowrap="nowrap">勤務可能時間</th>
+                        <th align="left" nowrap="nowrap">勤務地*</th>
                         <td>
-                            <div class="company-address"><input class="input-width" type="text" min="0" name="worktime" id="" value="'.$worktime.'"></div>
+                            <div class="company-capital"><input type="text" class="input-width" min="0" name="address" id="" value="'.$address.'" required></div>
                         </td>
                     </tr>
                     <tr>
-                        <th align="left" nowrap="nowrap">求める人物像</th>
+                        <th align="left" nowrap="nowrap">給与*</th>
                         <td>
-                            <div class="company-representative"><textarea name="require_person" id="" cols="30" rows="5">'.$require_person.'</textarea></div>
+                            <div class="company-established"><input class="input-width" type="text" min="0" name="salary" id="" value="'.$salary.'" required></div>
                         </td>
                     </tr>
                     <tr>
-                        <th align="left" nowrap="nowrap">業務内容</th>
+                        <th align="left" nowrap="nowrap">勤務可能時間*</th>
                         <td>
-                            <div class="company-representative"><textarea name="intern_contents" id="" cols="30" rows="5">'.$intern_contents.'</textarea></div>
+                            <div class="company-address"><input class="input-width" type="text" min="0" name="worktime" id="" value="'.$worktime.'" required></div>
+                        </td>
+                    </tr>
+                    <tr>
+                      <th align="left" nowrap="nowrap">勤務条件*</th>
+                      <td>
+                          <div class="company-address"><input class="input-width" type="text" min="0" name="day_requirements" value="'.$requirements.'" required></div>
+                      </td>
+                    </tr>
+                    <tr>
+                        <th align="left" nowrap="nowrap">応募資格*</th>
+                        <td>
+                            <div class="company-capital"><textarea name="skill_requirements" id="" cols="30" rows="5" required>'.$skill_requirements.'</textarea></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th align="left" nowrap="nowrap">求める人物像*</th>
+                        <td>
+                            <div class="company-representative"><textarea name="require_person" id="" cols="30" rows="5" required>'.$require_person.'</textarea></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th align="left" nowrap="nowrap">身につくスキル*</th>
+                        <td>
+                            <div class="company-capital"><textarea name="skills" id="" cols="30" rows="5">'.$skills.'</textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">1日の流れ</th>
                         <td>
                             <div class="company-capital"><textarea name="intern_day" id="" cols="30" rows="5">'.$intern_day.'</textarea></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th align="left" nowrap="nowrap">身につくスキル</th>
-                        <td>
-                            <div class="company-capital"><textarea name="skills" id="" cols="30" rows="5">'.$skills.'</textarea></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th align="left" nowrap="nowrap">勤務地</th>
-                        <td>
-                            <div class="company-capital"><input type="text" class="input-width" min="0" name="address" id="" value="'.$address.'"></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th align="left" nowrap="nowrap">応募資格</th>
-                        <td>
-                            <div class="company-capital"><textarea name="skill_requirements" id="" cols="30" rows="5">'.$skill_requirements.'</textarea></div>
                         </td>
                     </tr>
                     <tr>
@@ -600,14 +684,15 @@ function edit_internship_info(){
                         </td>
                     </tr>
                     <tr>
-                        <th align="left" nowrap="nowrap">イメージ画像<br>(企業ロゴや社内イメージなど)</th>
+                        <th align="left" nowrap="nowrap">イメージ画像<br>(社内イメージ)</th>
                         <td>
                             <div class="input_file">
                               <div class="preview">
                                 <div class="preview-img"></div>
                                 <img src="'.$image_url.'">
-                                <input accept="image/*" id="imgFile" type="file" name="picture">
+                                <input accept="image/*" id="imgFile" type="file" name="picture" required>
                               </div>
+                              <p>※600×400サイズ推奨</p>
                           </div>
                         </td>
                     </tr>
@@ -620,6 +705,7 @@ function edit_internship_info(){
                                 <img src="'.$image2_url.'">
                                 <input accept="image/*" id="imgFile2" type="file" name="picture2">
                               </div>
+                              <p>※600×400サイズ推奨</p>
                           </div>
                         </td>
                     </tr>
@@ -632,6 +718,7 @@ function edit_internship_info(){
                                 <img src="'.$image3_url.'">
                                 <input accept="image/*" id="imgFile3" type="file" name="picture3">
                               </div>
+                              <p>※600×400サイズ推奨</p>
                           </div>
                         </td>
                     </tr>
@@ -644,13 +731,14 @@ function edit_internship_info(){
                                 <img src="'.$image4_url.'">
                                 <input accept="image/*" id="imgFile4" type="file" name="picture4">
                               </div>
+                              <p>※600×400サイズ推奨</p>
                           </div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">特徴</th>
                         <td>
-                            <div class="company-capital">'.$feature_html.'</div>
+                            <div class="company-capital new_intern_feature">'.$feature_html.'</div>
                         </td>
                     </tr>
                 </tbody>
