@@ -1412,18 +1412,6 @@ function new_internship_form(){
                         <div class="company-capital"><p>開始時間</p><input type="time" name="start[]" list="data1"><p>終了時間</p><input type="time" name="end[]" list="data1"><p>作業内容</p><input class="input-width" type="text" min="0" placeholder="(例)新規事業部立ち上げに関する打ち合わせ" id="" value="" name="oneday_flow[]"></div>
                       </td>
                   </tr>
-                  <tr>
-                      <th align="left" nowrap="nowrap">働いているインターン生の声</th>
-                      <td>
-                          <div class="company-capital"><textarea name="intern_student_voice" id="" cols="30" rows="5"></textarea></div>
-                      </td>
-                  </tr>
-                  <tr>
-                      <th align="left" nowrap="nowrap">インターン卒業生の内定先</th>
-                      <td>
-                          <div class="company-capital"><textarea name="prospective_employer" id="" cols="30" rows="5"></textarea></div>
-                      </td>
-                  </tr>
                   <tr class="selection_flows">
                         <th align="left" nowrap="nowrap">選考フロー<input type="button" value="＋" class="add pluralBtn">
                             <input type="button" value="－" class="del pluralBtn"></th>
@@ -1436,6 +1424,18 @@ function new_internship_form(){
                         <td>
                             <div class="arrow"></div><div class="company-capital"><p>採用</p></div>
                         </td>
+                  </tr>
+                  <tr>
+                      <th align="left" nowrap="nowrap">働いているインターン生の声</th>
+                      <td>
+                          <div class="company-capital"><textarea name="intern_student_voice" id="" cols="30" rows="5"></textarea></div>
+                      </td>
+                  </tr>
+                  <tr>
+                      <th align="left" nowrap="nowrap">インターン卒業生の内定先</th>
+                      <td>
+                          <div class="company-capital"><textarea name="prospective_employer" id="" cols="30" rows="5"></textarea></div>
+                      </td>
                   </tr>
                   <tr>
                       <th align="left" nowrap="nowrap">イメージ画像*<br>(社内イメージ)</th>
