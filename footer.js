@@ -570,3 +570,21 @@ jQuery('#ajax_btn2').on('click', function() {
 		jQuery("#info_company_ajax").removeClass("hidden");
 		jQuery("#ajax_btn").removeClass("hidden");
 });
+jQuery(".selection_flows").on("click", ".add", function() {
+    jQuery('.selection_flows').append('<td><div class="arrow"></div><div class="company-capital"><input class="input-width" type="text" min="0" name="selection_flow[]" placeholder="(例)グループワーク" id="" value=""></div></td>');
+});
+jQuery(".selection_flows").on("click", ".del", function() {
+    var target = jQuery(".selection_flows td");
+    if (jQuery(".selection_flows td").length > 1) {
+        jQuery(".selection_flows td:last").remove();
+    }
+});
+jQuery(".intern_days").on("click", ".add", function() {
+    jQuery('.intern_days').append('<td><div class="arrow"></div><div class="company-capital"><p>開始時間</p><input type="time" name="start[]" list="data1"><p>終了時間</p><input type="time" name="end[]" list="data1"><p>作業内容</p><input class="input-width" type="text" min="0" placeholder="(例)新規事業部立ち上げに関する打ち合わせ" id="" value="" name="oneday_flow[]"></div></td>');
+});
+jQuery(".intern_days").on("click", ".del", function() {
+    var target = jQuery(".intern_days td");
+    if (jQuery(".intern_days td").length > 1) {
+        jQuery(".intern_days td:last").remove();
+    }
+});
