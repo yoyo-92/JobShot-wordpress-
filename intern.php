@@ -40,7 +40,12 @@ function template_internship2_func($content){
   $intern_contents = nl2br(get_field("業務内容",$post_id));
   $skills = nl2br(get_field("身につくスキル",$post_id));
   $address = get_field("勤務地",$post_id);
-  $intern_day = nl2br(get_field('1日の流れ',$post_id));
+  //$intern_day = nl2br(get_field('1日の流れ',$post_id));
+  $intern_day_re = (get_field('1日の流れ',$post_id));
+  $intern_day_re = explode("</br>", $intern_day_re); // とりあえず行に分割
+  $intern_day_re = array_map('trim', $intern_day_re);
+  $intern_day_re = array_filter($intern_day_re, 'strlen');
+  $intern_day_re = array_values($intern_day_re);
   $worktime = nl2br(get_field('勤務可能時間',$post_id));
   $require_person = nl2br(get_field('求める人物像',$post_id));
   $skill_requirements = nl2br(get_field('応募資格',$post_id));
@@ -48,6 +53,16 @@ function template_internship2_func($content){
   $intern_student_voice = nl2br(get_field('働いているインターン生の声',$post_id));
   $builds_voice = nl2br(get_field('Builds担当者の声',$post_id));
   $features = get_field('特徴',$post_id);
+  $selection_flows_re = get_field("選考フロー",$post_id);
+  $selection_flows_re = explode("</br>", $selection_flows_re); // とりあえず行に分割
+  $selection_flows_re = array_map('trim', $selection_flows_re); // 各行にtrim()をかける
+  $selection_flows_re = array_filter($selection_flows_re, 'strlen'); // 文字数が0の行を取り除く
+  $selection_flows_re = array_values($selection_flows_re); // これはキーを連番に振りなおしてるだけ
+  $selection_html_re = '<ol class="flowchart">';
+    foreach($selection_flows_re as $selection_flow){
+      $selection_html_re .= '<li class="flowchart__item">'.$selection_flow.'</li>';
+    }
+  $selection_html_re .= '<li class="flowchart__item flowchart__item--last">採用</li></ol>';
 
   $image = get_field("イメージ画像",$post_id);
   $image2 = get_field("イメージ画像2",$post_id);
@@ -157,6 +172,42 @@ function template_internship2_func($content){
           </tr>';
       }
   }
+  if(!empty($intern_day_re[0]) and (count($intern_day_re)%3 == 0)){
+
+    $table_html = '';
+    for($i = 0; $i<(count($intern_day_re)/3); $i++){
+        $start = $intern_day_re[3*$i];
+	    //echo $start;
+        $end = $intern_day_re[3*$i+1];
+	    //echo $end;
+        $task = $intern_day_re[3*$i+2];
+	    //echo $task;
+        $start_time = explode(':',$start);
+        $end_time = explode(':',$end);
+        $span_hour = $end_time[0] - $start_time[0];
+        $span_minutes = $end_time[0] - $start_time[0];
+        $span_time = $span_hour + $span_minutes / 60;
+        $span_time = round($span_time, 0);
+        if ($i == (count($intern_day_re)/3)-1) {
+            // 最後
+            $table_html .= '
+            <tr class="timetable__row timetable__time-2">
+                <td class="timetable__task">'.$task.
+                    '<span class="timetable__start">'.$start.'</span>
+                    <span class="timetable__end">'.$end.'</span>
+                </td>
+            </tr>';
+        }else{
+            $table_html .= '
+            <tr class="timetable__row timetable__time-2">
+                <td class="timetable__task">'.$task.
+                    '<span class="timetable__start">'.$start.'</span>
+                </td>
+            </tr>';
+        }
+    }
+  }
+
   $selection_flows = SCF::get('selection_flow');
   $selection_flow_array = array();
   foreach ($selection_flows as $field_name => $field_value ) {
@@ -282,7 +333,7 @@ function template_internship2_func($content){
       <p class="intern_list_lead">'.$intern_contents.'</p>
     </div>';
   }
-  if(!empty($intern_time_table[0]['start'])){
+  if(!empty($intern_time_table[0]['start']) and empty($intern_day_re)){
     $html .= '
     <div class="intern_list">
       <h3 class="intern_list_title">１日の流れ</h3>';
@@ -298,11 +349,35 @@ function template_internship2_func($content){
       </table>
     </div>';
   }
-  if(!empty($selection_flows[0]['selection_step'])){
+  if(!empty($intern_day_re)){
+	$html .= '
+    <div class="intern_list">
+      <h3 class="intern_list_title">１日の流れ</h3>';
+    if(!empty($image4_url)){
+      $html .= '
+      <div class="intern_list_image_box">
+        <img src="'.$image4_url.'">
+      </div>';
+    }
+    $html .= '
+      <table class="timetable">
+        <tbody>'.$table_html.'</tbody>
+      </table>
+    </div>';
+  }
+  if((!empty($selection_flows[0]['selection_step'])) and (empty($selection_flows_re[0]))){
     $html .= '
     <div class="intern_list">
       <h3 class="intern_list_title">選考フロー</h3>
       '.$selection_html.'
+    </div>';
+  }
+
+  if(!empty($selection_flows_re[0])){
+    $html .= '
+    <div class="intern_list">
+      <h3 class="intern_list_title">選考フロー</h3>
+      '.$selection_html_re.'
     </div>';
   }
 
@@ -326,7 +401,7 @@ function template_internship2_func($content){
           <td><p>'.$intern_contents.'</p></td>
         </tr>';
       }
-      if(!empty($intern_time_table[0]['start'])){
+      if(!empty($intern_time_table[0]['start']) and empty($intern_day_re)){
         $html .= '
         <tr>
           <th>１日の流れ</th>
@@ -337,11 +412,29 @@ function template_internship2_func($content){
           </td>
         </tr>';
       }
-      if(!empty($selection_flows[0]['selection_step'])){
+      if(!empty($intern_day_re)){
+        $html .= '
+        <tr>
+          <th>１日の流れ</th>
+          <td>
+            <table class="timetable">
+              <tbody>'.$table_html.'</tbody>
+            </table>
+          </td>
+        </tr>';
+      }
+      if((!empty($selection_flows[0]['selection_step'])) and (empty($selection_flows_re[0]))){
         $html .= '
         <tr>
           <th>選考フロー</th>
           <td>'.$selection_html.'</td>
+        </div>';
+      }
+      if(!empty($selection_flows_re[0])){
+        $html .= '
+        <tr>
+          <th>選考フロー</th>
+          <td>'.$selection_html_re.'</td>
         </div>';
       }
       $html.='</tbody>
@@ -518,6 +611,81 @@ function edit_internship_info(){
       </div>
     </div>';
 
+  $selection_flows_re = get_field("選考フロー",$post_id);
+  $selection_flows_re = explode("</br>", $selection_flows_re); // とりあえず行に分割
+  $selection_flows_re = array_map('trim', $selection_flows_re); // 各行にtrim()をかける
+  $selection_flows_re = array_filter($selection_flows_re, 'strlen'); // 文字数が0の行を取り除く
+  $selection_flows_re = array_values($selection_flows_re); // これはキーを連番に振りなおしてるだけ
+
+  $selection_html_re  = '<tr class="selection_flows">
+  <th align="left" nowrap="nowrap">選考フロー<input type="button" value="＋" class="add pluralBtn">
+      <input type="button" value="－" class="del pluralBtn"></th>';
+  $count_s = 0;	
+  foreach($selection_flows_re as $selection_flow){
+	if ($selection_flow === reset($selection_flows_re)) {
+        $selection_html_re .= '<td>
+		<div class="company-capital"><input class="input-width" type="text" min="0" name="selection_flow[]" placeholder="(例)面接" id="" value="'.$selection_flow.'"></div>
+	</td>';
+    }
+	else{
+		$selection_html_re .= '<td><div class="arrow"></div>
+    <div class="company-capital"><input class="input-width" type="text" min="0" name="selection_flow[]" placeholder="(例)面接" id="" value="'.$selection_flow.'"></div>
+</td>'; 
+	}
+  }
+  if(empty($selection_flows_re)){
+    $selection_html_re .= '<td>
+    <div class="company-capital"><input class="input-width" type="text" min="0" name="selection_flow[]" placeholder="(例)面接" id="" value=""></div>
+</td>';
+  }
+
+  $intern_day_re = get_field("1日の流れ",$post_id);
+  $intern_day_re = explode("</br>", $intern_day_re); // とりあえず行に分割
+  $intern_day_re = array_map('trim', $intern_day_re);
+  $intern_day_re = array_filter($intern_day_re, 'strlen');
+  $intern_day_re = array_values($intern_day_re);
+  $intern_day_html_re = '<tr class="intern_days">
+  <th align="left" nowrap="nowrap">1日の流れ<input type="button" value="＋" class="add pluralBtn">
+      <input type="button" value="－" class="del pluralBtn"></th><datalist id="data1">
+      <option value="09:00"></option>
+      <option value="10:00"></option>
+      <option value="11:00"></option>
+      <option value="12:00"></option>
+      <option value="13:00"></option>
+      <option value="14:00"></option>
+      <option value="15:00"></option>
+      <option value="16:00"></option>
+      <option value="17:00"></option>
+      <option value="18:00"></option>
+      <option value="19:00"></option>
+      <option value="20:00"></option>
+      <option value="21:00"></option>
+      <option value="22:00"></option>
+      <option value="23:00"></option>
+      <option value="24:00"></option>
+  </datalist>';
+
+
+  for($i = 0; $i<count($intern_day_re)/3; $i++){
+      if($i == 0){
+      $intern_day_html_re .= '
+  <td>
+    <div class="company-capital"><p>開始時間</p><input type="time" name="start[]" list="data1" value="'.$intern_day_re[3*$i].'"><p>終了時間</p><input type="time" name="end[]" list="data1" value="'.$intern_day_re[3*$i+1].'"><p>作業内容</p><input class="input-width" type="text" min="0" placeholder="(例)新規事業部立ち上げに関する打ち合わせ" id="" value="'.$intern_day_re[3*$i+2].'" name="oneday_flow[]"></div>
+  </td>';
+      }
+      else{
+        $intern_day_html_re .= '
+        <td><div class="arrow"></div>
+          <div class="company-capital"><p>開始時間</p><input type="time" name="start[]" list="data1" value="'.$intern_day_re[3*$i].'"><p>終了時間</p><input type="time" name="end[]" list="data1" value="'.$intern_day_re[3*$i+1].'"><p>作業内容</p><input class="input-width" type="text" min="0" placeholder="(例)新規事業部立ち上げに関する打ち合わせ" id="" value="'.$intern_day_re[3*$i+2].'" name="oneday_flow[]"></div>
+        </td>';
+      }
+  }
+  if(empty($intern_day_re)){
+    $intern_day_html_re .= '<td>
+    <div class="company-capital"><p>開始時間</p><input type="time" name="start[]" list="data1"><p>終了時間</p><input type="time" name="end[]" list="data1"><p>作業内容</p><input class="input-width" type="text" min="0" placeholder="(例)新規事業部立ち上げに関する打ち合わせ" id="" name="oneday_flow[]"></div>
+  </td>';
+  }
+
     $style_html = "
     <style type='text/css'>
       .company_edit{
@@ -614,6 +782,46 @@ function edit_internship_info(){
         background-color: #04a4cc;
         color: white;
       }
+      input.pluralBtn {
+        width: 30px;
+        height: 30px;
+        border: 1px solid #ccc;
+        background: #fff;
+        border-radius: 5px;
+        padding: 0;
+        margin: 0;
+      }
+      .selection_flows td {
+      display:block;
+      }
+      .intern_days td {
+        display:block;
+      }
+	  .arrow {
+		position: relative;
+	  }
+	.arrow::before {
+	  content: '';
+	  display: block;
+	  position: absolute;
+	  top: -20px;
+	  left: 50%;
+	  width: 0;
+	  height: 0;
+	  transform: translateX(-50%);
+	  border: 12px solid transparent;
+	  border-top: 12px solid #000;
+	  border-bottom-width: 0;
+	}
+	.hire th::before {
+	  width: 0px !important;
+	  }
+	 .hire p {
+		text-align: center;
+	 }
+	 .hire .arrow::before{
+	   top:-40px;
+	 }
     </style>";
 
     $edit_html =  $style_html.'
@@ -683,12 +891,8 @@ function edit_internship_info(){
                             <div class="company-capital"><textarea name="skills" id="" cols="30" rows="8" placeholder="(例)&#13;&#10;・マーケティングスキル全般&#13;&#10;・0→1の思考力&#13;&#10;・問題解決力&#13;&#10;・メディア運営ノウハウ&#13;&#10;・デジタルマーケにおける企画・分析・思考力">'.$skills.'</textarea></div>
                         </td>
                     </tr>
-                    <tr>
-                        <th align="left" nowrap="nowrap">1日の流れ</th>
-                        <td>
-                            <div class="company-capital"><textarea name="intern_day" id="" cols="30" rows="5">'.$intern_day.'</textarea></div>
-                        </td>
-                    </tr>
+                    '.$selection_html_re.'
+                    '.$intern_day_html_re.'
                     <tr>
                       <th align="left" nowrap="nowrap">働いているインターン生の声</th>
                       <td>
@@ -699,6 +903,12 @@ function edit_internship_info(){
                         <th align="left" nowrap="nowrap">インターン卒業生の内定先</th>
                         <td>
                             <div class="company-capital"><textarea name="prospective_employer" id="" cols="30" rows="5">'.$prospective_employer.'</textarea></div>
+                        </td>
+                    </tr>
+                    <tr class="hire">
+                      <th></th>
+                        <td>
+                            <div class="arrow"></div><div class="company-capital"><p>採用</p></div>
                         </td>
                     </tr>
                     <tr>
@@ -802,7 +1012,20 @@ function update_internship_info(){
     $picture2 = $_FILES["picture2"];
     $picture3 = $_FILES["picture3"];
     $picture4 = $_FILES["picture4"];
-
+    $selection_flows = "";
+    for ($i=0; $i<count($_POST["selection_flow"]); $i++){
+      $selection_flows .= $_POST["selection_flow"][$i];
+      $selection_flows .= "</br>";
+    }
+    $intern_days = "";
+      for ($i=0; $i<count($_POST["start"]); $i++){
+        $intern_days .= $_POST["start"][$i];
+        $intern_days .= "</br>";
+        $intern_days .= $_POST["end"][$i];
+        $intern_days .= "</br>";
+        $intern_days .= $_POST["oneday_flow"][$i];
+        $intern_days .= "</br>";
+	  }
     if($_POST["post_title"]){
       $my_post = array('ID' => $post_id,'post_title' => $post_title,'post_content' => '',);
       wp_update_post( $my_post );
@@ -866,6 +1089,12 @@ function update_internship_info(){
     }
     if($_FILES["picture4"]){
       add_custom_image($post_id, "イメージ画像4", $picture4);
+    }
+    if($_POST["selection_flow"]){
+      update_post_meta($post_id, '選考フロー', $selection_flows);
+    }
+    if($_POST["oneday_flow"]){
+      update_post_meta($post_id,'1日の流れ', $intern_days);
     }
     if(!empty($_POST["save"])){
       $post_status = "draft";
@@ -1017,6 +1246,49 @@ function new_internship_form(){
       background-color: #04a4cc;
       color: white;
     }
+    input.pluralBtn {
+      width: 30px;
+      height: 30px;
+      border: 1px solid #ccc;
+      background: #fff;
+      border-radius: 5px;
+      padding: 0;
+      margin: 0;
+    }
+    .selection_flows td {
+    display:block;
+    }
+    .intern_days td {
+      display:block;
+    }
+    .arrow {
+	  position: relative;
+	}
+  .arrow::before {
+	content: '';
+	display: block;
+	position: absolute;
+	top: -20px;
+	left: 50%;
+	width: 0;
+	height: 0;
+	transform: translateX(-50%);
+	border: 12px solid transparent;
+	border-top: 12px solid #000;
+	border-bottom-width: 0;
+  }
+  .hire th::before {
+    width: 0px !important;
+	}
+   .hire p {
+      text-align: center;
+   }
+   .hire .arrow::before{
+     top:-40px;
+   }
+   #data1 {
+      overflow:scroll;
+   }
   </style>
   <script src='https://ajaxzip3.github.io/ajaxzip3.js' charset='UTF-8'></script>";
   $ajaxzip3 = "AjaxZip3.zip2addr(this,'','address','address');";
@@ -1115,6 +1387,31 @@ function new_internship_form(){
                           <div class="company-capital"><textarea name="skills" id="" cols="30" rows="8" placeholder="(例)&#13;&#10;・マーケティングスキル全般&#13;&#10;・0→1の思考力&#13;&#10;・問題解決力&#13;&#10;・メディア運営ノウハウ&#13;&#10;・デジタルマーケにおける企画・分析・思考力" required></textarea></div>
                       </td>
                   </tr>
+                  <tr class="intern_days">
+                      <th align="left" nowrap="nowrap">1日の流れ<input type="button" value="＋" class="add pluralBtn">
+                      <input type="button" value="－" class="del pluralBtn"></th>
+                      <datalist id="data1">
+                          <option value="09:00"></option>
+                          <option value="10:00"></option>
+                          <option value="11:00"></option>
+                          <option value="12:00"></option>
+                          <option value="13:00"></option>
+                          <option value="14:00"></option>
+                          <option value="15:00"></option>
+                          <option value="16:00"></option>
+                          <option value="17:00"></option>
+                          <option value="18:00"></option>
+                          <option value="19:00"></option>
+                          <option value="20:00"></option>
+                          <option value="21:00"></option>
+                          <option value="22:00"></option>
+                          <option value="23:00"></option>
+                          <option value="24:00"></option>
+                      </datalist>
+                      <td>
+                        <div class="company-capital"><p>開始時間</p><input type="time" name="start[]" list="data1"><p>終了時間</p><input type="time" name="end[]" list="data1"><p>作業内容</p><input class="input-width" type="text" min="0" placeholder="(例)新規事業部立ち上げに関する打ち合わせ" id="" value="" name="oneday_flow[]"></div>
+                      </td>
+                  </tr>
                   <tr>
                       <th align="left" nowrap="nowrap">働いているインターン生の声</th>
                       <td>
@@ -1126,6 +1423,19 @@ function new_internship_form(){
                       <td>
                           <div class="company-capital"><textarea name="prospective_employer" id="" cols="30" rows="5"></textarea></div>
                       </td>
+                  </tr>
+                  <tr class="selection_flows">
+                        <th align="left" nowrap="nowrap">選考フロー<input type="button" value="＋" class="add pluralBtn">
+                            <input type="button" value="－" class="del pluralBtn"></th>
+                        <td>
+                            <div class="company-capital"><input class="input-width" type="text" min="0" name="selection_flow[]" placeholder="(例)面接" id="" value=""></div>
+                        </td>
+                  </tr>
+				  <tr class="hire">
+						<th></th>
+                        <td>
+                            <div class="arrow"></div><div class="company-capital"><p>採用</p></div>
+                        </td>
                   </tr>
                   <tr>
                       <th align="left" nowrap="nowrap">イメージ画像*<br>(社内イメージ)</th>
@@ -1218,6 +1528,20 @@ function new_company_post_internship(){
       $picture2 = $_FILES["picture2"];
       $picture3 = $_FILES["picture3"];
       $picture4 = $_FILES["picture4"];
+      $selection_flows = "";
+      for ($i=0; $i<count($_POST["selection_flow"]); $i++){
+        $selection_flows .= $_POST["selection_flow"][$i];
+        $selection_flows .= "</br>";
+        }
+      $intern_days = "";
+      for ($i=0; $i<count($_POST["start"]); $i++){
+        $intern_days .= $_POST["start"][$i];
+        $intern_days .= "</br>";
+        $intern_days .= $_POST["end"][$i];
+        $intern_days .= "</br>";
+        $intern_days .= $_POST["oneday_flow"][$i];
+        $intern_days .= "</br>";
+	  }
 
       $post_value = array(
           'post_author' => get_current_user_id(),
@@ -1258,6 +1582,8 @@ function new_company_post_internship(){
           add_custom_image($insert_id, 'イメージ画像2', $picture2);
           add_custom_image($insert_id, 'イメージ画像3', $picture3);
           add_custom_image($insert_id, 'イメージ画像4', $picture4);
+          update_post_meta($insert_id, '選考フロー', $selection_flows);
+          update_post_meta($insert_id, '1日の流れ', $intern_days);
           wp_set_object_terms( $insert_id, $occupation, 'occupation');
           if($prefecture == "東京都"){
               wp_set_object_terms( $insert_id, $area, 'area');
