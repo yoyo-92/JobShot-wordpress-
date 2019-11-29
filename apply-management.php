@@ -671,4 +671,51 @@ function view_apply_fullwidth_autumn_intern_card_func($post_id){
 }
 add_shortcode('view-fullwidth-intern-card','view_fullwidth_intern_card_func');
 
+function view_intern_apply_num_func ( $atts ) {
+  $args = array(
+    'post_status' => array('publish','private'),
+    'post_type' => array('internship'),
+    'posts_per_page' => -1,
+  );
+  $html = '
+  <table class="tbl02">
+    <thead>
+      <tr>
+        <th>案件名</th>
+        <th>職種</th>
+        <th>応募数</th>
+      </tr>
+    </thead>
+    <tbody>';
+  $the_query = new WP_Query($args);
+  if ($the_query->have_posts()) :
+    while ($the_query->have_posts()) :
+      $the_query->the_post();
+      $post_id = get_the_ID();
+      $post_title = get_the_title($post_id);
+      $occupation = get_the_terms($post_id,"occupation")[0]->name;
+      $formname = 'インターン応募';
+      $post_views_count = do_shortcode(' [cfdb-count form="/'.$formname.'.*/" filter="job-id='.$post_id.'"]');
+      $html .= '
+      <tr>
+        <td label="案件名">
+          <p>'.$post_title.'</p>
+        </td>
+        <td label="職種">
+          <p>'.$occupation.'</p>
+        </td>
+        <td label="応募数">
+          <p>'.$post_views_count.'</p>
+        </td>
+      </tr>';
+    endwhile;
+  endif;
+  $html .= '
+    </tbody>
+  </table>';
+  wp_reset_postdata();
+  return $html;
+}
+add_shortcode('view_intern_apply_num','view_intern_apply_num_func');
+
 ?>

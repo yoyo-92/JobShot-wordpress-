@@ -96,13 +96,13 @@ function side_bar_widget_func(){
         <br>
         <a href="https://builds-story.com/gift_money"><img class="special_contents_img wp-image-5404 aligncenter" src="https://builds-story.com/wp-content/uploads/2019/10/0cc52848b5f9663458606f357ee63b46.png"></a>
         <br>
-        <a href="https://builds-story.com/?event=%e5%a4%a7%e6%89%8b%e5%ae%b6%e5%85%b7%e3%83%a1%e3%83%bc%e3%82%ab%e3%83%bc%e5%8f%82%e5%8a%a0%ef%bc%81-%e9%ab%98%e5%ad%a6%e6%ad%b4%e7%94%9f%e5%90%91%e3%81%91-1%e5%88%86%e3%83%94%e3%83%83%e3%83%81"><img class="special_contents_img wp-image-5404 aligncenter" src="https://builds-story.com/wp-content//uploads/2019/11/93afe8fc32856925c7187c7df002736d.png"></a>
+        <a href="https://builds-story.com/?event=%e3%80%90%e5%ad%a6%e7%94%9f%e3%81%af%e8%b5%b7%e6%a5%ad%e3%81%97%e3%82%8d%e3%80%91skyland-vcxjobshot%e3%82%b3%e3%83%a9%e3%83%9c%e3%82%a4%e3%83%99%e3%83%b3%e3%83%88"><img class="special_contents_img wp-image-5404 aligncenter" src="https://builds-story.com/wp-content/uploads/2019/11/f3f966d826e3770c27867fabe1aef959.png"></a>
         <br>
-        <a href="https://builds-story.com/?event=%e9%95%b7%e6%9c%9f%e3%82%a4%e3%83%b3%e3%82%bf%e3%83%bc%e3%83%b3%e6%8e%a1%e7%94%a8%e3%82%82%e3%81%82%e3%82%8a%ef%bc%81%ef%bc%9f-king-x-jobshot%e5%90%88%e5%90%8c%e5%8b%89%e5%bc%b7%e4%bc%9a"><img class="special_contents_img wp-image-5404 aligncenter" src="https://builds-story.com/wp-content/uploads/2019/11/157a23972c1752eff669068fd415ad24.png"></a>
+        <a href="https://builds-story.com/?event=%e5%a4%a7%e6%89%8b%e5%ae%b6%e5%85%b7%e3%83%a1%e3%83%bc%e3%82%ab%e3%83%bc%e5%8f%82%e5%8a%a0%ef%bc%81-%e9%ab%98%e5%ad%a6%e6%ad%b4%e7%94%9f%e5%90%91%e3%81%91-1%e5%88%86%e3%83%94%e3%83%83%e3%83%81"><img class="special_contents_img wp-image-5404 aligncenter" src="https://builds-story.com/wp-content//uploads/2019/11/93afe8fc32856925c7187c7df002736d.png"></a>
         <br>
         <a href="https://builds-story.com/?event=flutter%e3%82%92%e5%ad%a6%e3%81%b3%e3%81%9f%e3%81%84%e4%ba%ba%e9%9b%86%e3%81%be%e3%82%8c%ef%bc%81-finc-x-jobshot%e3%82%a8%e3%83%b3%e3%82%b8%e3%83%8b%e3%82%a2%e5%8b%89%e5%bc%b7%e4%bc%9a"><img class="special_contents_img wp-image-5404 aligncenter" src="https://builds-story.com/wp-content/uploads/2019/11/3267f35874d4724c1cfa098482b03a3a.png"></a>
         <br>
-        <a href="https://builds-story.com/?event=%e3%80%90%e5%ad%a6%e7%94%9f%e3%81%af%e8%b5%b7%e6%a5%ad%e3%81%97%e3%82%8d%e3%80%91skyland-vcxjobshot%e3%82%b3%e3%83%a9%e3%83%9c%e3%82%a4%e3%83%99%e3%83%b3%e3%83%88"><img class="special_contents_img wp-image-5404 aligncenter" src="https://builds-story.com/wp-content/uploads/2019/11/f3f966d826e3770c27867fabe1aef959.png"></a>
+        <a href="https://builds-story.com/?event=%e3%80%90%e5%85%83jp-morgan%e6%96%b0%e5%8d%92%e6%8e%a1%e7%94%a8%e6%8b%85%e5%bd%93%e8%80%85%e3%81%8c%e8%aa%9e%e3%82%8b%ef%bc%81%e3%80%91%e9%9d%9e%e5%b8%b8%e8%ad%98%e5%b0%b1%e6%b4%bb%e7%84%a1%e5%8f%8c"><img class="special_contents_img wp-image-5404 aligncenter" src="https://builds-story.com/wp-content/uploads/2019/11/40a949677bf70ab422ee72c1e1f4e5e5.png"></a>
     </p>';
     return $html;
 }
@@ -314,7 +314,7 @@ function option_menu_event(){
     $html = '
     <h3 class="widget-title">長期インターン合同説明会に参加する</h3>
     <div class="option-container">
-        <p><img class="" src="https://builds-story.com/wp-content/uploads/2019/11/efebe7f3c5973e9f462c4e30a375b6f4.png" alt="" width="" height="100%" /></p>
+        <p><img class="" src="https://builds-story.com/wp-content/uploads/2019/11/5c4d0a84b1a861b2da148f0405d84a4c-e1574913707243.png" alt="" width="" height="100%" /></p>
         <div class="option_menu_logo_details">
             <h4 class="main_menu_title">少人数制で学生と接点を持てるイベント！<br>学生と密なコミュニケーションをとることができます！</h4>
             <p class="menu_text">企業説明に加えて座談会やパネルディスカッション、個別面談などのコンテンツを用意しております。<br>気になった学生とは当日に個別面談を組むことができます。</p>
