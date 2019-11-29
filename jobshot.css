@@ -4175,3 +4175,153 @@ div[data-element="div.um-profile-photo"] .um-dropdown-b .um-dropdown-arr {
 .special_contents_img{
   box-shadow: rgba(0, 0, 0, 0.16) 0 3px 8px;
 }
+
+/*企業インターン投稿ページ*/
+/*intern.php*/
+      .company_edit{
+        text-align:center;
+      }
+      .feature-label{
+        display: inline-block;
+        width: 50%;
+      }
+      .input-width{
+        width: 100%;
+      }
+      .input-file .preview {
+        background-image: url(/hoge.jpg);
+      }
+      .input-file input[type='file'] {
+        opacity: 0;
+      }
+      .new_intern_occupation{
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .new_intern_occupation div{
+        width: 280px;
+        line-height: 1.7;
+      }
+      .new_intern_occupation input{
+        margin-right: 5px;
+      }
+      .new_intern_feature{
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .new_intern_feature div{
+        width: 280px;
+        line-height: 1.7;
+      }
+      .new_intern_feature div label{
+        font-weight: normal;
+      }
+      .new_intern_address div label{
+        font-weight: normal;
+      }
+      .new_intern_feature input{
+        margin-right: 5px;
+      }
+      .new_intern_table textarea{
+        height: auto;
+      }
+      @media screen and (max-width: 480px) {
+        .new_intern_table td{
+          width: 60%;
+          margin-left: -20px;
+        }
+      }
+      .submitbox{
+        border: 1px solid #ccd0d4;
+        box-shadow: 0 1px 1px rgba(0,0,0,.04);
+        width: 330px;
+        float: right;
+      }
+      .minor_publishing_actions{
+        height: 51px;
+        display: flex;
+      }
+      .save_action{
+        margin: 9px;
+        border: 1px solid #04a4cc;
+        border-radius: 5px;
+      }
+      .preview_action{
+        margin: 9px;
+        margin-left: 35px;
+        border: 1px solid #04a4cc;
+        border-radius: 5px;
+      }
+      .save_post_button{
+        color: #04a4cc !important;
+        border-color: #04a4cc !important;
+        background: #f3f5f6 !important;
+      }
+      .major_publishing_actions{
+        display: flex;
+        padding: 10px;
+        flex-flow: row-reverse;
+        background-color: #f3f5f6;
+        border-top: 1px solid #ccd0d4;
+      }
+      .publishing_action{
+        background-color: #04a4cc;
+        border-radius: 20px;
+      }
+      .publishing_action input{
+        background-color: #04a4cc;
+        color: white;
+      }
+      input.pluralBtn {
+        width: 25px;
+        height: 25px;
+        border: 1px solid #ccc;
+        background: #fff;
+        border-radius: 5px;
+        padding: 0;
+        margin: 0;
+      }
+      .selection_flows td {
+      display:block;
+      }
+      .intern_days td {
+        display:block;
+      }
+	  .arrow {
+		position: relative;
+	  }
+	.arrow::before {
+	  content: '';
+	  display: block;
+	  position: absolute;
+	  top: -20px;
+	  left: 50%;
+	  width: 0;
+	  height: 0;
+	  transform: translateX(-50%);
+	  border: 12px solid transparent;
+	  border-top: 12px solid #000;
+	  border-bottom-width: 0;
+	}
+	.hire th::before {
+	  width: 0px !important;
+	  }
+	 .hire p {
+		text-align: center;
+	 }
+	 .hire .arrow::before{
+	   top:-40px;
+	 }
+
+.btn-box {
+  border: solid #151414 1px;
+  padding: 3px;
+  width: 50%;
+  background-color: #ddd;
+  color: #6A6E71;
+  border-radius: 10px;
+  cursor:pointer;
+}
+.btn-sen {
+  margin-left:10px;
+}

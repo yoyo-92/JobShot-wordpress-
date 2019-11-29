@@ -600,8 +600,8 @@ function edit_internship_info(){
   $selection_flows_re = array_values($selection_flows_re); // これはキーを連番に振りなおしてるだけ
 
   $selection_html_re  = '<tr class="selection_flows">
-  <th align="left" nowrap="nowrap">選考フロー<input type="button" value="＋" class="add pluralBtn">
-      <input type="button" value="－" class="del pluralBtn"></th>';
+  <th align="left" nowrap="nowrap">選考フロー<div class="btn-box add"><input type="button" value="＋" class="pluralBtn"><span class="btn-sen">追加する</div>
+  <div class="btn-box del"><input type="button" value="－" class="pluralBtn"><span class="btn-sen">削除する</span></div></th>';
   $count_s = 0;	
   foreach($selection_flows_re as $selection_flow){
 	if ($selection_flow === reset($selection_flows_re)) {
@@ -627,8 +627,8 @@ function edit_internship_info(){
   $intern_day_re = array_filter($intern_day_re, 'strlen');
   $intern_day_re = array_values($intern_day_re);
   $intern_day_html_re = '<tr class="intern_days">
-  <th align="left" nowrap="nowrap">1日の流れ<input type="button" value="＋" class="add pluralBtn">
-      <input type="button" value="－" class="del pluralBtn"></th><datalist id="data1">
+  <th align="left" nowrap="nowrap">1日の流れ<div class="btn-box add"><input type="button" value="＋" class="pluralBtn"><span class="btn-sen">追加する</div>
+  <div class="btn-box del"><input type="button" value="－" class="pluralBtn"><span class="btn-sen">削除する</span></div></th><datalist id="data1">
       <option value="09:00"></option>
       <option value="10:00"></option>
       <option value="11:00"></option>
@@ -670,62 +670,6 @@ function edit_internship_info(){
 
     $style_html = "
     <style type='text/css'>
-      .company_edit{
-        text-align:center;
-      }
-      .feature-label{
-        display: inline-block;
-        width: 50%;
-      }
-      .input-width{
-        width: 100%;
-      }
-      .input-file .preview {
-        background-image: url(/hoge.jpg);
-      }
-      .input-file input[type='file'] {
-        opacity: 0;
-      }
-      input.pluralBtn {
-        width: 30px;
-        height: 30px;
-        border: 1px solid #ccc;
-        background: #fff;
-        border-radius: 5px;
-        padding: 0;
-        margin: 0;
-      }
-      .selection_flows td {
-      display:block;
-      }
-      .intern_days td {
-        display:block;
-      }
-	  .arrow {
-		position: relative;
-	  }
-	.arrow::before {
-	  content: '';
-	  display: block;
-	  position: absolute;
-	  top: -20px;
-	  left: 50%;
-	  width: 0;
-	  height: 0;
-	  transform: translateX(-50%);
-	  border: 12px solid transparent;
-	  border-top: 12px solid #000;
-	  border-bottom-width: 0;
-	}
-	.hire th::before {
-	  width: 0px !important;
-	  }
-	 .hire p {
-		text-align: center;
-	 }
-	 .hire .arrow::before{
-	   top:-40px;
-	 }
     </style>";
 
     $edit_html =  $style_html.'
@@ -1012,143 +956,6 @@ function new_internship_form(){
 
   $style_html = "
   <style type='text/css'>
-    .company_edit{
-      text-align:center;
-    }
-    .feature-label{
-      display: inline-block;
-      width: 50%;
-    }
-    .input-width{
-      width: 100%;
-    }
-    .input-file .preview {
-      background-image: url(/hoge.jpg);
-    }
-    .input-file input[type='file'] {
-      opacity: 0;
-    }
-    .new_intern_occupation{
-      display: flex;
-      flex-wrap: wrap;
-    }
-    .new_intern_occupation div{
-      width: 280px;
-      line-height: 1.7;
-    }
-    .new_intern_occupation input{
-      margin-right: 5px;
-    }
-    .new_intern_feature{
-      display: flex;
-      flex-wrap: wrap;
-    }
-    .new_intern_feature div{
-      width: 280px;
-      line-height: 1.7;
-    }
-    .new_intern_feature div label{
-      font-weight: normal;
-    }
-    .new_intern_address div label{
-      font-weight: normal;
-    }
-    .new_intern_feature input{
-      margin-right: 5px;
-    }
-    .new_intern_table textarea{
-      height: auto;
-    }
-    @media screen and (max-width: 480px) {
-      .new_intern_table td{
-        width: 60%;
-        margin-left: -20px;
-      }
-    }
-    .submitbox{
-      border: 1px solid #ccd0d4;
-      box-shadow: 0 1px 1px rgba(0,0,0,.04);
-      width: 330px;
-      float: right;
-    }
-    .minor_publishing_actions{
-      height: 51px;
-      display: flex;
-    }
-    .save_action{
-      margin: 9px;
-      border: 1px solid #04a4cc;
-      border-radius: 5px;
-    }
-    .preview_action{
-      margin: 9px;
-      margin-left: 35px;
-      border: 1px solid #04a4cc;
-      border-radius: 5px;
-    }
-    .save_post_button{
-      color: #04a4cc !important;
-      border-color: #04a4cc !important;
-      background: #f3f5f6 !important;
-    }
-    .major_publishing_actions{
-      display: flex;
-      padding: 10px;
-      flex-flow: row-reverse;
-      background-color: #f3f5f6;
-      border-top: 1px solid #ccd0d4;
-    }
-    .publishing_action{
-      background-color: #04a4cc;
-      border-radius: 20px;
-    }
-    .publishing_action input{
-      background-color: #04a4cc;
-      color: white;
-    }
-    input.pluralBtn {
-      width: 30px;
-      height: 30px;
-      border: 1px solid #ccc;
-      background: #fff;
-      border-radius: 5px;
-      padding: 0;
-      margin: 0;
-    }
-    .selection_flows td {
-    display:block;
-    }
-    .intern_days td {
-      display:block;
-    }
-    .arrow {
-	  position: relative;
-	}
-  .arrow::before {
-	content: '';
-	display: block;
-	position: absolute;
-	top: -20px;
-	left: 50%;
-	width: 0;
-	height: 0;
-	transform: translateX(-50%);
-	border: 12px solid transparent;
-	border-top: 12px solid #000;
-	border-bottom-width: 0;
-  }
-  .hire th::before {
-    width: 0px !important;
-	}
-   .hire p {
-      text-align: center;
-   }
-   .hire .arrow::before{
-     top:-40px;
-   }
-   #data1 {
-      overflow:scroll;
-   }
   </style>
   <script src='https://ajaxzip3.github.io/ajaxzip3.js' charset='UTF-8'></script>";
   $ajaxzip3 = "AjaxZip3.zip2addr(this,'','address','address');";
@@ -1248,8 +1055,8 @@ function new_internship_form(){
                       </td>
                   </tr>
                   <tr class="intern_days">
-                      <th align="left" nowrap="nowrap">1日の流れ<input type="button" value="＋" class="add pluralBtn">
-                      <input type="button" value="－" class="del pluralBtn"></th>
+                      <th align="left" nowrap="nowrap">1日の流れ<div class="btn-box add"><input type="button" value="＋" class="pluralBtn"><span class="btn-sen">追加する</div>
+                      <div class="btn-box del"><input type="button" value="－" class="pluralBtn"><span class="btn-sen">削除する</span></div></th>
                       <datalist id="data1">
                           <option value="09:00"></option>
                           <option value="10:00"></option>
@@ -1285,8 +1092,8 @@ function new_internship_form(){
                       </td>
                   </tr>
                   <tr class="selection_flows">
-                        <th align="left" nowrap="nowrap">選考フロー<input type="button" value="＋" class="add pluralBtn">
-                            <input type="button" value="－" class="del pluralBtn"></th>
+                        <th align="left" nowrap="nowrap">選考フロー<div class="btn-box add"><input type="button" value="＋" class="pluralBtn"><span class="btn-sen">追加する</div>
+                        <div class="btn-box del"><input type="button" value="－" class="pluralBtn"><span class="btn-sen">削除する</span></div></th>
                         <td>
                             <div class="company-capital"><input class="input-width" type="text" min="0" name="selection_flow[]" placeholder="(例)面接" id="" value=""></div>
                         </td>
