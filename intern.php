@@ -380,12 +380,11 @@ function template_internship2_func($content){
         <img src="'.$image4_url.'">
       </div>';
     }
-	$html .= '
-      <table class="timetable">
-        <tbody>'.$intern_day_pre.'</tbody>
-      </table>
+    $html .= '
+      <p class="intern_list_lead">'.$intern_day_pre.'</p>
     </div>';
   }
+  
   if((!empty($selection_flows[0]['selection_step'])) and (empty($selection_flows_re[0]))){
     $html .= '
     <div class="intern_list">
