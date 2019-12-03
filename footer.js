@@ -1,3 +1,8 @@
+// トップページロゴクリック位置修正
+jQuery(".branding .logo a").empty();
+// ハンバーガーアイコン修正
+jQuery(".menu-toggle").empty();
+
 var $form = document.querySelector('form');// jQueryの $("form")相当
 //jQueryの$(function() { 相当(ただし厳密には違う)
 document.addEventListener('DOMContentLoaded', function() {

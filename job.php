@@ -218,6 +218,7 @@ function edit_job_info(){
         $occupation_html .= '<input type="radio" name="occupation" value="'.$occupation_key.'" />'.$occupation_value;
       }
     }
+    $mission = get_field("募集タイトル",$post_id);
     $job_contents = get_field("業務内容",$post_id);
     $require_person = get_field('求める人物像',$post_id);
     $salary = get_field("給与",$post_id);
@@ -265,6 +266,12 @@ function edit_job_info(){
             <table class="demo01">
                 <tbody>
                     <tr>
+                        <th align="left" nowrap="nowrap">募集タイトル</th>
+                        <td>
+                          <div class="company-name"><input class="input-width" type="text" min="0" name="job_title" id="'.$mission.'" value="" placeholder=""></div>
+                        </td>
+                    </tr>
+                    <tr>
                         <th align="left" nowrap="nowrap">職種</th>
                         <td>
                             <div class="company-established">'.$occupation_html.'</div>
@@ -277,7 +284,7 @@ function edit_job_info(){
                         </td>
                     </tr>
                     <tr>
-                        <th align="left" nowrap="nowrap">求める人物像</th>
+                        <th align="left" nowrap="nowrap">こんな方におすすめ</th>
                         <td>
                             <div class="company-representative"><textarea name="require_person" id="" cols="30" rows="5">'.$require_person.'</textarea></div>
                         </td>
@@ -285,7 +292,7 @@ function edit_job_info(){
                     <tr>
                         <th align="left" nowrap="nowrap">給与</th>
                         <td>
-                            <div class="company-established"><input class="input-width" type="text" min="0" name="salary" id="" value="'.$salary.'"></div>
+                            <div class="company-established"><textarea name="salary" id="" cols="30" rows="5">'.$salary.'</textarea></div>
                         </td>
                     </tr>
                     <tr>
@@ -309,19 +316,19 @@ function edit_job_info(){
                     <tr>
                         <th align="left" nowrap="nowrap">勤務地</th>
                         <td>
-                            <div class="company-capital"><input type="text" class="input-width" min="0" name="address" id="" value="'.$address.'"></div>
+                            <div class="company-capital"><textarea name="address" id="" cols="30" rows="5">'.$address.'</textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">勤務時間</th>
                         <td>
-                            <div class="company-address"><input class="input-width" type="text" min="0" name="worktime" id="" value="'.$worktime.'"></div>
+                            <div class="company-address"><textarea name="worktime" id="" cols="30" rows="5">'.$worktime.'</textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">休日</th>
                         <td>
-                            <div class="company-capital"><input type="text" class="input-width" min="0" name="holiday" id="" value="'.$holiday.'"></div>
+                            <div class="company-capital"><textarea name="holiday" id="" cols="30" rows="5">'.$holiday.'</textarea></div>
                         </td>
                     </tr>
                     <tr>
@@ -522,6 +529,12 @@ function new_job_form(){
             <table class="demo01">
                 <tbody>
                     <tr>
+                        <th align="left" nowrap="nowrap">募集タイトル</th>
+                        <td>
+                          <div class="company-name"><input class="input-width" type="text" min="0" name="job_title" id="" value="" placeholder=""></div>
+                        </td>
+                    </tr>
+                    <tr>
                         <th align="left" nowrap="nowrap">職種</th>
                         <td>
                             <div class="company-established">'.$occupation_html.'</div>
@@ -534,7 +547,7 @@ function new_job_form(){
                         </td>
                     </tr>
                     <tr>
-                        <th align="left" nowrap="nowrap">求める人物像</th>
+                        <th align="left" nowrap="nowrap">こんな方におすすめ</th>
                         <td>
                             <div class="company-representative"><textarea name="require_person" id="" cols="30" rows="5"></textarea></div>
                         </td>
@@ -542,7 +555,7 @@ function new_job_form(){
                     <tr>
                         <th align="left" nowrap="nowrap">給与</th>
                         <td>
-                            <div class="company-established"><input class="input-width" type="text" min="0" name="salary" id="" value=""></div>
+                            <div class="company-established"><textarea name="salary" id="" cols="30" rows="5"></textarea></div>
                         </td>
                     </tr>
                     <tr>
@@ -566,19 +579,19 @@ function new_job_form(){
                     <tr>
                         <th align="left" nowrap="nowrap">勤務地</th>
                         <td>
-                            <div class="company-capital"><input type="text" class="input-width" min="0" name="address" id="" value=""></div>
+                            <div class="company-capital"><textarea name="address" id="" cols="30" rows="5"></textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">勤務時間</th>
                         <td>
-                            <div class="company-address"><input class="input-width" type="text" min="0" name="worktime" id="" value=""></div>
+                            <div class="company-address"><textarea name="worktime" id="" cols="30" rows="5"></textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">休日</th>
                         <td>
-                            <div class="company-capital"><input type="text" class="input-width" min="0" name="holiday" id="" value=""></div>
+                            <div class="company-capital"><textarea name="holiday" id="" cols="30" rows="5"></textarea></div>
                         </td>
                     </tr>
                     <tr>
@@ -652,6 +665,7 @@ function new_company_post_job(){
   if(!empty($_POST["occupation"]) && !empty($_POST["new_post_job"])){
       $user = get_current_user_id();
       $company = wp_get_current_user();
+      $mission = $_POST["job_title"];
       $occupation = $_POST["occupation"];
       $company_name = $company->data->display_name;
       $company_bussiness = $_POST["company_bussiness"];
@@ -687,6 +701,7 @@ function new_company_post_job(){
           if($_POST["occupation"]){
             wp_set_object_terms( $insert_id, $occupation, 'occupation');
           }
+          update_post_meta($insert_id, "募集タイトル", $mission);
           update_post_meta($insert_id, "業務内容", $job_contents);
           update_post_meta($insert_id, "求める人物像", $require_person);
           update_post_meta($insert_id, "給与", $salary);

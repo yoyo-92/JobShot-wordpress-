@@ -6,6 +6,11 @@ function template_event2_func($content){
 
     $post_id = $post->ID;
     $event_type= get_field('イベントタイプ',$post_id);
+    $capacity = get_field('定員',$post_id);
+    preg_match('/[0-9]+/',$capacity,$result);
+    $capacity = (int)$result[0];
+    $capacity += 10;
+    $participant_num = do_shortcode(' [cfdb-count form="/イベント応募*/" filter="job-id='.$post_id.'"]');
 
     $accesses=textarea2array(get_field('交通案内',$post_id));
     $access_html='<div>';
@@ -74,6 +79,9 @@ function template_event2_func($content){
                 </a>';
         }
     }else{
+        $entry_html = '<a>申し込み受付終了</a>';
+    }
+    if($capacity < $participant_num){
         $entry_html = '<a>申し込み受付終了</a>';
     }
 
