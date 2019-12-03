@@ -95,6 +95,8 @@ function internship_form(){
             <input type="checkbox" name="feature[]" id="" value="留学生歓迎">留学生歓迎
             <input type="checkbox" name="feature[]" id="" value="土日のみでも可能">土日のみでも可能
             <input type="checkbox" name="feature[]" id="" value="リモートワーク可能">リモートワーク可能
+            <input type="checkbox" name="feature[]" id="" value="テスト期間考慮">テスト期間考慮
+            <input type="checkbox" name="feature[]" id="" value="短期間の留学考慮">短期間の留学考慮
             <input type="checkbox" name="feature[]" id="" value="女性おすすめ">女性おすすめ
             <input type="checkbox" name="feature[]" id="" value="少数精鋭">少数精鋭
             <input type="checkbox" name="feature[]" id="" value="交通費支給">交通費支給
