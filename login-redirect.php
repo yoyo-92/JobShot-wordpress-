@@ -113,6 +113,7 @@ function apply_redirect(){
         }
         </style>
         ';
+    $html = do_shortcode('[ultimatemember form_id="1596"]');
     return $html;
 }
 add_shortcode('view_apply_redirect','apply_redirect');
