@@ -56,6 +56,9 @@ function view_applylist_func ( $atts ) {
   }else if(get_post_type($post_id)=='event'){
     $phtml = '<h3 class="widget-title">'.get_the_title($post_id).'</h3>';
     $formname = 'イベント応募';
+    if($post_id == 7554){
+      $formname = 'ベイカレント';
+    }
   }else if(get_post_type($post_id)=='summer_internship'){
     $phtml = '<h3 class="widget-title">'.get_the_title($post_id).'</h3>';
     $formname = 'サマーインターン';
