@@ -64,25 +64,39 @@ function template_event2_func($content){
     if(strtotime($event_due_date)>strtotime('now')){
         if($event_type == "job"){
             $entry_html = '
+            <div class="fixed-buttom">
                 <a href="[get_form_address formtype=apply form_id=2489 post_id='.$post->ID.' title='.$post->post_title.']">
                     <button class="button button-apply">イベントに応募する</button>
-                </a>';
+                </a>
+            </div>';
         }elseif($event_type == "internship"){
             $entry_html = '
+            <div class="fixed-buttom">
                 <a href="[get_form_address formtype=apply form_id=897 post_id='.$post->ID.' title='.$post->post_title.']">
                     <button class="button button-apply">イベントに応募する</button>
-                </a>';
+                </a>
+            </div>';
         }else{
             $entry_html = '
+            <div class="fixed-buttom">
                 <a href="[get_form_address formtype=apply form_id=897 post_id='.$post->ID.' title='.$post->post_title.']">
                     <button class="button button-apply">イベントに応募する</button>
-                </a>';
+                </a>
+            </div>';
         }
     }else{
         $entry_html = '<a>申し込み受付終了</a>';
     }
     if($capacity < $participant_num){
-        $entry_html = '<a>申し込み受付終了</a>';
+        $entry_html = '<a>定員に達したため締め切りました</a>';
+    }
+    if($post_id == 7554){
+        $entry_html = '
+        <div class="fixed-buttom">
+            <a href="[get_form_address formtype=apply form_id=7552 post_id='.$post->ID.' title='.$post->post_title.']">
+                <button class="button button-apply">イベントに応募する</button>
+            </a>
+        </div>';
     }
 
     $table_body_html = add_to_table('開催日時', '<div>'.$event_date.'</div>');
@@ -137,7 +151,7 @@ function template_event2_func($content){
             <tbody>'.$table_body_html.'</tbody>
         </table>
     </section>
-    <div class="fixed-buttom">'.$entry_html.'</div>';
+    '.$entry_html;
 
   return do_shortcode($html);
 }

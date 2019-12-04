@@ -65,7 +65,7 @@ function company_side_bar_func($content){
         <div class="navigation-section">
             <div class="navigation-section-head">ヘルプ</div>
             <div class="navigation-section-container">
-                <a class="link-section" href=""><div class="link-title">採用担当者向けヘルプ</div></a>
+                <a class="link-section" href="https://builds-story.com/enterprise/help"><div class="link-title">採用担当者向けヘルプ</div></a>
             </div>
         </div>
         <div class="navigation-section">
@@ -392,4 +392,13 @@ function option_menu_event(){
     return $html;
 }
 add_shortcode("option_menu_event","option_menu_event");
+
+function enterprise_help(){
+    $html = '
+    <iframe src="https://docs.google.com/viewer?url=https://builds-story.com/wp-content/uploads/2019/12/aca46e36c73c4992c3b898a2271fab9e.pdf&embedded=true" width="1000" height="600">
+    </iframe>
+    ';
+    return $html;
+}
+add_shortcode("enterprise_help","enterprise_help");
 ?>

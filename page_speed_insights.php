@@ -9,14 +9,14 @@
  * 内容：レンダリングをブロックする JavaScript(jQuery) を除去
  * 詳細：https://webkikaku.co.jp/blog/wordpress/pagespeed-insights-javascript-css-rendering-block/
  */
-// if (!(is_admin() )) {
-//     function add_async_to_enqueue_script( $url ) {
-//         if ( FALSE === strpos( $url, '.js' ) ) return $url;       //.js以外は対象外
-//         if ( strpos( $url, 'jquery.min.js' ) ) return $url;       //'jquery.min.js'は、asyc対象外
-//         return "$url' async charset='UTF-8";                      // async属性を付与
-//     }
-//     add_filter( 'clean_url', 'add_async_to_enqueue_script', 11, 1 );
-// }
+if (!(is_admin() )) {
+    function add_async_to_enqueue_script( $url ) {
+        if ( FALSE === strpos( $url, '.js' ) ) return $url;       //.js以外は対象外
+        if ( strpos( $url, 'jquery.min.js' ) ) return $url;       //'jquery.min.js'は、asyc対象外
+        return "$url' async charset='UTF-8";                      // async属性を付与
+    }
+    add_filter( 'clean_url', 'add_async_to_enqueue_script', 11, 1 );
+}
 /**
  * 内容：Jetpackのcssを無効化
  * 詳細：https://www.imamura.biz/blog/24020
@@ -48,7 +48,7 @@ function dequeue_plugins_style() {
     if( !is_page( array('apply','contact','published_contact','scout') )){
         wp_dequeue_style( 'contact-form-7' );
     }
-    if( !is_page( array('user','register','login','user_account','mypage_test','apply') )){
+    if( !is_page( array('user','register','login','user_account','mypage_test','apply','interview_apply') )){
         wp_deregister_style( 'um_crop' );
         wp_deregister_style( 'um_modal' );
         wp_deregister_style( 'um_datetime_date' );

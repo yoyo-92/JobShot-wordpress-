@@ -137,7 +137,6 @@ function template_internship2_func($content){
   <p>【求める人物像】</p>
   <p>'.$require_person.'</p>
   ';
-  $intern_time_table = SCF::get('intern_time_table');
   $intern_time_table_array = array();
   foreach ($intern_time_table as $field_name => $field_value ) {
     $intern_array = array();
@@ -212,7 +211,6 @@ function template_internship2_func($content){
     }
   }
 
-  $selection_flows = SCF::get('selection_flow');
   $selection_flow_array = array();
   foreach ($selection_flows as $field_name => $field_value ) {
     $selection_array = array();
@@ -384,7 +382,7 @@ function template_internship2_func($content){
       <p class="intern_list_lead">'.$intern_day_pre.'</p>
     </div>';
   }
-  
+
   if((!empty($selection_flows[0]['selection_step'])) and (empty($selection_flows_re[0]))){
     $html .= '
     <div class="intern_list">

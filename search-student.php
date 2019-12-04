@@ -375,17 +375,17 @@ function student_search_form_func($atts) {
                                 </td>
                             </tr>
 							<tr>
-    <th>ベンチャー企業への就職意欲</th>
-        <td class="cp_ipselect cp_sl03">
-            <select name="will_venture">
-                <option value="">指定なし</option>
-                <option value="1">ファーストキャリアはベンチャー企業が良いと思っている</option>
-                <option value="2">自分に合ったベンチャー企業ならば就職してみたい</option>
-                <option value="3">ベンチャー企業に少しは興味がある</option>
-                <option value="４">ベンチャー企業には全く興味がない</option>
-            </select>
-        </td>
-</tr>
+                                <th>ベンチャー企業への就職意欲</th>
+                                    <td class="cp_ipselect cp_sl03">
+                                        <select name="will_venture">
+                                            <option value="">指定なし</option>
+                                            <option value="1">ファーストキャリアはベンチャー企業が良いと思っている</option>
+                                            <option value="2">自分に合ったベンチャー企業ならば就職してみたい</option>
+                                            <option value="3">ベンチャー企業に少しは興味がある</option>
+                                            <option value="４">ベンチャー企業には全く興味がない</option>
+                                        </select>
+                                    </td>
+                            </tr>
                         </tbody>
                     </table>
                     <hr> 大学:
@@ -635,9 +635,6 @@ function student_search_form_func($atts) {
         </label>
         <label class="btn active">
             <input type="checkbox" name="student_experience[]" value="何かで１番になった" class="checkbox"><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i><span> 何かで１番になった</span>
-        </label>
-        <label class="btn active">
-            <input type="checkbox" name="student_experience[]" value="大学時代に彼氏/彼女がいた" class="checkbox"><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i><span> 大学時代に彼氏/彼女がいた</span>
         </label>
         <label class="btn active">
             <input type="checkbox" name="student_experience[]" value="バックパッカー経験あり" class="checkbox"><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i><span> バックパッカー経験あり</span>
