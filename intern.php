@@ -1361,7 +1361,15 @@ function new_company_post_internship(){
 
           if($insert_id2) {
               /* 投稿に成功した時の処理等を記述 */
-              header('Location: '.get_permalink($insert_id2));
+              if(!empty($_POST["save"])){
+                header('Location: https://builds-story.com/manage_post?posttype=internship');
+              }
+              if(!empty($_POST["preview"])){
+                header('Location: '.get_permalink($insert_id2));
+              }
+              if(!empty($_POST["publish"])){
+                header('Location: '.get_permalink($insert_id2));
+              }
               die();
               $html = '<p>success</p>';
           } else {

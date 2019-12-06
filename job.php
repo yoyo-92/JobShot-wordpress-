@@ -42,6 +42,7 @@ function template_job2_func($content){
     $company_bussiness = nl2br(get_field("事業内容",$company_id));
     $job_contents = nl2br(get_field("業務内容",$post_id));
     $salary = get_field("給与",$post_id);
+    $recruit_capacity = get_field("採用予定人数",$post_id);
     $target = nl2br(get_field("応募資格",$post_id));
     $allowance = nl2br(get_field("待遇",$post_id));
     $welfare = nl2br(get_field("福利厚生",$post_id));
@@ -167,6 +168,10 @@ function template_job2_func($content){
               <td>'.$salary.'</td>
             </tr>
             <tr>
+              <th>採用予定人数</th>
+              <td>'.$recruit_capacity.'</td>
+            </tr>
+            <tr>
               <th>応募条件</th>
               <td>'.$target.'</td>
             </tr>
@@ -213,15 +218,16 @@ function edit_job_info(){
     $occupation_html = '';
     foreach($occupation_array as $occupation_key => $occupation_value){
       if($regist_occupation == $occupation_value){
-        $occupation_html .= '<input type="radio" name="occupation" value="'.$occupation_key.'" checked="checked" />'.$occupation_value;
+        $occupation_html .= '<div><input type="radio" name="occupation" value="'.$occupation_key.'" checked="checked" />'.$occupation_value.'</div>';
       }else{
-        $occupation_html .= '<input type="radio" name="occupation" value="'.$occupation_key.'" />'.$occupation_value;
+        $occupation_html .= '<div><input type="radio" name="occupation" value="'.$occupation_key.'" />'.$occupation_value.'</div>';
       }
     }
     $mission = get_field("募集タイトル",$post_id);
     $job_contents = get_field("業務内容",$post_id);
     $require_person = get_field('求める人物像',$post_id);
     $salary = get_field("給与",$post_id);
+    $recruit_capacity = get_field("採用予定人数",$post_id);
     $skill_requirements = get_field('応募資格',$post_id);
     $allowance =get_field("待遇",$post_id);
     $welfare =get_field("福利厚生",$post_id);
@@ -258,89 +264,114 @@ function edit_job_info(){
       }
     </style>";
 
+    $post_button_html = '
+    <div class="submitbox">
+      <div id="minor-publishing">
+        <div class="minor_publishing_actions">
+          <div class="save_action">
+            <input type="submit" name="save" id="save-post" value="下書きとして保存" class="button save_post_button">
+          </div>
+          <div class="preview_action">
+            <input type="submit" name="preview" id="save-post" value="プレビュー" class="button save_post_button">
+          </div>
+        </div>
+      </div>
+      <div class="major_publishing_actions">
+        <div class="publishing_action">
+          <input type="submit" name="publish" id="publish" class="button button-primary button-large" value="公開">
+        </div>
+      </div>
+    </div>';
+
     $edit_html =  $style_html.'
     <h2 class="maintitle">新卒情報</h2>
     <form action="https://builds-story.com/edit_job?post_id='.$post_id.'" method="POST" enctype="multipart/form-data">
       <div class="tab_content_description">
         <p class="c-txtsp">
-            <table class="demo01">
+            <table class="demo01 new_intern_table">
                 <tbody>
                     <tr>
-                        <th align="left" nowrap="nowrap">募集タイトル</th>
+                        <th align="left" nowrap="nowrap">キャッチコピー</th>
                         <td>
-                          <div class="company-name"><input class="input-width" type="text" min="0" name="job_title" id="'.$mission.'" value="" placeholder=""></div>
+                          <div class="company-name"><input class="input-width" type="text" min="0" name="job_title" id="'.$mission.'" value="" placeholder="(例) 圧倒的なスピードで成長する〇〇ベンチャー"></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">職種</th>
                         <td>
-                            <div class="company-established">'.$occupation_html.'</div>
+                          <div class="company-established new_intern_occupation">'.$occupation_html.'</div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">業務内容</th>
                         <td>
-                            <div class="company-representative"><textarea name="job_contents" id="" cols="30" rows="5">'.$job_contents.'</textarea></div>
+                            <div class="company-representative"><textarea name="job_contents" id="" cols="30" rows="12" placeholder="(例)&#13;&#10;・社内イベントや表彰式等の企画、実施&#13;&#10;・営業成績管理や財務、経理の管理&#13;&#10;・採用業務や人材教育制度の企画、実施">'.$job_contents.'</textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">こんな方におすすめ</th>
                         <td>
-                            <div class="company-representative"><textarea name="require_person" id="" cols="30" rows="5">'.$require_person.'</textarea></div>
+                            <div class="company-representative"><textarea name="require_person" id="" cols="30" rows="6" placeholder="(例)&#13;&#10;">'.$require_person.'</textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">給与</th>
                         <td>
-                            <div class="company-established"><textarea name="salary" id="" cols="30" rows="5">'.$salary.'</textarea></div>
+                            <div class="company-established"><textarea name="salary" id="" cols="30" rows="4" placeholder="(例)&#13;&#10;ビジネス職 初任給300,000円(大学卒）">'.$salary.'</textarea></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th align="left" nowrap="nowrap">採用予定人数</th>
+                        <td>
+                            <div class="company-established"><textarea name="recruit_capacity" id="" cols="30" rows="4" placeholder="(例)&#13;&#10;10~20名程度">'.$recruit_capacity.'</textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">応募資格</th>
                         <td>
-                            <div class="company-capital"><textarea name="skill_requirements" id="" cols="30" rows="5">'.$skill_requirements.'</textarea></div>
+                            <div class="company-capital"><textarea name="skill_requirements" id="" cols="30" rows="8" >'.$skill_requirements.'</textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">待遇</th>
                         <td>
-                            <div class="company-capital"><textarea name="allowance" id="" cols="30" rows="5">'.$allowance.'</textarea></div>
+                            <div class="company-capital"><textarea name="allowance" id="" cols="30" rows="12" placeholder="(例)&#13;&#10;■昇給&#13;&#10;　年1回&#13;&#10;■賞与&#13;&#10;　年2回（6月・12月）&#13;&#10;■手当&#13;&#10;　通勤手当、資格手当（TOEIC,簿記など）&#13;&#10;　※資格手当は「報奨金・受験料の一部負担など」">'.$allowance.'</textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">福利厚生</th>
                         <td>
-                            <div class="company-capital"><textarea name="welfare" id="" cols="30" rows="5">'.$welfare.'</textarea></div>
+                            <div class="company-capital"><textarea name="welfare" id="" cols="30" rows="12" placeholder="(例)&#13;&#10;■私服勤務可&#13;&#10;■MVP制度（四半期ごとに表彰、副賞あり！）&#13;&#10;■英語学習補助&#13;&#10;■予防注射補助&#13;&#10;■企業年金基金&#13;&#10;■退職金制度">'.$welfare.'</textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">勤務地</th>
                         <td>
-                            <div class="company-capital"><textarea name="address" id="" cols="30" rows="5">'.$address.'</textarea></div>
+                            <div class="company-capital"><textarea name="address" id="" cols="30" rows="6" placeholder="(例)&#13;&#10;東京、大阪、福岡">'.$address.'</textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">勤務時間</th>
                         <td>
-                            <div class="company-address"><textarea name="worktime" id="" cols="30" rows="5">'.$worktime.'</textarea></div>
+                            <div class="company-address"><textarea name="worktime" id="" cols="30" rows="6" placeholder="(例)&#13;&#10;フレックスタイム制（コアタイム 11:00～14:00、標準労働時間7時間）">'.$worktime.'</textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">休日</th>
                         <td>
-                            <div class="company-capital"><textarea name="holiday" id="" cols="30" rows="5">'.$holiday.'</textarea></div>
+                            <div class="company-capital"><textarea name="holiday" id="" cols="30" rows="4" placeholder="(例)&#13;&#10;土日祝日">'.$holiday.'</textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">選考の流れ</th>
                         <td>
-                            <div class="company-capital"><textarea name="selection_flows" id="" cols="30" rows="5">'.esc_html($selection_flows).'</textarea></div>
+                            <div class="company-capital"><textarea name="selection_flows" id="" cols="30" rows="8" placeholder="(例)&#13;&#10;ES→GD→面接（複数回）→内定">'.esc_html($selection_flows).'</textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">社員名1</th>
                         <td>
-                            <div class="company-capital"><input type="text" class="input-width" min="0" name="worker_name1" id="" value="'.$worker_name1.'"></div>
+                            <div class="company-capital"><input type="text" class="input-width" min="0" name="worker_name1" id="" value="'.$worker_name1.'" placeholder="(例)&#13;&#10;"></div>
                         </td>
                     </tr>
                     <tr>
@@ -358,13 +389,13 @@ function edit_job_info(){
                     <tr>
                         <th align="left" nowrap="nowrap">社員の声1</th>
                         <td>
-                            <div class="company-capital"><textarea name="worker_voice1" id="" cols="30" rows="5">'.$worker_voice1.'</textarea></div>
+                            <div class="company-capital"><textarea name="worker_voice1" id="" cols="30" rows="5" placeholder="(例)&#13;&#10;">'.$worker_voice1.'</textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">社員名2</th>
                         <td>
-                            <div class="company-capital"><input type="text" class="input-width" min="0" name="worker_name2" id="" value="'.$worker_name2.'"></div>
+                            <div class="company-capital"><input type="text" class="input-width" min="0" name="worker_name2" id="" value="'.$worker_name2.'" placeholder="(例)&#13;&#10;"></div>
                         </td>
                     </tr>
                     <tr>
@@ -382,7 +413,7 @@ function edit_job_info(){
                     <tr>
                         <th align="left" nowrap="nowrap">社員の声2</th>
                         <td>
-                            <div class="company-capital"><textarea name="worker_voice2" id="" cols="30" rows="5">'.$worker_voice2.'</textarea></div>
+                            <div class="company-capital"><textarea name="worker_voice2" id="" cols="30" rows="5" placeholder="(例)&#13;&#10;">'.$worker_voice2.'</textarea></div>
                         </td>
                     </tr>
                 </tbody>
@@ -390,8 +421,7 @@ function edit_job_info(){
         </p>
         <input type="hidden" name="edit_job" value="edit_job">
         <div class="company_edit">
-          <input class="button favorite innactive" style="width:40%; margin-top:15px; background-color:#f9b539; border-radius: 5px;" type="submit" value="更新する">
-          <a class="button favorite innactive" style="width:40%; margin-top:15px; border-radius: 5px;" href="https://builds-story.com/?company='.$company_name.'">戻る</a>
+          '.$post_button_html.'
         </div>
       </div>
     </form>';
@@ -441,6 +471,9 @@ function update_job_info(){
     if($_POST["salary"]){
       update_post_meta($post_id, "給与", $salary);
     }
+    if($_POST["recruit_capacity"]){
+      update_post_meta($post_id, "採用予定人数", $salary);
+    }
     if($_POST["skill_requirements"]){
       update_post_meta($post_id, "応募資格", esc_html($skill_requirements));
     }
@@ -489,7 +522,42 @@ function update_job_info(){
     if($_POST["worker_voice2"]){
       update_post_meta($post_id, "紹介文2", esc_html($worker_voice2));
     }
-    header('Location: https://builds-story.com/?job='.$post_title);
+    if(!empty($_POST["save"])){
+      $post_status = "draft";
+    }
+    if(!empty($_POST["preview"])){
+      $post_status = "draft";
+    }
+    if(!empty($_POST["publish"])){
+      $post_status = "publish";
+    }
+    $post_value = array(
+      'post_author' => get_current_user_id(),
+      'post_title' => $post_title,
+      'post_type' => 'job',
+      'post_status' => $post_status,
+      'ID' => $post_id,
+    );
+    $insert_id2 = wp_insert_post($post_value); //上書き（投稿ステータスを公開に）
+
+    if($insert_id2) {
+        /* 投稿に成功した時の処理等を記述 */
+        if(!empty($_POST["publish"])){
+          header('Location: '.get_permalink($insert_id2));
+        }
+        if(!empty($_POST["preview"])){
+          header('Location: '.get_permalink($insert_id2));
+        }
+        if(!empty($_POST["save"])){
+          header('Location: https://builds-story.com/manage_post?posttype=job');
+        }
+        die();
+        $html = '<p>success</p>';
+    } else {
+        /* 投稿に失敗した時の処理等を記述 */
+        $html = '<p>error1</p>';
+    }
+    header('Location: https://builds-story.com/manage_post?posttype=job');
     die();
   }
 }
@@ -497,10 +565,11 @@ add_action('template_redirect', 'update_job_info');
 
 function new_job_form(){
   $occupation_array= array("engineer"=>"エンジニア","designer"=>"デザイナー","director"=>"ディレクター","marketer"=>"マーケティング","writer"=>"ライター","sales"=>"営業","corporate_staff"=>"事務/コーポレート・スタッフ","human_resources"=>"総務・人事・経理","planning"=>"企画","others"=>"その他");
-  $occupation_html = '';
+  $occupation_html = '<div class="company-established new_intern_occupation">';
   foreach($occupation_array as $occupation_key => $occupation_value){
-    $occupation_html .= '<input type="radio" name="occupation" value="'.$occupation_key.'" />'.$occupation_value;
+    $occupation_html .= '<div><input type="radio" name="occupation" value="'.$occupation_key.'" />'.$occupation_value.'</div>';
   }
+  $occupation_html .= '</div>';
   $style_html = "
     <style type='text/css'>
       .company_edit{
@@ -520,84 +589,108 @@ function new_job_form(){
         opacity: 0;
       }
     </style>";
+    $post_button_html = '
+    <div class="submitbox">
+      <div id="minor-publishing">
+        <div class="minor_publishing_actions">
+          <div class="save_action">
+            <input type="submit" name="save" id="save-post" value="下書きとして保存" class="button save_post_button">
+          </div>
+          <div class="preview_action">
+            <input type="submit" name="preview" id="save-post" value="プレビュー" class="button save_post_button">
+          </div>
+        </div>
+      </div>
+      <div class="major_publishing_actions">
+        <div class="publishing_action">
+          <input type="submit" name="publish" id="publish" class="button button-primary button-large" value="公開">
+        </div>
+      </div>
+    </div>';
 
     $edit_html =  $style_html.'
     <h2 class="maintitle">新卒情報</h2>
     <form action="https://builds-story.com/new_post_job" method="POST" enctype="multipart/form-data">
       <div class="tab_content_description">
         <p class="c-txtsp">
-            <table class="demo01">
+            <table class="demo01 new_intern_table">
                 <tbody>
                     <tr>
-                        <th align="left" nowrap="nowrap">募集タイトル</th>
+                        <th align="left" nowrap="nowrap">キャッチコピー</th>
                         <td>
-                          <div class="company-name"><input class="input-width" type="text" min="0" name="job_title" id="" value="" placeholder=""></div>
+                          <div class="company-name"><input class="input-width" type="text" min="0" name="job_title" id="" value="" placeholder="(例) 圧倒的なスピードで成長する〇〇ベンチャー"></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">職種</th>
                         <td>
-                            <div class="company-established">'.$occupation_html.'</div>
+                            '.$occupation_html.'
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">業務内容</th>
                         <td>
-                            <div class="company-representative"><textarea name="job_contents" id="" cols="30" rows="5"></textarea></div>
+                            <div class="company-representative"><textarea name="job_contents" id="" cols="30" rows="12" placeholder="(例)&#13;&#10;・社内イベントや表彰式等の企画、実施&#13;&#10;・営業成績管理や財務、経理の管理&#13;&#10;・採用業務や人材教育制度の企画、実施"></textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">こんな方におすすめ</th>
                         <td>
-                            <div class="company-representative"><textarea name="require_person" id="" cols="30" rows="5"></textarea></div>
+                            <div class="company-representative"><textarea name="require_person" id="" cols="30" rows="6" placeholder="(例)&#13;&#10;"></textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">給与</th>
                         <td>
-                            <div class="company-established"><textarea name="salary" id="" cols="30" rows="5"></textarea></div>
+                            <div class="company-established"><textarea name="salary" id="" cols="30" rows="4" placeholder="(例)&#13;&#10;ビジネス職 初任給300,000円(大学卒）"></textarea></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th align="left" nowrap="nowrap">採用予定人数</th>
+                        <td>
+                            <div class="company-established"><textarea name="recruit_capacity" id="" cols="30" rows="4" placeholder="(例)&#13;&#10;10~20名程度"></textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">応募資格</th>
                         <td>
-                            <div class="company-capital"><textarea name="skill_requirements" id="" cols="30" rows="5"></textarea></div>
+                            <div class="company-capital"><textarea name="skill_requirements" id="" cols="30" rows="8"></textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">待遇</th>
                         <td>
-                            <div class="company-capital"><textarea name="allowance" id="" cols="30" rows="5"></textarea></div>
+                            <div class="company-capital"><textarea name="allowance" id="" cols="30" rows="12" placeholder="(例)&#13;&#10;■昇給&#13;&#10;　年1回&#13;&#10;■賞与&#13;&#10;　年2回（6月・12月）&#13;&#10;■手当&#13;&#10;　通勤手当、資格手当（TOEIC,簿記など）&#13;&#10;　※資格手当は「報奨金・受験料の一部負担など」"></textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">福利厚生</th>
                         <td>
-                            <div class="company-capital"><textarea name="welfare" id="" cols="30" rows="5"></textarea></div>
+                            <div class="company-capital"><textarea name="welfare" id="" cols="30" rows="12" placeholder="(例)&#13;&#10;■私服勤務可&#13;&#10;■MVP制度（四半期ごとに表彰、副賞あり！）&#13;&#10;■英語学習補助&#13;&#10;■予防注射補助&#13;&#10;■企業年金基金&#13;&#10;■退職金制度"></textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">勤務地</th>
                         <td>
-                            <div class="company-capital"><textarea name="address" id="" cols="30" rows="5"></textarea></div>
+                            <div class="company-capital"><textarea name="address" id="" cols="30" rows="6" placeholder="(例)&#13;&#10;東京、大阪、福岡"></textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">勤務時間</th>
                         <td>
-                            <div class="company-address"><textarea name="worktime" id="" cols="30" rows="5"></textarea></div>
+                            <div class="company-address"><textarea name="worktime" id="" cols="30" rows="6" placeholder="(例)&#13;&#10;フレックスタイム制（コアタイム 11:00～14:00、標準労働時間7時間）"></textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">休日</th>
                         <td>
-                            <div class="company-capital"><textarea name="holiday" id="" cols="30" rows="5"></textarea></div>
+                            <div class="company-capital"><textarea name="holiday" id="" cols="30" rows="4" placeholder="(例)&#13;&#10;土日祝日"></textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">選考の流れ</th>
                         <td>
-                            <div class="company-capital"><textarea name="selection_flows" id="" cols="30" rows="5"></textarea></div>
+                            <div class="company-capital"><textarea name="selection_flows" id="" cols="30" rows="8" placeholder="(例)&#13;&#10;ES→GD→面接（複数回）→内定"></textarea></div>
                         </td>
                     </tr>
                     <tr>
@@ -652,7 +745,7 @@ function new_job_form(){
         </p>
         <input type="hidden" name="new_post_job" value="new_post_job">
         <div class="company_edit">
-          <input class="button favorite innactive" style="width:40%; margin-top:15px; background-color:#f9b539; border-radius: 5px;" type="submit" value="投稿する">
+          '.$post_button_html.'
         </div>
       </div>
     </form>';
@@ -672,6 +765,7 @@ function new_company_post_job(){
       $job_contents = $_POST["job_contents"];
       $require_person = $_POST["require_person"];
       $salary = $_POST["salary"];
+      $recruit_capacity = $_POST["recruit_capacity"];
       $skill_requirements = $_POST["skill_requirements"];
       $allowance = $_POST["allowance"];
       $welfare = $_POST["welfare"];
@@ -696,7 +790,16 @@ function new_company_post_job(){
       if($insert_id) {
           //配列$post_valueに上書き用の値を追加、変更
           $post_value['ID'] = $insert_id; // 下書きした記事のIDを渡す。
-          $post_value['post_status'] = 'draft'; // 公開ステータスをこの時点で公開にする。
+          if(!empty($_POST["save"])){
+            $post_status = "draft";
+          }
+          if(!empty($_POST["preview"])){
+            $post_status = "draft";
+          }
+          if(!empty($_POST["publish"])){
+            $post_status = "publish";
+          }
+          $post_value['post_status'] = $post_status; // 公開ステータスをこの時点で公開にする。
 
           if($_POST["occupation"]){
             wp_set_object_terms( $insert_id, $occupation, 'occupation');
@@ -705,6 +808,7 @@ function new_company_post_job(){
           update_post_meta($insert_id, "業務内容", $job_contents);
           update_post_meta($insert_id, "求める人物像", $require_person);
           update_post_meta($insert_id, "給与", $salary);
+          update_post_meta($insert_id, "採用予定人数", $recruit_capacity);
           update_post_meta($insert_id, "応募資格", $skill_requirements);
           update_post_meta($insert_id, "待遇", $allowance);
           update_post_meta($insert_id, "福利厚生", $welfare);
@@ -737,7 +841,15 @@ function new_company_post_job(){
 
           if($insert_id2) {
               /* 投稿に成功した時の処理等を記述 */
-              header('Location: '.get_permalink($insert_id2));
+              if(!empty($_POST["save"])){
+                header('Location: https://builds-story.com/manage_post?posttype=job');
+              }
+              if(!empty($_POST["preview"])){
+                header('Location: '.get_permalink($insert_id2));
+              }
+              if(!empty($_POST["publish"])){
+                header('Location: '.get_permalink($insert_id2));
+              }
               die();
               $html = '<p>success</p>';
           } else {
