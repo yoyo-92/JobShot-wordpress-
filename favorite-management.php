@@ -41,6 +41,7 @@ function view_favorite_list_func ( $atts ) {
     foreach($favorite_users as $favorite_user){
         $user_id = $favorite_user->data->ID;
         $user_name = $favorite_user->data->display_name;
+        $user_email = $favorite_user->data->user_email;
         $user_login_name = $favorite_user->data->user_login;
         $user_info = '
         <a href="/user?um_user='.$user_login_name.'" style="color:white">
@@ -53,6 +54,9 @@ function view_favorite_list_func ( $atts ) {
         $graduate_year = get_user_meta($user_id,'graduate_year',false)[0];
         $sta=get_remain_mail_num_for_stu_func($favorite_user);
         $scout = '<a href="'.scoutlink($favorite_user).'">'.$sta['status'].'<br>スカウトする（残り'.$sta['remain'].'件）</a>';
+        if (current_user_can('administrator')){
+            $scout .= '<br><p>'.$user_email.'</p>';
+        }
 
         $html .= '<tr>
                     <th>'.$user_info.'</th>
