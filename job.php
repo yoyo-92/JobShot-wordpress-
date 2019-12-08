@@ -311,13 +311,13 @@ function edit_job_info(){
                     <tr>
                         <th align="left" nowrap="nowrap">こんな方におすすめ</th>
                         <td>
-                            <div class="company-representative"><textarea name="require_person" id="" cols="30" rows="6" placeholder="(例)&#13;&#10;">'.$require_person.'</textarea></div>
+                            <div class="company-representative"><textarea name="require_person" id="" cols="30" rows="6" placeholder="(例)&#13;&#10;■コミュニケーション能力のある方&#13;&#10;■向上心のある方&#13;&#10;■自分の信念を持っている方&#13;&#10;■世の中をより良くしたいと考えている方">'.$require_person.'</textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">給与</th>
                         <td>
-                            <div class="company-established"><textarea name="salary" id="" cols="30" rows="4" placeholder="(例)&#13;&#10;ビジネス職 初任給300,000円(大学卒）">'.$salary.'</textarea></div>
+                            <div class="company-established"><textarea name="salary" id="" cols="30" rows="4" placeholder="(例)&#13;&#10;大卒 : 月給255,000円 / 大学院卒 : 月給300,000~（2017年4月入社実績）">'.$salary.'</textarea></div>
                         </td>
                     </tr>
                     <tr>
@@ -329,7 +329,7 @@ function edit_job_info(){
                     <tr>
                         <th align="left" nowrap="nowrap">応募資格</th>
                         <td>
-                            <div class="company-capital"><textarea name="skill_requirements" id="" cols="30" rows="8" >'.$skill_requirements.'</textarea></div>
+                            <div class="company-capital"><textarea name="skill_requirements" id="" cols="30" rows="8" placeholder="(例)&#13;&#10;2021年に卒業見込みの方">'.$skill_requirements.'</textarea></div>
                         </td>
                     </tr>
                     <tr>
@@ -341,7 +341,7 @@ function edit_job_info(){
                     <tr>
                         <th align="left" nowrap="nowrap">福利厚生</th>
                         <td>
-                            <div class="company-capital"><textarea name="welfare" id="" cols="30" rows="12" placeholder="(例)&#13;&#10;■私服勤務可&#13;&#10;■MVP制度（四半期ごとに表彰、副賞あり！）&#13;&#10;■英語学習補助&#13;&#10;■予防注射補助&#13;&#10;■企業年金基金&#13;&#10;■退職金制度">'.$welfare.'</textarea></div>
+                            <div class="company-capital"><textarea name="welfare" id="" cols="30" rows="12" placeholder="(例)&#13;&#10;■私服勤務可&#13;&#10;■MVP制度（四半期ごとに表彰、副賞あり！）&#13;&#10;■英語学習補助&#13;&#10;■予防注射補助&#13;&#10;■企業年金基金&#13;&#10;■退職金制度&#13;&#10;■各種社会保険&#13;&#10;■企業年金制度&#13;&#10;■育児・介護休暇制度&#13;&#10;■社宅制度">'.$welfare.'</textarea></div>
                         </td>
                     </tr>
                     <tr>
@@ -359,7 +359,7 @@ function edit_job_info(){
                     <tr>
                         <th align="left" nowrap="nowrap">休日</th>
                         <td>
-                            <div class="company-capital"><textarea name="holiday" id="" cols="30" rows="4" placeholder="(例)&#13;&#10;土日祝日">'.$holiday.'</textarea></div>
+                            <div class="company-capital"><textarea name="holiday" id="" cols="30" rows="4" placeholder="(例)&#13;&#10;完全週休2日制（土・日）、祝日、年末年始（12月29日 ～ 1月3日）&#13;&#10;年次有給休暇 / 勤務年数に応じ15日 ～ 25日（ただし初年度は12日）&#13;&#10;年2回、 連続5日間の休暇制度">'.$holiday.'</textarea></div>
                         </td>
                     </tr>
                     <tr>
@@ -389,7 +389,7 @@ function edit_job_info(){
                     <tr>
                         <th align="left" nowrap="nowrap">社員の声1</th>
                         <td>
-                            <div class="company-capital"><textarea name="worker_voice1" id="" cols="30" rows="5" placeholder="(例)&#13;&#10;">'.$worker_voice1.'</textarea></div>
+                            <div class="company-capital"><textarea name="worker_voice1" id="" cols="30" rows="12" placeholder="(例)&#13;&#10;やりたいことができる環境が整っている&#13;&#10;大学時代の長期インターンの経験から、「自分がやりたいこと、成し遂げたいことを実現できるか」ということを基準に企業選びを行っていました。&#13;&#10;その中で〇〇を選んだ理由は、若い方がどんどん活躍している（OB訪問やサイトから）ことを知り、年次に関係なく自分のやりたいことを挑戦できる環境だと思い、入社を決めました。&#13;&#10;実際に入社１年目でイベントの企画運営を任せて頂けたり、現在は新規事業の責任者を任せて頂いたりと、挑戦したい人にはどんどん任せて頂ける環境が整っている会社です。">'.$worker_voice1.'</textarea></div>
                         </td>
                     </tr>
                     <tr>
@@ -413,7 +413,7 @@ function edit_job_info(){
                     <tr>
                         <th align="left" nowrap="nowrap">社員の声2</th>
                         <td>
-                            <div class="company-capital"><textarea name="worker_voice2" id="" cols="30" rows="5" placeholder="(例)&#13;&#10;">'.$worker_voice2.'</textarea></div>
+                            <div class="company-capital"><textarea name="worker_voice2" id="" cols="30" rows="12" placeholder="(例)&#13;&#10;">'.$worker_voice2.'</textarea></div>
                         </td>
                     </tr>
                 </tbody>
@@ -636,13 +636,13 @@ function new_job_form(){
                     <tr>
                         <th align="left" nowrap="nowrap">こんな方におすすめ</th>
                         <td>
-                            <div class="company-representative"><textarea name="require_person" id="" cols="30" rows="6" placeholder="(例)&#13;&#10;"></textarea></div>
+                            <div class="company-representative"><textarea name="require_person" id="" cols="30" rows="6" placeholder="(例)&#13;&#10■コミュニケーション能力のある方&#13;&#10;■向上心のある方&#13;&#10;■自分の信念を持っている方&#13;&#10;■世の中をより良くしたいと考えている方"></textarea></div>
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">給与</th>
                         <td>
-                            <div class="company-established"><textarea name="salary" id="" cols="30" rows="4" placeholder="(例)&#13;&#10;ビジネス職 初任給300,000円(大学卒）"></textarea></div>
+                            <div class="company-established"><textarea name="salary" id="" cols="30" rows="4" placeholder="(例)&#13;&#10;大卒 : 月給255,000円 / 大学院卒 : 月給300,000~（2017年4月入社実績）"></textarea></div>
                         </td>
                     </tr>
                     <tr>
@@ -654,7 +654,7 @@ function new_job_form(){
                     <tr>
                         <th align="left" nowrap="nowrap">応募資格</th>
                         <td>
-                            <div class="company-capital"><textarea name="skill_requirements" id="" cols="30" rows="8"></textarea></div>
+                            <div class="company-capital"><textarea name="skill_requirements" id="" cols="30" rows="8" placeholder="(例)&#13;&#10;2021年に卒業見込みの方"></textarea></div>
                         </td>
                     </tr>
                     <tr>
@@ -666,7 +666,7 @@ function new_job_form(){
                     <tr>
                         <th align="left" nowrap="nowrap">福利厚生</th>
                         <td>
-                            <div class="company-capital"><textarea name="welfare" id="" cols="30" rows="12" placeholder="(例)&#13;&#10;■私服勤務可&#13;&#10;■MVP制度（四半期ごとに表彰、副賞あり！）&#13;&#10;■英語学習補助&#13;&#10;■予防注射補助&#13;&#10;■企業年金基金&#13;&#10;■退職金制度"></textarea></div>
+                            <div class="company-capital"><textarea name="welfare" id="" cols="30" rows="12" placeholder="(例)&#13;&#10;■私服勤務可&#13;&#10;■MVP制度（四半期ごとに表彰、副賞あり！）&#13;&#10;■英語学習補助&#13;&#10;■予防注射補助&#13;&#10;■企業年金基金&#13;&#10;■退職金制度&#13;&#10;■各種社会保険&#13;&#10;■企業年金制度&#13;&#10;■育児・介護休暇制度&#13;&#10;■社宅制度"></textarea></div>
                         </td>
                     </tr>
                     <tr>
@@ -684,7 +684,7 @@ function new_job_form(){
                     <tr>
                         <th align="left" nowrap="nowrap">休日</th>
                         <td>
-                            <div class="company-capital"><textarea name="holiday" id="" cols="30" rows="4" placeholder="(例)&#13;&#10;土日祝日"></textarea></div>
+                            <div class="company-capital"><textarea name="holiday" id="" cols="30" rows="4" placeholder="(例)&#13;&#10;完全週休2日制（土・日）、祝日、年末年始（12月29日 ～ 1月3日）&#13;&#10;年次有給休暇 / 勤務年数に応じ15日 ～ 25日（ただし初年度は12日）&#13;&#10;年2回、 連続5日間の休暇制度"></textarea></div>
                         </td>
                     </tr>
                     <tr>
@@ -696,7 +696,7 @@ function new_job_form(){
                     <tr>
                         <th align="left" nowrap="nowrap">社員名1</th>
                         <td>
-                            <div class="company-capital"><input type="text" class="input-width" min="0" name="worker_name1" id="" value=""></div>
+                            <div class="company-capital"><input type="text" class="input-width" min="0" name="worker_name1" id="" value="" placeholder="◯◯ ◯◯さん(営業職2年目)"></div>
                         </td>
                     </tr>
                     <tr>
@@ -714,7 +714,7 @@ function new_job_form(){
                     <tr>
                         <th align="left" nowrap="nowrap">社員の声1</th>
                         <td>
-                            <div class="company-capital"><textarea name="worker_voice1" id="" cols="30" rows="5"></textarea></div>
+                            <div class="company-capital"><textarea name="worker_voice1" id="" cols="30" rows="12" placeholder="(例)&#13;&#10;やりたいことができる環境が整っている&#13;&#10;大学時代の長期インターンの経験から、「自分がやりたいこと、成し遂げたいことを実現できるか」ということを基準に企業選びを行っていました。&#13;&#10;その中で〇〇を選んだ理由は、若い方がどんどん活躍している（OB訪問やサイトから）ことを知り、年次に関係なく自分のやりたいことを挑戦できる環境だと思い、入社を決めました。&#13;&#10;実際に入社１年目でイベントの企画運営を任せて頂けたり、現在は新規事業の責任者を任せて頂いたりと、挑戦したい人にはどんどん任せて頂ける環境が整っている会社です。"></textarea></div>
                         </td>
                     </tr>
                     <tr>
@@ -737,7 +737,7 @@ function new_job_form(){
                     <tr>
                         <th align="left" nowrap="nowrap">社員の声2</th>
                         <td>
-                            <div class="company-capital"><textarea name="worker_voice2" id="" cols="30" rows="5"></textarea></div>
+                            <div class="company-capital"><textarea name="worker_voice2" id="" cols="30" rows="12"></textarea></div>
                         </td>
                     </tr>
                 </tbody>
