@@ -74,7 +74,8 @@ function template_internship2_func($content){
   $image4 = get_field("イメージ画像4",$post_id);
   $accesses=get_post_meta($post_id, '最寄り駅', true);
   if(empty($accesses) && !empty($address)){
-    $accesses=get_time_to_station($address);
+    $accesses=get_time_to_station(Array($address));
+    update_post_meta($post_id, "最寄り駅", $accesses);
   }
   $access_html='<div>';
   foreach($accesses as $access){
@@ -917,7 +918,7 @@ function update_internship_info(){
     $intern_day = $_POST["intern_day"];
     $skills = $_POST["skills"];
     $address = $_POST["address"];
-    $stations=get_time_to_station($address);
+    $stations=get_time_to_station(Array($address));
     $skill_requirements = $_POST["skill_requirements"];
     $prospective_employer = $_POST["prospective_employer"];
     $intern_student_voice = $_POST["intern_student_voice"];
@@ -1301,7 +1302,7 @@ function new_company_post_internship(){
       $intern_contents = $_POST["intern_contents"];
       $skills = $_POST["skills"];
       $address = $_POST["address"];
-      $stations=get_time_to_station($address);
+      $stations=get_time_to_station(Array($address));
       preg_match("/(東京都|北海道|(?:京都|大阪)府|.{6,9}県)((?:四日市|廿日市|野々市|臼杵|かすみがうら|つくばみらい|いちき串木野)市|(?:杵島郡大町|余市郡余市|高市郡高取)町|.{3,12}市.{3,12}区|.{3,9}区|.{3,15}市(?=.*市)|.{3,15}市|.{6,27}町(?=.*町)|.{6,27}町|.{9,24}村(?=.*村)|.{9,24}村)(.*)/",$_POST["address"],$result);
       $prefecture = $result[1];
       $area = $result[2];
