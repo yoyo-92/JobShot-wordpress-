@@ -55,15 +55,4 @@ function get_time_to_station($address){
 }
 add_shortcode('get_time_to_station','get_time_to_station');
 
-Array ( [results] => Array ( [0] => Array ( [address_components] => Array ( [0] => Array ( [long_name] => Faculty of Engineering Bldg.2 [short_name] => Faculty of Engineering Bldg.2 [types] => Array ( [0] => premise ) )
- [1] => Array ( [long_name] => 1 [short_name] => 1 [types] => Array ( [0] => premise ) ) [2] => Array ( [long_name] => 3 [short_name] => 3 [types] => Array ( [0] => political [1] => sublocality [2] => sublocality_level_4 ) ) [3] => Array ( [long_name] => 7-chōme [short_name] => 7-chōme [types] => Array ( [0] => political [1] => sublocality [2] => sublocality_level_3 ) ) [4] => Array ( [long_name] => Hongō [short_name] => Hongō [types] => Array ( [0] => political [1] => sublocality [2] => sublocality_level_2 ) ) [5] => Array ( [long_name] => Bunkyo City [short_name] => Bunkyo City [types] => Array ( [0] => locality [1] => political ) ) [6] => Array ( [long_name] => Tōkyō-to [short_name] => Tōkyō-to [types] => Array ( [0] => administrative_area_level_1 [1] => political ) )
-  [7] => Array ( [long_name] => Japan [short_name] => JP [types] => Array ( [0] => country [1] => political ) ) [8] => Array ( [long_name] => 113-0033 [short_name] => 113-0033 [types] => Array ( [0] => postal_code ) ) )
-   [formatted_address] => Faculty of Engineering Bldg.2, 7-chōme-3-1 Hongō, Bunkyo City, Tōkyō-to 113-0033, Japan [geometry] => Array ( [location] => Array ( [lat] => 35.7141631 [lng] => 139.7621022 ) [location_type] => ROOFTOP [viewport] => Array ( [northeast] => Array ( [lat] => 35.715512080291 [lng] => 139.76345118029 ) [southwest] => Array ( [lat] => 35.712814119708 [lng] => 139.76075321971 ) ) )
-    [place_id] => ChIJjR5fcVGNGGAR2nk304it8jo [plus_code] => Array ( [compound_code] => PQ76+MR Tokyo, 東京都 Japan [global_code] => 8Q7XPQ76+MR )
-     [types] => Array ( [0] => street_address ) ) ) [status] => OK ) 
-Array ( [geocoded_waypoints] => Array ( [0] => Array ( [geocoder_status] => OK [place_id] => ChIJKT-Ojy6MGGARePPzb67Jr1A [types] => Array ( [0] => establishment [1] => point_of_interest [2] => subway_station [3] => transit_station ) )
-[1] => Array ( [geocoder_status] => OK [place_id] => ChIJjR5fcVGNGGAR2nk304it8jo [types] => Array ( [0] => street_address ) ) )
-  [routes] => Array ( [0] => Array ( [bounds] => Array ( [northeast] => Array ( [lat] => 35.7177222 [lng] => 139.7656883 ) [southwest] => Array ( [lat] => 35.7141882 [lng] => 139.7621138 ) )
-   [copyrights] => 地図データ ©2019 Google [legs] => Array ( [0] => Array ( [distance] => Array ( [text] => 0.7 km [value] => 742 ) [duration] => Array ( [text] => 10分 [value] => 584 ) [end_address] => 日本、〒113-0033 東京都文京区本郷７丁目３−１ 工2号館 [end_location] => Array ( [lat] => 35.7141882 [lng] => 
-
 ?>
