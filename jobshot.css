@@ -3714,6 +3714,9 @@ div[data-element="div.um-profile-photo"] .um-dropdown-b .um-dropdown-arr {
     color: #555;
     font-weight: 600;
 }
+#post-24 #panel-24-1-1-0 .widgettitle{
+  display: none;
+}
 /* 検索（並び替え） */
 #panel-1986-0-0-0{
   margin-bottom: 0 !important;
