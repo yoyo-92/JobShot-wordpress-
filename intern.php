@@ -53,6 +53,18 @@ function template_internship2_func($content){
   $image2 = get_field("イメージ画像2",$post_id);
   $image3 = get_field("イメージ画像3",$post_id);
   $image4 = get_field("イメージ画像4",$post_id);
+  $accesses=get_field('最寄り駅',$post_id);
+  $access_html='<div>';
+  foreach($accesses as $access){
+      $access_html.=  '<div><i class="fas fa-train"></i>';
+      foreach($access['line'] as $ln){
+        $access_html.=$ln.'/';
+      }
+      $access_html = rtrim($access_html, '/');
+      $access_html.=' '.$access['name'].' 徒歩'.$access['time'].'・'.$access['distance'];
+      $access_html.='</div>';
+  }
+  $access_html.='</div>';
   if(is_array($image)){
     $image_url = $image["url"];
   }else{
@@ -355,6 +367,12 @@ function template_internship2_func($content){
       $html.='<tr>
       <th>勤務地</th>
       <td><p>'.$address.'</p></td>
+    </tr>';
+    }
+    if(!empty($accesses)){
+      $html.='<tr>
+      <th>アクセス</th>
+      <td><p>'.$access_html.'</p></td>
     </tr>';
     }
     if(!empty($scholarship_value)){
@@ -689,6 +707,7 @@ function update_internship_info(){
     $intern_day = $_POST["intern_day"];
     $skills = $_POST["skills"];
     $address = $_POST["address"];
+    $stations=get_time_to_station($address);
     $skill_requirements = $_POST["skill_requirements"];
     $prospective_employer = $_POST["prospective_employer"];
     $intern_student_voice = $_POST["intern_student_voice"];
@@ -729,6 +748,7 @@ function update_internship_info(){
     }
     if($_POST["address"]){
       update_post_meta($post_id, "勤務地", $address);
+      update_post_meta($insert_id, '最寄り駅', $stations);
       preg_match("/(東京都|北海道|(?:京都|大阪)府|.{6,9}県)((?:四日市|廿日市|野々市|臼杵|かすみがうら|つくばみらい|いちき串木野)市|(?:杵島郡大町|余市郡余市|高市郡高取)町|.{3,12}市.{3,12}区|.{3,9}区|.{3,15}市(?=.*市)|.{3,15}市|.{6,27}町(?=.*町)|.{6,27}町|.{9,24}村(?=.*村)|.{9,24}村)(.*)/",$_POST["address"],$result);
       $prefecture = $result[1];
       $area = $result[2];
@@ -998,6 +1018,7 @@ function new_company_post_internship(){
       $intern_contents = $_POST["intern_contents"];
       $skills = $_POST["skills"];
       $address = $_POST["address"];
+      $stations=get_time_to_station($address);
       preg_match("/(東京都|北海道|(?:京都|大阪)府|.{6,9}県)((?:四日市|廿日市|野々市|臼杵|かすみがうら|つくばみらい|いちき串木野)市|(?:杵島郡大町|余市郡余市|高市郡高取)町|.{3,12}市.{3,12}区|.{3,9}区|.{3,15}市(?=.*市)|.{3,15}市|.{6,27}町(?=.*町)|.{6,27}町|.{9,24}村(?=.*村)|.{9,24}村)(.*)/",$_POST["address"],$result);
       $prefecture = $result[1];
       $area = $result[2];
@@ -1038,6 +1059,7 @@ function new_company_post_internship(){
           update_post_meta($insert_id, '1日の流れ', $intern_day);
           update_post_meta($insert_id, '身につくスキル', $skills);
           update_post_meta($insert_id, '勤務地', $address);
+          update_post_meta($insert_id, '最寄り駅', $stations);
           update_post_meta($insert_id, '応募資格', $skill_requirements);
           update_post_meta($insert_id, 'インターン卒業生の内定先', $prospective_employer);
           update_post_meta($insert_id, '働いているインターン生の声', $intern_student_voice);
