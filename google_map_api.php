@@ -30,11 +30,10 @@ function get_time_to_station($address){
             $get_lines='http://express.heartrails.com/api/json?method=getStations&name='.$sta1;
             $lines_contents=file_get_contents($get_lines);
             $lines_json = json_decode($lines_contents,true);
-            $lines='';
+            $lines=array();
             foreach($lines_json['response']['station'] as $ln){
-                $lines.=$ln['line']+'/';
+                array_push($lines,$ln['line']);
             }
-            rtrim($lines,'/');
             array_push($stations,array('name'=>$sta,'distance'=>$jsonData3["routes"][0]["legs"][0]["distance"]["text"],'time'=>$jsonData3["routes"][0]["legs"][0]["duration"]["text"],'line'=>$lines));
         }
     }
@@ -55,11 +54,10 @@ function get_time_to_station($address){
             $get_lines='http://express.heartrails.com/api/json?method=getStations&name='.$sta1;
             $lines_contents=file_get_contents($get_lines);
             $lines_json = json_decode($lines_contents,true);
-            $lines='';
+            $lines=array();
             foreach($lines_json['response']['station'] as $ln){
-                $lines.=$ln['line']+'/';
+                array_push($lines,$ln['line']);
             }
-            rtrim($lines,'/');
             array_push($stations,array('name'=>$sta,'distance'=>$jsonData4["routes"][0]["legs"][0]["distance"]["text"],'time'=>$jsonData4["routes"][0]["legs"][0]["duration"]["text"],'line'=>$lines));
         }
     }
