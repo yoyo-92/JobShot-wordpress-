@@ -229,7 +229,6 @@ function Ajax_Abroad(){
         }else{
             $user_meta_value  = get_user_meta($user_id,$user_value,false)[0];
         }
-        $user_meta_value  = get_user_meta($user_id,$user_value,false)[0];
         $results .= '
         <div class="um-field um-field-'.$user_value.' um-field-text um-field-type_text" data-key="'.$user_value.'">
             <div class="um-field-label">
@@ -336,6 +335,10 @@ function Ajax_Programming(){
             }
             $user_meta_value = $user_meta_value_sub;
         }
+        $language_result = '';
+        if($user_value == 'experience_programming'){
+            $language_result = $languages;
+        }
         $results .= '
         <div class="um-field um-field-'.$user_value.' um-field-text um-field-type_text" data-key="'.$user_value.'">
             <div class="um-field-label">
@@ -345,7 +348,7 @@ function Ajax_Programming(){
             <div class="um-field-area">
                 <div class="um-field-value">'.$user_meta_value.'</div>
             </div>
-        </div>';
+        </div>'.$language_result;
     }
     $results .= '</div></div>';
     // echoで、クライアント側に返すデータを送信する
@@ -383,7 +386,6 @@ function Ajax_Skill(){
                 </div>
             </div>
         </div>';
-
     // echoで、クライアント側に返すデータを送信する
     echo $results;
     // dieしておかないと末尾に余計なデータ「0」が付与されるので注意
@@ -393,223 +395,182 @@ add_action( 'wp_ajax_ajax_skill', 'Ajax_Skill' );
 add_action( 'wp_ajax_nopriv_ajax_skill', 'Ajax_Skill' );
 
 function Ajax_Community(){
-  $user_query = get_user_by('login',$_GET['um_user']);
-  $user_id = um_profile_id();
-  if(isset($_POST['univ_community'])) {
-      $univ_community = $_POST['univ_community'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'univ_community', $univ_community);
-  }
-  $univ_community = get_user_meta($user_id,'univ_community',false)[0][0];
-  
-  if(isset($_POST['community_univ'])) {
-      $community_univ = $_POST['community_univ'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'community_univ', $community_univ);
-  }
-  $community_univ = get_user_meta($user_id,'community_univ',false)[0];
-  
-  if(isset($_POST['own_pr'])) {
-      $own_pr = $_POST['own_pr'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'own_pr', $own_pr);
-  }
-  $own_pr = get_user_meta($user_id,'own_pr',false)[0];
-
-  $result .= "コミュニティを更新しました。";
-  $results = '
-          <div class="um-field-label um-info-label-community">
-              <label class="um-field-label-text"><i class="um-field-label-community"></i>コミュニティ</label>
-              <span class="um-edit-btn um-edit-btn-community active" onclick="edit_community()">編集</span>
-              <p></p>
-          <div class="um-clear"></div>
-          </div>
-          <div class="um-field-area um-field-area-community inactive">
-          <div class="um-field-value">
-                  <div class="um-field um-field-univ_community um-field-radio um-field-type_radio" data-key="univ_community"><div class="um-field-label"><label for="univ_community-1597">大学時代のコミュニティ</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$univ_community.'</div></div></div>
-                  <div class="um-field um-field-community_univ um-field-textarea um-field-type_textarea" data-key="community_univ"><div class="um-field-label"><label for="community_univ-1597">サークル・部活・団体名</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value"><p>'.$community_univ.'</p></div></div></div>
-                  <div class="um-field um-field-own_pr um-field-textarea um-field-type_textarea" data-key="own_pr"><div class="um-field-label"><label for="own_pr-1597">当コミュニティでどんなことをしたか？</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value"><p>'.$own_pr.'</p></div></div></div>
-          </div>
-          </div>
-      ';
-
-
-// echoで、クライアント側に返すデータを送信する
-  echo $results;
-
-  // dieしておかないと末尾に余計なデータ「0」が付与されるので注意
-  die();
+    $user_id = um_profile_id();
+    $results = '
+            <div class="um-field-label um-info-label-community">
+                <label class="um-field-label-text"><i class="um-field-label-community"></i>コミュニティ</label>
+                <span class="um-edit-btn um-edit-btn-community active" onclick="edit_community()">編集</span>
+                <div class="um-clear"></div>
+            </div>
+            <div class="um-field-area um-field-area-community inactive">
+                <div class="um-field-value">';
+    $user_array = array(
+        "大学時代のコミュニティ"  =>  "univ_community",
+        "サークル・部活・団体名"  =>  "community_univ",
+        "当コミュニティでどんなことをしたか？"  =>  "own_pr",
+    );
+    foreach($user_array as $user_key => $user_value){
+        if(isset($_POST[$user_value])) {
+            $user_meta_value = $_POST[$user_value];
+            update_user_meta( $user_id, $user_value, $user_meta_value);
+        }
+        if($univ_community == 'univ_community'){
+            $user_meta_value  = get_user_meta($user_id,$user_value,false)[0][0];
+        }else{
+            $user_meta_value  = get_user_meta($user_id,$user_value,false)[0];
+        }
+        $results .= '
+        <div class="um-field um-field-'.$user_value.' um-field-text um-field-type_text" data-key="'.$user_value.'">
+            <div class="um-field-label">
+                <label for="'.$user_value.'-1597">'.$user_key.'</label>
+                <div class="um-clear"></div>
+            </div>
+            <div class="um-field-area">
+                <div class="um-field-value">'.$user_meta_value.'</div>
+            </div>
+        </div>';
+    }
+    $results .= '</div></div>';
+    // echoで、クライアント側に返すデータを送信する
+    echo $results;
+    // dieしておかないと末尾に余計なデータ「0」が付与されるので注意
+    die();
 }
 add_action( 'wp_ajax_ajax_community', 'Ajax_Community' );
 add_action( 'wp_ajax_nopriv_ajax_community', 'Ajax_Community' );
 
 function Ajax_Intern(){
-  $user_query = get_user_by('login',$_GET['um_user']);
   $user_id = um_profile_id();
-  if(isset($_POST['internship_experiences'])) {
-      $internship_experiences = $_POST['internship_experiences'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'internship_experiences', $internship_experiences);
-  }
-$internship_experiences = get_user_meta($user_id,'internship_experiences',false)[0][0];
-  
-  if(isset($_POST['internship_company'])) {
-      $internship_company = $_POST['internship_company'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'internship_company', $internship_company);
-  }
-  $internship_company = get_user_meta($user_id,'internship_company',false)[0];
-  
-  if(isset($_POST['experience_internship'])) {
-      $experience_internship = $_POST['experience_internship'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'experience_internship', $experience_internship);
-  }
-  $experience_internship = get_user_meta($user_id,'experience_internship',false)[0];
-  
-  if(isset($_POST['self_internship_PR'])) {
-      $self_internship_PR = $_POST['self_internship_PR'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'self_internship_PR', $self_internship_PR);
-  }
-  $self_internship_PR = get_user_meta($user_id,'self_internship_PR',false)[0];
-  
-  if(isset($_POST['degree_of_internship_interest'])) {
-      $degree_of_internship_interest = $_POST['degree_of_internship_interest'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'degree_of_internship_interest', $degree_of_internship_interest);
-  }
-  $degree_of_internship_interest = get_user_meta($user_id,'degree_of_internship_interest',false)[0];
-
-  $result .= "長期インターンを更新しました。";
   $results = '
-          <div class="um-field-label um-info-label-internship">
-              <label class="um-field-label-text"><i class="um-field-label-internship"></i>長期インターン</label>
-              <span class="um-edit-btn um-edit-btn-internship active" onclick="edit_internship()">編集</span>
-              <p></p>
-          <div class="um-clear"></div>
-          </div>
-          <div class="um-field-area um-field-area-internship inactive">
-          <div class="um-field-value">
-                  <div class="um-field um-field-internship_experiences um-field-radio um-field-type_radio" data-key="internship_experiences"><div class="um-field-label"><label for="internship_experiences-1597">長期インターン経験</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$internship_experiences.'</div></div></div>
-                  <div class="um-field um-field-internship_company um-field-textarea um-field-type_textarea" data-key="internship_company"><div class="um-field-label"><label for="internship_company-1597">長期インターン経験先企業名</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$internship_company.'</div></div></div>
-                  <div class="um-field um-field-experience_internship um-field-textarea um-field-type_textarea" data-key="experience_internship"><div class="um-field-label"><label for="experience_internship-1597">長期インターン先でどんな経験をしたか？</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$experience_internship.'</div></div></div>
-                  <div class="um-field um-field-self_internship_PR um-field-textarea um-field-type_textarea" data-key="self_internship_PR"><div class="um-field-label"><label for="self_internship_PR-1597">その他自己PR</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$self_internship_PR.'</div></div></div>
-                  <div class="um-field um-field-degree_of_internship_interest um-field-select um-field-type_select" data-key="degree_of_internship_interest"><div class="um-field-label"><label for="degree_of_internship_interest-1597">長期有給インターンへの興味の度合い</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$degree_of_internship_interest.'</div></div></div>
-          </div>
-          </div>
-      ';
-
-
-// echoで、クライアント側に返すデータを送信する
-  echo $results;
-
-  // dieしておかないと末尾に余計なデータ「0」が付与されるので注意
-  die();
+    <div class="um-field-label um-info-label-internship">
+        <label class="um-field-label-text"><i class="um-field-label-internship"></i>長期インターン</label>
+        <span class="um-edit-btn um-edit-btn-internship active" onclick="edit_internship()">編集</span>
+        <div class="um-clear"></div>
+    </div>
+    <div class="um-field-area um-field-area-internship inactive">
+        <div class="um-field-value">';
+    $user_array = array(
+        "長期インターン経験"  =>  "internship_experiences",
+        "長期インターン経験先企業名"  =>  "internship_company",
+        "長期インターン先でどんな経験をしたか？"  =>  "experience_internship",
+        "自己PR"  =>  "self_internship_PR",
+        "長期有給インターンへの興味の度合い"  =>  "degree_of_internship_interest",
+    );
+    foreach($user_array as $user_key => $user_value){
+        if(isset($_POST[$user_value])) {
+            $user_meta_value = $_POST[$user_value];
+            update_user_meta( $user_id, $user_value, $user_meta_value);
+        }
+        if($user_value == 'internship_experiences'){
+            $user_meta_value  = get_user_meta($user_id,$user_value,false)[0][0];
+        }else{
+            $user_meta_value  = get_user_meta($user_id,$user_value,false)[0];
+        }
+        $results .= '
+        <div class="um-field um-field-'.$user_value.' um-field-text um-field-type_text" data-key="'.$user_value.'">
+            <div class="um-field-label">
+                <label for="'.$user_value.'-1597">'.$user_key.'</label>
+                <div class="um-clear"></div>
+            </div>
+            <div class="um-field-area">
+                <div class="um-field-value">'.$user_meta_value.'</div>
+            </div>
+        </div>';
+    }
+    $results .= '</div></div>';
+    // echoで、クライアント側に返すデータを送信する
+    echo $results;
+    // dieしておかないと末尾に余計なデータ「0」が付与されるので注意
+    die();
 }
 add_action( 'wp_ajax_ajax_intern', 'Ajax_Intern' );
 add_action( 'wp_ajax_nopriv_ajax_intern', 'Ajax_Intern' );
 
 function Ajax_Interest(){
-  $user_query = get_user_by('login',$_GET['um_user']);
-  $user_id = um_profile_id();
-  if(isset($_POST['bussiness_type'])) {
-      $bussiness_type = $_POST['bussiness_type'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'bussiness_type', $bussiness_type);
-  }
-  $bussiness_type = get_user_meta($user_id,'bussiness_type',false)[0];
-  
-  if(isset($_POST['future_occupations'])) {
-      $future_occupations = $_POST['future_occupations'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'future_occupations', $future_occupations);
-  }
-  $future_occupations = get_user_meta($user_id,'future_occupations',false)[0];
-  
-  if(isset($_POST['will_venture'])) {
-      $will_venture = $_POST['will_venture'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'will_venture', $will_venture);
-  }
-  $will_venture = get_user_meta($user_id,'will_venture',false)[0];
-
-  if(isset($bussiness_type)) {
-      foreach($bussiness_type as $type) {
-        //echo $language;
-        $types .= $type.'</br>';
-      }
-  }
-  if(isset($future_occupations)) {
-    foreach($future_occupations as $occupation) {
-      $occupations .= $occupation.'</br>';
+    $user_id = um_profile_id();
+    $results = '
+            <div class="um-field-label um-info-label-interest">
+                <label class="um-field-label-text"><i class="um-field-label-interest"></i>興味・関心</label>
+                <span class="um-edit-btn um-edit-btn-interest active" onclick="edit_interest()">編集</span>
+                <div class="um-clear"></div>
+            </div>
+            <div class="um-field-area um-field-area-interest inactive">
+                <div class="um-field-value">';
+    $user_array = array(
+        "興味のある業界"  =>  "bussiness_type",
+        "職種"  =>  "future_occupations",
+        "ベンチャーへの就職意欲"  =>  "will_venture",
+    );
+    foreach($user_array as $user_key => $user_value){
+        if(isset($_POST[$user_value])) {
+            $user_meta_value = $_POST[$user_value];
+            update_user_meta( $user_id, $user_value, $user_meta_value);
+        }
+        $user_meta_value  = get_user_meta($user_id,$user_value,false)[0];
+        if($user_value == 'future_occupations' || $user_value == 'bussiness_type'){
+            $user_meta_value_sub = '';
+            foreach($user_meta_value as $user_meta_value_each) {
+                $user_meta_value_sub .= $user_meta_value_each.'</br>' ;
+            }
+            $user_meta_value = $user_meta_value_sub;
+        }
+        $results .= '
+        <div class="um-field um-field-'.$user_value.' um-field-text um-field-type_text" data-key="'.$user_value.'">
+            <div class="um-field-label">
+                <label for="'.$user_value.'-1597">'.$user_key.'</label>
+                <div class="um-clear"></div>
+            </div>
+            <div class="um-field-area">
+                <div class="um-field-value">'.$user_meta_value.'</div>
+            </div>
+        </div>';
     }
-  }
-
-  $result .= "興味・関心を更新しました。";
-  $results = '
-          <div class="um-field-label um-info-label-interest">
-              <label class="um-field-label-text"><i class="um-field-label-interest"></i>興味・関心</label>
-              <span class="um-edit-btn um-edit-btn-interest active" onclick="edit_interest()">編集</span>
-              <p></p>
-          <div class="um-clear"></div>
-          </div>
-          <div class="um-field-area um-field-area-interest inactive">
-          <div class="um-field-value">
-                  <div class="um-field um-field-bussiness_type um-field-checkbox um-field-type_checkbox" data-key="bussiness_type"><div class="um-field-label"><label for="bussiness_type-1597">興味のある業界</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$types.'</div></div></div>
-                  <div class="um-field um-field-future_occupations um-field-checkbox um-field-type_checkbox" data-key="future_occupations"><div class="um-field-label"><label for="future_occupations-1597">職種</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$occupations.'</div></div></div>
-                  <div class="um-field um-field-will_venture um-field-select um-field-type_select" data-key="will_venture"><div class="um-field-label"><label for="will_venture-1597">ベンチャーへの就職意欲</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$will_venture.'</div></div></div>
-          </div>
-          </div>
-      ';
-
-
-
-// echoで、クライアント側に返すデータを送信する
-  echo $results;
-
-  // dieしておかないと末尾に余計なデータ「0」が付与されるので注意
-  die();
+    $results .= '</div></div>';
+    // echoで、クライアント側に返すデータを送信する
+    echo $results;
+    // dieしておかないと末尾に余計なデータ「0」が付与されるので注意
+    die();
 }
 add_action( 'wp_ajax_ajax_interest', 'Ajax_Interest' );
 add_action( 'wp_ajax_nopriv_ajax_interest', 'Ajax_Interest' );
 
 function Ajax_Experience(){
-  $user_query = get_user_by('login',$_GET['um_user']);
-  $user_id = um_profile_id();
-  if(isset($_POST['student_experience'])) {
-      $student_experience = $_POST['student_experience'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'student_experience', $student_experience);
-  }
-  $student_experience = get_user_meta( $user_id, 'student_experience',false)[0];
-  if(isset($student_experience)) {
-    foreach($student_experience as $exp) {
-      $exps .= $exp.'</br>';
+    $user_id = um_profile_id();
+    if(isset($_POST['student_experience'])) {
+        $student_experience = $_POST['student_experience'];
+        update_user_meta( $user_id, 'student_experience', $student_experience);
     }
-  }
+    $student_experience = get_user_meta( $user_id, 'student_experience',false)[0];
+    if(isset($student_experience)) {
+        foreach($student_experience as $exp) {
+        $exps .= $exp.'</br>';
+        }
+    }
 
-  $result .= "学生時代の経験を更新しました。";
-  $results = '
-          <div class="um-field-label um-info-label-experience">
-              <label class="um-field-label-text"><i class="um-field-label-experience"></i>学生時代の経験</label>
-              <span class="um-edit-btn um-edit-btn-experience active" onclick="edit_experience()">編集</span>
-              <p></p>
-          <div class="um-clear"></div>
-          </div>
-          <div class="um-field-area um-field-area-experience inactive">
-          <div class="um-field-value">
-                  <div class="um-field um-field-student_experience um-field-checkbox um-field-type_checkbox" data-key="student_experience"><div class="um-field-label"><label for="student_experience-1597">学生時代の経験</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$exps.'</div></div></div>
-          </div>
-          </div>
-      ';
-
-
-// echoで、クライアント側に返すデータを送信する
-  echo $results;
-
-  // dieしておかないと末尾に余計なデータ「0」が付与されるので注意
-  die();
+    $result .= "学生時代の経験を更新しました。";
+    $results = '
+            <div class="um-field-label um-info-label-experience">
+                <label class="um-field-label-text"><i class="um-field-label-experience"></i>学生時代の経験</label>
+                <span class="um-edit-btn um-edit-btn-experience active" onclick="edit_experience()">編集</span>
+                <div class="um-clear"></div>
+            </div>
+            <div class="um-field-area um-field-area-experience inactive">
+                <div class="um-field-value">
+                    <div class="um-field um-field-student_experience um-field-checkbox um-field-type_checkbox" data-key="student_experience">
+                        <div class="um-field-label">
+                            <label for="student_experience-1597">学生時代の経験</label>
+                            <div class="um-clear"></div>
+                        </div>
+                        <div class="um-field-area">
+                            <div class="um-field-value">'.$exps.'</div>
+                        </div>
+                    </div>
+                </div>
+            </div>';
+    // echoで、クライアント側に返すデータを送信する
+    echo $results;
+    // dieしておかないと末尾に余計なデータ「0」が付与されるので注意
+    die();
 }
 add_action( 'wp_ajax_ajax_experience', 'Ajax_Experience' );
 add_action( 'wp_ajax_nopriv_ajax_experience', 'Ajax_Experience' );
