@@ -95,11 +95,35 @@ function side_bar_widget_func(){
         <a href="https://builds-story.com/interview"><img class="special_contents_img wp-image-5404 aligncenter" src="https://builds-story.com/wp-content/uploads/2019/09/c7b52d093ae61f8c6d8350c2f44d6aaf-e1568541207179.png"></a>
         <br>
         <a href="https://builds-story.com/gift_money"><img class="special_contents_img wp-image-5404 aligncenter" src="https://builds-story.com/wp-content/uploads/2019/10/0cc52848b5f9663458606f357ee63b46.png"></a>
-        <br>
-        <a href="https://builds-story.com/?event=flutter%e3%82%92%e5%ad%a6%e3%81%b3%e3%81%9f%e3%81%84%e4%ba%ba%e9%9b%86%e3%81%be%e3%82%8c%ef%bc%81-finc-x-jobshot%e3%82%a8%e3%83%b3%e3%82%b8%e3%83%8b%e3%82%a2%e5%8b%89%e5%bc%b7%e4%bc%9a"><img class="special_contents_img wp-image-5404 aligncenter" src="https://builds-story.com/wp-content/uploads/2019/11/3267f35874d4724c1cfa098482b03a3a.png"></a>
-        <br>
-        <a href="https://builds-story.com/?event=%e3%80%90%e5%85%83jp-morgan%e6%96%b0%e5%8d%92%e6%8e%a1%e7%94%a8%e6%8b%85%e5%bd%93%e8%80%85%e3%81%8c%e8%aa%9e%e3%82%8b%ef%bc%81%e3%80%91%e9%9d%9e%e5%b8%b8%e8%ad%98%e5%b0%b1%e6%b4%bb%e7%84%a1%e5%8f%8c"><img class="special_contents_img wp-image-5404 aligncenter" src="https://builds-story.com/wp-content/uploads/2019/11/40a949677bf70ab422ee72c1e1f4e5e5.png"></a>
-    </p>';
+        <br>';
+    $args = array(
+        'post_type' => array( 'event'),
+        'post_status' => array( 'publish' ),
+        'posts_per_page' => 15,
+    );
+    $args += array(
+        'orderby' => 'meta_value',
+        'meta_key' => '開催日',
+        'order'   => 'DESC',
+        'meta_query' => array('value' => date('Y/m/d'),
+        'compare' => '>=',
+        'type' => 'DATE')
+    );
+    $cat_query = new WP_Query($args);
+    while ($cat_query->have_posts()): $cat_query->the_post();
+        $post_id = $post->ID;
+        $event_url=get_permalink($post_id);
+        $event_image = get_field("イメージ画像",$post_id);
+        $event_image_url = $event_image["url"];
+        $event_day = get_field("開催日",$post_id);
+        if($event_day>=date("Y/m/d")){
+            $html .= '
+            <a href="'.$event_url.'"><img class="special_contents_img wp-image-5404 aligncenter" src="'.$event_image_url.'"></a>
+            <br>
+            ';
+        }
+    endwhile;
+    $html .= '</p>';
     return $html;
 }
 add_shortcode("side_bar_widget","side_bar_widget_func");
