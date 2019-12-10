@@ -13,7 +13,6 @@ function get_time_to_station($address){
     $lng = $jsonData["results"][0]["geometry"]["location"]["lng"];
 
     $stations=array();
-    print($lat.$lng);
 
     $url1="https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=".strval($lat).",".strval($lng)."&radius=800&type=train_station&language=ja&key=" . $api_key ;
     $contents1= file_get_contents($url1);
@@ -31,10 +30,11 @@ function get_time_to_station($address){
             $get_lines='http://express.heartrails.com/api/json?method=getStations&name='.$sta1;
             $lines_contents=file_get_contents($get_lines);
             $lines_json = json_decode($lines_contents,true);
-            $lines=array();
+            $lines='';
             foreach($lines_json['response']['station'] as $ln){
-                array_push($lines,$ln['line']);
+                $lines.=$ln['line']+'/';
             }
+            rtrim($lines,'/');
             array_push($stations,array('name'=>$sta,'distance'=>$jsonData3["routes"][0]["legs"][0]["distance"]["text"],'time'=>$jsonData3["routes"][0]["legs"][0]["duration"]["text"],'line'=>$lines));
         }
     }
@@ -55,10 +55,11 @@ function get_time_to_station($address){
             $get_lines='http://express.heartrails.com/api/json?method=getStations&name='.$sta1;
             $lines_contents=file_get_contents($get_lines);
             $lines_json = json_decode($lines_contents,true);
-            $lines=array();
+            $lines='';
             foreach($lines_json['response']['station'] as $ln){
-                array_push($lines,$ln['line']);
+                $lines.=$ln['line']+'/';
             }
+            rtrim($lines,'/');
             array_push($stations,array('name'=>$sta,'distance'=>$jsonData4["routes"][0]["legs"][0]["distance"]["text"],'time'=>$jsonData4["routes"][0]["legs"][0]["duration"]["text"],'line'=>$lines));
         }
     }
