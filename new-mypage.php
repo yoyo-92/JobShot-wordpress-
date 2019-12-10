@@ -3,563 +3,442 @@
 function my_scripts_method() {
     wp_deregister_script('jquery');
     wp_enqueue_script('jquery','https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js', array(), '1.8.3');
-  
 }
 add_action( 'wp_enqueue_scripts', 'my_scripts_method' );
 
 function change_user_pdata(){
-  $user_id = um_profile_id();
-  $user_role_ar = get_user_meta($user_id,'wp_146219050_capabilities',false)[0];
-  $user_role = (array_keys($user_role_ar))[0];
-  $timestamp = time();
-  if($user_role == 'student'){
-  $results = '<form method="post" action=""><input type="hidden" name="user_id" id="user_id" value="'.$user_id.'"><input type="hidden" name="form_id" id="form_id_6120" value="6120"><input type="hidden" name="timestamp" class="um_timestamp" value="'.$timestamp.'">
-<div class="photo-btns">
-<input type="submit" value="更新" class="um-modal-btn um-finish-upload image" data-key="profile_photo" data-change="写真を変更">
-<a href="" class="um-modal-btn alt" data-action="um_remove_modal">キャンセル</a></div>
-</form>';
-  }
-  echo $results;
-  die();
+    $user_id = um_profile_id();
+    $user_roles = get_user_meta($user_id,'wp_146219050_capabilities',false)[0];
+    $timestamp = time();
+    if(in_array("student", $user_roles)){
+        $results = '
+        <form method="post" action="">
+            <input type="hidden" name="user_id" id="user_id" value="'.$user_id.'">
+            <input type="hidden" name="form_id" id="form_id_6120" value="6120">
+            <input type="hidden" name="timestamp" class="um_timestamp" value="'.$timestamp.'">
+            <div class="photo-btns">
+                <input type="submit" value="更新" class="um-modal-btn um-finish-upload image" data-key="profile_photo" data-change="写真を変更">
+                <a href="" class="um-modal-btn alt" data-action="um_remove_modal">キャンセル</a>
+            </div>
+        </form>';
+    }
+    echo $results;
+    die();
 }
 add_action( 'wp_ajax_change_user_pdata', 'change_user_pdata' );
 add_action( 'wp_ajax_nopriv_change_user_pdata', 'change_user_pdata' );
 
 function change_user_cdata(){
-  $user_id = um_profile_id();
-  $user_role_ar = get_user_meta($user_id,'wp_146219050_capabilities',false)[0];
-  $user_role = (array_keys($user_role_ar))[0];
-  $timestamp = time();
-  if($user_role == 'student'){
-  $results = '<form method="post" action=""><input type="hidden" name="user_id" id="user_id" value="'.$user_id.'"><input type="hidden" name="form_id" id="form_id_6120" value="6120"><input type="hidden" name="timestamp" class="um_timestamp" value="'.$timestamp.'">
-<div class="photo-btns">
-<input type="submit" value="更新" class="um-modal-btn um-finish-upload image" data-key="cover_photo" data-change="写真を変更">
-<a href="" class="um-modal-btn alt" data-action="um_remove_modal">キャンセル</a></div>
-</form>';
-  }
-  echo $results;
-  die();
+    $user_id = um_profile_id();
+    $user_roles = get_user_meta($user_id,'wp_146219050_capabilities',false)[0];
+    $timestamp = time();
+    if(in_array("student", $user_roles)){
+    $results = '
+    <form method="post" action="">
+        <input type="hidden" name="user_id" id="user_id" value="'.$user_id.'">
+        <input type="hidden" name="form_id" id="form_id_6120" value="6120">
+        <input type="hidden" name="timestamp" class="um_timestamp" value="'.$timestamp.'">
+        <div class="photo-btns">
+            <input type="submit" value="更新" class="um-modal-btn um-finish-upload image" data-key="cover_photo" data-change="写真を変更">
+            <a href="" class="um-modal-btn alt" data-action="um_remove_modal">キャンセル</a>
+        </div>
+    </form>';
+    }
+    echo $results;
+    die();
 }
 add_action( 'wp_ajax_change_user_cdata', 'change_user_cdata' );
 add_action( 'wp_ajax_nopriv_change_user_cdata', 'change_user_cdata' );
 
 
 function view_user_pdata(){
-  $login_user = wp_get_current_user();
-  $user_id = $login_user->data->ID;
-  $user_role_ar = get_user_meta($user_id,'wp_146219050_capabilities',false)[0];
-  $user_role = (array_keys($user_role_ar))[0];
-  $profile_id = um_profile_id();
-  $result = '';
-  if($user_role == 'student'){
-    $result = '<div class="um-dropdown" data-element="div.um-profile-photo" data-position="bc" data-trigger="click" style="top: 74px; width: 200px; left: 4px; right: auto; text-align: center; display: none;">
-<div class="um-dropdown-b">
-<div class="um-dropdown-arr" style="top: -17px; left: 87px; right: auto;"><i class="um-icon-arrow-up-b"></i></div><ul>
-<li><a href="javascript:void(0);" class="um-manual-trigger" data-parent=".um-profile-photo" data-child=".um-btn-auto-width">写真を変更</a></li>
-<li><a href="javascript:void(0);" class="um-reset-profile-photo" data-user_id="'.$profile_id.'" data-default_src="https://builds-story.com/wp-content/uploads/2019/01/72c10119609beb94909b6a4f65a3d12b.jpeg">写真を削除</a></li>
-<li><a href="javascript:void(0);" class="um-dropdown-hide">キャンセル</a></li></ul></div></div></div>
-';
-  }
-  echo $result;
-  die();
+    $login_user = wp_get_current_user();
+    $user_roles = $login_user->roles;
+    $profile_id = um_profile_id();
+    $result = '';
+    if(in_array("student", $user_roles)){
+        $result = '
+        <div class="um-dropdown" data-element="div.um-profile-photo" data-position="bc" data-trigger="click" style="top: 74px; width: 200px; left: 4px; right: auto; text-align: center; display: none;">
+            <div class="um-dropdown-b">
+                <div class="um-dropdown-arr" style="top: -17px; left: 87px; right: auto;">
+                    <i class="um-icon-arrow-up-b"></i>
+                </div>
+                <ul>
+                    <li><a href="javascript:void(0);" class="um-manual-trigger" data-parent=".um-profile-photo" data-child=".um-btn-auto-width">写真を変更</a></li>
+                    <li><a href="javascript:void(0);" class="um-reset-profile-photo" data-user_id="'.$profile_id.'" data-default_src="https://builds-story.com/wp-content/uploads/2019/01/72c10119609beb94909b6a4f65a3d12b.jpeg">写真を削除</a></li>
+                    <li><a href="javascript:void(0);" class="um-dropdown-hide">キャンセル</a></li>
+                </ul>
+            </div>
+        </div>';
+    }
+    echo $result;
+    die();
 }
 add_action( 'wp_ajax_view_user_pdata', 'view_user_pdata' );
 add_action( 'wp_ajax_nopriv_view_user_pdata', 'view_user_pdata' );
 
 function view_user_cdata(){
-  $login_user = wp_get_current_user();
-  $user_id = $login_user->data->ID;
-  $user_role_ar = get_user_meta($user_id,'wp_146219050_capabilities',false)[0];
-  $user_role = (array_keys($user_role_ar))[0];
-  $profile_id = um_profile_id();
-  $result = '';
-  if($user_role == 'student'){
-    $result = '<div class="um-dropdown" data-element="div.um-cover" data-position="bc" data-trigger="click" style="top: 203.5px; width: 200px; left: 300px; right: auto; text-align: center; display: none;"><div class="um-dropdown-b">
-<div class="um-dropdown-arr" style="top: -17px; left: 87px; right: auto;">
-<i class="um-icon-arrow-up-b"></i></div><ul><li>
-<a href="javascript:void(0);" class="um-manual-trigger" data-parent=".um-cover" data-child=".um-btn-auto-width">カバー写真を変更</a>
-</li>
-<li>
-<a href="javascript:void(0);" class="um-reset-cover-photo" data-user_id="'.$profile_id.'">削除</a>
-</li>
-<li>
-<a href="javascript:void(0);" class="um-dropdown-hide">キャンセル</a>
-</li>
-</ul>
-</div>
-</div>
-';
-  }
-  echo $result;
-  die();
+    $login_user = wp_get_current_user();
+    $user_roles = $login_user->roles;
+    $profile_id = um_profile_id();
+    $result = '';
+    if(in_array("student", $user_roles)){
+        $result = '
+        <div class="um-dropdown" data-element="div.um-cover" data-position="bc" data-trigger="click" style="top: 203.5px; width: 200px; left: 300px; right: auto; text-align: center; display: none;"><div class="um-dropdown-b">
+            <div class="um-dropdown-arr" style="top: -17px; left: 87px; right: auto;">
+                <i class="um-icon-arrow-up-b"></i>
+            </div>
+            <ul>
+                <li><a href="javascript:void(0);" class="um-manual-trigger" data-parent=".um-cover" data-child=".um-btn-auto-width">カバー写真を変更</a></li>
+                <li><a href="javascript:void(0);" class="um-reset-cover-photo" data-user_id="'.$profile_id.'">削除</a></li>
+                <li><a href="javascript:void(0);" class="um-dropdown-hide">キャンセル</a></li>
+            </ul>
+        </div>';
+    }
+    echo $result;
+    die();
 }
 add_action( 'wp_ajax_view_user_cdata', 'view_user_cdata' );
 add_action( 'wp_ajax_nopriv_view_user_cdata', 'view_user_cdata' );
 
 function Ajax_Base(){
-  $user_query = get_user_by('login',$_GET['um_user']);
-  $user_id = um_profile_id();
-  
-  if(isset($_POST['region-6120'])) {
-      $prefecture = $_POST['region-6120'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'region', $prefecture);
-  }
-  $prefecture  = get_user_meta($user_id,'region',false)[0];
-
-  if(isset($_POST['highschool-6120'])) {
-       $highschool = $_POST['highschool-6120'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'highschool', $highschool);
-  }
-  $highschool = get_user_meta($user_id,'highschool')[0];
-  
-  if(isset($_POST['gender'])) {
-       $gender = $_POST['gender'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'gender', $gender);
-  }
-  $gender = get_user_meta($user_id,'gender',false)[0][0];
-  
-  $result = "基本情報を更新しました。";
-  $results = '<div class="um-field-label um-info-label-base">
-              <label class="um-field-label-text"><i class="um-field-label-base"></i>基本情報</label>
-              <span class="um-edit-btn um-edit-btn-base active" onclick="edit_base()">編集</span>
-              <p></p>
-          <div class="um-clear"></div>
-          </div>
-          <div class="um-field-area um-field-area-base inactive">
-          <div class="um-field-value">
-                  <div class="um-field um-field-region um-field-text um-field-type_text" data-key="region"><div class="um-field-label"><label for="region-6120">都道府県</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$prefecture.'</div></div></div>
-                  <div class="um-field um-field-gender um-field-radio um-field-type_radio" data-key="gender"><div class="um-field-label"><label for="gender-6120">性別</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$gender.'</div></div></div>
-                  <div class="um-field um-field-highschool um-field-text um-field-type_text" data-key="highschool"><div class="um-field-label"><label for="highschool-6120">出身高校</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$highschool.'</div></div></div>
-          </div>
-          </div>
-          ';
-// echoで、クライアント側に返すデータを送信する
-  echo $results;
-
-  // dieしておかないと末尾に余計なデータ「0」が付与されるので注意
-  die();
+    $user_id = um_profile_id();
+    $results = '
+    <div class="um-field-label um-info-label-base">
+        <label class="um-field-label-text"><i class="um-field-label-base"></i>基本情報</label>
+        <span class="um-edit-btn um-edit-btn-base active" onclick="edit_base()">編集</span>
+        <div class="um-clear"></div>
+    </div>
+    <div class="um-field-area um-field-area-base inactive">
+        <div class="um-field-value">';
+    $user_array = array(
+        "都道府県"  =>  "region",
+        "性別"  =>  "gender",
+        "出身高校"  =>  "highschool",
+    );
+    foreach($user_array as $user_key => $user_value){
+        if($user_value == 'gender'){
+            if(isset($_POST[$user_value])) {
+                $user_meta_value = $_POST[$user_value];
+                // Update/Create User Meta
+                update_user_meta( $user_id, $user_value, $user_meta_value);
+            }
+            $user_meta_value  = get_user_meta($user_id,$user_value,false)[0][0];
+        }else{
+            if(isset($_POST[$user_value.'-6120'])) {
+                $user_meta_value = $_POST[$user_value.'-6120'];
+                // Update/Create User Meta
+                update_user_meta( $user_id, $user_value, $user_meta_value);
+            }
+            $user_meta_value  = get_user_meta($user_id,$user_value,false)[0];
+        }
+        $results .= '
+        <div class="um-field um-field-'.$user_value.' um-field-text um-field-type_text" data-key="'.$user_value.'">
+            <div class="um-field-label">
+                <label for="'.$user_value.'-6120">'.$user_key.'</label>
+                <div class="um-clear"></div>
+            </div>
+            <div class="um-field-area">
+                <div class="um-field-value">'.$user_meta_value.'</div>
+            </div>
+        </div>';
+    }
+    $results = '</div></div>';
+    // echoで、クライアント側に返すデータを送信する
+    echo $results;
+    // dieしておかないと末尾に余計なデータ「0」が付与されるので注意
+    die();
 }
 add_action( 'wp_ajax_ajax_base', 'Ajax_Base' );
 add_action( 'wp_ajax_nopriv_ajax_base', 'Ajax_Base' );
 
 function Ajax_Univ(){
-  $user_query = get_user_by('login',$_GET['um_user']);
-  $user_id = um_profile_id();
-  if(isset($_POST['faculty_lineage'])) {
-      $faculty_lineage = $_POST['faculty_lineage'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'faculty_lineage', $faculty_lineage);
-  }
-  $faculty_lineage = get_user_meta($user_id,'faculty_lineage',false)[0];
-  
-  if(isset($_POST['faculty_department-6120'])) {
-      $faculty_department = $_POST['faculty_department-6120'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'faculty_department', $faculty_department);
-  }
-  $faculty_department = get_user_meta($user_id,'faculty_department',false)[0];
-  
-  if(isset($_POST['graduate_year'])) {
-      $graduate_year = $_POST['graduate_year'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'graduate_year', $graduate_year);
-  }
-  $graduate_year = get_user_meta($user_id,'graduate_year',false)[0];
-  
-  if(isset($_POST['seminar-6120'])) {
-      $seminar = $_POST['seminar-6120'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'seminar', $seminar);
-  }
-  $seminar = get_user_meta($user_id,'seminar',false)[0];
+    $user_id = um_profile_id();
+    if(isset($_POST['faculty_lineage'])) {
+        $faculty_lineage = $_POST['faculty_lineage'];
+        // Update/Create User Meta
+        update_user_meta( $user_id, 'faculty_lineage', $faculty_lineage);
+    }
+    $faculty_lineage = get_user_meta($user_id,'faculty_lineage',false)[0];
 
-  $result .= "学歴を更新しました。";
-  $results = '<div class="um-field-label um-info-label-univ">
-              <label class="um-field-label-text"><i class="um-field-label-univ"></i>学歴</label>
-              <span class="um-edit-btn um-edit-btn-univ active" onclick="edit_univ()">編集</span>
-              <p></p>
-          <div class="um-clear"></div>
-          </div>
-          <div class="um-field-area um-field-area-univ inactive">
-          <div class="um-field-value">
-                  <div class="um-field um-field-faculty_lineage um-field-select um-field-type_select" data-key="faculty_lineage"><div class="um-field-label"><label for="faculty_lineage-1597">学部系統</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$faculty_lineage.'</div></div></div>
-                  <div class="um-field um-field-faculty_department um-field-text um-field-type_text" data-key="faculty_department"><div class="um-field-label"><label for="faculty_department-1597">学部・学科</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$faculty_department.'</div></div></div>
-                  <div class="um-field um-field-graduate_year um-field-select um-field-type_select" data-key="graduate_year"><div class="um-field-label"><label for="graduate_year-1597">卒業年</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$graduate_year.'</div></div></div>
-                  <div class="um-field um-field-seminar um-field-text um-field-type_text" data-key="seminar"><div class="um-field-label"><label for="seminar-1597">ゼミ</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$seminar.'</div></div></div>
-          </div>
-          </div>
-          ';
-  
-// echoで、クライアント側に返すデータを送信する
-  echo $results;
+    if(isset($_POST['faculty_department-6120'])) {
+        $faculty_department = $_POST['faculty_department-6120'];
+        // Update/Create User Meta
+        update_user_meta( $user_id, 'faculty_department', $faculty_department);
+    }
+    $faculty_department = get_user_meta($user_id,'faculty_department',false)[0];
 
-  // dieしておかないと末尾に余計なデータ「0」が付与されるので注意
-  die();
+    if(isset($_POST['graduate_year'])) {
+        $graduate_year = $_POST['graduate_year'];
+        // Update/Create User Meta
+        update_user_meta( $user_id, 'graduate_year', $graduate_year);
+    }
+    $graduate_year = get_user_meta($user_id,'graduate_year',false)[0];
+
+    if(isset($_POST['seminar-6120'])) {
+        $seminar = $_POST['seminar-6120'];
+        // Update/Create User Meta
+        update_user_meta( $user_id, 'seminar', $seminar);
+    }
+    $seminar = get_user_meta($user_id,'seminar',false)[0];
+
+    $result .= "学歴を更新しました。";
+    $results = '<div class="um-field-label um-info-label-univ">
+                    <label class="um-field-label-text"><i class="um-field-label-univ"></i>学歴</label>
+                    <span class="um-edit-btn um-edit-btn-univ active" onclick="edit_univ()">編集</span>
+                    <div class="um-clear"></div>
+                </div>
+                <div class="um-field-area um-field-area-univ inactive">
+                    <div class="um-field-value">
+                        <div class="um-field um-field-faculty_lineage um-field-select um-field-type_select" data-key="faculty_lineage">
+                            <div class="um-field-label">
+                                <label for="faculty_lineage-1597">学部系統</label>
+                                <div class="um-clear"></div>
+                            </div>
+                            <div class="um-field-area">
+                                <div class="um-field-value">'.$faculty_lineage.'</div>
+                            </div>
+                        </div>
+                        <div class="um-field um-field-faculty_department um-field-text um-field-type_text" data-key="faculty_department">
+                            <div class="um-field-label">
+                                <label for="faculty_department-1597">学部・学科</label>
+                                <div class="um-clear"></div>
+                            </div>
+                            <div class="um-field-area">
+                                <div class="um-field-value">'.$faculty_department.'</div>
+                            </div>
+                        </div>
+                        <div class="um-field um-field-graduate_year um-field-select um-field-type_select" data-key="graduate_year">
+                            <div class="um-field-label">
+                                <label for="graduate_year-1597">卒業年</label>
+                                <div class="um-clear"></div>
+                            </div>
+                            <div class="um-field-area">
+                                <div class="um-field-value">'.$graduate_year.'</div>
+                            </div>
+                        </div>
+                        <div class="um-field um-field-seminar um-field-text um-field-type_text" data-key="seminar">
+                            <div class="um-field-label">
+                                <label for="seminar-1597">ゼミ</label>
+                                <div class="um-clear"></div>
+                            </div>
+                            <div class="um-field-area">
+                                <div class="um-field-value">'.$seminar.'</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+    // echoで、クライアント側に返すデータを送信する
+    echo $results;
+    // dieしておかないと末尾に余計なデータ「0」が付与されるので注意
+    die();
 }
 add_action( 'wp_ajax_ajax_univ', 'Ajax_Univ' );
 add_action( 'wp_ajax_nopriv_ajax_univ', 'Ajax_Univ' );
 
 function Ajax_Abroad(){
-  $user_query = get_user_by('login',$_GET['um_user']);
-  $user_id = um_profile_id();
-  
-  if(isset($_POST['studied_abroad'])) {
-      $studied_abroad = $_POST['studied_abroad'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'studied_abroad', $studied_abroad);
-  }
-  $studied_abroad = get_user_meta($user_id,'studied_abroad',false)[0][0];
+    $user_id = um_profile_id();
 
-  if(isset($_POST['studied_ab_place-6120'])) {
-      $studied_ab_place = $_POST['studied_ab_place-6120'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'studied_ab_place', $studied_ab_place);
-  }
-  $studied_ab_place = get_user_meta($user_id,'studied_ab_place',false)[0];
-  
-  if(isset($_POST['lang_pr'])) {
-      $lang_pr = $_POST['lang_pr'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'lang_pr', $lang_pr);
-  }
-  $lang_pr = get_user_meta($user_id,'lang_pr',false)[0];
-  
-  $result .= "留学を更新しました。";
-  $results = '<div class="um-field-label um-info-label-abroad">
-              <label class="um-field-label-text"><i class="um-field-label-abroad"></i>留学</label>
-              <span class="um-edit-btn um-edit-btn-abroad active" onclick="edit_abroad()">編集</span>
-              <p></p>
-          <div class="um-clear"></div>
-          </div>
-          <div class="um-field-area um-field-area-abroad inactive">
-          <div class="um-field-value">
-                  <div class="um-field um-field-studied_abroad um-field-radio um-field-type_radio" data-key="studied_abroad"><div class="um-field-label"><label for="studied_abroad-1597">留学経験</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$studied_abroad.'</div></div></div>
-                  <div class="um-field um-field-studied_ab_place um-field-text um-field-type_text" data-key="studied_ab_place"><div class="um-field-label"><label for="studied_ab_place-1597">留学先</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$studied_ab_place.'</div></div></div>
-                  <div class="um-field um-field-lang_pr um-field-textarea um-field-type_textarea" data-key="lang_pr">  <div class="um-field-label"><label for="lang_pr-1597">その他</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$lang_pr.'</div></div></div>
-          </div>
-          </div>
-          ';
+    if(isset($_POST['studied_abroad'])) {
+        $studied_abroad = $_POST['studied_abroad'];
+        // Update/Create User Meta
+        update_user_meta( $user_id, 'studied_abroad', $studied_abroad);
+    }
+    $studied_abroad = get_user_meta($user_id,'studied_abroad',false)[0][0];
 
-// echoで、クライアント側に返すデータを送信する
-  echo $results;
+    if(isset($_POST['studied_ab_place-6120'])) {
+        $studied_ab_place = $_POST['studied_ab_place-6120'];
+        // Update/Create User Meta
+        update_user_meta( $user_id, 'studied_ab_place', $studied_ab_place);
+    }
+    $studied_ab_place = get_user_meta($user_id,'studied_ab_place',false)[0];
 
-  // dieしておかないと末尾に余計なデータ「0」が付与されるので注意
-  die();
+    if(isset($_POST['lang_pr'])) {
+        $lang_pr = $_POST['lang_pr'];
+        // Update/Create User Meta
+        update_user_meta( $user_id, 'lang_pr', $lang_pr);
+    }
+    $lang_pr = get_user_meta($user_id,'lang_pr',false)[0];
+
+    $result .= "留学を更新しました。";
+    $results = '<div class="um-field-label um-info-label-abroad">
+                    <label class="um-field-label-text"><i class="um-field-label-abroad"></i>留学</label>
+                    <span class="um-edit-btn um-edit-btn-abroad active" onclick="edit_abroad()">編集</span>
+                    <div class="um-clear"></div>
+                </div>
+                <div class="um-field-area um-field-area-abroad inactive">
+                    <div class="um-field-value">
+                        <div class="um-field um-field-studied_abroad um-field-radio um-field-type_radio" data-key="studied_abroad">
+                            <div class="um-field-label">
+                                <label for="studied_abroad-1597">留学経験</label>
+                                <div class="um-clear"></div>
+                            </div>
+                            <div class="um-field-area">
+                                <div class="um-field-value">'.$studied_abroad.'</div>
+                            </div>
+                        </div>
+                        <div class="um-field um-field-studied_ab_place um-field-text um-field-type_text" data-key="studied_ab_place">
+                            <div class="um-field-label">
+                                <label for="studied_ab_place-1597">留学先</label>
+                                <div class="um-clear"></div>
+                            </div>
+                            <div class="um-field-area">
+                                <div class="um-field-value">'.$studied_ab_place.'</div>
+                            </div>
+                        </div>
+                        <div class="um-field um-field-lang_pr um-field-textarea um-field-type_textarea" data-key="lang_pr">
+                            <div class="um-field-label">
+                                <label for="lang_pr-1597">その他</label>
+                                <div class="um-clear"></div>
+                            </div>
+                            <div class="um-field-area">
+                                <div class="um-field-value">'.$lang_pr.'</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+
+    // echoで、クライアント側に返すデータを送信する
+    echo $results;
+    // dieしておかないと末尾に余計なデータ「0」が付与されるので注意
+    die();
 }
 add_action( 'wp_ajax_ajax_abroad', 'Ajax_Abroad' );
 add_action( 'wp_ajax_nopriv_ajax_abroad', 'Ajax_Abroad' );
 
 function Ajax_Programming(){
-  $user_query = get_user_by('login',$_GET['um_user']);
-  $user_id = um_profile_id();
-  
-  if(isset($_POST['experience_programming'])) {
-      $experience_programming = $_POST['experience_programming'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'experience_programming', $experience_programming);
-  }
-  $experience_programming = get_user_meta($user_id,'experience_programming',false)[0][0];
-  
-  if(isset($_POST['programming_languages'])) {
-      $programming_languages = $_POST['programming_languages'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'programming_languages', $programming_languages);
-  }
-  $programming_languages = get_user_meta($user_id,'programming_languages',false)[0];
-  
+    $user_id = um_profile_id();
 
-  if(isset($_POST['framework'])) {
-      $framework = $_POST['framework'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'framework', $framework);
-  }
-  $framework = get_user_meta($user_id,'framework',false)[0];
+    if(isset($_POST['experience_programming'])) {
+        $experience_programming = $_POST['experience_programming'];
+        // Update/Create User Meta
+        update_user_meta( $user_id, 'experience_programming', $experience_programming);
+    }
+    $experience_programming = get_user_meta($user_id,'experience_programming',false)[0][0];
 
-  if(isset($_POST['GitHub-6120'])) {
-      $Github = $_POST['GitHub-6120'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'Github', $Github);
-  }
-  $Github = get_user_meta($user_id,'GitHub',false)[0];
+    if(isset($_POST['programming_languages'])) {
+        $programming_languages = $_POST['programming_languages'];
+        // Update/Create User Meta
+        update_user_meta( $user_id, 'programming_languages', $programming_languages);
+    }
+    $programming_languages = get_user_meta($user_id,'programming_languages',false)[0];
 
- if(isset($_POST['skill_dev'])) {
-      $skill_dev = $_POST['skill_dev'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'skill_dev', $skill_dev);
-  }
-  $skill_dev = get_user_meta($user_id,'skill_dev',false)[0];
-  if(isset($skill_dev)) {
-      foreach($skill_dev as $dev) {
-        //echo $language;
-        $devs .= $dev.'</br>' ;
-      }
-  }
-  
-   if(isset($_POST['skill_design'])) {
-      $skill_design = $_POST['skill_design'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'skill_design', $skill_design);
-  }
-  $skill_design = get_user_meta($user_id,'skill_design',false)[0];
-  if(isset($skill_design)) {
-      foreach($skill_design as $design) {
-        //echo $language;
-        $designs .= $design.'</br>' ;
-      }
-  }
+    if(isset($_POST['framework'])) {
+        $framework = $_POST['framework'];
+        // Update/Create User Meta
+        update_user_meta( $user_id, 'framework', $framework);
+    }
+    $framework = get_user_meta($user_id,'framework',false)[0];
 
- if(isset($_POST['work'])) {
-      $work = $_POST['work'];
-      // Update/Create User Meta
-      update_user_meta( $user_id, 'work', $work);
-  }
-  $work = get_user_meta($user_id,'work',false)[0];
-  
-  $languages = "";
-  
-  if(isset($_POST['programming_lang_lv_c'])) {
-    $programming_lang_lv_c = $_POST['programming_lang_lv_c'];
-    update_user_meta( $user_id, 'programming_lang_lv_c', $programming_lang_lv_c);
-  }
-  $programming_lang_lv_c = get_user_meta($user_id,'programming_lang_lv_c',false)[0];
-  if($programming_lang_lv_c > 0 and in_array("C言語", $programming_languages)) {
-    $languages .='<div class=" um-field-programming_lang_lv_c um-field-rating um-field-type_rating" data-key="programming_lang_lv_c"><div class="um-field-label"><label for="programming_lang_lv_c-6120">C言語のレベル</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">
-                                      <div class="um-rating-readonly um-raty" id="programming_lang_lv_c" data-key="programming_lang_lv_c" data-number="5" data-score="'.$programming_lang_lv_c.'" title="'.$programming_lang_lv_c.'">';
-  for($i = 1; $i < ($programming_lang_lv_c+1); $i++){
-      $languages .= '<i data-alt="'.$i.'" class="star-on-png" title="'.$programming_lang_lv_c.'"></i>';
-  }
-  for($i = $programming_lang_lv_c+1; $i < 6; $i++){
-      $languages .= '<i data-alt="'.$i.'" class="star-off-png" title="'.$programming_lang_lv_c.'"></i>';
-  }
-  $languages .= '</div></div></div></div>';
-  }
-  
-  if(isset($_POST['programming_lang_lv_cpp'])) {
-    $programming_lang_lv_cpp = $_POST['programming_lang_lv_cpp'];
-    update_user_meta( $user_id, 'programming_lang_lv_cpp', $programming_lang_lv_cpp);
-  }
-  $programming_lang_lv_cpp = get_user_meta($user_id,'programming_lang_lv_cpp',false)[0];
-  if($programming_lang_lv_cpp > 0 and in_array("C++", $programming_languages)) {
-    $languages .='<div class=" um-field-programming_lang_lv_cpp um-field-rating um-field-type_rating" data-key="programming_lang_lv_cpp"><div class="um-field-label"><label for="programming_lang_lv_cpp-6120">C++のレベル</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">
-                                      <div class="um-rating-readonly um-raty" id="programming_lang_lv_cpp" data-key="programming_lang_lv_cpp" data-number="5" data-score="'.$programming_lang_lv_cpp.'" title="'.$programming_lang_lv_cpp.'">';
-   for($i = 1; $i < ($programming_lang_lv_cpp+1); $i++){
-      $languages .= '<i data-alt="'.$i.'" class="star-on-png" title="'.$programming_lang_lv_cpp.'"></i>';
-  }
-  for($i = $programming_lang_lv_cpp+1; $i < 6; $i++){
-      $languages .= '<i data-alt="'.$i.'" class="star-off-png" title="'.$programming_lang_lv_cpp.'"></i>';
-  }
-  $languages .= '</div></div></div></div>';
-    
-  } 
-  if(isset($_POST['programming_lang_lv_cs'])) {
-    $programming_lang_lv_cs = $_POST['programming_lang_lv_cs'];
-    update_user_meta( $user_id, 'programming_lang_lv_cs', $programming_lang_lv_cs);
-  }
-  $programming_lang_lv_cs = get_user_meta($user_id,'programming_lang_lv_cs',false)[0];
-  if($programming_lang_lv_cs > 0 and in_array("C#", $programming_languages)) {
-    $languages .='<div class=" um-field-programming_lang_lv_cs um-field-rating um-field-type_rating" data-key="programming_lang_lv_cs"><div class="um-field-label"><label for="programming_lang_lv_cs-6120">C#のレベル</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">
-                                      <div class="um-rating-readonly um-raty" id="programming_lang_lv_cs" data-key="programming_lang_lv_cs" data-number="5" data-score="'.$programming_lang_lv_cs.'" title="'.$programming_lang_lv_cs.'">';
-  for($i = 1; $i < ($programming_lang_lv_cs+1); $i++){
-      $languages .= '<i data-alt="'.$i.'" class="star-on-png" title="'.$programming_lang_lv_cs.'"></i>';
-  }
-  for($i = $programming_lang_lv_cs+1; $i < 6; $i++){
-      $languages .= '<i data-alt="'.$i.'" class="star-off-png" title="'.$programming_lang_lv_cs.'"></i>';
-  }
-  $languages .= '</div></div></div></div>'; 
-  }
-  if(isset($_POST['programming_lang_lv_m'])) {
-    $programming_lang_lv_m = $_POST['programming_lang_lv_m'];
-    update_user_meta( $user_id, 'programming_lang_lv_m', $programming_lang_lv_m);
-  }
-  $programming_lang_lv_m = get_user_meta($user_id,'programming_lang_lv_m',false)[0];
-  if($programming_lang_lv_m > 0 and in_array("Objective-C", $programming_languages)) {
-    $languages .='<div class=" um-field-programming_lang_lv_m um-field-rating um-field-type_rating" data-key="programming_lang_lv_m"><div class="um-field-label"><label for="programming_lang_lv_m-6120">Object-Cのレベル</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">
-                                      <div class="um-rating-readonly um-raty" id="programming_lang_lv_m" data-key="programming_lang_lv_m" data-number="5" data-score="'.$programming_lang_lv_m.'" title="'.$programming_lang_lv_m.'">';
-  for($i = 1; $i < ($programming_lang_lv_m+1); $i++){
-      $languages .= '<i data-alt="'.$i.'" class="star-on-png" title="'.$programming_lang_lv_m.'"></i>';
-  }
-  for($i = $programming_lang_lv_m+1; $i < 6; $i++){
-      $languages .= '<i data-alt="'.$i.'" class="star-off-png" title="'.$programming_lang_lv_m.'"></i>';
-  }
-  $languages .= '</div></div></div></div>'; 
-  }
-  if(isset($_POST['programming_lang_lv_java'])) {
-    $programming_lang_lv_java = $_POST['programming_lang_lv_java'];
-    update_user_meta( $user_id, 'programming_lang_lv_java', $programming_lang_lv_java);
-  }
-  $programming_lang_lv_java = get_user_meta($user_id,'programming_lang_lv_java',false)[0];
-  if($programming_lang_lv_java > 0 and in_array("Java", $programming_languages)) {
-    $languages .='<div class=" um-field-programming_lang_lv_java um-field-rating um-field-type_rating" data-key="programming_lang_lv_java"><div class="um-field-label"><label for="programming_lang_lv_java-6120">Javaのレベル</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">
-                                      <div class="um-rating-readonly um-raty" id="programming_lang_lv_java" data-key="programming_lang_lv_java" data-number="5" data-score="'.$programming_lang_lv_java.'" title="'.$programming_lang_lv_java.'">';
-  for($i = 1; $i < ($programming_lang_lv_java+1); $i++){
-      $languages .= '<i data-alt="'.$i.'" class="star-on-png" title="'.$programming_lang_lv_java.'"></i>';
-  }
-  for($i = $programming_lang_lv_java+1; $i < 6; $i++){
-      $languages .= '<i data-alt="'.$i.'" class="star-off-png" title="'.$programming_lang_lv_java.'"></i>';
-  }
-  $languages .= '</div></div></div></div>'; 
-  }
-  if(isset($_POST['programming_lang_lv_js'])) {
-    $programming_lang_lv_js = $_POST['programming_lang_lv_js'];
-    update_user_meta( $user_id, 'programming_lang_lv_js', $programming_lang_lv_js);
-  }
-  $programming_lang_lv_js = get_user_meta($user_id,'programming_lang_lv_js',false)[0];
-  if($programming_lang_lv_js > 0 and in_array("JavaScript", $programming_languages)) {
-    $languages .='<div class=" um-field-programming_lang_lv_js um-field-rating um-field-type_rating" data-key="programming_lang_lv_js"><div class="um-field-label"><label for="programming_lang_lv_js-6120">JavaScriptのレベル</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">
-                                      <div class="um-rating-readonly um-raty" id="programming_lang_lv_js" data-key="programming_lang_lv_js" data-number="5" data-score="'.$programming_lang_lv_js.'" title="'.$programming_lang_lv_js.'">';
-  for($i = 1; $i < ($programming_lang_lv_js+1); $i++){
-      $languages .= '<i data-alt="'.$i.'" class="star-on-png" title="'.$programming_lang_lv_js.'"></i>';
-  }
-  for($i = $programming_lang_lv_js+1; $i < 6; $i++){
-      $languages .= '<i data-alt="'.$i.'" class="star-off-png" title="'.$programming_lang_lv_js.'"></i>';
-  }
-  $languages .= '</div></div></div></div>'; 
-  }
-  if(isset($_POST['programming_lang_lv_py'])) {
-    $programming_lang_lv_py = $_POST['programming_lang_lv_py'];
-    update_user_meta( $user_id, 'programming_lang_lv_py', $programming_lang_lv_py);
-  }
-  $programming_lang_lv_py = get_user_meta($user_id,'programming_lang_lv_py',false)[0];
-  if($programming_lang_lv_py > 0 and in_array("Python", $programming_languages)) {
-    $languages .='<div class=" um-field-programming_lang_lv_py um-field-rating um-field-type_rating" data-key="programming_lang_lv_py"><div class="um-field-label"><label for="programming_lang_lv_py-6120">Pythonのレベル</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">
-                                      <div class="um-rating-readonly um-raty" id="programming_lang_lv_py" data-key="programming_lang_lv_py" data-number="5" data-score="'.$programming_lang_lv_py.'" title="'.$programming_lang_lv_py.'">';
-  for($i = 1; $i < ($programming_lang_lv_py+1); $i++){
-      $languages .= '<i data-alt="'.$i.'" class="star-on-png" title="'.$programming_lang_lv_py.'"></i>';
-  }
-  for($i = $programming_lang_lv_py+1; $i < 6; $i++){
-      $languages .= '<i data-alt="'.$i.'" class="star-off-png" title="'.$programming_lang_lv_py.'"></i>';
-  }
-  $languages .= '</div></div></div></div>'; 
-  }
-  if(isset($_POST['programming_lang_lv_php'])) {
-    $programming_lang_lv_php = $_POST['programming_lang_lv_php'];
-    update_user_meta( $user_id, 'programming_lang_lv_php', $programming_lang_lv_php);
-  }
-  $programming_lang_lv_php = get_user_meta($user_id,'programming_lang_lv_php',false)[0];
-  if($programming_lang_lv_php > 0 and in_array("PHP", $programming_languages)) {
-    $languages .='<div class=" um-field-programming_lang_lv_php um-field-rating um-field-type_rating" data-key="programming_lang_lv_php"><div class="um-field-label"><label for="programming_lang_lv_php-6120">PHPのレベル</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">
-                                      <div class="um-rating-readonly um-raty" id="programming_lang_lv_php" data-key="programming_lang_lv_php" data-number="5" data-score="'.$programming_lang_lv_php.'" title="'.$programming_lang_lv_php.'">';
-  for($i = 1; $i < ($programming_lang_lv_php+1); $i++){
-      $languages .= '<i data-alt="'.$i.'" class="star-on-png" title="'.$programming_lang_lv_php.'"></i>';
-  }
-  for($i = $programming_lang_lv_php+1; $i < 6; $i++){
-      $languages .= '<i data-alt="'.$i.'" class="star-off-png" title="'.$programming_lang_lv_php.'"></i>';
-  }
-  $languages .= '</div></div></div></div>'; 
-  }
-  if(isset($_POST['programming_lang_lv_pl'])) {
-    $programming_lang_lv_pl = $_POST['programming_lang_lv_pl'];
-    update_user_meta( $user_id, 'programming_lang_lv_pl', $programming_lang_lv_pl);
-  }
-  $programming_lang_lv_pl = get_user_meta($user_id,'programming_lang_lv_pl',false)[0];
-  if($programming_lang_lv_pl > 0 and in_array("Perl", $programming_languages)) {
-    $languages .='<div class=" um-field-programming_lang_lv_pl um-field-rating um-field-type_rating" data-key="programming_lang_lv_pl"><div class="um-field-label"><label for="programming_lang_lv_pl-6120">Perlのレベル</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">
-                                      <div class="um-rating-readonly um-raty" id="programming_lang_lv_pl" data-key="programming_lang_lv_pl" data-number="5" data-score="'.$programming_lang_lv_pl.'" title="'.$programming_lang_lv_pl.'">';
-  for($i = 1; $i < ($programming_lang_lv_pl+1); $i++){
-      $languages .= '<i data-alt="'.$i.'" class="star-on-png" title="'.$programming_lang_lv_pl.'"></i>';
-  }
-  for($i = $programming_lang_lv_pl+1; $i < 6; $i++){
-      $languages .= '<i data-alt="'.$i.'" class="star-off-png" title="'.$programming_lang_lv_pl.'"></i>';
-  }
-  $languages .= '</div></div></div></div>'; 
-    
-  }
-  if(isset($_POST['programming_lang_lv_rb'])) {
-    $programming_lang_lv_rb = $_POST['programming_lang_lv_rb'];
-    update_user_meta( $user_id, 'programming_lang_lv_rb', $programming_lang_lv_rb);
-  }
-  $programming_lang_lv_rb = get_user_meta($user_id,'programming_lang_lv_rb',false)[0];
-  if($programming_lang_lv_rb > 0 and in_array("Ruby", $programming_languages)) {
-    $languages .='<div class=" um-field-programming_lang_lv_rb um-field-rating um-field-type_rating" data-key="programming_lang_lv_rb"><div class="um-field-label"><label for="programming_lang_lv_rb-6120">Rubyのレベル</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">
-                                      <div class="um-rating-readonly um-raty" id="programming_lang_lv_rb" data-key="programming_lang_lv_rb" data-number="5" data-score="'.$programming_lang_lv_rb.'" title="'.$programming_lang_lv_rb.'">';
-  for($i = 1; $i < ($programming_lang_lv_rb+1); $i++){
-      $languages .= '<i data-alt="'.$i.'" class="star-on-png" title="'.$programming_lang_lv_rb.'"></i>';
-  }
-  for($i = $programming_lang_lv_rb+1; $i < 6; $i++){
-      $languages .= '<i data-alt="'.$i.'" class="star-off-png" title="'.$programming_lang_lv_rb.'"></i>';
-  }
-  $languages .= '</div></div></div></div>'; 
-  }
-  if(isset($_POST['programming_lang_lv_go'])) {
-    $programming_lang_lv_go = $_POST['programming_lang_lv_go'];
-    update_user_meta( $user_id, 'programming_lang_lv_go', $programming_lang_lv_go);
-  }
-  $programming_lang_lv_go = get_user_meta($user_id,'programming_lang_lv_go',false)[0];
-  if($programming_lang_lv_go > 0 and in_array("Go", $programming_languages)) {
-    $languages .='<div class=" um-field-programming_lang_lv_go um-field-rating um-field-type_rating" data-key="programming_lang_lv_go"><div class="um-field-label"><label for="programming_lang_lv_go-6120">Goのレベル</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">
-                                      <div class="um-rating-readonly um-raty" id="programming_lang_lv_go" data-key="programming_lang_lv_cpp" data-number="5" data-score="'.$programming_lang_lv_go.'" title="'.$programming_lang_lv_go.'">';
-  for($i = 1; $i < ($programming_lang_lv_go+1); $i++){
-      $languages .= '<i data-alt="'.$i.'" class="star-on-png" title="'.$programming_lang_lv_go.'"></i>';
-  }
-  for($i = $programming_lang_lv_go+1; $i < 6; $i++){
-      $languages .= '<i data-alt="'.$i.'" class="star-off-png" title="'.$programming_lang_lv_go.'"></i>';
-  }
-  $languages .= '</div></div></div></div>'; 
-  }
-  if(isset($_POST['programming_lang_lv_swift'])) {
-    $programming_lang_lv_swift = $_POST['programming_lang_lv_swift'];
-    update_user_meta( $user_id, 'programming_lang_lv_swift', $programming_lang_lv_swift);
-  }
-  $programming_lang_lv_swift = get_user_meta($user_id,'programming_lang_lv_swift',false)[0];
-  if($programming_lang_lv_swift > 0 and in_array("Swift", $programming_languages)) {
-    $languages .='<div class=" um-field-programming_lang_lv_swift um-field-rating um-field-type_rating" data-key="programming_lang_lv_swift"><div class="um-field-label"><label for="programming_lang_lv_swift-6120">Swiftのレベル</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">
-                                      <div class="um-rating-readonly um-raty" id="programming_lang_lv_swift" data-key="programming_lang_lv_swift" data-number="5" data-score="'.$programming_lang_lv_swift.'" title="'.$programming_lang_lv_swift.'">';
-  for($i = 1; $i < ($programming_lang_lv_swift+1); $i++){
-      $languages .= '<i data-alt="'.$i.'" class="star-on-png" title="'.$programming_lang_lv_swift.'"></i>';
-  }
-  for($i = $programming_lang_lv_swift+1; $i < 6; $i++){
-      $languages .= '<i data-alt="'.$i.'" class="star-off-png" title="'.$programming_lang_lv_swift.'"></i>';
-  }
-  $languages .= '</div></div></div></div>'; 
-  }
-  if(isset($_POST['programming_lang_lv_vb'])) {
-    $programming_lang_lv_vb = $_POST['programming_lang_lv_vb'];
-    update_user_meta( $user_id, 'programming_lang_lv_vb', $programming_lang_lv_vb);
-  }
-  $programming_lang_lv_vb = get_user_meta($user_id,'programming_lang_lv_vb',false)[0];
-  if($programming_lang_lv_vb > 0 and in_array("Visual Basic", $programming_languages)) {
-    $languages .='<div class=" um-field-programming_lang_lv_vb um-field-rating um-field-type_rating" data-key="programming_lang_lv_vb"><div class="um-field-label"><label for="programming_lang_lv_vb-6120">Visual Basicのレベル</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">
-                                      <div class="um-rating-readonly um-raty" id="programming_lang_lv_vb" data-key="programming_lang_lv_vb" data-number="5" data-score="'.$programming_lang_lv_vb.'" title="'.$programming_lang_lv_vb.'">';
-  for($i = 1; $i < ($programming_lang_lv_vb+1); $i++){
-      $languages .= '<i data-alt="'.$i.'" class="star-on-png" title="'.$programming_lang_lv_vb.'"></i>';
-  }
-  for($i = $programming_lang_lv_vb+1; $i < 6; $i++){
-      $languages .= '<i data-alt="'.$i.'" class="star-off-png" title="'.$programming_lang_lv_vb.'"></i>';
-  }
-  $languages .= '</div></div></div></div>'; 
-  }
+    if(isset($_POST['GitHub-6120'])) {
+        $Github = $_POST['GitHub-6120'];
+        // Update/Create User Meta
+        update_user_meta( $user_id, 'Github', $Github);
+    }
+    $Github = get_user_meta($user_id,'GitHub',false)[0];
 
+    if(isset($_POST['skill_dev'])) {
+        $skill_dev = $_POST['skill_dev'];
+        // Update/Create User Meta
+        update_user_meta( $user_id, 'skill_dev', $skill_dev);
+    }
+    $skill_dev = get_user_meta($user_id,'skill_dev',false)[0];
+    if(isset($skill_dev)) {
+        foreach($skill_dev as $dev) {
+            //echo $language;
+            $devs .= $dev.'</br>' ;
+        }
+    }
 
+    if(isset($_POST['skill_design'])) {
+        $skill_design = $_POST['skill_design'];
+        // Update/Create User Meta
+        update_user_meta( $user_id, 'skill_design', $skill_design);
+    }
+    $skill_design = get_user_meta($user_id,'skill_design',false)[0];
+    if(isset($skill_design)) {
+        foreach($skill_design as $design) {
+            //echo $language;
+            $designs .= $design.'</br>' ;
+        }
+    }
 
-  $result .= "プログラミングを更新しました。";
-  $results = '
-          <div class="um-field-label um-info-label-programming">
-              <label class="um-field-label-text"><i class="um-field-label-programming"></i>プログラミング</label>
-              <span class="um-edit-btn um-edit-btn-programming active" onclick="edit_programming()">編集</span>
-              <p></p>
-          <div class="um-clear"></div>
-          </div>
-          <div class="um-field-area um-field-area-programming inactive">
-          <div class="um-field-value">
-                  <div class="um-field um-field-experience_programming um-field-radio um-field-type_radio" data-key="experience_programming"><div class="um-field-label"><label for="experience_programming-1597">プログラミング経験</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$experience_programming.'</div></div></div>'.$languages.'
-                  <div class="um-field um-field-framework um-field-textarea um-field-type_textarea" data-key="framework"><div class="um-field-label"><label for="framework-1597">使用したことのあるフレームワーク・ライブラリ</label><p></p><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$framework.'</div></div></div>
-                  <div class="um-field um-field-GitHub um-field-url um-field-type_url" data-key="GitHub"><div class="um-field-label"><label for="GitHub-1597">GitHubアカウント</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$Github.'</div></div></div>
-                  <div class="um-field um-field-skill_dev um-field-multiselect um-field-type_multiselect" data-key="skill_dev"><div class="um-field-label"><label for="skill_dev-1597">開発ソフトのスキル</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$devs.'</div></div></div>
-                  <div class="um-field um-field-skill_design um-field-multiselect um-field-type_multiselect" data-key="skill_design"><div class="um-field-label"><label for="skill_design-1597">使えるデザイン系アプリケーション</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$designs.'</div></div></div>
-                  <div class="um-field um-field-work um-field-textarea um-field-type_textarea" data-key="work"><div class="um-field-label"><label for="">プログラミング実務経験</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$work.'</div></div></div>
-          </div>
-          </div>
-      ';
+    if(isset($_POST['work'])) {
+        $work = $_POST['work'];
+        // Update/Create User Meta
+        update_user_meta( $user_id, 'work', $work);
+    }
+    $work = get_user_meta($user_id,'work',false)[0];
 
+    $programming_lang_lv_array = array(
+        "C言語"  => "programming_lang_lv_c",
+        "C++"    => "programming_lang_lv_cpp",
+        "C#"  =>  "programming_lang_lv_cs",
+        "Objective-C"  =>  "programming_lang_lv_m",
+        "Java"  =>  "programming_lang_lv_java",
+        "JavaScript"  =>  "programming_lang_lv_js",
+        "Python"  =>  "programming_lang_lv_py",
+        "PHP"  =>  "programming_lang_lv_php",
+        "Perl"  =>  "programming_lang_lv_pl",
+        "Ruby"  =>  "programming_lang_lv_rb",
+        "Go"  =>  "programming_lang_lv_go",
+        "Swift"  =>  "programming_lang_lv_swift",
+        "Visual Basic"  =>  "programming_lang_lv_vb",
+    );
+    $languages = "";
+    foreach( $programming_lang_lv_array as $programming_lang_name => $programming_lang_lv){
+        if(isset($_POST[$programming_lang_lv])){
+            $programming_lang_lv_skill = $_POST[$programming_lang_lv];
+            update_user_meta( $user_id, $programming_lang_lv, $programming_lang_lv_skill);
+        }
+        $programming_lang_lv_skill = get_user_meta($user_id,$programming_lang_lv,false)[0];
+        if($programming_lang_lv_skill > 0 and in_array($programming_lang_name, $programming_languages)) {
+            $languages .='
+                <div class=" um-field-'.$programming_lang_lv.' um-field-rating um-field-type_rating" data-key="'.$programming_lang_lv.'">
+                    <div class="um-field-label">
+                        <label for="'.$programming_lang_lv.'-6120">'.$programming_lang_name.'のレベル</label>
+                        <div class="um-clear"></div>
+                    </div>
+                    <div class="um-field-area">
+                        <div class="um-field-value">
+                            <div class="um-rating-readonly um-raty" id="'.$programming_lang_lv.'" data-key="'.$programming_lang_lv.'" data-number="5" data-score="'.$programming_lang_lv_skill.'" title="'.$programming_lang_lv_skill.'">';
+                    for($i = 1; $i < ($programming_lang_lv_skill+1); $i++){
+                        $languages .= '<i data-alt="'.$i.'" class="star-on-png" title="'.$programming_lang_lv_skill.'"></i>';
+                    }
+                    for($i = $programming_lang_lv_c+1; $i < 6; $i++){
+                        $languages .= '<i data-alt="'.$i.'" class="star-off-png" title="'.$programming_lang_lv_skill.'"></i>';
+                    }
+            $languages .= '</div>
+                        </div>
+                    </div>
+                </div>';
+        }
+    }
 
-// echoで、クライアント側に返すデータを送信する
-  echo $results;
+    $result .= "プログラミングを更新しました。";
+    $results = '
+            <div class="um-field-label um-info-label-programming">
+                <label class="um-field-label-text"><i class="um-field-label-programming"></i>プログラミング</label>
+                <span class="um-edit-btn um-edit-btn-programming active" onclick="edit_programming()">編集</span>
+                <div class="um-clear"></div>
+            </div>
+            <div class="um-field-area um-field-area-programming inactive">
+                <div class="um-field-value">
+                    <div class="um-field um-field-experience_programming um-field-radio um-field-type_radio" data-key="experience_programming"><div class="um-field-label"><label for="experience_programming-1597">プログラミング経験</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$experience_programming.'</div></div></div>'.$languages.'
+                    <div class="um-field um-field-framework um-field-textarea um-field-type_textarea" data-key="framework"><div class="um-field-label"><label for="framework-1597">使用したことのあるフレームワーク・ライブラリ</label><p></p><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$framework.'</div></div></div>
+                    <div class="um-field um-field-GitHub um-field-url um-field-type_url" data-key="GitHub"><div class="um-field-label"><label for="GitHub-1597">GitHubアカウント</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$Github.'</div></div></div>
+                    <div class="um-field um-field-skill_dev um-field-multiselect um-field-type_multiselect" data-key="skill_dev"><div class="um-field-label"><label for="skill_dev-1597">開発ソフトのスキル</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$devs.'</div></div></div>
+                    <div class="um-field um-field-skill_design um-field-multiselect um-field-type_multiselect" data-key="skill_design"><div class="um-field-label"><label for="skill_design-1597">使えるデザイン系アプリケーション</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$designs.'</div></div></div>
+                    <div class="um-field um-field-work um-field-textarea um-field-type_textarea" data-key="work"><div class="um-field-label"><label for="">プログラミング実務経験</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$work.'</div></div></div>
+                </div>
+            </div>
+        ';
 
-  // dieしておかないと末尾に余計なデータ「0」が付与されるので注意
-  die();
+    // echoで、クライアント側に返すデータを送信する
+    echo $results;
+
+    // dieしておかないと末尾に余計なデータ「0」が付与されるので注意
+    die();
 }
 add_action( 'wp_ajax_ajax_programming', 'Ajax_Programming' );
 add_action( 'wp_ajax_nopriv_ajax_programming', 'Ajax_Programming' );
