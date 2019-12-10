@@ -546,8 +546,6 @@ function Ajax_Experience(){
         $exps .= $exp.'</br>';
         }
     }
-
-    $result .= "学生時代の経験を更新しました。";
     $results = '
             <div class="um-field-label um-info-label-experience">
                 <label class="um-field-label-text"><i class="um-field-label-experience"></i>学生時代の経験</label>
