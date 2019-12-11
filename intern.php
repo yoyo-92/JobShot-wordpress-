@@ -1,5 +1,4 @@
 <?php
-
 function template_internship2_func($content){
   global $post;
   $post_id=$post->ID;
@@ -72,6 +71,22 @@ function template_internship2_func($content){
   $image2 = get_field("イメージ画像2",$post_id);
   $image3 = get_field("イメージ画像3",$post_id);
   $image4 = get_field("イメージ画像4",$post_id);
+  $accesses=get_post_meta($post_id, 'station', true);
+  if(empty($accesses) && !empty($address)){
+    $accesses=get_time_to_station(Array($address));
+    update_post_meta($post_id, "station", $accesses);
+  }
+  $access_html='<div>';
+  foreach($accesses as $access){
+      $access_html.=  '<div><i class="fas fa-train"></i>';
+      foreach($access['line'] as $ln){
+        $access_html.=$ln.'/';
+      }
+      $access_html = rtrim($access_html, '/');
+      $access_html.=' '.$access['name'].' 徒歩'.$access['time'].'・'.$access['distance'];
+      $access_html.='</div>';
+  }
+  $access_html.='</div>';
   if(is_array($image)){
     $image_url = $image["url"];
   }else{
@@ -474,6 +489,12 @@ function template_internship2_func($content){
       $html.='<tr>
       <th>勤務地</th>
       <td><p>'.$address.'</p></td>
+    </tr>';
+    }
+    if(!empty($accesses)){
+      $html.='<tr>
+      <th>アクセス</th>
+      <td><p>'.$access_html.'</p></td>
     </tr>';
     }
     if(!empty($scholarship_value)){
@@ -896,6 +917,7 @@ function update_internship_info(){
     $intern_day = $_POST["intern_day"];
     $skills = $_POST["skills"];
     $address = $_POST["address"];
+    $stations=get_time_to_station(Array($address));
     $skill_requirements = $_POST["skill_requirements"];
     $prospective_employer = $_POST["prospective_employer"];
     $intern_student_voice = $_POST["intern_student_voice"];
@@ -949,6 +971,7 @@ function update_internship_info(){
     }
     if($_POST["address"]){
       update_post_meta($post_id, "勤務地", $address);
+      update_post_meta($post_id, "station", $stations);
       preg_match("/(東京都|北海道|(?:京都|大阪)府|.{6,9}県)((?:四日市|廿日市|野々市|臼杵|かすみがうら|つくばみらい|いちき串木野)市|(?:杵島郡大町|余市郡余市|高市郡高取)町|.{3,12}市.{3,12}区|.{3,9}区|.{3,15}市(?=.*市)|.{3,15}市|.{6,27}町(?=.*町)|.{6,27}町|.{9,24}村(?=.*村)|.{9,24}村)(.*)/",$_POST["address"],$result);
       $prefecture = $result[1];
       $area = $result[2];
@@ -1278,6 +1301,7 @@ function new_company_post_internship(){
       $intern_contents = $_POST["intern_contents"];
       $skills = $_POST["skills"];
       $address = $_POST["address"];
+      $stations=get_time_to_station(Array($address));
       preg_match("/(東京都|北海道|(?:京都|大阪)府|.{6,9}県)((?:四日市|廿日市|野々市|臼杵|かすみがうら|つくばみらい|いちき串木野)市|(?:杵島郡大町|余市郡余市|高市郡高取)町|.{3,12}市.{3,12}区|.{3,9}区|.{3,15}市(?=.*市)|.{3,15}市|.{6,27}町(?=.*町)|.{6,27}町|.{9,24}村(?=.*村)|.{9,24}村)(.*)/",$_POST["address"],$result);
       $prefecture = $result[1];
       $area = $result[2];
@@ -1341,6 +1365,7 @@ function new_company_post_internship(){
           update_post_meta($insert_id, '1日の流れ', $intern_day);
           update_post_meta($insert_id, '身につくスキル', $skills);
           update_post_meta($insert_id, '勤務地', $address);
+          update_post_meta($insert_id, 'station', $stations);
           update_post_meta($insert_id, '応募資格', $skill_requirements);
           update_post_meta($insert_id, 'インターン卒業生の内定先', $prospective_employer);
           update_post_meta($insert_id, '働いているインターン生の声', $intern_student_voice);
@@ -1408,5 +1433,235 @@ function get_company_id($company){
   $company_id = $posts_array[0]->ID;
   return $company_id;
 }
+
+function post_internship_confirm_form(){
+  if($_GET["post_id"]){
+    $post_id = $_GET["post_id"];
+
+    $post_title = $_POST["post_title"];
+    $company_bussiness = $_POST["company_bussiness"];
+    $intern_contents = $_POST["intern_contents"];
+    $skills = $_POST["skills"];
+    $address = $_POST["address"];
+    $stations=get_time_to_station(Array($address));
+    preg_match("/(東京都|北海道|(?:京都|大阪)府|.{6,9}県)((?:四日市|廿日市|野々市|臼杵|かすみがうら|つくばみらい|いちき串木野)市|(?:杵島郡大町|余市郡余市|高市郡高取)町|.{3,12}市.{3,12}区|.{3,9}区|.{3,15}市(?=.*市)|.{3,15}市|.{6,27}町(?=.*町)|.{6,27}町|.{9,24}村(?=.*村)|.{9,24}村)(.*)/",$_POST["address"],$result);
+    $prefecture = $result[1];
+    $area = $result[2];
+    $skill_requirements = $_POST["skill_requirements"];
+    $prospective_employer = $_POST["prospective_employer"];
+    $intern_student_voice = $_POST["intern_student_voice"];
+    $features = $_POST["feature"];
+    $occupation = $_POST["occupation"];
+    $salary = $_POST["salary"];
+    $intern_day = $_POST["intern_day"];
+    $worktime = $_POST["worktime"];
+    $day_requirements = $_POST["day_requirements"];
+    $require_person = $_POST["require_person"];
+    $picture = $_FILES["picture"];
+    $picture2 = $_FILES["picture2"];
+    $picture3 = $_FILES["picture3"];
+    $picture4 = $_FILES["picture4"];
+    $selection_flows = "";
+    for ($i=0; $i<count($_POST["selection_flow"]); $i++){
+      $selection_flows .= $_POST["selection_flow"][$i];
+      $selection_flows .= "</br>";
+    }
+    $intern_days = "";
+    for ($i=0; $i<count($_POST["start"]); $i++){
+      $intern_days .= $_POST["start"][$i];
+      $intern_days .= "</br>";
+      $intern_days .= $_POST["end"][$i];
+      $intern_days .= "</br>";
+      $intern_days .= $_POST["oneday_flow"][$i];
+      $intern_days .= "</br>";
+    }
+    if(!empty($_POST["save"])){
+      $post_status = "draft";
+    }
+    if(!empty($_POST["preview"])){
+      $post_status = "draft";
+    }
+    if(!empty($_POST["publish"])){
+      $post_status = "publish";
+    }
+    $post_button_html = '
+    <div class="submitbox">
+      <div class="major_publishing_actions">
+        <div class="publishing_action">
+          <input type="submit" name="'.$post_status.'" id="publish" class="button button-primary button-large" value="確認">
+          <input type="hidden" name="'.$post_status.'" value="'.$post_status.'">
+        </div>
+      </div>
+    </div>';
+
+    $style_html = "
+    <style type='text/css'>
+    </style>";
+
+    $confirm_html =  $style_html.'
+    <h2 class="maintitle">インターン情報</h2>
+    <form action="https://builds-story.com/confirm_internship?post_id='.$post_id.'" method="POST" enctype="multipart/form-data">
+      <div class="tab_content_description">
+        <p class="c-txtsp">
+            <table class="demo01 new_intern_table">
+                <tbody>
+                    <tr>
+                        <th>募集タイトル*</th>
+                        <td>
+                            <div class="company-name">'.$post_title.'</div>
+                            <input type="hidden" name="post_title" value="'.$post_status.'">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th align="left" nowrap="nowrap">職種*</th>
+                        <td>
+                            <div class="company-established new_intern_occupation">'.$occupation.'</div>
+                            <input type="hidden" name="occupation" value="'.$occupation.'">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th align="left" nowrap="nowrap">仕事の概要*</th>
+                        <td>
+                            <div class="company-representative">'.$intern_contents.'</div>
+                            <input type="hidden" name="intern_contents" value="'.$intern_contents.'">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th align="left" nowrap="nowrap">勤務地*</th>
+                        <td>
+                            <div class="company-representative">'.$address.'</div>
+                            <input type="hidden" name="address" value="'.$address.'">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th align="left" nowrap="nowrap">給与*</th>
+                        <td>
+                            <div class="company-established"><input class="input-width" type="text" min="0" name="salary" id="" value="'.$salary.'" placeholder="(例) 時給1000円" required></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th align="left" nowrap="nowrap">勤務可能時間*</th>
+                        <td>
+                            <div class="company-address"><input class="input-width" type="text" min="0" name="worktime" id="" value="'.$worktime.'" placeholder="(例) 平日9:00-19:00" required></div>
+                        </td>
+                    </tr>
+                    <tr>
+                      <th align="left" nowrap="nowrap">勤務条件*</th>
+                      <td>
+                          <div class="company-address"><input class="input-width" type="text" min="0" name="day_requirements" value="'.$requirements.'" placeholder="(例) 1日4時間〜、週3日〜" required></div>
+                      </td>
+                    </tr>
+                    <tr>
+                        <th align="left" nowrap="nowrap">応募資格*</th>
+                        <td>
+                            <div class="company-capital"><textarea name="skill_requirements" id="" cols="30" rows="8" placeholder="(例)&#13;&#10;・最後までやり遂げる力がある&#13;&#10;・MOS全般扱える&#13;&#10;・TOEIC700点以上&#13;&#10;・簿記2級以上&#13;&#10;・1.2年生" required>'.$skill_requirements.'</textarea></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th align="left" nowrap="nowrap">求める人物像*</th>
+                        <td>
+                            <div class="company-representative"><textarea name="require_person" id="" cols="30" rows="8" placeholder="(例)&#13;&#10;・素直な人&#13;&#10;・チームワークが取れる人&#13;&#10;・責任感がある人&#13;&#10;・会社運営に関わりたい人&#13;&#10;・仕事を楽しめる人" required>'.$require_person.'</textarea></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th align="left" nowrap="nowrap">身につくスキル*</th>
+                        <td>
+                            <div class="company-capital"><textarea name="skills" id="" cols="30" rows="8" placeholder="(例)&#13;&#10;・マーケティングスキル全般&#13;&#10;・0→1の思考力&#13;&#10;・問題解決力&#13;&#10;・メディア運営ノウハウ&#13;&#10;・デジタルマーケにおける企画・分析・思考力">'.$skills.'</textarea></div>
+                        </td>
+                    </tr>
+                    '.$selection_html_re.'
+					          <tr class="hire">
+                      <th></th>
+                        <td>
+                            <div class="arrow"></div><div class="company-capital"><p>採用</p></div>
+                        </td>
+                    </tr>
+                    '.$intern_day_html_re.'
+                    <tr>
+                      <th align="left" nowrap="nowrap">働いているインターン生の声</th>
+                      <td>
+                          <div class="company-capital"><textarea name="intern_student_voice" id="" cols="30" rows="5">'.$intern_student_voice.'</textarea></div>
+                      </td>
+                    </tr>
+                    <tr>
+                        <th align="left" nowrap="nowrap">インターン卒業生の内定先</th>
+                        <td>
+                            <div class="company-capital"><textarea name="prospective_employer" id="" cols="30" rows="5">'.$prospective_employer.'</textarea></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th align="left" nowrap="nowrap">イメージ画像<br>(社内イメージ)</th>
+                        <td>
+                            <div class="input_file">
+                              <div class="preview">
+                                <div class="preview-img"></div>
+                                <img src="'.$image_url.'">
+                                <input accept="image/*" id="imgFile" type="file" name="picture">
+                              </div>
+                              <p>※600×400サイズ推奨</p>
+                          </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th align="left" nowrap="nowrap">イメージ画像2<br>(社内イメージ)</th>
+                        <td>
+                            <div class="input_file">
+                              <div class="preview">
+                                <div class="preview-img2"></div>
+                                <img src="'.$image2_url.'">
+                                <input accept="image/*" id="imgFile2" type="file" name="picture2">
+                              </div>
+                              <p>※600×400サイズ推奨</p>
+                          </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th align="left" nowrap="nowrap">イメージ画像3<br>(社内イメージ)</th>
+                        <td>
+                            <div class="input_file">
+                              <div class="preview">
+                                <div class="preview-img3"></div>
+                                <img src="'.$image3_url.'">
+                                <input accept="image/*" id="imgFile3" type="file" name="picture3">
+                              </div>
+                              <p>※600×400サイズ推奨</p>
+                          </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th align="left" nowrap="nowrap">イメージ画像4<br>(社内イメージ)</th>
+                        <td>
+                            <div class="input_file">
+                              <div class="preview">
+                                <div class="preview-img4"></div>
+                                <img src="'.$image4_url.'">
+                                <input accept="image/*" id="imgFile4" type="file" name="picture4">
+                              </div>
+                              <p>※600×400サイズ推奨</p>
+                          </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th align="left" nowrap="nowrap">特徴</th>
+                        <td>
+                            <div class="company-capital new_intern_feature">'.$feature_html.'</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </p>
+        <input type="hidden" name="edit_intern" value="edit_intern">
+        <div class="company_edit">
+          '.$post_button_html.'
+        </div>
+      </div>
+    </form>';
+    return $edit_html;
+  }else{
+    header('Location: https://builds-story.com/');
+    die();
+  }
+}
+add_shortcode("post_internship_confirm_form","post_internship_confirm_form");
 
 ?>
