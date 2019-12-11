@@ -1466,6 +1466,22 @@ function post_internship_confirm_form(){
       $selection_flows .= $_POST["selection_flow"][$i];
       $selection_flows .= "</br>";
     }
+    $selection_html_re  = '<tr class="selection_flows">
+  <th align="left" nowrap="nowrap">選考フロー<div class="btn-box add"><input type="button" value="＋" class="pluralBtn"><span class="btn-sen">追加する</div>
+                            <div class="btn-box del"><input type="button" value="－" class="pluralBtn"><span class="btn-sen">削除する</span></div></th>';
+  $count_s = 0;	
+  foreach($selection_flows as $selection_flow){
+    if ($selection_flow === reset($selection_flows)) {
+          $selection_html_re .= '<td>
+      <div class="company-capital"><input class="input-width" type="text" min="0" name="selection_flow[]" placeholder="(例)面接" id="" value="'.$selection_flow.'"></div>
+    </td>';
+      }
+    else{
+      $selection_html_re .= '<td><div class="arrow"></div>
+      <div class="company-capital"><input class="input-width" type="text" min="0" name="selection_flow[]" placeholder="(例)面接" id="" value="'.$selection_flow.'"></div>
+  </td>'; 
+    }
+  }
     $intern_days = "";
     for ($i=0; $i<count($_POST["start"]); $i++){
       $intern_days .= $_POST["start"][$i];
@@ -1536,37 +1552,43 @@ function post_internship_confirm_form(){
                     <tr>
                         <th align="left" nowrap="nowrap">給与*</th>
                         <td>
-                            <div class="company-established"><input class="input-width" type="text" min="0" name="salary" id="" value="'.$salary.'" placeholder="(例) 時給1000円" required></div>
+                            <div class="company-established">'.$salary.'</div>
+                            <input type="hidden" name="salary" value="'.$salary.'">
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">勤務可能時間*</th>
                         <td>
-                            <div class="company-address"><input class="input-width" type="text" min="0" name="worktime" id="" value="'.$worktime.'" placeholder="(例) 平日9:00-19:00" required></div>
+                            <div class="company-address">'.$worktime.'</div>
+                            <input type="hidden" name="worktime" value="'.$worktime.'">
                         </td>
                     </tr>
                     <tr>
                       <th align="left" nowrap="nowrap">勤務条件*</th>
                       <td>
-                          <div class="company-address"><input class="input-width" type="text" min="0" name="day_requirements" value="'.$requirements.'" placeholder="(例) 1日4時間〜、週3日〜" required></div>
+                          <div class="company-address">'.$day_requirements.'</div>
+                          <input type="hidden" name="day_requirements" value="'.$day_requirements.'">
                       </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">応募資格*</th>
                         <td>
-                            <div class="company-capital"><textarea name="skill_requirements" id="" cols="30" rows="8" placeholder="(例)&#13;&#10;・最後までやり遂げる力がある&#13;&#10;・MOS全般扱える&#13;&#10;・TOEIC700点以上&#13;&#10;・簿記2級以上&#13;&#10;・1.2年生" required>'.$skill_requirements.'</textarea></div>
+                            <div class="company-capital">'.$skill_requirements.'</div>
+                            <input type="hidden" name="skill_requirements" value="'.$skill_requirements.'">
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">求める人物像*</th>
                         <td>
-                            <div class="company-representative"><textarea name="require_person" id="" cols="30" rows="8" placeholder="(例)&#13;&#10;・素直な人&#13;&#10;・チームワークが取れる人&#13;&#10;・責任感がある人&#13;&#10;・会社運営に関わりたい人&#13;&#10;・仕事を楽しめる人" required>'.$require_person.'</textarea></div>
+                            <div class="company-representative">'.$require_person.'</div>
+                            <input type="hidden" name="require_person" value="'.$require_person.'">
                         </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">身につくスキル*</th>
                         <td>
-                            <div class="company-capital"><textarea name="skills" id="" cols="30" rows="8" placeholder="(例)&#13;&#10;・マーケティングスキル全般&#13;&#10;・0→1の思考力&#13;&#10;・問題解決力&#13;&#10;・メディア運営ノウハウ&#13;&#10;・デジタルマーケにおける企画・分析・思考力">'.$skills.'</textarea></div>
+                            <div class="company-capital">'.$skills.'</div>
+                            <input type="hidden" name="skills" value="'.$skills.'">
                         </td>
                     </tr>
                     '.$selection_html_re.'
