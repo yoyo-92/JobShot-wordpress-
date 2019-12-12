@@ -1076,7 +1076,7 @@ function new_mypage_func(){
                         <div class="um-field um-field-internship_experiences um-field-radio um-field-type_radio" data-key="internship_experiences"><div class="um-field-label"><label for="internship_experiences-1597">長期インターン経験</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$internship_experiences.'</div></div></div>
                         <div class="um-field um-field-internship_company um-field-textarea um-field-type_textarea" data-key="internship_company"><div class="um-field-label"><label for="internship_company-1597">長期インターン経験先企業名</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$internship_company.'</div></div></div>
                         <div class="um-field um-field-experience_internship um-field-textarea um-field-type_textarea" data-key="experience_internship"><div class="um-field-label"><label for="experience_internship-1597">長期インターン先でどんな経験をしたか？</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$experience_internship.'</div></div></div>
-                        <div class="um-field um-field-self_internship_PR um-field-textarea um-field-type_textarea" data-key="self_internship_PR"><div class="um-field-label"><label for="self_internship_PR-1597">その他自己PR</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$self_internship_PR.'</div></div></div>
+                        <div class="um-field um-field-self_internship_PR um-field-textarea um-field-type_textarea" data-key="self_internship_PR"><div class="um-field-label"><label for="self_internship_PR-1597">自己PR</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$self_internship_PR.'</div></div></div>
                         <div class="um-field um-field-degree_of_internship_interest um-field-select um-field-type_select" data-key="degree_of_internship_interest"><div class="um-field-label"><label for="degree_of_internship_interest-1597">長期有給インターンへの興味の度合い</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$degree_of_internship_interest.'</div></div></div>
                 </div>
                 </div>
@@ -1112,7 +1112,7 @@ function new_mypage_func(){
                     </div><p><span class="description"></span></p></div>
                     </div>
                 <div class="um-field um-field-self_internship_PR um-field-textarea um-field-type_textarea" data-key="self_internship_PR">
-                    <div class="um-field-label"><label for="self_internship_PR">その他自己PR</label><p></p>
+                    <div class="um-field-label"><label for="self_internship_PR">自己PR</label><p></p>
                     <div class="um-clear"></div>
                     </div>
                     <div class="um-field-area">
