@@ -200,6 +200,7 @@ function my_form_tag_filter($tag){
         return $tag;
     }
     $user = wp_get_current_user();
+    $user_id = $user->data->ID;
 
     if(isset($_GET['post_id'])){
         $name = $tag['name'];
@@ -268,6 +269,10 @@ function my_form_tag_filter($tag){
     }
     if($tag['name'] == 'redirect'){
         $tag['values'] = (array) $_GET["redirect"];
+    }
+    if($tag['name'] == 'your-message'){
+        $self_internship_PR = get_user_meta($user_id,'self_internship_PR',false)[0];
+        $tag['values'] = (array) $self_internship_PR;
     }
     return $tag;
   }
