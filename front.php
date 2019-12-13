@@ -28,14 +28,14 @@ function frontpage_view_pickups_func(){
     $posts = get_posts($args);
 
     $card_html = '<div class="cards-container">';
-    $card_html .= view_fullwidth_intern_card_func(7382);
-    $card_html .= view_fullwidth_intern_card_func(6635);
+    // $card_html .= view_fullwidth_intern_card_func(7382);
+    // $card_html .= view_fullwidth_intern_card_func(6635);
 
     foreach($posts as $post){
         $post_id = $post->ID;
-        if($post_id != 7382 and $post_id != 6635){
+        // if($post_id != 7382 and $post_id != 6635){
           $card_html .= view_fullwidth_intern_card_func($post_id);
-        }
+        // }
     }
     $card_html .= '</div>';
     $card_html .= '<p style="text-align: right; text-decoration: underline;"><a href="https://builds-story.com/internship">長期インターン案件をもっと見る</a></p>';
