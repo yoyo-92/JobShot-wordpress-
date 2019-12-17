@@ -99,6 +99,12 @@ function past_self_internship_PR_func(){
             // ここまで
         });
     </script>';
+    // Loghtboxを利用するための読み込み
+    $izimodal = '
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/css/iziModal.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/js/iziModal.min.js" type="text/javascript"></script>';
+    $izimodal_content = '
+    ';
     return $html;
 }
 add_shortcode("past_self_internship_PR","past_self_internship_PR_func");
