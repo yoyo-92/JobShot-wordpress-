@@ -30,6 +30,8 @@ function view_card_func($post_id){
       return view_fullwidth_summer_intern_card_func($post_id);
     case 'autumn_internship':
       return view_fullwidth_autumn_intern_card_func($post_id);
+    case 'column':
+      return view_fullwidth_column_card_func($post_id);
     break;
   }
   return;
@@ -720,6 +722,89 @@ function view_fullwidth_autumn_intern_card_func($post_id){
 
 }
 add_shortcode('view-fullwidth-autumn-intern-card','view_fullwidth_autumn_intern_card_func');
+
+function view_fullwidth_column_card_func($post_id){
+
+  $post = get_post($post_id);
+  $post_title = get_the_title($post_id);
+  $description = get_post_meta($post_id, '_aioseop_description', true);
+  $post_date = $post->post_date;
+  $image_url = get_the_post_thumbnail_url( $post_id , 'medium' );
+  $style_html = '
+  <style>
+  .column_card_img{
+    float: left;
+    width: 200px;
+    height: auto;
+    margin: 0 20px;
+  }
+  .column_card_contents{
+    margin-left: 240px;
+    padding-bottom: 30px;
+  }
+  #column_card_title_text{
+    margin: 5px 0;
+    font-size: 18px;
+    font-weight: normal;
+  }
+  .column_card_description{
+    margin: 10px 0;
+  }
+  .column_card_date{
+    float: right;
+  }
+  .column_card_date i{
+    margin-right: 5px;
+  }
+  @media screen and (max-width: 480px){
+    .column_card_img{
+      width: 70px;
+      height: 50px;
+      margin: 0 10px;
+      margin-top: 1.5px;
+    }
+    .column_card_contents{
+      margin-left: 90px;
+      margin-right: 5px;
+      padding-bottom: 20px;
+    }
+    .column_card_title{
+      margin: 5px 0;
+    }
+    #column_card_title_text{
+      margin: 0;
+      font-size: 12px;
+      padding-top: 5px;
+    }
+    .column_card_description{
+      display: none;
+    }
+  }
+  </style>
+  ';
+
+  $card_html = $style_html.'
+  <div class="card full-card">
+    <div class="full-card-maim">
+      <div class="column_card_img">
+        <img src="'.$image_url.'" alt="">
+      </div>
+      <div class="column_card_contents">
+        <div class="column_card_title"><h3 id="column_card_title_text"><a href="'.esc_url(get_permalink($post_id)).'">'.$post_title.'</a></h3></div>
+        <div class="column_card_description">
+          <p>'.$description.'</p>
+        </div>
+        <div class="column_card_date">
+          <p><i class="far fa-clock"></i>'.$post_date.'</p>
+        </div>
+      </div>
+    </div>
+  </div>';
+
+  return do_shortcode($card_html);
+
+}
+add_shortcode('view-fullwidth-column-card','view_fullwidth_column_card_func');
 
 
 function get_youtube_embed_address_func($origin_addr){
