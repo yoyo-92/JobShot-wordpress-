@@ -6,100 +6,6 @@ function my_scripts_method() {
 }
 add_action( 'wp_enqueue_scripts', 'my_scripts_method' );
 
-function change_user_pdata(){
-    $user_id = um_profile_id();
-    $user_roles = get_user_meta($user_id,'wp_146219050_capabilities',false)[0];
-    $timestamp = time();
-    if(in_array("student", $user_roles)){
-        $results = '
-        <form method="post" action="">
-            <input type="hidden" name="user_id" id="user_id" value="'.$user_id.'">
-            <input type="hidden" name="form_id" id="form_id_6120" value="6120">
-            <input type="hidden" name="timestamp" class="um_timestamp" value="'.$timestamp.'">
-            <div class="photo-btns">
-                <input type="submit" value="更新" class="um-modal-btn um-finish-upload image" data-key="profile_photo" data-change="写真を変更">
-                <a href="" class="um-modal-btn alt" data-action="um_remove_modal">キャンセル</a>
-            </div>
-        </form>';
-    }
-    echo $results;
-    die();
-}
-add_action( 'wp_ajax_change_user_pdata', 'change_user_pdata' );
-add_action( 'wp_ajax_nopriv_change_user_pdata', 'change_user_pdata' );
-
-function change_user_cdata(){
-    $user_id = um_profile_id();
-    $user_roles = get_user_meta($user_id,'wp_146219050_capabilities',false)[0];
-    $timestamp = time();
-    if(in_array("student", $user_roles)){
-    $results = '
-    <form method="post" action="">
-        <input type="hidden" name="user_id" id="user_id" value="'.$user_id.'">
-        <input type="hidden" name="form_id" id="form_id_6120" value="6120">
-        <input type="hidden" name="timestamp" class="um_timestamp" value="'.$timestamp.'">
-        <div class="photo-btns">
-            <input type="submit" value="更新" class="um-modal-btn um-finish-upload image" data-key="cover_photo" data-change="写真を変更">
-            <a href="" class="um-modal-btn alt" data-action="um_remove_modal">キャンセル</a>
-        </div>
-    </form>';
-    }
-    echo $results;
-    die();
-}
-add_action( 'wp_ajax_change_user_cdata', 'change_user_cdata' );
-add_action( 'wp_ajax_nopriv_change_user_cdata', 'change_user_cdata' );
-
-
-function view_user_pdata(){
-    $login_user = wp_get_current_user();
-    $user_roles = $login_user->roles;
-    $profile_id = um_profile_id();
-    $result = '';
-    if(in_array("student", $user_roles)){
-        $result = '
-        <div class="um-dropdown" data-element="div.um-profile-photo" data-position="bc" data-trigger="click" style="top: 74px; width: 200px; left: 4px; right: auto; text-align: center; display: none;">
-            <div class="um-dropdown-b">
-                <div class="um-dropdown-arr" style="top: -17px; left: 87px; right: auto;">
-                    <i class="um-icon-arrow-up-b"></i>
-                </div>
-                <ul>
-                    <li><a href="javascript:void(0);" class="um-manual-trigger" data-parent=".um-profile-photo" data-child=".um-btn-auto-width">写真を変更</a></li>
-                    <li><a href="javascript:void(0);" class="um-reset-profile-photo" data-user_id="'.$profile_id.'" data-default_src="https://builds-story.com/wp-content/uploads/2019/01/72c10119609beb94909b6a4f65a3d12b.jpeg">写真を削除</a></li>
-                    <li><a href="javascript:void(0);" class="um-dropdown-hide">キャンセル</a></li>
-                </ul>
-            </div>
-        </div>';
-    }
-    echo $result;
-    die();
-}
-add_action( 'wp_ajax_view_user_pdata', 'view_user_pdata' );
-add_action( 'wp_ajax_nopriv_view_user_pdata', 'view_user_pdata' );
-
-function view_user_cdata(){
-    $login_user = wp_get_current_user();
-    $user_roles = $login_user->roles;
-    $profile_id = um_profile_id();
-    $result = '';
-    if(in_array("student", $user_roles)){
-        $result = '
-        <div class="um-dropdown" data-element="div.um-cover" data-position="bc" data-trigger="click" style="top: 203.5px; width: 200px; left: 300px; right: auto; text-align: center; display: none;"><div class="um-dropdown-b">
-            <div class="um-dropdown-arr" style="top: -17px; left: 87px; right: auto;">
-                <i class="um-icon-arrow-up-b"></i>
-            </div>
-            <ul>
-                <li><a href="javascript:void(0);" class="um-manual-trigger" data-parent=".um-cover" data-child=".um-btn-auto-width">カバー写真を変更</a></li>
-                <li><a href="javascript:void(0);" class="um-reset-cover-photo" data-user_id="'.$profile_id.'">削除</a></li>
-                <li><a href="javascript:void(0);" class="um-dropdown-hide">キャンセル</a></li>
-            </ul>
-        </div>';
-    }
-    echo $result;
-    die();
-}
-add_action( 'wp_ajax_view_user_cdata', 'view_user_cdata' );
-add_action( 'wp_ajax_nopriv_view_user_cdata', 'view_user_cdata' );
 
 function Ajax_Base(){
     $user_id = um_profile_id();
@@ -727,7 +633,199 @@ function new_mypage_func(){
         $option_languages_html .= '<option value="'.$programming_lang_name.'">'.$programming_lang_name.'</option>';
     }
 
-  $html='
+    //プロフィール写真
+    $upload_dir = wp_upload_dir();
+    $login_user = wp_get_current_user();
+    $login_user_id = $login_user->data->ID;
+    $now_user_role_ar = get_user_meta($login_user_id,'wp_146219050_capabilities',false)[0];
+    $now_user_role = (array_keys($now_user_role_ar))[0];
+    $user_info = get_userdata($user_id);
+    $user_name = $user_info->user_login;
+    $image_date = date("YmdHis");
+    $upload_file_name = $upload_dir['basedir'] . "/" .'profile_photo'.$user_id.'.png';
+    if(!file_exists($upload_file_name)){
+      $attachment_id=2632;
+      $upload_file_name = wp_get_attachment_image_src($attachment_id)[0];
+    }
+    $upload_cover_name = $upload_dir['basedir']."/".'cover_photo'.$user_id.'.png';
+    if(!file_exists($upload_cover_name)){
+      $attachment_id=2631;
+      $upload_cover_name = wp_get_attachment_image_src($attachment_id)[0];
+    }
+    $cover_html = '
+    <div class="um-cover has-cover um-trigger-menu-on-click" data-user_id="'.$user_id.'" data-ratio="2.7:1" style="height: 296px;">
+        <div class="um-cover-e" data-ratio="2.7:1" style="height: 296px;">
+            <img src="'.$upload_cover_name.'?'.$image_date.'" scale="2" />
+        </div>
+        <span class="um-cover-overlay" style="display: none;">
+            <span class="um-cover-overlay-s">
+                <ins>
+                    <i class="um-faicon-picture-o"></i>
+                    <span class="um-cover-overlay-t" style="color: rgb(255, 255, 255);">カバー写真を変更</span>
+                </ins>
+            </span>
+        </span>
+    </div>';
+    $upload_html = '
+    <div class="wrap">
+        <table class="wp-list-table widefat striped posts upload-photo">
+            <tr>
+                <td class="photo-title">プロフィール写真</td>
+                <td class="photo-upload">
+                    <form method="post" action="" enctype="multipart/form-data" id="profile">
+                        <input accept="image/*" type="file" name="upfilename" />
+                        <input type="hidden" name="user_id" value="'.$user_id.'">
+                        <input type="submit" value="アップロード">
+                    </form>
+                </td>
+                <td class="photo-cancel">
+                    <button class="button favorite innactive">キャンセル</button>
+                </td>
+            </tr>
+        </table>
+        <table class="wp-list-table widefat striped posts upload-coverphoto">
+            <tr>
+                <td class="photo-title">カバー写真</td>
+                <td class="photo-upload">
+                    <form method="post" action="" enctype="multipart/form-data" id="cover">
+                        <input accept="image/*" type="file" name="upcovername" />
+                        <input type="hidden" name="user_id" value="'.$user_id.'">
+                        <input type="submit" value="アップロード">
+                    </form>
+                </td>
+                <td class="photo-cancel">
+                    <button class="button favorite innactive">キャンセル</button>
+                </td>
+            </tr>
+        </table>
+    </div>';
+
+    if($login_user_id == $user_id){
+        $header_html = '
+        <div class="um-header">
+            <div class="um-profile-edit um-profile-headericon um-trigger-menu-on-click">
+                <a href="javascript:void(0);" class="um-profile-edit-a"><i class="um-faicon-cog"></i></a>
+                <div class="um-dropdown" data-element="div.um-profile-edit" data-position="bc" data-trigger="click" style="width: 200px; right: auto; text-align: center;">
+                    <div class="um-dropdown-b">
+                        <div class="um-dropdown-arr" style="top: -17px; left: 87px; right: auto;"><i class="um-icon-arrow-up-b"></i>
+                        </div>
+                        <ul>
+                            <li></li>
+                            <li><a href="https://builds-story.com/user_account" class="real_url">マイアカウント</a></li>
+                            <li><a href="https://builds-story.com/?page_id=1603" class="real_url">ログアウト</a></li>
+                            <li><a href="javascript:void(0);" class="um-dropdown-hide">キャンセル</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="um-profile-photo um-trigger-menu-on-click" data-user_id="'.$user_id.'">
+                <a href="https://builds-story.com/user?um_user='.$user_name.'" class="um-profile-photo-img" title="'.$user_name.'">
+                <span class="um-profile-photo-overlay">
+                    <span class="um-profile-photo-overlay-s">
+                        <ins>
+                            <i class="um-faicon-camera"></i>
+                        </ins>
+                    </span>
+                </span>
+                <img src="'.$upload_file_name.'?'.$image_date.'" class="gravatar avatar avatar-190 um-avatar" />
+                </a>
+            </div>
+            <div class="um-profile-meta">
+                <div class="um-main-meta">
+                    <div class="um-name">
+                        <a href="https://builds-story.com/user?um_user='.$user_name.'" title="'.$user_name.'">'.$user_name.'</a>
+                    </div>
+                    <div class="um-clear"></div>
+                    <div class="um-profile-connect um-member-connect"></div>
+                </div>
+                <div class="um-profile-status">
+                </div>
+            </div>
+        </div>
+        ';
+        
+    }
+    elseif($now_user_role == 'administrator'){
+        $header_html =
+        '<div class="um-header">
+            <div class="um-profile-edit um-profile-headericon um-trigger-menu-on-click">
+                <a href="javascript:void(0);" class="um-profile-edit-a"><i class="um-faicon-cog"></i></a>
+                <div class="um-dropdown" data-element="div.um-profile-edit" data-position="bc" data-trigger="click" style="width: 200px; right: auto; text-align: center; display: none;">
+                    <div class="um-dropdown-b">
+                        <div class="um-dropdown-arr" style="top: -17px; left: 87px; right: auto;"><i class="um-icon-arrow-up-b"></i></div>
+                        <ul>
+                            <li><a href="/user?um_user='.$user_name.'&amp;um_action=um_put_as_pending&amp;uid='.$user_id.'" class="real_url um_put_as_pending-item">承認待ちにする</a></li>
+                            <li><a href="/user?um_user='.$user_name.'&amp;um_action=um_deactivate&amp;uid='.$user_id.'" class="real_url um_deactivate-item">このアカウントを無効化</a></li>
+                            <li><a href="/user?um_user='.$user_name.'&amp;um_action=um_delete&amp;uid='.$user_id.'" class="real_url um_delete-item">このユーザーを削除</a></li>
+                            <li><a href="/user?um_user='.$user_name.'&amp;um_action=um_switch_user&amp;uid='.$user_id.'" class="real_url um_switch_user-item">このユーザーとしてログイン</a></li>
+                            <li><a href="https://builds-story.com/user?um_user='.$user_name.'&amp;um_action=edit" class="real_url">プロフィールを編集</a></li>
+                            <li><a href="javascript:void(0);" class="um-dropdown-hide">キャンセル</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="um-profile-photo um-trigger-menu-on-click" data-user_id="'.$user_id.'">
+                <a href="https://builds-story.com/user?um_user='.$user_name.'" class="um-profile-photo-img" title="'.$user_name.'">
+                <span class="um-profile-photo-overlay">
+                    <span class="um-profile-photo-overlay-s">
+                        <ins>
+                            <i class="um-faicon-camera"></i>
+                        </ins>
+                    </span>
+                </span>
+                <img src="'.$upload_file_name.'?'.$image_date.'" class="gravatar avatar avatar-190 um-avatar" />
+                </a>
+            </div>
+            <div class="um-profile-meta">
+                <div class="um-main-meta">
+                    <div class="um-name">
+                        <a href="https://builds-story.com/user?um_user='.$user_name.'" title="'.$user_name.'">'.$user_name.'</a>
+                    </div>
+                    <div class="um-clear"></div>
+                    <div class="um-profile-connect um-member-connect"></div>
+                </div>
+                <div class="um-profile-status">
+                </div>
+            </div>
+        </div>
+        ';
+    }
+    elseif($now_user_role == 'company'){
+        $header_html = '
+        <div class="um-header">
+            <div class="um-profile-photo um-trigger-menu-on-click" data-user_id="'.$user_id.'">
+                <a href="https://builds-story.com/user?um_user='.$user_name.'" class="um-profile-photo-img" title="'.$user_name.'">
+                <span class="um-profile-photo-overlay">
+                    <span class="um-profile-photo-overlay-s">
+                        <ins>
+                            <i class="um-faicon-camera"></i>
+                        </ins>
+                    </span>
+                </span>
+                <img src="'.$upload_file_name.'?'.$image_date.'" class="gravatar avatar avatar-190 um-avatar" />
+                </a>
+            </div>
+            <div class="um-profile-meta">
+                <div class="um-main-meta">
+                    <div class="um-name">
+                        <a href="https://builds-story.com/user?um_user='.$user_name.'" title="'.$user_name.'">'.$user_name.'</a>
+                    </div>
+                    <div class="um-clear"></div>
+                    <div class="um-profile-connect um-member-connect"></div>
+                </div>
+                <div class="um-profile-status">
+                </div>
+            </div>
+        </div>
+        ';
+    }
+    if($login_user_id == $user_id){
+      $html .= $upload_html;
+    }
+    $html .= $cover_html;
+    $html .= $header_html;
+    //$html .= $nav_html;
+  $html.='
 <!-- これより上はclassとdivが被っているので不要 -->
 <div class="um-profile-infomation">
   <div class="um-info">
@@ -745,7 +843,7 @@ function new_mypage_func(){
                   <div class="um-field um-field-highschool um-field-text um-field-type_text" data-key="highschool"><div class="um-field-label"><label for="highschool-6120">出身高校</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$highschool.'</div></div></div>
           </div>
           </div>
-          
+
           </div>
       <div class="um-editor um-editor-base">
           <form method="post" id="testform">
@@ -1338,5 +1436,150 @@ if($login_user_id != $user_id){
 return do_shortcode($html);
 }
 add_shortcode('new_mypage','new_mypage_func');
+
+//プロフィール写真の更新
+function regist_file_up() {
+    if (!empty($_FILES["upfilename"])){
+    if (is_uploaded_file($_FILES["upfilename"]["tmp_name"])) {
+	    if(isset($_POST['user_id'])){
+		 	$user_id = $_POST['user_id']; 
+		}
+	    $user_info = get_userdata($user_id);
+        $user_name = $user_info->user_login;
+	    $chk = chk_ext($_FILES["upfilename"]["name"],$allow_exts=array( "png", "jpeg", "jpg","heic" ));
+	    if($chk == false){
+		  $alert = "<script type='text/javascript'>console('拡張子が異なります');</script>";
+		  header('Location: https://builds-story.com/user?um_user='.$user_name);
+    	  die();
+		}
+	    $size = size_ext($_FILES["upfilename"]["size"]);
+	    if($size == false){
+		  $alert = "<script type='text/javascript'>console('サイズが大きすぎます');</script>";
+		  header('Location: https://builds-story.com/user?um_user='.$user_name);
+    	  die();
+		}
+        $upload_dir = wp_upload_dir();
+		$upload_file_name = $upload_dir['basedir'] . "/" .'profile_photo'.$user_id.'.png';
+	    if(file_exists($upload_file_name)){
+			unlink($upload_file_name);
+		}
+        if (move_uploaded_file($_FILES["upfilename"]["tmp_name"], $upload_file_name)) {
+            chmod($upload_file_name, 0777);
+		    $image = wp_get_image_editor($upload_file_name);
+			if (! is_wp_error($image)) {
+				$exif = exif_read_data($upload_file_name);
+				$orientation = $exif['Orientation'];
+				if (! empty($orientation)) {
+					switch ($orientation) {
+						case 8:
+							$image->rotate(90);
+							break;
+						case 3:
+							$image->rotate(180);
+							break;
+						case 6:
+							$image->rotate(-90);
+							break;
+					}
+					$image->save($upload_file_name);
+				}
+			}
+        }
+    }
+    header('Location: https://builds-story.com/user?um_user='.$user_name);
+    die();
+	}
+}
+//add_shortcode('regist_file_up','regist_file_up');
+add_action('template_redirect', 'regist_file_up');
+
+
+//カバー写真の更新
+function regist_cover_up() {
+    if (!empty($_FILES["upcovername"])){
+    if (is_uploaded_file($_FILES["upcovername"]["tmp_name"])) {
+	    if(isset($_POST['user_id'])){
+		 	$user_id = $_POST['user_id']; 
+		}
+	    $user_info = get_userdata($user_id);
+        $user_name = $user_info->user_login;
+	    $chk = chk_ext($_FILES["upcovername"]["name"],$allow_exts=array( "png", "jpeg", "jpg","heic" ));
+	    if($chk == false){
+		  $alert = "<script type='text/javascript'>console('拡張子が異なります');</script>";
+		  header('Location: https://builds-story.com/user?um_user='.$user_name);
+    	  die();
+		}
+	    $size = size_ext($_FILES["upcovername"]["size"]);
+	    if($size == false){
+		  $alert = "<script type='text/javascript'>console('サイズが大きすぎます');</script>";
+		  header('Location: https://builds-story.com/user?um_user='.$user_name);
+    	  die();
+		}
+        $upload_dir = wp_upload_dir();
+		$upload_file_name = $upload_dir['basedir'] . "/" .'cover_photo'.$user_id.'.png';
+	    if(file_exists($upload_file_name)){
+			unlink($upload_file_name);
+		}
+        if (move_uploaded_file($_FILES["upcovername"]["tmp_name"], $upload_file_name)) {
+            chmod($upload_file_name, 0777);
+		    $image = wp_get_image_editor($upload_file_name);
+			if (! is_wp_error($image)) {
+				$exif = exif_read_data($upload_file_name);
+				$orientation = $exif['Orientation'];
+				if (! empty($orientation)) {
+					switch ($orientation) {
+						case 8:
+							$image->rotate(90);
+							break;
+						case 3:
+							$image->rotate(180);
+							break;
+						case 6:
+							$image->rotate(-90);
+							break;
+					}
+					$image->save($upload_file_name);
+				}
+			}
+        }
+	}
+	header('Location: https://builds-story.com/user?um_user='.$user_name);
+    die();
+    } 
+}
+add_action('template_redirect', 'regist_cover_up');
+
+//拡張子のチェック
+function chk_ext( $chk_name, $allow_exts=array( "png", "jpeg", "jpg","heic" ) ) {
+        //使用出来ない拡張子のチェック
+        $ext_err = true;//エラーフラグは初期値 真
+        $exts = preg_split( "/[.]/", $chk_name );// ファイル名を.で分割する。
+        if( count( $exts ) < 2 ) return false;
+        $ext = $exts[ count( $exts ) - 1 ];//.で分割した最後のブロックの文字列を取得する
+        foreach(  $allow_exts as $val ) {
+            if( !empty( $val ) ) {
+                //$len = strlen( $val );
+                //if( strncasecmp( strtoupper($val), strtoupper($ext), $len ) == 0 ) {
+                if( strcasecmp( $val, $ext ) == 0 ) { //修正しました(2016/03/23/01:22)
+                    $ext_err = false;//エラーフラグ 偽に変更
+                    break;
+                }
+            }
+        }
+        $ret = !$ext_err;//戻り値はエラーフラグを反転
+        return $ret;
+    }
+
+//サイズの大きさのチェック
+function size_ext($image_size){
+	$MAXSIZE = 2097152;
+    $size_err = true;
+    if( ( $image_size > 0 )  && ( $image_size < $MAXSIZE ) ) {
+        //サイズがOKな場合の処理
+	    $size_err = false;
+	}
+    $ret = !$size_err;
+    return $ret;
+}
 
 ?>
