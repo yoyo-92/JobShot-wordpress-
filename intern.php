@@ -1470,10 +1470,6 @@ function post_internship_confirm_form(){
     $worktime = $_POST["worktime"];
     $day_requirements = $_POST["day_requirements"];
     $require_person = $_POST["require_person"];
-    $picture = $_FILES["picture"];
-    $picture2 = $_FILES["picture2"];
-    $picture3 = $_FILES["picture3"];
-    $picture4 = $_FILES["picture4"];
     $selection_flows = "";
     for ($i=0; $i<count($_POST["selection_flow"]); $i++){
       $selection_flows .= $_POST["selection_flow"][$i];
@@ -1647,58 +1643,6 @@ function post_internship_confirm_form(){
                         </td>
                     </tr>
                     <tr>
-                        <th align="left" nowrap="nowrap">イメージ画像<br>(社内イメージ)</th>
-                        <td>
-                            <div class="input_file">
-                              <div class="preview">
-                                <div class="preview-img"></div>
-                                <img src="'.$image_url.'">
-                                <input accept="image/*" id="imgFile" type="file" name="picture">
-                              </div>
-                              <p>※600×400サイズ推奨</p>
-                          </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th align="left" nowrap="nowrap">イメージ画像2<br>(社内イメージ)</th>
-                        <td>
-                            <div class="input_file">
-                              <div class="preview">
-                                <div class="preview-img2"></div>
-                                <img src="'.$image2_url.'">
-                                <input accept="image/*" id="imgFile2" type="file" name="picture2">
-                              </div>
-                              <p>※600×400サイズ推奨</p>
-                          </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th align="left" nowrap="nowrap">イメージ画像3<br>(社内イメージ)</th>
-                        <td>
-                            <div class="input_file">
-                              <div class="preview">
-                                <div class="preview-img3"></div>
-                                <img src="'.$image3_url.'">
-                                <input accept="image/*" id="imgFile3" type="file" name="picture3">
-                              </div>
-                              <p>※600×400サイズ推奨</p>
-                          </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th align="left" nowrap="nowrap">イメージ画像4<br>(社内イメージ)</th>
-                        <td>
-                            <div class="input_file">
-                              <div class="preview">
-                                <div class="preview-img4"></div>
-                                <img src="'.$image4_url.'">
-                                <input accept="image/*" id="imgFile4" type="file" name="picture4">
-                              </div>
-                              <p>※600×400サイズ推奨</p>
-                          </div>
-                        </td>
-                    </tr>
-                    <tr>
                         <th align="left" nowrap="nowrap">特徴</th>
                         <td>
                             <div class="company-capital new_intern_feature">'.$feature_html.'</div>
@@ -1707,7 +1651,7 @@ function post_internship_confirm_form(){
                 </tbody>
             </table>
         </p>
-        <input type="hidden" name="edit_intern" value="edit_intern">
+        <input type="hidden" name="confirm_intern" value="confirm_intern">
         <div class="company_edit">
           '.$post_button_html.'
         </div>
