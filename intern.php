@@ -1451,6 +1451,19 @@ function post_internship_confirm_form(){
     $prospective_employer = $_POST["prospective_employer"];
     $intern_student_voice = $_POST["intern_student_voice"];
     $features = $_POST["feature"];
+    $features_array = array("時給1000円以上","時給1200円以上","時給1500円以上","時給2000円以上","週1日ok","週2日ok","週3日以下でもok","1ヶ月からok","3ヶ月以下歓迎","未経験歓迎","1,2年歓迎","新規事業立ち上げ","理系学生おすすめ","外資系","ベンチャー","エリート社員","社長直下","起業ノウハウが身につく","インセンティブあり","英語力が活かせる","英語力が身につく","留学生歓迎","土日のみでも可能","リモートワーク可能","テスト期間考慮","短期間の留学考慮","女性おすすめ","少数精鋭","交通費支給","曜日/時間が選べる","夕方から勤務でも可能","服装自由","髪色自由","ネイル可能","有名企業への内定者多数","プログラミングが未経験から学べる");
+    $feature_html = '';
+    foreach($features_array as $feature){
+      if(in_array($feature, $features, true)){
+        $feature_html .= '<div><label class="">
+        '.$feature.'<input type="hidden" name="feature[]" value="'.$feature.'">
+        </label></div>';
+      }else{
+        $feature_html .= '<div><label class="">
+        '.$feature.'<input type="hidden" name="feature[]" value="'.$feature.'">
+        </label></div>';
+      }
+    }
     $occupation = $_POST["occupation"];
     $salary = $_POST["salary"];
     $intern_day = $_POST["intern_day"];
@@ -1466,22 +1479,21 @@ function post_internship_confirm_form(){
       $selection_flows .= $_POST["selection_flow"][$i];
       $selection_flows .= "</br>";
     }
-    $selection_html_re  = '<tr class="selection_flows">
-  <th align="left" nowrap="nowrap">選考フロー<div class="btn-box add"><input type="button" value="＋" class="pluralBtn"><span class="btn-sen">追加する</div>
-                            <div class="btn-box del"><input type="button" value="－" class="pluralBtn"><span class="btn-sen">削除する</span></div></th>';
-  $count_s = 0;	
-  foreach($selection_flows as $selection_flow){
-    if ($selection_flow === reset($selection_flows)) {
-          $selection_html_re .= '<td>
-      <div class="company-capital"><input class="input-width" type="text" min="0" name="selection_flow[]" placeholder="(例)面接" id="" value="'.$selection_flow.'"></div>
-    </td>';
-      }
-    else{
-      $selection_html_re .= '<td><div class="arrow"></div>
-      <div class="company-capital"><input class="input-width" type="text" min="0" name="selection_flow[]" placeholder="(例)面接" id="" value="'.$selection_flow.'"></div>
-  </td>'; 
+    $selection_flows = explode("</br>", $selection_flows); // とりあえず行に分割
+    $selection_flows = array_map('trim', $selection_flows); // 各行にtrim()をかける
+    $selection_flows = array_filter($selection_flows, 'strlen'); // 文字数が0の行を取り除く
+    $selection_flows = array_values($selection_flows); // これはキーを連番に振りなおしてるだけ
+    $selection_html  = '';
+    foreach($selection_flows as $selection_flow){
+      $selection_html_re .= '
+      <tr>
+          <th>選考フロー</th>
+      <td>
+        <div class="company-capital">'.$selection_flow.'</div>
+        <input type="hidden" name="selection_flow" value="'.$selection_flow.'">
+      </td>
+      </tr>';
     }
-  }
     $intern_days = "";
     for ($i=0; $i<count($_POST["start"]); $i++){
       $intern_days .= $_POST["start"][$i];
@@ -1491,6 +1503,27 @@ function post_internship_confirm_form(){
       $intern_days .= $_POST["oneday_flow"][$i];
       $intern_days .= "</br>";
     }
+    $intern_days = explode("</br>", $intern_days); // とりあえず行に分割
+    $intern_days = array_map('trim', $intern_days);
+    $intern_days = array_filter($intern_days, 'strlen');
+    $intern_days = array_values($intern_days);
+
+  $intern_day_html_re = '<tr class="intern_days">
+  <th align="left" nowrap="nowrap">1日の流れ</th>';
+
+
+  for($i = 0; $i<count($intern_days)/3; $i++){
+      $intern_day_html_re .= '
+        <td><div class="arrow"></div>
+          <div class="company-capital">
+          <p>開始時間</p>
+          '.$intern_days[3*$i].'<input type="hidden" name="start[]" value="'.$intern_days[3*$i].'">
+          <p>終了時間</p>
+          '.$intern_days[3*$i+1].'<input type="hidden" name="end[]" value="'.$intern_days[3*$i+1].'">
+          <p>作業内容</p>
+          '.$intern_days[3*$i+2].'<input type="hidden" name="oneday_flow[]" value="'.$intern_days[3*$i+2].'"></div>
+        </td>';
+  }
     if(!empty($_POST["save"])){
       $post_status = "draft";
     }
@@ -1525,7 +1558,7 @@ function post_internship_confirm_form(){
                         <th>募集タイトル*</th>
                         <td>
                             <div class="company-name">'.$post_title.'</div>
-                            <input type="hidden" name="post_title" value="'.$post_status.'">
+                            <input type="hidden" name="post_title" value="'.$post_title.'">
                         </td>
                     </tr>
                     <tr>
@@ -1602,13 +1635,15 @@ function post_internship_confirm_form(){
                     <tr>
                       <th align="left" nowrap="nowrap">働いているインターン生の声</th>
                       <td>
-                          <div class="company-capital"><textarea name="intern_student_voice" id="" cols="30" rows="5">'.$intern_student_voice.'</textarea></div>
+                          <div class="company-capital">'.$intern_student_voice.'</div>
+                          <input type="hidden" name="intern_student_voice" value="'.$intern_student_voice.'">
                       </td>
                     </tr>
                     <tr>
                         <th align="left" nowrap="nowrap">インターン卒業生の内定先</th>
                         <td>
-                            <div class="company-capital"><textarea name="prospective_employer" id="" cols="30" rows="5">'.$prospective_employer.'</textarea></div>
+                            <div class="company-capital">'.$prospective_employer.'</div>
+                            <input type="hidden" name="prospective_employer" value="'.$prospective_employer.'">
                         </td>
                     </tr>
                     <tr>
@@ -1678,7 +1713,7 @@ function post_internship_confirm_form(){
         </div>
       </div>
     </form>';
-    return $edit_html;
+    return $confirm_html;
   }else{
     header('Location: https://builds-story.com/');
     die();
