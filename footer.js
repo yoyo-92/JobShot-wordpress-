@@ -593,16 +593,14 @@ jQuery(".intern_days").on("click", ".del", function() {
         jQuery(".intern_days td:last").remove();
     }
 });
-document.getElementById("past_intern_pr_use").onclick = function(event) {
-	// ここに#past_intern_pr_useをクリックしたら発生させる処理を記述する
+<script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/js/iziModal.min.js" type="text/javascript"></script>
+
+jQuery(document).on("click", ".open-past-pr", function(event) {
 	event.preventDefault();
-  	$('#modal-options').iziModal('open');
-};
-$('#modal-options').iziModal({
-	headerColor: '#26A69A', //ヘッダー部分の色
-	width: 400, //横幅
-	overlayColor: 'rgba(0, 0, 0, 0.5)', //モーダルの背景色
-	fullscreen: true, //全画面表示
-	transitionIn: 'fadeInUp', //表示される時のアニメーション
-	transitionOut: 'fadeOutDown' //非表示になる時のアニメーション
+   	jQuery("#modal-default").iziModal("open");
+});
+jQuery("#modal-default").iziModal({
+	group: "group01",
+	loop: true,
+	headerColor: "#91b500",
 });
