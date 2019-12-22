@@ -90,10 +90,20 @@ function template_event2_func($content){
     if($capacity < $participant_num){
         $entry_html = '<a>定員に達したため締め切りました</a>';
     }
+    // ベイカレント用
     if($post_id == 7554){
         $entry_html = '
         <div class="fixed-buttom">
             <a href="[get_form_address formtype=apply form_id=7552 post_id='.$post->ID.' title='.$post->post_title.']">
+                <button class="button button-apply">イベントに応募する</button>
+            </a>
+        </div>';
+    }
+    // 就活無双塾用
+    if($post_id == 7842){
+        $entry_html = '
+        <div class="fixed-buttom">
+            <a href="[get_form_address formtype=apply form_id=7848 post_id='.$post->ID.' title='.$post->post_title.']">
                 <button class="button button-apply">イベントに応募する</button>
             </a>
         </div>';

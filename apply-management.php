@@ -59,6 +59,9 @@ function view_applylist_func ( $atts ) {
     if($post_id == 7554){
       $formname = 'ベイカレント';
     }
+    if($post_id == 7842){
+      $formname = '【就活無双塾×JobShot】';
+    }
   }else if(get_post_type($post_id)=='summer_internship'){
     $phtml = '<h3 class="widget-title">'.get_the_title($post_id).'</h3>';
     $formname = 'サマーインターン';
