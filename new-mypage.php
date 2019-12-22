@@ -157,6 +157,12 @@ add_action( 'wp_ajax_nopriv_ajax_abroad', 'Ajax_Abroad' );
 
 function Ajax_Programming(){
     $user_id = um_profile_id();
+    if(isset($_POST['programming_languages'])) {
+        $programming_languages = $_POST['programming_languages'];
+        // Update/Create User Meta
+        update_user_meta( $user_id, 'programming_languages', $programming_languages);
+	}
+    $programming_languages = get_user_meta($user_id,'programming_languages',false)[0];
     $programming_lang_lv_array = array(
         "C言語"  => "programming_lang_lv_c",
         "C++"    => "programming_lang_lv_cpp",
@@ -192,7 +198,7 @@ function Ajax_Programming(){
                     for($i = 1; $i < ($programming_lang_lv_skill+1); $i++){
                         $languages .= '<i data-alt="'.$i.'" class="star-on-png" title="'.$programming_lang_lv_skill.'"></i>';
                     }
-                    for($i = $programming_lang_lv_c+1; $i < 6; $i++){
+                    for($i = $programming_lang_lv_skill+1; $i < 6; $i++){
                         $languages .= '<i data-alt="'.$i.'" class="star-off-png" title="'.$programming_lang_lv_skill.'"></i>';
                     }
             $languages .= '</div>
@@ -212,13 +218,13 @@ function Ajax_Programming(){
     $user_array = array(
         "プログラミング経験"  =>  "experience_programming",
         "使用したことのあるフレームワーク・ライブラリ"  =>  "framework",
-        "GitHubアカウント"  =>  "Github",
+        "GitHubアカウント"  =>  "GitHub",
         "開発ソフトのスキル"  =>  "skill_dev",
         "使えるデザイン系アプリケーション"  =>  "skill_design",
         "プログラミング実務経験"  =>  "work",
     );
     foreach($user_array as $user_key => $user_value){
-        if($user_value == 'Github'){
+        if($user_value == 'GitHub'){
             if(isset($_POST[$user_value.'-6120'])) {
                 $user_meta_value = $_POST[$user_value.'-6120'];
                 update_user_meta( $user_id, $user_value, $user_meta_value);
@@ -496,7 +502,7 @@ function new_mypage_func(){
         "その他"  =>  "lang_pr",
         "プログラミング経験"  =>  "experience_programming",
         "使用したことのあるフレームワーク・ライブラリ"  =>  "framework",
-        "GitHubアカウント"  =>  "Github",
+        "GitHubアカウント"  =>  "GitHub",
         "開発ソフトのスキル"  =>  "skill_dev",
         "使えるデザイン系アプリケーション"  =>  "skill_design",
         "プログラミング実務経験"  =>  "work",
@@ -627,7 +633,7 @@ function new_mypage_func(){
             <div class="um-clear"></div>
         </div>
         <div class="um-field-area">
-            <div class="um-rating um-raty" id="programming_lang_lv_c" data-key="programming_lang_lv_c" data-number="5" data-score="'.$programming_lang_lv_c.'" style="cursor: pointer;"></div>
+            <div class="um-rating um-raty" id='.$programming_lang_lv.' data-key='.$programming_lang_lv.' data-number="5" data-score="'.$programming_lang_lv_skill.'" style="cursor: pointer;"></div>
             </div>
         </div>';
         $option_languages_html .= '<option value="'.$programming_lang_name.'">'.$programming_lang_name.'</option>';
@@ -650,7 +656,7 @@ function new_mypage_func(){
     $upload_cover_name = $upload_dir['basedir']."/".'cover_photo'.$user_id.'.png';
     if(!file_exists($upload_cover_name)){
       $attachment_id=2631;
-      $upload_cover_name = wp_get_attachment_image_src($attachment_id)[0];
+      $upload_cover_name = wp_get_attachment_image_src($attachment_id,'full')[0];
     }
     $cover_html = '
     <div class="um-cover has-cover um-trigger-menu-on-click" data-user_id="'.$user_id.'" data-ratio="2.7:1" style="height: 296px;">
@@ -996,7 +1002,7 @@ function new_mypage_func(){
           
                   <div class="um-field um-field-experience_programming um-field-radio um-field-type_radio" data-key="experience_programming"><div class="um-field-label"><label for="experience_programming-1597">プログラミング経験</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$experience_programming.'</div></div></div>'.$languages.'
                   <div class="um-field um-field-framework um-field-textarea um-field-type_textarea" data-key="framework"><div class="um-field-label"><label for="framework-1597">使用したことのあるフレームワーク・ライブラリ</label><p></p><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$framework.'</div></div></div>
-                  <div class="um-field um-field-GitHub um-field-url um-field-type_url" data-key="GitHub"><div class="um-field-label"><label for="GitHub-1597">GitHubアカウント</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$Github.'</div></div></div>
+                  <div class="um-field um-field-GitHub um-field-url um-field-type_url" data-key="GitHub"><div class="um-field-label"><label for="GitHub-1597">GitHubアカウント</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$GitHub.'</div></div></div>
                   <div class="um-field um-field-skill_dev um-field-multiselect um-field-type_multiselect" data-key="skill_dev"><div class="um-field-label"><label for="skill_dev-1597">開発ソフトのスキル</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$devs.'</div></div></div>
                   <div class="um-field um-field-skill_design um-field-multiselect um-field-type_multiselect" data-key="skill_design"><div class="um-field-label"><label for="skill_design-1597">使えるデザイン系アプリケーション</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$designs.'</div></div></div>
                   <div class="um-field um-field-work um-field-textarea um-field-type_textarea" data-key="work"><div class="um-field-label"><label for="">プログラミング実務経験</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$work.'</div></div></div>
@@ -1039,7 +1045,7 @@ function new_mypage_func(){
               <div class="um-field-label"><label for="GitHub-6120">GitHubアカウント</label><p></p>
               <div class="um-clear"></div>
               </div>
-              <div class="um-field-area"><input class="um-form-field valid not-required " type="text" name="GitHub-6120" id="GitHub-1597" value="'.$Github.'" placeholder="" data-validate="" data-key="GitHub"><p></p></div>
+              <div class="um-field-area"><input class="um-form-field valid not-required " type="text" name="GitHub-6120" id="GitHub-1597" value="'.$GitHub.'" placeholder="" data-validate="" data-key="GitHub"><p></p></div>
               </div>
           <div class="um-field um-field-skill_dev um-field-multiselect um-field-type_multiselect" data-key="skill_dev">
               <div class="um-field-label"><label for="skill_dev-1597">開発ソフトのスキル</label><p></p>
