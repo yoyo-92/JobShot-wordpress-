@@ -3,8 +3,23 @@
 function my_scripts_method() {
     wp_deregister_script('jquery');
     wp_enqueue_script('jquery','https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js', array(), '1.8.3');
+    if (is_page(array('user'))) {
+    wp_enqueue_script('jquery3','https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js',array(),'3.1.1');
+	}
+    if (is_page(array('regist'))) {
+    wp_enqueue_script('jquery3','https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js',array(),'3.1.1');
+	}
 }
 add_action( 'wp_enqueue_scripts', 'my_scripts_method' );
+
+add_filter('script_loader_tag', 'add_defer', 10, 2);
+function add_defer($tag, $handle) {
+  if($handle !== 'jquery3') {
+    return $tag;
+  }
+  return str_replace(' src=', ' defer src=', $tag);
+}
+
 
 
 function Ajax_Base(){
@@ -546,7 +561,7 @@ function new_mypage_func(){
     $experience_programming = get_user_meta($user_id,'experience_programming',false)[0][0];
     $programming_languages = get_user_meta($user_id,'programming_languages',false)[0];
     $framework = get_user_meta($user_id,'framework',false)[0];
-    $Github = get_user_meta($user_id,'GitHub',false)[0];
+    $GitHub = get_user_meta($user_id,'GitHub',false)[0];
     $experience_programming = get_user_meta($user_id,'experience_programming',false)[0][0];
     $skill_dev = get_user_meta($user_id,'skill_dev',false)[0];
     if(isset($skill_dev)) {
