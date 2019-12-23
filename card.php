@@ -742,60 +742,8 @@ function view_fullwidth_column_card_func($post_id){
   $description = get_post_meta($post_id, '_aioseop_description', true);
   $post_date = $post->post_date;
   $image_url = get_the_post_thumbnail_url( $post_id , 'medium' );
-  $style_html = '
-  <style>
-  .column_card_img{
-    float: left;
-    width: 200px;
-    height: auto;
-    margin: 0 20px;
-  }
-  .column_card_contents{
-    margin-left: 240px;
-    padding-bottom: 30px;
-  }
-  #column_card_title_text{
-    margin: 5px 0;
-    font-size: 18px;
-    font-weight: normal;
-  }
-  .column_card_description{
-    margin: 10px 0;
-  }
-  .column_card_date{
-    float: right;
-  }
-  .column_card_date i{
-    margin-right: 5px;
-  }
-  @media screen and (max-width: 480px){
-    .column_card_img{
-      width: 70px;
-      height: 50px;
-      margin: 0 10px;
-      margin-top: 1.5px;
-    }
-    .column_card_contents{
-      margin-left: 90px;
-      margin-right: 5px;
-      padding-bottom: 20px;
-    }
-    .column_card_title{
-      margin: 5px 0;
-    }
-    #column_card_title_text{
-      margin: 0;
-      font-size: 12px;
-      padding-top: 5px;
-    }
-    .column_card_description{
-      display: none;
-    }
-  }
-  </style>
-  ';
 
-  $card_html = $style_html.'
+  $card_html = '
   <div class="card full-card">
     <div class="full-card-maim">
       <div class="column_card_img">
