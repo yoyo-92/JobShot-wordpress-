@@ -90,6 +90,7 @@ function template_event2_func($content){
     if($capacity < $participant_num){
         $entry_html = '<a>定員に達したため締め切りました</a>';
     }
+    // ベイカレント用
     if($post_id == 7554){
         $entry_html = '
         <div class="fixed-buttom">
@@ -98,22 +99,47 @@ function template_event2_func($content){
             </a>
         </div>';
     }
+    // 就活無双塾用
+    if($post_id == 7842){
+        $entry_html = '
+        <div class="fixed-buttom">
+            <a href="[get_form_address formtype=apply form_id=7848 post_id='.$post->ID.' title='.$post->post_title.']">
+                <button class="button button-apply">イベントに応募する</button>
+            </a>
+        </div>';
+    }
 
     $table_body_html = add_to_table('開催日時', '<div>'.$event_date.'</div>');
-    $table_body_html.=add_to_table('場所', '<div>'.get_field('開催場所名',$post_id).'</div><div>'.get_field('開催場所住所',$post_id).'</div>'.$access_html.'<div class="respiframe">[acf type=area name=開催場所の地図]</div>');
-    $table_body_html.=add_to_table('募集対象', get_field('募集対象',$post_id));
-    $table_body_html.=add_to_table('定員', get_field('定員',$post_id));
-    $table_body_html.=add_to_table('参加費', get_field('参加費',$post_id));
+    if(!empty(get_field('開催場所名',$post_id))){
+        $table_body_html.=add_to_table('場所', '<div>'.get_field('開催場所名',$post_id).'</div><div>'.get_field('開催場所住所',$post_id).'</div>'.$access_html.'<div class="respiframe">[acf type=area name=開催場所の地図]</div>');
+    }
+    if(!empty(get_field('募集対象',$post_id))){
+        $table_body_html.=add_to_table('募集対象', get_field('募集対象',$post_id));
+    }
+    if(!empty(get_field('定員',$post_id))){
+        $table_body_html.=add_to_table('定員', get_field('定員',$post_id));
+    }
+    if(!empty(get_field('参加費',$post_id))){
+        $table_body_html.=add_to_table('参加費', get_field('参加費',$post_id));
+    }
     if(!empty($sankas)){
         $table_body_html.=add_to_table('参加企業', $sanka_html);
     }
-    // $table_body_html.=add_to_table('コンテンツ', $contents_html);
-    $table_body_html.=add_to_table('コンテンツ', get_field('コンテンツ',$post_id));
-    // $table_body_html.=add_to_table('スケジュール', $schedule_html);
-    $table_body_html.=add_to_table('スケジュール', get_field('スケジュール',$post_id));
-    $table_body_html.=add_to_table('持ち物', get_field('持ち物'));
-    $table_body_html.=add_to_table('申込締切',date("Y年m月d日 H:i", strtotime(get_field('申込締切日時'))));
-    $table_body_html.=add_to_table('備考', get_field('備考'));
+    if(!empty(get_field('コンテンツ',$post_id))){
+        $table_body_html.=add_to_table('コンテンツ', get_field('コンテンツ',$post_id));
+    }
+    if(!empty(get_field('スケジュール',$post_id))){
+        $table_body_html.=add_to_table('スケジュール', get_field('スケジュール',$post_id));
+    }
+    if(!empty(get_field('持ち物',$post_id))){
+        $table_body_html.=add_to_table('持ち物', get_field('持ち物'));
+    }
+    if(!empty(get_field('申込締切日時',$post_id))){
+        $table_body_html.=add_to_table('申込締切',date("Y年m月d日 H:i", strtotime(get_field('申込締切日時'))));
+    }
+    if(!empty(get_field('備考',$post_id))){
+        $table_body_html.=add_to_table('備考', get_field('備考'));
+    }
 
     $html='
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">

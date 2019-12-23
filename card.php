@@ -475,23 +475,35 @@ function view_fullwidth_event_card_func($post_id){
               <td>'.$sankas.'</td>
             </tr>';
   }
-  $card_html .='
+  if(!empty($area)){
+    $card_html .= '
             <tr>
               <th>開催エリア</th>
               <td>'.$area.'</td>
-            </tr>
+            </tr>';
+  }
+  if(!empty($event_date)){
+    $card_html .= '
             <tr>
               <th>開催日時</th>
               <td>'.$event_date.'</td>
-            </tr>
+            </tr>';
+  }
+  if(!empty($event_target)){
+    $card_html .= '
             <tr>
               <th>募集対象</th>
               <td>'.$event_target.'</td>
-            </tr>
+            </tr>';
+  }
+  if(!empty($event_capacity)){
+    $card_html .= '
             <tr>
               <th>定員</th>
               <td>'.$event_capacity.'</td>
-            </tr>
+            </tr>';
+  }
+  $card_html .='
           </tbody>
         </table>
       </div>
