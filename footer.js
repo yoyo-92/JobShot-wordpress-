@@ -593,14 +593,43 @@ jQuery(".intern_days").on("click", ".del", function() {
         jQuery(".intern_days td:last").remove();
     }
 });
-<script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/js/iziModal.min.js" type="text/javascript"></script>
-
-jQuery(document).on("click", ".open-past-pr", function(event) {
-	event.preventDefault();
-   	jQuery("#modal-default").iziModal("open");
+jQuery(document).on('click', '.open-options', function(event) {
+    event.preventDefault();
+    jQuery('.modal_options').iziModal('open');
 });
-jQuery("#modal-default").iziModal({
-	group: "group01",
-	loop: true,
-	headerColor: "#91b500",
+jQuery('.modal_options').iziModal({
+    group: "group01",
+    loop: true,
+    headerColor: '#26A69A', //ヘッダー部分の色
+    width: 300, //横幅
+    overlayColor: 'rgba(0, 0, 0, 0.5)', //モーダルの背景色
+    transitionIn: 'fadeInUp', //表示される時のアニメーション
+    transitionOut: 'fadeOutDown' //非表示になる時のアニメーション
+});
+jQuery(function() {
+    jQuery("#button1").click(function() {
+        var str1 = jQuery('#past-self-pr-1').text();
+        jQuery('textarea[name="your-message"]').val(str1);
+        jQuery('.modal_options').iziModal('close');
+    });
+    jQuery("#button2").click(function() {
+        var str2 = jQuery('#past-self-pr-2').text();
+        jQuery('textarea[name="your-message"]').val(str2);
+        jQuery('.modal_options').iziModal('close');
+    });
+    jQuery("#button3").click(function() {
+        var str3 = jQuery('#past-self-pr-3').text();
+        jQuery('textarea[name="your-message"]').val(str3);
+        jQuery('.modal_options').iziModal('close');
+    });
+    jQuery("#button4").click(function() {
+        var str4 = jQuery('#past-self-pr-4').text();
+        jQuery('textarea[name="your-message"]').val(str4);
+        jQuery('.modal_options').iziModal('close');
+    });
+    jQuery("#button5").click(function() {
+        var str5 = jQuery('#past-self-pr-5').text();
+        jQuery('textarea[name="your-message"]').val(str5);
+        jQuery('.modal_options').iziModal('close');
+    });
 });

@@ -62,14 +62,15 @@ function past_self_internship_PR_func(){
     $self_internship_pr_value = preg_split("/[,]/",$self_internship_pr_value);
     $count = 0;
     $self_internship_pr_value = array_chunk($self_internship_pr_value,18);
-    $izimodal_content = '<button class="open-options button">options</button>';
+    $izimodal_content = '<button class="open-options button" style="float: right;">過去の自己PRを使う</button>';
     foreach($self_internship_pr_value as $self_internship_pr_value_each){
         $internship_title = $self_internship_pr_value_each[7];
         $self_internship_pr_content = $self_internship_pr_value_each[8];
         $title_count = $count+1;
         $izimodal_content .= '
         <div class="modal_options" data-izimodal-group="group1" data-izimodal-loop="" data-izimodal-title="過去の自己PR'.$title_count.'" data-izimodal-subtitle="'.$internship_title.'">
-            <p>'.$self_internship_pr_content.'</p>
+            <p id="past-self-pr-'.$title_count.'">'.$self_internship_pr_content.'</p>
+            <input type="button" id="button'.$title_count.'" value="これを使う"/>
         </div>';
         $count += 1;
         if($count > 4){
