@@ -189,6 +189,10 @@ function get_contactform_func($atts){
     }
 
     $form_name = get_the_title($form_id);
+    $custom_key='apply_status_'.strval($post_id);
+    $current_user = get_current_user_id();
+    $value='未対応';
+    update_user_meta($current_user, $custom_key, $value);
 
     return do_shortcode('[contact-form-7 id="'.$form_id.'" title="'.$form_name.'"]');
 }

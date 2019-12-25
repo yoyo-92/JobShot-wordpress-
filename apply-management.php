@@ -210,6 +210,43 @@ function view_intern_all_applylist_func ( $atts ) {
 
   $f=false;
   $f=is_this_my_content($post_id);
+  $custom_key='apply_status_'.strval($post_id);
+  $current_user = get_current_user_id();
+  $apply_status=get_user_meta($current_user,$custom_key);
+  $select_box='';
+  if(empty($apply_status) || strcmp($apply_status,'未対応')==0){
+    $select_box.='
+    <select name="応募ステータス">
+    <option value="未対応" selected>未対応</option>
+    <option value="対応中">対応中</option>
+    <option value="不採用">不採用</option>
+    <option value="採用済み">採用済み</option>
+    </select>';
+  }elseif(strcmp($apply_status,'対応中')==0){
+    $select_box.='
+    <select name="応募ステータス">
+    <option value="未対応">未対応</option>
+    <option value="対応中" selected>対応中</option>
+    <option value="不採用">不採用</option>
+    <option value="採用済み">採用済み</option>
+    </select>';
+  }elseif(strcmp($apply_status,'不採用')==0){
+    $select_box.='
+    <select name="応募ステータス">
+    <option value="未対応">未対応</option>
+    <option value="対応中">対応中</option>
+    <option value="不採用" selected>不採用</option>
+    <option value="採用済み">採用済み</option>
+    </select>';
+  }elseif(strcmp($apply_status,'採用済み')==0){
+    $select_box.='
+    <select name="応募ステータス">
+    <option value="未対応">未対応</option>
+    <option value="対応中">対応中</option>
+    <option value="不採用">不採用</option>
+    <option value="採用済み" selected>採用済み</option>
+    </select>';
+  }
 
   $participant_num = do_shortcode(' [cfdb-count form="/'.$formname.'.*/"]');
   if($mode=='dbview'){
@@ -231,6 +268,7 @@ function view_intern_all_applylist_func ( $atts ) {
               <th>応募日時</th>
               <th>応募案件名</th>
               <th>連絡先</th>
+              <th>応募ステータス</th>
             </tr>
           </thead>
           <tbody>
@@ -250,6 +288,9 @@ function view_intern_all_applylist_func ( $atts ) {
               </td>
               <td label="連絡先">
                 <p>[get_user_mobile_number field=login value="${your-id}"]<br>[get_user_email field=login value="${your-id}"]</p>
+              </td>
+              <td label="応募ステータス">
+                <p>'.$select_box.'</p>
               </td>
             </tr>
           {{AFTER}}
