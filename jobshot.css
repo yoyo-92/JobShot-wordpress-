@@ -5388,3 +5388,122 @@ font-size: 13px !important;
 	  font-size: xx-small;
   }
 }
+/* 新卒詳細ページ */
+.job-template-default .col-sidebar.sidebar-main {
+  display: none;
+}
+.job-template-default .singular.themes-sidebar3-inactive.themes-sidebar1-active .main-content {
+  width: 100%;
+  padding: 0;
+}
+.job-template-default .recruit-img-container {
+  background: url(https://glatchdesign.com/wp-content/uploads/2016/02/mountain0209.jpg) no-repeat center;
+  background-size: cover;
+  position: relative;
+  height: 400px;
+  margin: 0 -10%;
+}
+.job-template-default .recruit-img-container:before {
+  background-color: rgba(0,0,0,0.5);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  content: ' ';
+}
+.job-template-default .recruit-img {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: 40%;
+}
+.job-template-default .recruit-img h1, .recruit-img p {
+  color: #fff;
+}
+.job-template-default .recruit-img h1 {
+  font-size: 1.8em !important;
+  font-weight: 550;
+  padding: 0 20%;
+}
+.job-template-default .recruit-img a p {
+  margin-top: 40px;
+  padding: 10px;
+  border-radius: 20px;
+  display: inline-block;
+  border: solid 2px #fff;
+}
+.job-template-default .recruit-img a p:hover {
+  color: #ffc778;
+  border: solid 2px #ffc778;
+  transition: 200ms;
+}
+.job-template-default .singular.themes-sidebar3-inactive.themes-sidebar1-active .main-content article {
+  padding: 10px 10%;
+}
+.job-template-default .mainhead {
+  border-radius: 10px;
+  font-size: 2.0em !important;
+  background-color: #fff !important;
+  color: #333 !important;
+  padding-left: 0 !important;
+  margin: 20px 0;
+}
+.job-template-default .table__base {
+  border-radius: 10px;
+}
+.job-template-default .singular.themes-sidebar3-inactive.themes-sidebar1-active .main-content article .container section .maintitle {
+  border-bottom: solid 3px #03c4b0;
+  font-size: 1.7em;
+  padding: 5px 0;
+  color: #666;
+  position: relative;
+}
+.job-template-default .singular.themes-sidebar3-inactive.themes-sidebar1-active .main-content article .container section .maintitle:after {
+  position: absolute;
+  content: " ";
+  display: block;
+  background-color: #fff;
+  border-bottom: none;
+  border-bottom: solid 3px #ffc778;
+  bottom: -3px;
+  width: 30%;
+}
+.job-template-default .singular.themes-sidebar3-inactive.themes-sidebar1-active .main-content article .container section section {
+  margin: 30px 0;
+}
+.job-template-default .singular.themes-sidebar3-inactive.themes-sidebar1-active .main-content article .container section section h3 {
+  text-decoration: none;
+  padding: 0.25em 0.5em;
+  color: #666;
+  border-left: solid 5px #03c4b0;
+}
+@media screen and (min-width:1280px) {
+  .job-template-default .recruit-img-container {
+    margin: 0 -10%;
+  }
+}
+@media screen and (max-width:782px) {
+  .job-template-default .recruit-img-container {
+    height: 200px;
+  }
+  .job-template-default .mainhead {
+    border-radius: 0px;
+    font-size: 1.6em !important;
+    line-height: 30px;
+    margin: 20px 0 0 -15%;
+    font-weight: 500 !important;
+    text-align: center;
+    background-color: #ddd !important;
+    padding-left: 0% !important;
+  }
+  .job-template-default .singular.themes-sidebar3-inactive.themes-sidebar1-active .main-content article {
+    padding: 0px 10% 10px 10%;
+  }
+  .job-template-default .recruit-img a p {
+    display: none;
+  }
+  .job-template-default .singular.themes-sidebar3-inactive.themes-sidebar1-active .main-content article .container section section {
+  margin: 15px 0;
+  }
+}
