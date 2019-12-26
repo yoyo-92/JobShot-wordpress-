@@ -3664,7 +3664,7 @@ div[data-element="div.um-profile-photo"] .um-dropdown-b .um-dropdown-arr {
 
 .photo-btns {
 overflow: hidden !important;
-//margin-top: 50px !important;
+/* margin-top: 50px !important; */
 }
 .um-modal-btn {
 float:left !important;
@@ -3673,7 +3673,7 @@ margin:  0 5%;
 }
 
 .um-field-type_rating {
-//display: block !important;
+/* display: block !important; */
 }
 
 .appeal-text p, .appeal-text section {
