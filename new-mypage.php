@@ -1520,19 +1520,17 @@ function regist_cover_up() {
     if (!empty($_FILES["upcovername"])){
     if (is_uploaded_file($_FILES["upcovername"]["tmp_name"])) {
 	    if(isset($_POST['user_id'])){
-		 	$user_id = $_POST['user_id']; 
+		 	$user_id = $_POST['user_id'];
 		}
 	    $user_info = get_userdata($user_id);
         $user_name = $user_info->user_login;
 	    $chk = chk_ext($_FILES["upcovername"]["name"],$allow_exts=array( "png", "jpeg", "jpg","heic" ));
 	    if($chk == false){
-		  $alert = "<script type='text/javascript'>console('拡張子が異なります');</script>";
 		  header('Location: https://builds-story.com/user?um_user='.$user_name);
     	  die();
 		}
 	    $size = size_ext($_FILES["upcovername"]["size"]);
 	    if($size == false){
-		  $alert = "<script type='text/javascript'>console('サイズが大きすぎます');</script>";
 		  header('Location: https://builds-story.com/user?um_user='.$user_name);
     	  die();
 		}
