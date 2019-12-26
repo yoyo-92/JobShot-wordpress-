@@ -69,8 +69,8 @@ function past_self_internship_PR_func(){
         $title_count = $count+1;
         $izimodal_content .= '
         <div class="modal_options" data-izimodal-group="group1" data-izimodal-loop="" data-izimodal-title="過去の自己PR'.$title_count.'" data-izimodal-subtitle="'.$internship_title.'">
-            <p id="past-self-pr-'.$title_count.'">'.$self_internship_pr_content.'</p>
-            <input type="button" id="button'.$title_count.'" value="これを使う"/>
+            <p id="past-self-pr-'.$title_count.'" class="past-self-pr-text">'.$self_internship_pr_content.'</p>
+            <input type="button" class="past-self-pr-button" id="button'.$title_count.'" value="これを使う"/>
         </div>';
         $count += 1;
         if($count > 4){

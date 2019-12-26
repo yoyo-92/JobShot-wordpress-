@@ -141,7 +141,7 @@ function izimodal_function() {
         group: 'group01',
         loop: true,
         headerColor: '#26A69A', //ヘッダー部分の色
-        width: 300, //横幅
+        width: '80%', //横幅
         overlayColor: 'rgba(0, 0, 0, 0.5)', //モーダルの背景色
         transitionIn: 'fadeInUp', //表示される時のアニメーション
         transitionOut: 'fadeOutDown' //非表示になる時のアニメーション
