@@ -1,6 +1,9 @@
 <?php
 
 function get_time_to_station($address){
+    $pattern = '/東京都|北海道|(?:大阪|京都)府|(?:三重|兵庫|千葉|埼玉|大分|奈良|岐阜|岩手|島根|新潟|栃木|沖縄|熊本|福井|秋田|群馬|長野|青森|高知|鳥取|(?:宮|長)崎|(?:宮|茨)城|(?:佐|滋)賀|(?:静|福)岡|山(?:口|形|梨)|愛(?:媛|知)|(?:石|香|神奈)川|(?:富|岡|和歌)山|(?:福|広|徳|鹿児)島)県/';
+    $pref = preg_match($pattern, $address[0], $m) ? $m[0] : null;
+
     mb_language("Japanese");//文字コードの設定
     mb_internal_encoding("UTF-8");
     $api_key='AIzaSyAo-HEaelxKq4jLvmvCg8HI7_UKoGAz_ms';
@@ -32,7 +35,10 @@ function get_time_to_station($address){
             $lines_json = json_decode($lines_contents,true);
             $lines=array();
             foreach($lines_json['response']['station'] as $ln){
-                array_push($lines,$ln['line']);
+                print_r($ln['prefecture']);
+                if ( strcmp($ln['prefecture'], $pref) == 0 ) {
+                    array_push($lines,$ln['line']);
+                }
             }
             array_push($stations,array('name'=>$sta,'distance'=>$jsonData3["routes"][0]["legs"][0]["distance"]["text"],'time'=>$jsonData3["routes"][0]["legs"][0]["duration"]["text"],'line'=>$lines));
         }
@@ -56,7 +62,9 @@ function get_time_to_station($address){
             $lines_json = json_decode($lines_contents,true);
             $lines=array();
             foreach($lines_json['response']['station'] as $ln){
-                array_push($lines,$ln['line']);
+                if ( strcmp($ln['prefecture'], $pref) == 0 ) {
+                    array_push($lines,$ln['line']);
+                }
             }
             array_push($stations,array('name'=>$sta,'distance'=>$jsonData4["routes"][0]["legs"][0]["distance"]["text"],'time'=>$jsonData4["routes"][0]["legs"][0]["duration"]["text"],'line'=>$lines));
         }
