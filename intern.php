@@ -106,6 +106,7 @@ function template_internship2_func($content){
 
   $current_user = wp_get_current_user();
   $current_user_name = $current_user->data->display_name;
+  $home_url =esc_url( home_url( ));
   if($company_name == $current_user_name){
     $button_html = '
     <div class="company_edit">
@@ -114,7 +115,7 @@ function template_internship2_func($content){
     </div>';
     $button_html = '
     <div class="company_edit" style="text-align:right;">
-      <a href="https://builds-story.com/edit_internship?post_id='.$post_id.'" style="margin-right:5px;">編集する</a><a href="'.get_delete_post_link($post_id).'" style="margin-right:5px;">削除する</a>
+      <a href="'.$home_url.'/edit_internship?post_id='.$post_id.'" style="margin-right:5px;">編集する</a><a href="'.get_delete_post_link($post_id).'" style="margin-right:5px;">削除する</a>
     </div>';
   }else{
     $button_html = '';
@@ -513,9 +514,10 @@ function template_internship2_func($content){
     </tr>';
     }
     if(!empty($scholarship_value)){
+	  $home_url =esc_url( home_url( ));
       $html.='<tr>
       <th>お祝い金</th>
-      <td>'.$scholarship_value.'<a href='.esc_url("https://builds-story.com/gift_money").'>　お祝い金制度とは</a>
+      <td>'.$scholarship_value.'<a href='.esc_url("'.$home_url.'/gift_money").'>　お祝い金制度とは</a>
       </td>
     </tr>';
     }
@@ -715,10 +717,10 @@ function edit_internship_info(){
     $style_html = "
     <style type='text/css'>
     </style>";
-
+    $home_url =esc_url( home_url( ));
     $edit_html =  $style_html.'
     <h2 class="maintitle">インターン情報</h2>
-    <form action="https://builds-story.com/edit_internship?post_id='.$post_id.'" method="POST" enctype="multipart/form-data">
+    <form action="'.$home_url.'/edit_internship?post_id='.$post_id.'" method="POST" enctype="multipart/form-data">
       <div class="tab_content_description">
         <p class="c-txtsp">
             <table class="demo01 new_intern_table">
@@ -872,7 +874,7 @@ function edit_internship_info(){
     </form>';
     return $edit_html;
   }else{
-    header('Location: https://builds-story.com/');
+    header('Location: '.$home_url.'/');
     die();
   }
 }
@@ -1005,7 +1007,7 @@ function update_internship_info(){
       'ID' => $post_id,
     );
     $insert_id2 = wp_insert_post($post_value); //上書き（投稿ステータスを公開に）
-
+    $home_url =esc_url( home_url( ));
     if($insert_id2) {
         /* 投稿に成功した時の処理等を記述 */
         if(!empty($_POST["publish"])){
@@ -1015,7 +1017,7 @@ function update_internship_info(){
           header('Location: '.get_permalink($insert_id2));
         }
         if(!empty($_POST["save"])){
-          header('Location: https://builds-story.com/manage_post?posttype=internship');
+          header('Location: '.$home_url.'/manage_post?posttype=internship');
         }
         die();
         $html = '<p>success</p>';
@@ -1023,7 +1025,7 @@ function update_internship_info(){
         /* 投稿に失敗した時の処理等を記述 */
         $html = '<p>error1</p>';
     }
-    header('Location: https://builds-story.com/manage_post?posttype=internship');
+    header('Location: '.$home_url.'/manage_post?posttype=internship');
     die();
   }
 }
@@ -1065,10 +1067,10 @@ function new_internship_form(){
       </div>
     </div>
   </div>';
-
+  $home_url =esc_url( home_url( ));
   $edit_html =  $style_html.'
   <h2 class="maintitle">インターン情報</h2>
-  <form action="https://builds-story.com/new_post_internship" method="POST" enctype="multipart/form-data">
+  <form action="'.$home_url.'/new_post_internship" method="POST" enctype="multipart/form-data">
     <div class="tab_content_description">
       <p class="c-txtsp">
           <table class="demo01 new_intern_table">
@@ -1352,6 +1354,7 @@ function new_company_post_internship(){
           update_post_meta($insert_id, '選考フロー', $selection_flows);
           update_post_meta($insert_id, '1日の流れ', $intern_days);
           wp_set_object_terms( $insert_id, $occupation, 'occupation');
+		  $home_url =esc_url( home_url( ));
           if($prefecture == "東京都"){
               wp_set_object_terms( $insert_id, $area, 'area');
           }else{
@@ -1362,7 +1365,7 @@ function new_company_post_internship(){
           if($insert_id2) {
               /* 投稿に成功した時の処理等を記述 */
               if(!empty($_POST["save"])){
-                header('Location: https://builds-story.com/manage_post?posttype=internship');
+                header('Location: '.$home_url.'/manage_post?posttype=internship');
               }
               if(!empty($_POST["preview"])){
                 header('Location: '.get_permalink($insert_id2));

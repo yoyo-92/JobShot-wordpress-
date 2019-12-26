@@ -101,6 +101,7 @@ function template_job2_func($content){
 
     $current_user = wp_get_current_user();
     $current_user_name = $current_user->data->display_name;
+    $home_url =esc_url( home_url( ));
     if($company_name == $current_user_name){
       $button_html = '
       <div class="company_edit">
@@ -109,7 +110,7 @@ function template_job2_func($content){
       </div>';
       $button_html = '
       <div class="company_edit" style="text-align:right;">
-        <a href="https://builds-story.com/edit_job?post_id='.$post_id.'" style="margin-right:5px;">編集する</a><a href="'.get_delete_post_link($post_id).'" style="margin-right:5px;">削除する</a>
+        <a href="'.$home_url.'/edit_job?post_id='.$post_id.'" style="margin-right:5px;">編集する</a><a href="'.get_delete_post_link($post_id).'" style="margin-right:5px;">削除する</a>
       </div>';
     }else{
       $button_html = '';
@@ -243,6 +244,7 @@ function edit_job_info(){
     $picture2 = $picture2["url"];
     $worker_name2 = get_field("社員名2",$post_id);
     $worker_voice2 = get_field("紹介文2",$post_id);
+    $home_url =esc_url( home_url( ));
 
     $style_html = "
     <style type='text/css'>
@@ -285,7 +287,7 @@ function edit_job_info(){
 
     $edit_html =  $style_html.'
     <h2 class="maintitle">新卒情報</h2>
-    <form action="https://builds-story.com/edit_job?post_id='.$post_id.'" method="POST" enctype="multipart/form-data">
+    <form action="'.$home_url.'/edit_job?post_id='.$post_id.'" method="POST" enctype="multipart/form-data">
       <div class="tab_content_description">
         <p class="c-txtsp">
             <table class="demo01 new_intern_table">
@@ -427,13 +429,14 @@ function edit_job_info(){
     </form>';
     return $edit_html;
   }else{
-    header('Location: https://builds-story.com/');
+    header('Location: '.$home_url.'/');
     die();
   }
 }
 add_shortcode("edit_job_info","edit_job_info");
 
 function update_job_info(){
+  $home_url =esc_url( home_url( ));
   if(!empty($_POST["occupation"]) && !empty($_POST["edit_job"])){
     $post_id = $_GET["post_id"];
     $post = get_post($post_id);
@@ -549,7 +552,7 @@ function update_job_info(){
           header('Location: '.get_permalink($insert_id2));
         }
         if(!empty($_POST["save"])){
-          header('Location: https://builds-story.com/manage_post?posttype=job');
+          header('Location: '.$home_url.'/manage_post?posttype=job');
         }
         die();
         $html = '<p>success</p>';
@@ -557,13 +560,14 @@ function update_job_info(){
         /* 投稿に失敗した時の処理等を記述 */
         $html = '<p>error1</p>';
     }
-    header('Location: https://builds-story.com/manage_post?posttype=job');
+    header('Location: '.$home_url.'/manage_post?posttype=job');
     die();
   }
 }
 add_action('template_redirect', 'update_job_info');
 
 function new_job_form(){
+  $home_url =esc_url( home_url( ));
   $occupation_array= array("engineer"=>"エンジニア","designer"=>"デザイナー","director"=>"ディレクター","marketer"=>"マーケティング","writer"=>"ライター","sales"=>"営業","corporate_staff"=>"事務/コーポレート・スタッフ","human_resources"=>"総務・人事・経理","planning"=>"企画","others"=>"その他");
   $occupation_html = '<div class="company-established new_intern_occupation">';
   foreach($occupation_array as $occupation_key => $occupation_value){
@@ -610,7 +614,7 @@ function new_job_form(){
 
     $edit_html =  $style_html.'
     <h2 class="maintitle">新卒情報</h2>
-    <form action="https://builds-story.com/new_post_job" method="POST" enctype="multipart/form-data">
+    <form action="'.$home_url.'/new_post_job" method="POST" enctype="multipart/form-data">
       <div class="tab_content_description">
         <p class="c-txtsp">
             <table class="demo01 new_intern_table">
@@ -755,6 +759,7 @@ add_shortcode('new_job_form','new_job_form');
 
 
 function new_company_post_job(){
+  $home_url =esc_url( home_url( ));
   if(!empty($_POST["occupation"]) && !empty($_POST["new_post_job"])){
       $user = get_current_user_id();
       $company = wp_get_current_user();
@@ -842,7 +847,7 @@ function new_company_post_job(){
           if($insert_id2) {
               /* 投稿に成功した時の処理等を記述 */
               if(!empty($_POST["save"])){
-                header('Location: https://builds-story.com/manage_post?posttype=job');
+                header('Location: '.$home_url.'/manage_post?posttype=job');
               }
               if(!empty($_POST["preview"])){
                 header('Location: '.get_permalink($insert_id2));

@@ -60,6 +60,7 @@ function login_redirect_func(){
  * 新規登録の際にリダイレクト処理は最悪行わなくても良いものとする
  */
 function apply_redirect(){
+    $home_url =esc_url( home_url( ));
     $html = '
         <div class="um um-login um-1596 uimob500" style="opacity: 1;">
             <div class="um-form">
@@ -97,12 +98,12 @@ function apply_redirect(){
                             <input type="submit" value="ログイン" class="um-button" id="um-submit-btn">
                         </div>
                         <div class="um-right um-half">
-                            <a href="https://builds-story.com/regist" class="um-button um-alt"><br>新規登録</a>
+                            <a href="'.$home_url.'/regist" class="um-button um-alt"><br>新規登録</a>
                         </div>
                         <div class="um-clear"></div>
                     </div>
                     <div class="um-col-alt-b">
-                        <a href="https://builds-story.com/?page_id=1605" class="um-link-alt"><br>パスワードをお忘れですか ?</a>
+                        <a href="'.$home_url.'/?page_id=1605" class="um-link-alt"><br>パスワードをお忘れですか ?</a>
                     </div>
                 </form>
             </div>
@@ -119,6 +120,7 @@ function apply_redirect(){
 add_shortcode('view_apply_redirect','apply_redirect');
 
 function redirect_to_mypage(){
+    $home_url =esc_url( home_url( ));
     $user = wp_get_current_user();
     $user_roles = $user->roles;
     if(in_array("company", $user_roles)){
@@ -129,13 +131,13 @@ function redirect_to_mypage(){
         wp_redirect( $location );
         exit;
     }
-    wp_redirect( 'https://builds-story.com/user');
+    wp_redirect( $home_url.'/user');
     exit;
 }
 add_shortcode('redirect_to_mypage','redirect_to_mypage');
 
 function redirect_to_login(){
-    wp_redirect( 'https://builds-story.com/login');
+    wp_redirect( $home_url.'/login');
     exit;
 }
 add_shortcode('redirect_to_login','redirect_to_login');

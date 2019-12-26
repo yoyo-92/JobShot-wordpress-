@@ -1,6 +1,7 @@
 <?php
 
 function scholarship_index(){
+  $home_url =esc_url( home_url( ));
     $html = '
     <div class="hero">
     <div class="contents">
@@ -15,7 +16,7 @@ function scholarship_index(){
                 <dd>長期インターンに興味・関心がある学生は75%を超えています（弊社調べ）。一方、実際に長期インターンを経験したことがある学生は10%以下であることが現状です。学生からは、「忙しいから時間がない…」「自分の能力で出来るのだろうか…」などの声が相次ぎ、アルバイトよりも壁が高いものだと位置付けられています。</dd>
             </dl>
             <div class="image_box">
-                <img src="https://builds-story.com/wp-content/uploads/2019/09/samuel-zeller-_es6l-aPDA0-unsplash.jpg" alt="">
+                <img src="'.$home_url.'/wp-content/uploads/2019/09/samuel-zeller-_es6l-aPDA0-unsplash.jpg" alt="">
             </div><!-- .image_box -->
         </div><!-- .scholarship_wrap -->
         <div class="scholarship_wrap clearfix visible" data-scroll="once">
@@ -24,7 +25,7 @@ function scholarship_index(){
                 <dd>しかし、いざ長期インターンを始めた学生にヒアリングをおこなうと、「大学とインターンは両立できる！」「バイトよりも長期インターンをはじめて本当によかった！」という感想を持つ学生がとても多いのです。また、長期インターンを行っている企業にそのまま就職したり、スキルをつけて起業をする学生も少なくありません。</dd>
             </dl>
             <div class="image_box">
-                <img src="https://builds-story.com/wp-content/uploads/2019/09/studio-republic-fotKKqWNMQ4-unsplash.jpg" alt="">
+                <img src="'.$home_url.'/wp-content/uploads/2019/09/studio-republic-fotKKqWNMQ4-unsplash.jpg" alt="">
             </div><!-- .image_box -->
         </div><!-- .scholarship_wrap -->
         <div class="scholarship_wrap clearfix visible" data-scroll="once">
@@ -33,7 +34,7 @@ function scholarship_index(){
                 <dd>「長期インターンを始めたい学生へ最大限の後押しをしたい」「長期インターン経験者の生の声を、はじめようか迷っている学生に伝えたい」という考えのもと、お祝い金制度を導入しました。「学生から学生へ、長期インターンに対するリアルな感想をJobShotを通して伝えていける」ために、ぜひお祝い金制度を活用してほしいです。</dd>
             </dl>
             <div class="image_box">
-                <img src="https://builds-story.com/wp-content/uploads/2019/09/hunters-race-MYbhN8KaaEc-unsplash.jpg" alt="">
+                <img src="'.$home_url.'/wp-content/uploads/2019/09/hunters-race-MYbhN8KaaEc-unsplash.jpg" alt="">
             </div><!-- .image_box -->
         </div><!-- .scholarship_wrap -->
         <div class="pages-apply-flow">
@@ -81,7 +82,7 @@ function scholarship_index(){
             </section>
             <section id="flow-section4">
               <h2>採用決定！初出勤日をJobShotに報告する</h2>
-              <p>採用が決定したら、企業の方と初出勤日を決めてJobShotに報告しましょう。<br>日程の報告は以下のフォームから行うようにしてください。<br><a href="https://builds-story.com/gift_money/entry">初出勤日の報告はこちらから</a></p>
+              <p>採用が決定したら、企業の方と初出勤日を決めてJobShotに報告しましょう。<br>日程の報告は以下のフォームから行うようにしてください。<br><a href="'.$home_url.'/gift_money/entry">初出勤日の報告はこちらから</a></p>
             </section>
             <section id="flow-section5">
               <h2>長期インターンを3ヶ月続け、体験記を記入する</h2>
@@ -95,7 +96,7 @@ function scholarship_index(){
         </div>
         <div class="under_area">
             <h4>先輩から後輩へ、体験記を残していきたい。<br>ぜひJobShotから長期インターンをはじめてください。</h4>
-            <div class="gift_money_button" data-scroll="once"><a href="https://builds-story.com/internship">「長期インターン」を探す</a></div>
+            <div class="gift_money_button" data-scroll="once"><a href="'.$home_url.'/internship">「長期インターン」を探す</a></div>
         </div><!-- .under_area -->
       </div>
     </div>

@@ -32,11 +32,12 @@ function template_autumn_internship2_func($content){
     $company = get_userdata($post->post_author);
     $company_name = $company->data->display_name;
     $company_bussiness = nl2br(get_field("事業内容",$post_id));
+    $home_url =esc_url( home_url( ));
     if(empty($company_bussiness)){
       $company_id = get_company_id($company);
       $company_bussiness = nl2br(get_field("事業内容",$company_id));
     }
-    $company_url='https://builds-story.com/?company='.$company_name;
+    $company_url=$home_url.'/?company='.$company_name;
 
     $post_title = get_the_title($post_id);
     $image = get_field("トップイメージ画像",$post_id);
