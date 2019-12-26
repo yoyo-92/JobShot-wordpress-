@@ -35,7 +35,6 @@ function get_time_to_station($address){
             $lines_json = json_decode($lines_contents,true);
             $lines=array();
             foreach($lines_json['response']['station'] as $ln){
-                print_r($ln['prefecture']);
                 if ( strcmp($ln['prefecture'], $pref) == 0 ) {
                     array_push($lines,$ln['line']);
                 }
@@ -71,23 +70,5 @@ function get_time_to_station($address){
     }
     return $stations;
 }
-add_shortcode('get_time_to_station','get_time_to_station');
-
-//テスト用
-function delete_station_meta(){
-	$args = array(
-        'post_status' => array('publish'),
-        'post_type' => array('internship'),
-        'order' => 'DESC',
-        'posts_per_page' => -1
-    );
-    $posts = get_posts( $args );
-    $custom_key = 'station';
-    foreach($posts as $post){
-        $post_id=$post->ID;
-        delete_post_meta($post_id, $custom_key);
-    }
-}
-add_shortcode('delete_station_meta','delete_station_meta');
 
 ?>
