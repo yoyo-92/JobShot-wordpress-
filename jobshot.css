@@ -5397,29 +5397,37 @@ font-size: 13px !important;
   padding: 0;
 }
 .job-template-default .recruit-img-container {
-  background-size: cover;
   position: relative;
   height: 400px;
-  margin: 0 -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+}
+.job-template-default .recruit-img-container img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 400px;
 }
 .job-template-default .recruit-img-container:before {
   background-color: rgba(0,0,0,0.5);
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
   content: ' ';
-}
-.job-template-default .recruit-img-container img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 100%;
   height: 400px;
+  z-index: 1;
 }
 .job-template-default .recruit-img {
   position: absolute;
   width: 100%;
   text-align: center;
   top: 40%;
+  z-index: 2;
 }
 .job-template-default .recruit-img h1, .recruit-img p {
   color: #fff;
@@ -5441,6 +5449,7 @@ font-size: 13px !important;
   border: solid 2px #ffc778;
   transition: 200ms;
 }
+
 .job-template-default .singular.themes-sidebar3-inactive.themes-sidebar1-active .main-content article {
   padding: 10px 10%;
 }
