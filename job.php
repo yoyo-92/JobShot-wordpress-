@@ -123,81 +123,82 @@ function template_job2_func($content){
      */
 
     $html = $button_html.'
-    <div class="recruit-img-container">
-      <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1713&q=80" alt="">
-      <div class="recruit-img">
-        <h1>'.$mission.'</h1>
-        <a href="'.esc_url($company_url).'"><p>'.$company_name.'</p></a>
+    <div class="container">
+      <div class="recruit-img-container">
+        <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1713&q=80" alt="">
+        <div class="recruit-img">
+          <h1>'.$mission.'</h1>
+          <a href="'.esc_url($company_url).'"><p>'.$company_name.'</p></a>
+        </div>
       </div>
-    </div>
-    '.$title_html.'
-		<section>
-			<h2 class="maintitle">採用情報</h2>
-			<section>
-				<h3 class="subsubtitle">業務内容</h3>
-				<p>'.$job_contents.'</p>
-			</section>
-			<section>
-				<h3 class="subsubtitle">こんな方におすすめ</h3>
-				<p>'.$require_person.'</p>
-			</section>
-			<section>
-        <h3 class="subsubtitle">選考の流れ</h3>
-        '.$selection_html.'
-			</section>
-		</section>
+      '.$title_html.'
+      <section>
+        <h2 class="maintitle">採用情報</h2>
+        <section>
+          <h3 class="subsubtitle">業務内容</h3>
+          <p>'.$job_contents.'</p>
+        </section>
+        <section>
+          <h3 class="subsubtitle">こんな方におすすめ</h3>
+          <p>'.$require_person.'</p>
+        </section>
+        <section>
+          <h3 class="subsubtitle">選考の流れ</h3>
+          '.$selection_html.'
+        </section>
+      </section>
 
-		<section>
-      <!-- 複数.voiceがくる想定 -->
-      '.$voice_html.'
-    </section>
+      <section>
+        <!-- 複数.voiceがくる想定 -->
+        '.$voice_html.'
+      </section>
 
-    <section>
-      <h2 class="maintitle">募集要項</h2>
-      <table class="table__base">
-        <tbody>
-          <tr>
-            <th>募集職種</th>
-            <td>'.$occupation.'職</td>
-          </tr>
-          <tr>
-            <th>給与</th>
-            <td>'.$salary.'</td>
-          </tr>
-          <tr>
-            <th>採用予定人数</th>
-            <td>'.$recruit_capacity.'</td>
-          </tr>
-          <tr>
-            <th>応募条件</th>
-            <td>'.$target.'</td>
-          </tr>
-          <tr>
-            <th>待遇</th>
-            <td>'.$allowance.'</td>
-          </tr>
-          <tr>
-            <th>福利厚生</th>
-            <td>'.$welfare.'</td>
-          </tr>
-          <tr>
-            <th>勤務地</th>
-            <td>'.$address.'</td>
-          </tr>
-          <tr>
-            <th>勤務時間</th>
-            <td>'.$worktime.'</td>
-          </tr>
-          <tr>
-            <th>休日</th>
-            <td>'.$holiday.'</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-    <div class="fixed-buttom">'.$entry_html.'</div>
-  </div>';
-  return $html;
+      <section>
+        <h2 class="maintitle">募集要項</h2>
+        <table class="table__base">
+          <tbody>
+            <tr>
+              <th>募集職種</th>
+              <td>'.$occupation.'職</td>
+            </tr>
+            <tr>
+              <th>給与</th>
+              <td>'.$salary.'</td>
+            </tr>
+            <tr>
+              <th>採用予定人数</th>
+              <td>'.$recruit_capacity.'</td>
+            </tr>
+            <tr>
+              <th>応募条件</th>
+              <td>'.$target.'</td>
+            </tr>
+            <tr>
+              <th>待遇</th>
+              <td>'.$allowance.'</td>
+            </tr>
+            <tr>
+              <th>福利厚生</th>
+              <td>'.$welfare.'</td>
+            </tr>
+            <tr>
+              <th>勤務地</th>
+              <td>'.$address.'</td>
+            </tr>
+            <tr>
+              <th>勤務時間</th>
+              <td>'.$worktime.'</td>
+            </tr>
+            <tr>
+              <th>休日</th>
+              <td>'.$holiday.'</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <div class="fixed-buttom">'.$entry_html.'</div>
+    </div>';
+    return $html;
 }
 
 function edit_job_info(){
@@ -864,3 +865,17 @@ add_action('template_redirect', 'new_company_post_job');
 
 
 ?>
+
+
+
+<div class="container">
+			<div class="recruit-img-container">
+				<img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1713&q=80" alt="">
+				<div class="recruit-img">
+					<h1>最新のLotやICTサービスを届ける「ITの総合商社」</h1>
+					<a href="https://builds-story.com/?company=%e6%a0%aa%e5%bc%8f%e4%bc%9a%e7%a4%bewiz"><p>株式会社Wiz</p></a>
+				</div>
+			</div>
+		<h2 class="mainhead">事務/コーポレート・スタッフ職</h2>
+
+		</div>
