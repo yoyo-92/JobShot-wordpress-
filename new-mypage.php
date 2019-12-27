@@ -646,8 +646,7 @@ function new_mypage_func(){
     $upload_dir = wp_upload_dir();
     $login_user = wp_get_current_user();
     $login_user_id = $login_user->data->ID;
-    $now_user_role_ar = get_user_meta($login_user_id,'wp_146219050_capabilities',false)[0];
-    $now_user_role = (array_keys($now_user_role_ar))[0];
+    $user_roles = $login_user->roles;
     $user_info = get_userdata($user_id);
     $user_name = $user_info->user_login;
     $image_date = date("YmdHis");
@@ -752,9 +751,8 @@ function new_mypage_func(){
             </div>
         </div>
         ';
-        
     }
-    elseif($now_user_role == 'administrator'){
+    elseif(in_array("administrator", $user_roles)){
         $header_html =
         '<div class="um-header">
             <div class="um-profile-edit um-profile-headericon um-trigger-menu-on-click">
@@ -799,7 +797,7 @@ function new_mypage_func(){
         </div>
         ';
     }
-    elseif($now_user_role == 'company'){
+    elseif(in_array("company", $user_roles)){
         $header_html = '
         <div class="um-header">
             <div class="um-profile-photo um-trigger-menu-on-click" data-user_id="'.$user_id.'">
