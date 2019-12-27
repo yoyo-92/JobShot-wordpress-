@@ -41,10 +41,10 @@ function add_sidebar_column(){
                 <p>長期インターン</p>
                 <ul>
                     <li>
-                        <a href="">コラム</a>
+                        <a href="https://builds-story.com/column?category=">コラム</a>
                     </li>
                     <li>
-                        <a href="">体験記</a>
+                        <a href="https://builds-story.com/column?category=">体験記</a>
                     </li>
                 </ul>
             </li>
@@ -52,10 +52,10 @@ function add_sidebar_column(){
                 <p>就活初心者向け</p>
                 <ul>
                     <li>
-                        <a href="">就活の基礎知識</a>
+                        <a href="https://builds-story.com/column?category=">就活の基礎知識</a>
                     </li>
                     <li>
-                        <a href="">就活スケジュール</a>
+                        <a href="https://builds-story.com/column?category=">就活スケジュール</a>
                     </li>
                 </ul>
             </li>
@@ -63,10 +63,10 @@ function add_sidebar_column(){
                 <p>業界研究</p>
                 <ul>
                     <li>
-                        <a href="">あ</a>
+                        <a href="https://builds-story.com/column?category=">あ</a>
                     </li>
                     <li>
-                        <a href="">い</a>
+                        <a href="https://builds-story.com/column?category=">い</a>
                     </li>
                 </ul>
             </li>
@@ -74,28 +74,28 @@ function add_sidebar_column(){
                 <p>選考ステップ別対策</p>
                 <ul>
                     <li>
-                        <a href="">エントリーシート</a>
+                        <a href="https://builds-story.com/column?category=">エントリーシート</a>
                     </li>
                     <li>
-                        <a href="">筆記試験・WEBテスト</a>
+                        <a href="https://builds-story.com/column?category=">筆記試験・WEBテスト</a>
                     </li>
                     <li>
-                        <a href="">グループディスカッション</a>
+                        <a href="https://builds-story.com/column?category=">グループディスカッション</a>
                     </li>
                     <li>
-                        <a href="">面接</a>
+                        <a href="https://builds-story.com/column?category=">面接</a>
                     </li>
                     <li>
-                        <a href="">ケース面接・フェルミ推定</a>
+                        <a href="https://builds-story.com/column?category=">ケース面接・フェルミ推定</a>
                     </li>
                     <li>
-                        <a href="">インターンシップ・ジョブ</a>
+                        <a href="https://builds-story.com/column?category=">インターンシップ・ジョブ</a>
                     </li>
                     <li>
-                        <a href="">OB訪問・リクルーター</a>
+                        <a href="https://builds-story.com/column?category=">OB訪問・リクルーター</a>
                     </li>
                     <li>
-                        <a href="">英語・TOEIC対策</a>
+                        <a href="https://builds-story.com/column?category=">英語・TOEIC対策</a>
                     </li>
                 </ul>
             </li>
@@ -103,19 +103,19 @@ function add_sidebar_column(){
                 <p>自分にあったコンテンツ</p>
                 <ul>
                     <li>
-                        <a href="">理系学生</a>
+                        <a href="https://builds-story.com/column?category=">理系学生</a>
                     </li>
                     <li>
-                        <a href="">女子学生</a>
+                        <a href="https://builds-story.com/column?category=">女子学生</a>
                     </li>
                     <li>
-                        <a href="">体育会系</a>
+                        <a href="https://builds-story.com/column?category=">体育会系</a>
                     </li>
                     <li>
-                        <a href="">大学院生</a>
+                        <a href="https://builds-story.com/column?category=">大学院生</a>
                     </li>
                     <li>
-                        <a href="">留学経験者</a>
+                        <a href="https://builds-story.com/column?category=">留学経験者</a>
                     </li>
                 </ul>
             </li>
@@ -123,16 +123,16 @@ function add_sidebar_column(){
                 <p>キャリアプラスを考える</p>
                 <ul>
                     <li>
-                        <a href="">外資系キャリア</a>
+                        <a href="https://builds-story.com/column?category=">外資系キャリア</a>
                     </li>
                     <li>
-                        <a href="">日系大手のキャリア</a>
+                        <a href="https://builds-story.com/column?category=">日系大手のキャリア</a>
                     </li>
                     <li>
-                        <a href="">ベンチャー企業のキャリア</a>
+                        <a href="https://builds-story.com/column?category=">ベンチャー企業のキャリア</a>
                     </li>
                     <li>
-                        <a href="">その他のキャリア</a>
+                        <a href="https://builds-story.com/column?category=">その他のキャリア</a>
                     </li>
                 </ul>
             </li>
@@ -140,7 +140,7 @@ function add_sidebar_column(){
                 <p>内定者向けコンテンツ</p>
                 <ul>
                     <li>
-                        <a href="">内定後にやること</a>
+                        <a href="https://builds-story.com/column?category=">内定後にやること</a>
                     </li>
                 </ul>
             </li>
@@ -148,7 +148,7 @@ function add_sidebar_column(){
                 <p>その他のコンテンツ</p>
                 <ul>
                     <li>
-                        <a href="">あ</a>
+                        <a href="https://builds-story.com/column?category=">あ</a>
                     </li>
                 </ul>
             </li>

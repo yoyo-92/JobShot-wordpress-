@@ -128,6 +128,14 @@ function view_custom_search_func($atts){
         }
         $args += array('author__in'=>$author_id,);
     }
+    //コラムのカテゴリー取得
+    if($item_type=="column"){
+        if(isset($_GET["category"])){
+            $category = $_GET["category"];
+            $category_metaquery = array('key'=>'second_category','value'=> $category,'compare'=>'LIKE');
+            $args += array('meta_query' => array($category_metaquery));
+        }
+    }
 
     // 業種のタクソノミーは企業情報に基づいているので該当する企業投稿を検索→authorに追加
     if (!empty($_GET['business_type'])) {
