@@ -110,7 +110,45 @@ add_action('wp_footer', 'enqueue_css_footer',9999);
  * 内容：JSをフッターに移動
  * 詳細：https://hacknote.jp/archives/36536/
  */
+function my_enqueue_scripts() {
+    // if(is_page( array('intern_test') )){
+    //     wp_deregister_script('jquery');
+    // }
+    // wp_enqueue_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js', array(), '3.3.1');
+}
+add_action('wp_enqueue_scripts', 'my_enqueue_scripts');
 
+function enqueue_js_footer() {
+    // jQuery3系
+    if(is_page( array('user','register','login','user_account','mypage_test','apply','interview_apply','contact','published_contact','scout','intern_test') )){
+        wp_enqueue_script('jquery3','https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js',array(),'3.1.1');
+    }
+    // jQuery2系
+    // if(is_page( array('user','register','login','user_account','mypage_test','apply','interview_apply','contact','published_contact','scout','intern_test') )){
+    //     wp_enqueue_script('jquery3','https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js',array(),'3.1.1');
+    // }
+}
+add_action('wp_footer', 'enqueue_js_footer');
+function izimodal_function() {
+    echo '<script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/js/iziModal.min.js" type="text/javascript"></script>';
+    echo "
+    <script>
+    jQuery(document).on('click', '.open-options', function(event) {
+        event.preventDefault();
+        jQuery('.modal_options').iziModal('open');
+    });
+    jQuery('.modal_options').iziModal({
+        group: 'group01',
+        loop: true,
+        headerColor: '#26A69A', //ヘッダー部分の色
+        width: '80%', //横幅
+        overlayColor: 'rgba(0, 0, 0, 0.5)', //モーダルの背景色
+        transitionIn: 'fadeInUp', //表示される時のアニメーション
+        transitionOut: 'fadeOutDown' //非表示になる時のアニメーション
+    });
+    </script>";
+}
+add_action( 'wp_footer', 'izimodal_function', 100 );
 /**
  * 内容：管理バーを非表示にする
  * 詳細：https://www.understandard.net/wordpress/wp021.html

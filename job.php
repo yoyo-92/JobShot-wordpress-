@@ -8,8 +8,10 @@ function template_job2_func($content){
 
     $company_ids =get_company_content_ids_func($company_user_login, 'company');
     $company_id = $company_ids[0];
+    $company_url = get_permalink($company_id);
 
     $post_title = get_the_title($post_id);
+    $mission = get_field("募集タイトル",$post_id);
     $job_description = get_field("仕事内容",$post_id);
     $mail = get_field("お問い合わせ",$post_id);
     $image = get_field("イメージ画像",$post_id);
@@ -28,9 +30,9 @@ function template_job2_func($content){
     $selection_flows = array_values($selection_flows); // これはキーを連番に振りなおしてるだけ
 
     if($occupation == ' その他'){
-      $title_html = '<h2 class="mainhead">'.$occupation.'／'.$company_name.'</h2>';
+      $title_html = '<h2 class="mainhead">'.$occupation.'</h2>';
     }else{
-      $title_html = '<h2 class="mainhead">'.$occupation.'職／'.$company_name.'</h2>';
+      $title_html = '<h2 class="mainhead">'.$occupation.'職</h2>';
     }
     $selection_html = '<ol class="flowchart">';
     foreach($selection_flows as $selection_flow){
@@ -120,29 +122,29 @@ function template_job2_func($content){
      * 「業務内容、選考の流れ、求める人物像、給与、応募資格、待遇、福利厚生、勤務地、勤務時間、休日、イメージ画像」
      */
 
-    $html= $button_html.'
+    $html = $button_html.'
     <div class="container">
+      <div class="recruit-img-container">
+        <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1713&q=80" alt="">
+        <div class="recruit-img">
+          <h1>'.$mission.'</h1>
+          <a href="'.esc_url($company_url).'"><p>'.$company_name.'</p></a>
+        </div>
+      </div>
       '.$title_html.'
-
       <section>
         <h2 class="maintitle">採用情報</h2>
-
+        <section>
+          <h3 class="subsubtitle">業務内容</h3>
+          <p>'.$job_contents.'</p>
+        </section>
+        <section>
+          <h3 class="subsubtitle">こんな方におすすめ</h3>
+          <p>'.$require_person.'</p>
+        </section>
         <section>
           <h3 class="subsubtitle">選考の流れ</h3>
           '.$selection_html.'
-        </section>';
-
-        if(!empty($require_person)){
-          $html .= '
-          <section>
-            <h3 class="subsubtitle">求める人物像</h3>
-            <p>'.$require_person.'</p>
-          </section>';
-        }
-
-    $html .= '<section>
-          <h3 class="subsubtitle">事業内容</h3>
-          <p>'.$company_bussiness.'</p>
         </section>
       </section>
 
@@ -158,10 +160,6 @@ function template_job2_func($content){
             <tr>
               <th>募集職種</th>
               <td>'.$occupation.'職</td>
-            </tr>
-            <tr>
-              <th>業務内容</th>
-              <td>'.$job_contents.'</td>
             </tr>
             <tr>
               <th>給与</th>
@@ -867,3 +865,17 @@ add_action('template_redirect', 'new_company_post_job');
 
 
 ?>
+
+
+
+<div class="container">
+			<div class="recruit-img-container">
+				<img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1713&q=80" alt="">
+				<div class="recruit-img">
+					<h1>最新のLotやICTサービスを届ける「ITの総合商社」</h1>
+					<a href="https://builds-story.com/?company=%e6%a0%aa%e5%bc%8f%e4%bc%9a%e7%a4%bewiz"><p>株式会社Wiz</p></a>
+				</div>
+			</div>
+		<h2 class="mainhead">事務/コーポレート・スタッフ職</h2>
+
+		</div>
