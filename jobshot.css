@@ -5522,3 +5522,73 @@ font-size: 13px !important;
       height: 200px;
   }
 }
+/* コラムページ */
+.column-navi h2{
+  line-height: 50px;
+  width: 100%;
+  padding: 0;
+  margin: 30px 0 10px 0;
+  color: #777;
+  border-bottom: 2px solid #777;
+}
+.column-container {
+  padding: 0;
+}
+.column-section {
+  list-style: none;
+  position: relative;
+}
+.column-section:before {
+  content: "";
+  position: absolute;
+  top: 22px;
+  left: 5px;
+  width: 15px;
+  height: 2px;
+  /*縦線に*/
+  transform: rotate(90deg);
+  background: #555;
+  transition: all .3s ease-in-out;
+}
+.column-section:after {
+  content: "";
+  position: absolute;
+  top: 22px;
+  left: 5px;
+  /*横線*/
+  width: 15px;
+  height: 2px;
+  background: #555;
+  transition: all .2s ease-in-out;
+}
+.column-section.open::before {
+  transform: rotate(180deg);
+}
+.column-section p {
+  padding: 0 0 0 40px;
+  margin: 0;
+  line-height: 50px;
+}
+.column-section ul {
+  display: none;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+.column-section ul li {
+  width: calc(100%-30px);
+  padding: 0 0 0 30px;
+  margin: 0;
+  line-height: 40px;
+  list-style: none;
+  border-radius: 5px;
+}
+.column-section ul li a {
+  width: 100%;
+  height: 40px;
+  display: block;
+  color: #555;
+}
+.column-section ul li a:hover {
+  color: #03c4b0;
+}

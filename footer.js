@@ -620,3 +620,11 @@ jQuery(function() {
         jQuery('.modal_options').iziModal('close');
     });
 });
+jQuery(function () {
+	jQuery(".column-section").click(function () {
+	  jQuery(".column-section").not(this).removeClass("open");
+	  jQuery(".column-section").not(this).find("ul").slideUp(300);
+	  jQuery(this).toggleClass("open");
+	  jQuery(this).find("ul").slideToggle(300);
+  });
+});
