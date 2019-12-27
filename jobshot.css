@@ -3664,7 +3664,7 @@ div[data-element="div.um-profile-photo"] .um-dropdown-b .um-dropdown-arr {
 
 .photo-btns {
 overflow: hidden !important;
-//margin-top: 50px !important;
+/* margin-top: 50px !important; */
 }
 .um-modal-btn {
 float:left !important;
@@ -3673,7 +3673,7 @@ margin:  0 5%;
 }
 
 .um-field-type_rating {
-//display: block !important;
+/* display: block !important; */
 }
 
 .appeal-text p, .appeal-text section {
@@ -5344,4 +5344,105 @@ font-size: 13px !important;
 }
 .btn-sen {
   margin-left:10px;
+}
+.column .entry h2, .column .entry h3{
+  color: #555;
+}
+.column h1 {
+  color: #333;
+  font-weight: 590;
+}
+.column .entry h2 {
+  margin-top: 120px;
+  background: rgb(109, 209, 180);
+  box-shadow: 0px 0px 0px 5px rgb(109, 209, 180);
+  border: dashed 2px white;
+  padding: 0.4em 0.5em;
+  color: #fff;
+}
+.column .entry h3 {
+  margin-top: 35px;
+  padding: 0.25em 0.5em;
+  background: transparent;
+  border-left: solid 5px rgb(109, 209, 180);
+}
+.column .entry p {
+  line-height: 27px;
+}
+@media screen and (max-width: 480px) {
+  .column .entry p {
+      line-height: 20px;
+  }
+}
+.column_card_img{
+  float: left;
+  width: 200px;
+  height: auto;
+  margin: 0 20px;
+}
+.column_card_contents{
+  margin-left: 240px;
+  padding-bottom: 30px;
+}
+#column_card_title_text{
+  margin: 5px 0;
+  font-size: 18px;
+  font-weight: normal;
+}
+.column_card_description{
+  margin: 10px 0;
+}
+.column_card_date{
+  float: right;
+}
+.column_card_date i{
+  margin-right: 5px;
+}
+@media screen and (max-width: 480px){
+  .column_card_img{
+    width: 70px;
+    height: 50px;
+    margin: 0 10px;
+    margin-top: 1.5px;
+  }
+  .column_card_contents{
+    margin-left: 90px;
+    margin-right: 5px;
+    padding-bottom: 20px;
+  }
+  .column_card_title{
+    margin: 5px 0;
+  }
+  #column_card_title_text{
+    margin: 0;
+    font-size: 12px;
+    padding-top: 5px;
+  }
+  .column_card_description{
+    display: none;
+  }
+}
+.past-self-pr-text{
+	margin: 20px;
+}
+.past-self-pr-button {
+  float: right;
+  margin-right: 10px;
+  padding: 0.2em 0.5em;
+  text-decoration: none;
+  color: #03c4b0;
+  border: solid 2px #03c4b0;
+  background-color: white;
+  border-radius: 3px;
+  transition: .4s;
+}
+.past-self-pr-button:hover {
+  background: #03c4b0;
+  color: white;
+}
+@media screen and (max-width: 480px){
+	.past-self-pr-text{
+	  margin: 5px;
+	  font-size: xx-small;
+  }
 }

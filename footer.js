@@ -572,3 +572,30 @@ jQuery(function(){
                         jQuery(".um-header")[0].remove();
   }
 });
+jQuery(function() {
+    jQuery("#button1").click(function() {
+        var str1 = jQuery('#past-self-pr-1').text();
+        jQuery('textarea[name="your-message"]').val(str1);
+        jQuery('.modal_options').iziModal('close');
+    });
+    jQuery("#button2").click(function() {
+        var str2 = jQuery('#past-self-pr-2').text();
+        jQuery('textarea[name="your-message"]').val(str2);
+        jQuery('.modal_options').iziModal('close');
+    });
+    jQuery("#button3").click(function() {
+        var str3 = jQuery('#past-self-pr-3').text();
+        jQuery('textarea[name="your-message"]').val(str3);
+        jQuery('.modal_options').iziModal('close');
+    });
+    jQuery("#button4").click(function() {
+        var str4 = jQuery('#past-self-pr-4').text();
+        jQuery('textarea[name="your-message"]').val(str4);
+        jQuery('.modal_options').iziModal('close');
+    });
+    jQuery("#button5").click(function() {
+        var str5 = jQuery('#past-self-pr-5').text();
+        jQuery('textarea[name="your-message"]').val(str5);
+        jQuery('.modal_options').iziModal('close');
+    });
+});

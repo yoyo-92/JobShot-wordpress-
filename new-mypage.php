@@ -1,16 +1,5 @@
 <?php
 
-function my_scripts_method() {
-    wp_deregister_script('jquery');
-    wp_enqueue_script('jquery','https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js', array(), '1.8.3');
-    if (is_page(array('user'))) {
-    wp_enqueue_script('jquery3','https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js',array(),'3.1.1');
-	}
-    if (is_page(array('regist'))) {
-    wp_enqueue_script('jquery3','https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js',array(),'3.1.1');
-	}
-}
-add_action( 'wp_enqueue_scripts', 'my_scripts_method' );
 
 add_filter('script_loader_tag', 'add_defer', 10, 2);
 function add_defer($tag, $handle) {
@@ -19,7 +8,6 @@ function add_defer($tag, $handle) {
   }
   return str_replace(' src=', ' defer src=', $tag);
 }
-
 
 
 function Ajax_Base(){
@@ -1039,12 +1027,73 @@ function new_mypage_func(){
                 <div class="um-field-label">
                     <label for="programming_languages-6120">使えるプログラミング言語</label>
                     <div class="um-clear"></div>
+                    </div>
+                    <div class="um-field-area"><select data-default="" name="graduate_year" id="graduate_year" data-validate="" data-key="graduate_year" class="um-form-field valid not-required um-s1  select2-hidden-accessible" style="width: 100%; display: block;" data-placeholder="" tabindex="-1" aria-hidden="true"><option value="2018">2018</option><option value="2019">2019</option><option value="2020">2020</option><option value="2021">2021</option><option value="2022">2022</option><option value="2023">2023</option><option value="2024">2024</option><option value="その他">その他</option></select>
+                    </div>
+                    </div>
+                <div class="um-field um-field-seminar um-field-text um-field-type_text" data-key="seminar">
+                    <div class="um-field-label"><label for="seminar-6120">ゼミ<span class="um-req" title="必須">*</span></label><p></p>
+                    <div class="um-clear"></div>
+                    </div>
+                    <div class="um-field-area"><input autocomplete="off" class="um-form-field valid " type="text" name="seminar-6120" id="seminar-6120" value="'.$seminar.'" placeholder="" data-validate="" data-key="seminar"><p></p></div>
+                    </div>
+                <div class="um-editor-btn">
+                    <input type="submit" value="更新" class="um-editor-update2">
+                    <span onclick="cancel()" class="um-editor-cancel">キャンセル</span>
                 </div>
-                <div class="um-field-area">
-                    <select multiple="multiple" name="programming_languages[]" id="programming_languages" data-maxsize="0" data-validate="" data-key="programming_languages" class="um-form-field valid not-required um-s1 um-user-keyword_0 select2-hidden-accessible" style="width: 100%; display: block;" data-placeholder="" tabindex="-1" aria-hidden="true">
-                    '.$option_languages_html.'
-                    </select>
+            </form>
+            </div>
+            <div class="result_area" id="resultarea2"></div>
+        </div>
+
+        <div class="um-info">
+            <div class="um-field um-field-profile" id="abroad">
+                <div class="um-field-label um-info-label-abroad">
+                    <label class="um-field-label-text"><i class="um-field-label-abroad"></i>留学</label>
+                    <span class="um-edit-btn um-edit-btn-abroad" onclick="edit_abroad()">編集</span>
+                    <p></p>
+                <div class="um-clear"></div>
                 </div>
+                <div class="um-field-area um-field-area-abroad">
+                <div class="um-field-value">
+                        <div class="um-field um-field-studied_abroad um-field-radio um-field-type_radio" data-key="studied_abroad"><div class="um-field-label"><label for="studied_abroad-1597">留学経験</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$studied_abroad.'</div></div></div>
+                        <div class="um-field um-field-studied_ab_place um-field-text um-field-type_text" data-key="studied_ab_place"><div class="um-field-label"><label for="studied_ab_place-1597">留学先</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$studied_ab_place.'</div></div></div>
+                        <div class="um-field um-field-lang_pr um-field-textarea um-field-type_textarea" data-key="lang_pr">  <div class="um-field-label"><label for="lang_pr-1597">その他</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$lang_pr.'</div></div></div>
+                </div>
+                </div>
+                </div>
+            <div class="um-editor um-editor-abroad">
+            <form method="post" id="testform3">
+                <div class="um-field um-field-studied_abroad um-field-radio um-field-type_radio" data-key="studied_abroad">
+                    <div class="um-field-label"><label for="studied_abroad-1597">留学経験</label><p></p>
+                    <div class="um-clear"></div>
+                    </div>
+                    <div class="um-field-area"><label class="um-field-radio um-field-half "><input type="radio" name="studied_abroad[]" value="経験なし"><span class="um-field-radio-state"><i class="um-icon-android-radio-button-off"></i></span><span class="um-field-radio-option">経験なし</span></label><label class="um-field-radio um-field-half right"><input type="radio" name="studied_abroad[]" value="3ヶ月未満"><span class="um-field-radio-state"><i class="um-icon-android-radio-button-off"></i></span><span class="um-field-radio-option">3ヶ月未満</span></label><p></p>
+                    <div class="um-clear"></div><p><label class="um-field-radio um-field-half "><input type="radio" name="studied_abroad[]" value="３ヶ月以上６ヶ月未満"><span class="um-field-radio-state"><i class="um-icon-android-radio-button-off"></i></span><span class="um-field-radio-option">３ヶ月以上６ヶ月未満</span></label><label class="um-field-radio um-field-half right"><input type="radio" name="studied_abroad[]" value="６ヶ月以上1年未満"><span class="um-field-radio-state"><i class="um-icon-android-radio-button-off"></i></span><span class="um-field-radio-option">６ヶ月以上1年未満</span></label></p>
+                    <div class="um-clear"></div><p><label class="um-field-radio um-field-half "><input type="radio" name="studied_abroad[]" value="１年以上"><span class="um-field-radio-state"><i class="um-icon-android-radio-button-off"></i></span><span class="um-field-radio-option">１年以上</span></label></p>
+                    <div class="um-clear"></div>
+                    </div>
+                    </div>
+                <div class="um-field um-field-studied_ab_place um-field-text um-field-type_text" data-key="studied_ab_place">
+                    <div class="um-field-label"><label for="studied_ab_place-1597">留学先</label><p></p>
+                    <div class="um-clear"></div>
+                    </div>
+                    <div class="um-field-area"><input autocomplete="off" class="um-form-field valid not-required " type="text" name="studied_ab_place-6120" id="studied_ab_place-1597" value="'.$studied_ab_place.'" placeholder="" data-validate="" data-key="studied_ab_place"><p></p></div>
+                    </div>
+                <div class="um-field um-field-lang_pr um-field-textarea um-field-type_textarea" data-key="lang_pr">
+                    <div class="um-field-label"><label for="lang_pr-1597">その他</label><p></p>
+                    <div class="um-clear"></div>
+                    </div>
+                    <div class="um-field-area">
+                    <div id="wp-lang_pr-wrap" class="wp-core-ui wp-editor-wrap tmce-active">
+                            <textarea class="um-form-field valid not-required  wp-editor-area" style="height: 50px; overflow: auto;" autocomplete="off" cols="40" name="lang_pr" id="lang_pr" aria-hidden="true">'.$lang_pr.'</textarea>
+                        </div><p><span class="description">TOEIC点数などPR事項あれば記入してください</span></p></div>
+                    </div>
+                <div class="um-editor-btn">
+                    <input type="submit" value="更新" class="um-editor-update2">
+                    <span onclick="cancel()" class="um-editor-cancel">キャンセル</span>
+                </div>
+                </form>
             </div>
             '.$language_result_html.'
           <div class="um-field um-field-framework um-field-textarea um-field-type_textarea" data-key="framework">

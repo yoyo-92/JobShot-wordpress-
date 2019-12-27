@@ -30,6 +30,8 @@ function view_card_func($post_id){
       return view_fullwidth_summer_intern_card_func($post_id);
     case 'autumn_internship':
       return view_fullwidth_autumn_intern_card_func($post_id);
+    case 'column':
+      return view_fullwidth_column_card_func($post_id);
     break;
   }
   return;
@@ -473,23 +475,35 @@ function view_fullwidth_event_card_func($post_id){
               <td>'.$sankas.'</td>
             </tr>';
   }
-  $card_html .='
+  if(!empty($area)){
+    $card_html .= '
             <tr>
               <th>開催エリア</th>
               <td>'.$area.'</td>
-            </tr>
+            </tr>';
+  }
+  if(!empty($event_date)){
+    $card_html .= '
             <tr>
               <th>開催日時</th>
               <td>'.$event_date.'</td>
-            </tr>
+            </tr>';
+  }
+  if(!empty($event_target)){
+    $card_html .= '
             <tr>
               <th>募集対象</th>
               <td>'.$event_target.'</td>
-            </tr>
+            </tr>';
+  }
+  if(!empty($event_capacity)){
+    $card_html .= '
             <tr>
               <th>定員</th>
               <td>'.$event_capacity.'</td>
-            </tr>
+            </tr>';
+  }
+  $card_html .='
           </tbody>
         </table>
       </div>
@@ -720,6 +734,37 @@ function view_fullwidth_autumn_intern_card_func($post_id){
 
 }
 add_shortcode('view-fullwidth-autumn-intern-card','view_fullwidth_autumn_intern_card_func');
+
+function view_fullwidth_column_card_func($post_id){
+
+  $post = get_post($post_id);
+  $post_title = get_the_title($post_id);
+  $description = get_post_meta($post_id, '_aioseop_description', true);
+  $post_date = $post->post_date;
+  $image_url = get_the_post_thumbnail_url( $post_id , 'medium' );
+
+  $card_html = '
+  <div class="card full-card">
+    <div class="full-card-maim">
+      <div class="column_card_img">
+        <img src="'.$image_url.'" alt="">
+      </div>
+      <div class="column_card_contents">
+        <div class="column_card_title"><h3 id="column_card_title_text"><a href="'.esc_url(get_permalink($post_id)).'">'.$post_title.'</a></h3></div>
+        <div class="column_card_description">
+          <p>'.$description.'</p>
+        </div>
+        <div class="column_card_date">
+          <p><i class="far fa-clock"></i>'.$post_date.'</p>
+        </div>
+      </div>
+    </div>
+  </div>';
+
+  return do_shortcode($card_html);
+
+}
+add_shortcode('view-fullwidth-column-card','view_fullwidth_column_card_func');
 
 
 function get_youtube_embed_address_func($origin_addr){
