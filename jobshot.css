@@ -5397,7 +5397,6 @@ font-size: 13px !important;
   padding: 0;
 }
 .job-template-default .recruit-img-container {
-  background: url(https://glatchdesign.com/wp-content/uploads/2016/02/mountain0209.jpg) no-repeat center;
   background-size: cover;
   position: relative;
   height: 400px;
@@ -5411,6 +5410,10 @@ font-size: 13px !important;
   bottom: 0;
   left: 0;
   content: ' ';
+}
+.job-template-default .recruit-img-container img {
+  width: 100%;
+  height: 400px;
 }
 .job-template-default .recruit-img {
   position: absolute;
