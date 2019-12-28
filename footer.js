@@ -320,36 +320,7 @@ function edit_experience() {
 		jQuery(".um-field-area-experience").addClass("inactive");
 	}
 }
-jQuery(function($){
-	$.ajax({
-		type: 'POST',
-		url: ajaxurl,
-		data: {
-			'action' : 'change_user_cdata',
-		},
-		success: function( response ){
-			if($(".um-modal-header").length){
-			$(".um-modal-footer").first().append(response);
-			}
-		}
-	  });
-	  return false;
-});
-jQuery(function($){
-	$.ajax({
-		type: 'POST',
-		url: ajaxurl,
-		data: {
-			'action' : 'change_user_pdata',
-		},
-		success: function( response ){
-			if($(".um-modal-header").length){
-			$(".um-modal-footer").last().append(response);
-			}
-		}
-	});
-	return false;
-});
+
 jQuery(function(){
 	jQuery(".um-finish-upload.image").removeClass("disabled");
 	jQuery(".um-finish-upload.image").remove();
@@ -360,47 +331,7 @@ jQuery(function(){
 jQuery(".um-profile-photo").addClass("um-trigger-menu-on-click");
 jQuery(".um-cover.has-cover ").addClass("um-trigger-menu-on-click");
 });
-jQuery(function($){
-	// formの送信ボタンが押されたときの処理
-	$.ajax({
-		type: 'POST',
-		url: ajaxurl,
-		data: {
-			'action' : 'view_user_cdata',
-		},
-		success: function( response ){
-			$(".um-cover.has-cover.um-trigger-menu-on-click").prepend(response);
-			//console.log(response);
-			if(response != ''){
-				if($(".real_url").length){
-				$(".real_url")[0].remove();
-				}
-			}
-		}
-	});
-	return false;
-});
-jQuery(function($){
-	// formの送信ボタンが押されたときの処理
-	$.ajax({
-		type: 'POST',
-		url: ajaxurl,
-		data: {
-			'action' : 'view_user_pdata',
-		},
-		success: function( response ){
-			if($(".um-avatar-uploaded").length){
-			$(".um-profile-photo.um-trigger-menu-on-click").append(response);
-			}
-			if(response == ''){
-			if($('.um-dropdown').length){
-			$(".um-dropdown")[1].remove();
-			}
-		}
-		}
-	});
-	return false;
-});
+
 jQuery(function() {
 	var z = screen.width;
 	var t = 560;
@@ -592,6 +523,54 @@ jQuery(".intern_days").on("click", ".del", function() {
     if (jQuery(".intern_days td").length > 1) {
         jQuery(".intern_days td:last").remove();
     }
+});
+
+jQuery(function(){
+    if(jQuery(".um-cover").length>1){
+		var profiletab = "";
+		jQuery(".um-cover")[0].remove();
+		jQuery(".um-profile-photo")[0].remove();
+		jQuery(".um-profile-meta")[0].remove();
+		if(jQuery(".um-profile-nav").length){
+			var profiletab = jQuery(".um-profile-nav")[0];
+			jQuery(".um-profile-nav")[0].remove();
+		}
+		jQuery(".um-header")[0].remove();
+		jQuery('.um-header').after(profiletab);
+   }
+});
+
+jQuery('.um-cover').click(function() {
+    jQuery(".upload-coverphoto").css('display','block');
+    if(jQuery(".um-cover .um-dropdown").length){
+				jQuery(".um-cover .um-dropdown")[0].remove();
+   }
+});
+
+jQuery('.um-profile-photo').click(function() {
+    jQuery(".upload-photo").css('display','block');
+});
+
+jQuery('.upload-coverphoto .button').click(function() {
+    jQuery(".upload-coverphoto").css('display','none');
+});
+
+jQuery('.upload-photo .button').click(function() {
+    jQuery(".upload-photo").css('display','none');
+});
+jQuery(function(){
+    if(jQuery(".um-cover .um-dropdown").length){
+				jQuery(".um-cover .um-dropdown")[0].remove();
+   }
+});
+
+jQuery(function(){
+    if(jQuery(".favorites-default").length){
+                        jQuery(".um-cover")[0].remove();
+                        jQuery(".um-profile-photo")[0].remove();
+                        jQuery(".um-profile-meta")[0].remove();
+                        jQuery(".um-header")[0].remove();
+  }
 });
 jQuery(function() {
     jQuery("#button1").click(function() {
