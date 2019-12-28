@@ -5592,3 +5592,48 @@ font-size: 13px !important;
 .column-section ul li a:hover {
   color: #03c4b0;
 }
+.column-search {
+  display: none;
+}
+@media screen and (max-width: 480px) {
+  .singular .column-navi h2{
+      text-align: center;
+      margin-bottom: 10px;
+      border-bottom: none;
+      font-size: 20px;
+  }
+  .column-section {
+      border-bottom: 1px solid #999;
+      width: 100vw;
+      margin-left: -20px !important;
+      padding: 0 0 0 35px;
+  }
+  .column-section:first-child {
+      border-top: 1px solid #999;
+  }
+  .column-section:before {
+      left: 25px;
+  }
+  .column-section:after {
+      left: 25px;
+  }
+  .singular .main-content h2 {
+      margin-top: 10px;
+  }
+  .full-card + .full-card {
+      margin-top: 0;
+  }
+  .full-card + .full-card + .full-card{
+      margin-top: 0;
+  }
+  .full-card {
+      margin: 0 -50px;
+      box-shadow: none;
+      border-bottom: 1px solid #999;
+      width: 100vw;
+      padding: 10px 0;
+  }
+  .full-card:first-child {
+      border-top: 1px solid #999;
+  }
+}
