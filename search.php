@@ -130,10 +130,15 @@ function view_custom_search_func($atts){
     }
     //コラムのカテゴリー取得
     if($item_type=="column"){
-        if(isset($_GET["category"])){
-            $category = $_GET["category"];
-            $category_metaquery = array('key'=>'second_category','value'=> $category,'compare'=>'LIKE');
-            $args += array('meta_query' => array($category_metaquery));
+        if(isset($_GET["first_category"])){
+            $first_category = $_GET["first_category"];
+            $first_category_metaquery = array('key'=>'first_category','value'=> $first_category,'compare'=>'LIKE');
+            $args += array('meta_query' => array($first_category_metaquery));
+        }
+        if(isset($_GET["second_category"])){
+            $second_category = $_GET["second_category"];
+            $second_category_metaquery = array('key'=>'second_category','value'=> $second_category,'compare'=>'LIKE');
+            $args += array('meta_query' => array($second_category_metaquery));
         }
     }
 
@@ -181,8 +186,7 @@ function view_custom_search_func($atts){
         }
     }
     $args += array('tax_query' => $tax_query);
-  
-  
+
     if (isset($_GET['sort'])) {
         $sort = my_esc_sql($_GET['sort']);
         switch($sort){
@@ -201,14 +205,134 @@ function view_custom_search_func($atts){
         }
     }
 
-
-    
     if($sort == 'recommend'){
     	$cat_query = recommend_score($args);
     }else{
         $cat_query = new WP_Query($args);
     }
-    $html = paginate($cat_query->max_num_pages, get_query_var( 'paged' ), $cat_query->found_posts, $posts_per_page);
+    if($item_type == "column"){
+        $html = '';
+        if(isset($_GET["first_category"])){
+            $first_category_column_array = array(
+                'internship' => '長期インターン',
+                'beginner' => '就活初心者向けコンテンツ',
+                'industry' => '業界研究',
+                'selection' => '選考ステップ別対策',
+                'your_contents' => '自分にあったコンテンツを探す',
+                'career_plan' => 'キャリアプランを考える',
+                'after_contents' => '内定者向けコンテンツ',
+                'other_contents' => 'その他のコンテンツ',
+            );
+            $first_category = $_GET["first_category"];
+            $column_search_first_category = $first_category_column_array[$first_category];
+            if(!empty($column_search_first_category)){
+                $html .= '
+                <div class="column_navigation_bar">
+                    <span>
+                        <a href="https://builds-story.com/column">
+                            <span>コラム記事トップ</span>
+                        </a>
+                    </span>
+                    <i class="fa fa-angle-right"></i>
+                    <span>
+                        <a href="https://builds-story.com/column?first_category='.$first_category.'">
+                            <span>'.$column_search_first_category.'</span>
+                        </a>
+                    </span>
+                </div>';
+                $html .= '<h2 class="column_search_category">『'.$column_search_first_category.'』の記事一覧</h2>';
+            }
+        }
+        if(isset($_GET["second_category"])){
+            $second_category_column_array = array(
+                'columm' => 'コラム',
+                'experience' => '体験記',
+                'basic_knowledge' => '就活の基礎知識',
+                'schedule' => '就活スケジュール',
+                'entry_sheet' => 'エントリーシート',
+                'test' => '筆記試験・WEBテスト',
+                'discussion' => 'グループディスカッション',
+                'interview' => '面接',
+                'case_interview' => 'ケース面接・フェミル推定',
+                'internship' => 'インターンシップ・ジョブ',
+                'recruiter' => 'OB訪問・リクルーター',
+                'english' => '英語・TOEIC対策',
+                'science' => '理系学生',
+                'female_student' => '女子学生',
+                'athlete' => '体育会系',
+                'graduate' => '大学院生',
+                'aboroad' => '留学経験者',
+                'foreign_capital' => '外資系のキャリア',
+                'japanese_company' => '日系大手のキャリア',
+                'venture' => 'ベンチャー企業のキャリア',
+                'others' => 'その他のキャリア',
+                'after' => '内定後にやるべきこと',
+            );
+            $second_category = $_GET["second_category"];
+            $column_search_second_category = $second_category_column_array[$second_category];
+            $second_to_first_category_column_array = array(
+                'columm' => 'internship',
+                'experience' => 'internship',
+                'basic_knowledge' => 'beginner',
+                'schedule' => 'beginner',
+                'entry_sheet' => 'beginner',
+                'test' => 'selection',
+                'discussion' => 'selection',
+                'interview' => 'selection',
+                'case_interview' => 'selection',
+                'internship' => 'selection',
+                'recruiter' => 'selection',
+                'english' => 'selection',
+                'science' => 'your_contents',
+                'female_student' => 'your_contents',
+                'athlete' => 'your_contents',
+                'graduate' => 'your_contents',
+                'aboroad' => 'your_contents',
+                'foreign_capital' => 'career_plan',
+                'japanese_company' => 'career_plan',
+                'venture' => 'career_plan',
+                'others' => 'career_plan',
+                'after' => 'after_contents',
+            );
+            $first_category = $second_to_first_category_column_array[$second_category];
+            $first_category_column_array = array(
+                'internship' => '長期インターン',
+                'beginner' => '就活初心者向けコンテンツ',
+                'industry' => '業界研究',
+                'selection' => '選考ステップ別対策',
+                'your_contents' => '自分にあったコンテンツを探す',
+                'career_plan' => 'キャリアプランを考える',
+                'after_contents' => '内定者向けコンテンツ',
+                'other_contents' => 'その他のコンテンツ',
+            );
+            $column_search_first_category = $first_category_column_array[$first_category];
+            if(!empty($column_search_second_category)){
+                $html .= '
+                <div class="column_navigation_bar">
+                    <span>
+                        <a href="https://builds-story.com/column">
+                            <span>コラム記事トップ</span>
+                        </a>
+                    </span>
+                    <i class="fa fa-angle-right"></i>
+                    <span>
+                        <a href="https://builds-story.com/column?first_category='.$first_category.'">
+                            <span>'.$column_search_first_category.'</span>
+                        </a>
+                    </span>
+                    <i class="fa fa-angle-right"></i>
+                    <span>
+                        <a href="https://builds-story.com/column?second_category='.$second_category.'">
+                            <span>'.$column_search_second_category.'</span>
+                        </a>
+                    </span>
+                </div>';
+                $html .= '<h2 class="column_search_category">『'.$column_search_second_category.'』の記事一覧</h2>';
+            }
+        }
+    }else{
+        $html = paginate($cat_query->max_num_pages, get_query_var( 'paged' ), $cat_query->found_posts, $posts_per_page);
+    }
     $html .= '<div class="cards-container">';
     /**
      * ベイカレント用に変更（↓通常時）

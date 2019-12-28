@@ -5295,7 +5295,7 @@ font-size: 13px !important;
   font-weight: 590;
 }
 .column .entry h2 {
-  margin-top: 120px;
+  margin-top: 40px !important;
   background: rgb(109, 209, 180);
   box-shadow: 0px 0px 0px 5px rgb(109, 209, 180);
   border: dashed 2px white;
@@ -5604,7 +5604,7 @@ font-size: 13px !important;
   }
   .column-section {
       border-bottom: 1px solid #999;
-      width: 100vw;
+      width: calc(100vw - 35px);
       margin-left: -20px !important;
       padding: 0 0 0 35px;
   }
@@ -5636,4 +5636,41 @@ font-size: 13px !important;
   .full-card:first-child {
       border-top: 1px solid #999;
   }
+}
+#ez-toc-container {
+  border-width: 2px !important;
+  border-radius: 0;
+}
+#ez-toc-container ul.ez-toc-list a {
+  display: block;
+  padding: 6px;
+}
+.ez-toc-title-container {
+  display: block;
+  width: 100%;
+}
+#ez-toc-container p.ez-toc-title {
+  display: block;
+  text-align: center;
+  margin-bottom: 5px;
+  font-weight: bold !important;
+}
+.ez-toc-title-toggle {
+  position: absolute;
+  top: 13px;
+  right: 15px;
+}
+#ez-toc-container.counter-decimal ul.ez-toc-list li a::before, .ez-toc-widget-container.counter-decimal ul.ez-toc-list li a::before {
+  color: rgb(109, 209, 180);
+  margin-right: 8px;
+}
+.column_search_category{
+  margin-top: 15px;
+  padding: 0.25em 0.5em;
+  background: transparent;
+  border-left: solid 5px rgb(109, 209, 180);
+  color: #777;
+}
+.column_navigation_bar{
+  margin-top: 40px;
 }
