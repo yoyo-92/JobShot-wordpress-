@@ -1,8 +1,78 @@
 <?php
 
 function template_column2_func($content){
+    global $post;
+    $post_id = $post->ID;
     $column_sidebar = do_shortcode("[add_sidebar_column]");
-    $html = $content;
+
+    $first_category_values = CFS()->get('first_category',$post_id);
+    foreach ($first_category_values as $first_category_value => $first_category_label) {
+        $first_category = $first_category_value;
+    }
+    $second_category_values = CFS()->get('second_category',$post_id);
+    foreach ($second_category_values as $second_category_value => $second_category_label) {
+        $second_category = $second_category_value;
+    }
+
+    $second_category_column_array = array(
+        'columm' => 'コラム',
+        'experience' => '体験記',
+        'basic_knowledge' => '就活の基礎知識',
+        'schedule' => '就活スケジュール',
+        'entry_sheet' => 'エントリーシート',
+        'test' => '筆記試験・WEBテスト',
+        'discussion' => 'グループディスカッション',
+        'interview' => '面接',
+        'case_interview' => 'ケース面接・フェミル推定',
+        'internship' => 'インターンシップ・ジョブ',
+        'recruiter' => 'OB訪問・リクルーター',
+        'english' => '英語・TOEIC対策',
+        'science' => '理系学生',
+        'female_student' => '女子学生',
+        'athlete' => '体育会系',
+        'graduate' => '大学院生',
+        'aboroad' => '留学経験者',
+        'foreign_capital' => '外資系のキャリア',
+        'japanese_company' => '日系大手のキャリア',
+        'venture' => 'ベンチャー企業のキャリア',
+        'others' => 'その他のキャリア',
+        'after' => '内定後にやるべきこと',
+    );
+    $column_search_second_category = $second_category_column_array[$second_category];
+    $first_category_column_array = array(
+        'internship' => '長期インターン',
+        'beginner' => '就活初心者向けコンテンツ',
+        'industry' => '業界研究',
+        'selection' => '選考ステップ別対策',
+        'your_contents' => '自分にあったコンテンツを探す',
+        'career_plan' => 'キャリアプランを考える',
+        'after_contents' => '内定者向けコンテンツ',
+        'other_contents' => 'その他のコンテンツ',
+    );
+    $column_search_first_category = $first_category_column_array[$first_category];
+    if(!empty($column_search_second_category)){
+        $html = '
+        <div class="column_navigation_bar">
+            <span>
+                <a href="https://builds-story.com/column">
+                    <span>コラム記事トップ</span>
+                </a>
+            </span>
+            <i class="fa fa-angle-right"></i>
+            <span>
+                <a href="https://builds-story.com/column?first_category='.$first_category.'">
+                    <span>'.$column_search_first_category.'</span>
+                </a>
+            </span>
+            <i class="fa fa-angle-right"></i>
+            <span>
+                <a href="https://builds-story.com/column?second_category='.$second_category.'">
+                    <span>'.$column_search_second_category.'</span>
+                </a>
+            </span>
+        </div>';
+    }
+    $html .= $content;
     return $html;
 }
 
