@@ -5678,20 +5678,20 @@ font-size: 13px !important;
   .singular .main-content h2 {
       margin-top: 10px;
   }
-  .full-card + .full-card {
+  #post-7767 .full-card + .full-card {
       margin-top: 0;
   }
-  .full-card + .full-card + .full-card{
+  #post-7767 .full-card + .full-card + .full-card{
       margin-top: 0;
   }
-  .full-card {
+  #post-7767 .full-card {
       margin: 0 -50px;
       box-shadow: none;
       border-bottom: 1px solid #999;
       width: 100vw;
       padding: 10px 0;
   }
-  .full-card:first-child {
+  #post-7767 .full-card:first-child {
       border-top: 1px solid #999;
   }
 }

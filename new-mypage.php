@@ -1611,7 +1611,7 @@ function regist_cover_up() {
 	}
 	header('Location: https://builds-story.com/user?um_user='.$user_name);
     die();
-    } 
+    }
 }
 add_action('template_redirect', 'regist_cover_up');
 
