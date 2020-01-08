@@ -320,7 +320,7 @@ function Ajax_Community(){
     <div class="um-field-area um-field-area-community inactive">
         <div class="um-field-value">';
     $user_array = array(
-        "大学時代のコミュニティ"  =>  "univ_community",
+        "大学時代のコミュニティ"  =>  "univ_community_checkbox",
         "サークル・部活・団体名"  =>  "community_univ",
         "当コミュニティでどんなことをしたか？"  =>  "own_pr",
     );
@@ -329,8 +329,11 @@ function Ajax_Community(){
             $user_meta_value = $_POST[$user_value];
             update_user_meta( $user_id, $user_value, $user_meta_value);
         }
-        if($univ_community == 'univ_community'){
-            $user_meta_value  = get_user_meta($user_id,$user_value,false)[0][0];
+        if($user_value == 'univ_community_checkbox'){
+            $univ_community_checkbox  = get_user_meta($user_id,$user_value,false)[0];
+            foreach($univ_community_checkbox as $exp) {
+                $user_meta_value .= $exp.'</br>';
+            }
         }else{
             $user_meta_value  = get_user_meta($user_id,$user_value,false)[0];
         }
@@ -565,7 +568,12 @@ function new_mypage_func(){
     }
     $work = get_user_meta($user_id,'work',false)[0];
     $skill = get_user_meta($user_id,'skill',false)[0];
-    $univ_community = get_user_meta($user_id,'univ_community',false)[0][0];
+    $univ_community_checkbox = get_user_meta($user_id,'univ_community_checkbox',false)[0];
+    if(isset($univ_community_checkbox)) {
+        foreach($univ_community_checkbox as $exp) {
+            $univ_community .= $exp.'</br>';
+        }
+    }
     $community_univ = get_user_meta($user_id,'community_univ',false)[0];
     $own_pr = get_user_meta($user_id,'own_pr',false)[0];
     $internship_experiences = get_user_meta($user_id,'internship_experiences',false)[0][0];
@@ -641,6 +649,7 @@ function new_mypage_func(){
         </div>';
         $option_languages_html .= '<option value="'.$programming_lang_name.'">'.$programming_lang_name.'</option>';
     }
+    $univ_community_edit_html = get_univ_community_edit_html($user_id);
 
     //プロフィール写真
     $upload_dir = wp_upload_dir();
@@ -1119,7 +1128,7 @@ function new_mypage_func(){
                 </div>
                 <div class="um-field-area um-field-area-community">
                     <div class="um-field-value">
-                        <div class="um-field um-field-univ_community um-field-radio um-field-type_radio" data-key="univ_community"><div class="um-field-label"><label for="univ_community-1597">大学時代のコミュニティ</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$univ_community.'</div></div></div>
+                        <div class="um-field um-field-univ_community_checkbox um-field-radio um-field-type_radio" data-key="univ_community_checkbox"><div class="um-field-label"><label for="univ_community-1597">大学時代のコミュニティ</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value">'.$univ_community.'</div></div></div>
                         <div class="um-field um-field-community_univ um-field-textarea um-field-type_textarea" data-key="community_univ"><div class="um-field-label"><label for="community_univ-1597">サークル・部活・団体名</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value"><p>'.$community_univ.'</p></div></div></div>
                         <div class="um-field um-field-own_pr um-field-textarea um-field-type_textarea" data-key="own_pr"><div class="um-field-label"><label for="own_pr-1597">当コミュニティでどんなことをしたか？</label><div class="um-clear"></div></div><div class="um-field-area"><div class="um-field-value"><p>'.$own_pr.'</p></div></div></div>
                 </div>
@@ -1127,16 +1136,11 @@ function new_mypage_func(){
         </div>
         <div class="um-editor um-editor-community">
             <form method="post" id="testform6">
-                <div class="um-field um-field-univ_community um-field-radio um-field-type_radio" data-key="univ_community">
-                    <div class="um-field-label"><label for="univ_community">大学時代のコミュニティ<span class="um-req" title="必須">*</span></label>
+                <div class="um-field um-field-univ_community_checkbox um-field-radio um-field-type_radio" data-key="univ_community_checkbox">
+                    <div class="um-field-label"><label for="univ_community_checkbox">大学時代のコミュニティ<span class="um-req" title="必須">*</span></label>
                         <div class="um-clear"></div>
                     </div>
-                    <div class="um-field-area"><label class="um-field-radio  um-field-half"><input type="radio" name="univ_community[]" value="文化系サークル"><span class="um-field-radio-state"><i class="um-icon-android-radio-button-off"></i></span><span class="um-field-radio-option">文化系サークル</span></label><label class="um-field-radio  um-field-half right"><input type="radio" name="univ_community[]" value="スポーツ系サークル"><span class="um-field-radio-state"><i class="um-icon-android-radio-button-off"></i></span><span class="um-field-radio-option">スポーツ系サークル</span></label>
-                        <div class="um-clear"></div><p><label class="um-field-radio  um-field-half"><input type="radio" name="univ_community[]" value="体育会系部活"><span class="um-field-radio-state"><i class="um-icon-android-radio-button-off"></i></span><span class="um-field-radio-option">体育会系部活</span></label><label class="um-field-radio  um-field-half right"><input type="radio" name="univ_community[]" value="文化系部活"><span class="um-field-radio-state"><i class="um-icon-android-radio-button-off"></i></span><span class="um-field-radio-option">文化系部活</span></label></p>
-                        <div class="um-clear"></div><p><label class="um-field-radio  um-field-half"><input type="radio" name="univ_community[]" value="学生団体"><span class="um-field-radio-state"><i class="um-icon-android-radio-button-off"></i></span><span class="um-field-radio-option">学生団体</span></label><label class="um-field-radio  um-field-half right"><input type="radio" name="univ_community[]" value="当てはまらない"><span class="um-field-radio-state"><i class="um-icon-android-radio-button-off"></i></span><span class="um-field-radio-option">当てはまらない</span></label></p>
-                        <div class="um-clear"></div>
-                        <div class="um-clear"></div>
-                    </div>
+                    '.$univ_community_edit_html.'
                 </div>
                     <div class="um-field um-field-community_univ um-field-textarea um-field-type_textarea" data-key="community_univ">
                         <div class="um-field-label"><label for="community_univ">サークル・部活・団体名</label>
@@ -1385,10 +1389,6 @@ function new_mypage_func(){
         $html = str_replace('<option value="'.$design.'">','<option value="'.$design.'" selected="">',$html);
     }
     }
-    if(isset($univ_community)) {
-    $html = str_replace('<label class="um-field-radio  um-field-half"><input type="radio" name="univ_community[]" value="'.$univ_community.'"><span class="um-field-radio-state"><i class="um-icon-android-radio-button-off">','<label class="um-field-radio active um-field-half"><input type="radio" name="univ_community[]" value="'.$univ_community.' checked=""><span class="um-field-radio-state"><i class="um-icon-android-radio-button-on">',$html);
-    $html = str_replace('<label class="um-field-radio  um-field-half right"><input type="radio" name="univ_community[]" value="'.$univ_community.'"><span class="um-field-radio-state"><i class="um-icon-android-radio-button-off">','<label class="um-field-radio active um-field-half right"><input type="radio" name="univ_community[]" value="'.$univ_community.'" checked=""><span class="um-field-radio-state"><i class="um-icon-android-radio-button-on">',$html);
-    }
     if(isset($internship_experiences)) {
     $html =str_replace('<label class="um-field-radio  um-field-half"><input type="radio" name="internship_experiences[]" value="'.$internship_experiences.'"><span class="um-field-radio-state"><i class="um-icon-android-radio-button-off">','<label class="um-field-radio active um-field-half"><input type="radio" name="internship_experiences[]" value="'.$internship_experiences.'" checked=""><span class="um-field-radio-state"><i class="um-icon-android-radio-button-on">',$html);
     $html = str_replace('<label class="um-field-radio  um-field-half right"><input type="radio" name="internship_experiences[]" value="'.$internship_experiences.'"><span class="um-field-radio-state"><i class="um-icon-android-radio-button-off">','<label class="um-field-radio active um-field-half right"><input type="radio" name="internship_experiences[]" value="'.$internship_experiences.'" checked=""><span class="um-field-radio-state"><i class="um-icon-android-radio-button-on">',$html);
@@ -1585,4 +1585,28 @@ function size_ext($image_size){
     return $ret;
 }
 
+function get_univ_community_edit_html($user_id){
+    $univ_community_array = array('文化系サークル','スポーツ系サークル','体育会系部活','文化系部活','学生団体');
+    $univ_community_checkbox = get_user_meta($user_id,'univ_community_checkbox',false)[0];
+    $univ_community_edit_html = '<div class="um-field-area">';
+    foreach($univ_community_array as $key => $univ_community_each){
+        if(($key+1) %2 == 0){
+            $univ_community_edit_html .= '<label class="um-field-checkbox um-field-half right"><input type="checkbox" name="univ_community_checkbox[]" value="'.$univ_community_each.'"><span class="um-field-checkbox-state"><i class="um-icon-android-checkbox-outline-blank"></i></span><span class="um-field-checkbox-option">'.$univ_community_each.'</span></label>';
+            $univ_community_edit_html .= '<div class="um-clear"></div>';
+        } else {
+            $univ_community_edit_html .= '<label class="um-field-checkbox um-field-half"><input type="checkbox" name="univ_community_checkbox[]" value="'.$univ_community_each.'"><span class="um-field-checkbox-state"><i class="um-icon-android-checkbox-outline-blank"></i></span><span class="um-field-checkbox-option">'.$univ_community_each.'</span></label>';
+        }
+        if($key == (count($univ_community_array)-1)){
+            $univ_community_edit_html .= '<div class="um-clear"></div>';
+        }
+    }
+    $univ_community_edit_html .= '</div>';
+    if(isset($univ_community_checkbox)) {
+        foreach($univ_community_checkbox as $exp) {
+            $univ_community_edit_html = str_replace('<label class="um-field-checkbox um-field-half"><input type="checkbox" name="univ_community_checkbox[]" value="'.$exp.'"><span class="um-field-checkbox-state"><i class="um-icon-android-checkbox-outline-blank">','<label class="um-field-checkbox active um-field-half "><input type="checkbox" name="univ_community_checkbox[]" value="'.$exp.'" checked><span class="um-field-checkbox-state"><i class="um-icon-android-checkbox-outline">',$univ_community_edit_html);
+            $univ_community_edit_html = str_replace('<label class="um-field-checkbox um-field-half right"><input type="checkbox" name="univ_community_checkbox[]" value="'.$exp.'"><span class="um-field-checkbox-state"><i class="um-icon-android-checkbox-outline-blank">','<label class="um-field-checkbox active um-field-half right"><input type="checkbox" name="univ_community_checkbox[]" value="'.$exp.'" checked=""><span class="um-field-checkbox-state"><i class="um-icon-android-checkbox-outline">',$univ_community_edit_html);
+        }
+    }
+    return $univ_community_edit_html;
+}
 ?>
