@@ -974,7 +974,7 @@ function new_mypage_func(){
                             <div id="wp-lang_pr-wrap" class="wp-core-ui wp-editor-wrap tmce-active">
                                 <textarea class="um-form-field valid not-required  wp-editor-area" style="height: 50px; overflow: auto;" autocomplete="off" cols="40" name="lang_pr" id="lang_pr" aria-hidden="true">'.$lang_pr.'</textarea>
                             </div>
-                            <p><span class="description">TOEIC点数などPR事項あれば記入してください</span></p>
+                            <p><span class="description">TOIEC、TOFLEや英検などの英語のスキルがわかるものを記入してみよう</span></p>
                         </div>
                     </div>
                     <div class="um-editor-btn">
@@ -1099,7 +1099,7 @@ function new_mypage_func(){
                             <div id="wp-skill-wrap" class="wp-core-ui wp-editor-wrap tmce-active">
                                 <textarea class="um-form-field valid not-required  wp-editor-area" style="height: 100px; overflow: auto;" autocomplete="off" cols="40" name="skill" id="skill" aria-hidden="true">'.$skill.'</textarea>
                             </div>
-                            <p><span class="description"></span></p>
+                            <p><span class="description">保有資格や大学で学んだ専門スキル（経済学、経営学など）を記入してみよう<br>また、これから取得見込みの資格も記入してアピールしてみよう</span></p>
                         </div>
                     </div>
                     <div class="um-editor-btn">
@@ -1131,13 +1131,13 @@ function new_mypage_func(){
                     <div class="um-field-label"><label for="univ_community">大学時代のコミュニティ<span class="um-req" title="必須">*</span></label>
                         <div class="um-clear"></div>
                     </div>
-                        <div class="um-field-area"><label class="um-field-radio  um-field-half"><input type="radio" name="univ_community[]" value="文化系サークル"><span class="um-field-radio-state"><i class="um-icon-android-radio-button-off"></i></span><span class="um-field-radio-option">文化系サークル</span></label><label class="um-field-radio  um-field-half right"><input type="radio" name="univ_community[]" value="スポーツ系サークル"><span class="um-field-radio-state"><i class="um-icon-android-radio-button-off"></i></span><span class="um-field-radio-option">スポーツ系サークル</span></label>
-                            <div class="um-clear"></div><p><label class="um-field-radio  um-field-half"><input type="radio" name="univ_community[]" value="体育会系部活"><span class="um-field-radio-state"><i class="um-icon-android-radio-button-off"></i></span><span class="um-field-radio-option">体育会系部活</span></label><label class="um-field-radio  um-field-half right"><input type="radio" name="univ_community[]" value="文化系部活"><span class="um-field-radio-state"><i class="um-icon-android-radio-button-off"></i></span><span class="um-field-radio-option">文化系部活</span></label></p>
-                            <div class="um-clear"></div><p><label class="um-field-radio  um-field-half"><input type="radio" name="univ_community[]" value="学生団体"><span class="um-field-radio-state"><i class="um-icon-android-radio-button-off"></i></span><span class="um-field-radio-option">学生団体</span></label><label class="um-field-radio  um-field-half right"><input type="radio" name="univ_community[]" value="当てはまらない"><span class="um-field-radio-state"><i class="um-icon-android-radio-button-off"></i></span><span class="um-field-radio-option">当てはまらない</span></label></p>
-                            <div class="um-clear"></div>
-                            <div class="um-clear"></div>
-                        </div>
+                    <div class="um-field-area"><label class="um-field-radio  um-field-half"><input type="radio" name="univ_community[]" value="文化系サークル"><span class="um-field-radio-state"><i class="um-icon-android-radio-button-off"></i></span><span class="um-field-radio-option">文化系サークル</span></label><label class="um-field-radio  um-field-half right"><input type="radio" name="univ_community[]" value="スポーツ系サークル"><span class="um-field-radio-state"><i class="um-icon-android-radio-button-off"></i></span><span class="um-field-radio-option">スポーツ系サークル</span></label>
+                        <div class="um-clear"></div><p><label class="um-field-radio  um-field-half"><input type="radio" name="univ_community[]" value="体育会系部活"><span class="um-field-radio-state"><i class="um-icon-android-radio-button-off"></i></span><span class="um-field-radio-option">体育会系部活</span></label><label class="um-field-radio  um-field-half right"><input type="radio" name="univ_community[]" value="文化系部活"><span class="um-field-radio-state"><i class="um-icon-android-radio-button-off"></i></span><span class="um-field-radio-option">文化系部活</span></label></p>
+                        <div class="um-clear"></div><p><label class="um-field-radio  um-field-half"><input type="radio" name="univ_community[]" value="学生団体"><span class="um-field-radio-state"><i class="um-icon-android-radio-button-off"></i></span><span class="um-field-radio-option">学生団体</span></label><label class="um-field-radio  um-field-half right"><input type="radio" name="univ_community[]" value="当てはまらない"><span class="um-field-radio-state"><i class="um-icon-android-radio-button-off"></i></span><span class="um-field-radio-option">当てはまらない</span></label></p>
+                        <div class="um-clear"></div>
+                        <div class="um-clear"></div>
                     </div>
+                </div>
                     <div class="um-field um-field-community_univ um-field-textarea um-field-type_textarea" data-key="community_univ">
                         <div class="um-field-label"><label for="community_univ">サークル・部活・団体名</label>
                             <div class="um-clear"></div>
@@ -1157,16 +1157,16 @@ function new_mypage_func(){
                             <div id="wp-own_pr-wrap" class="wp-core-ui wp-editor-wrap tmce-active">
                                 <textarea class="um-form-field valid not-required  wp-editor-area" style="height: 100px; overflow: auto;" autocomplete="off" cols="40" name="own_pr" id="own_pr" aria-hidden="true">'.$own_pr.'</textarea>
                             </div>
-                            <p><span class="description"></span></p>
+                            <p><span class="description">自分の役職だけでなく、その経験を通して何を学んだのか書いてみよう<br>また、解決した問題や成功させてイベントなどあったら成果も書こう！</span></p>
                         </div>
                     </div>
                     <div class="um-editor-btn">
                         <input type="submit" value="更新" class="um-editor-update2">
                         <span onclick="cancel()" class="um-editor-cancel">キャンセル</span>
                     </div>
-                </form>
-            </div>
-            <div class="result_area" id="resultarea6"></div>
+            </form>
+        </div>
+        <div class="result_area" id="resultarea6"></div>
         </div>
         <div class="um-info">
             <div class="um-field um-field-profile" id="intern">
@@ -1216,7 +1216,7 @@ function new_mypage_func(){
                             <div id="wp-experience_internship-wrap" class="wp-core-ui wp-editor-wrap tmce-active">
                                 <textarea class="um-form-field valid not-required  wp-editor-area" style="height: 100px; overflow: auto;" autocomplete="off" cols="40" name="experience_internship" id="experience_internship" aria-hidden="true">'.$experience_internship.'</textarea>
                             </div>
-                            <p><span class="description"></span></p>
+                            <p><span class="description">自分に任せられた仕事だけでなく、その当時の課題からどのように解決したかまでの過程と成果を具体的に書いてみよう！</span></p>
                         </div>
                     </div>
                     <div class="um-field um-field-self_internship_PR um-field-textarea um-field-type_textarea" data-key="self_internship_PR">
@@ -1227,7 +1227,7 @@ function new_mypage_func(){
                             <div id="wp-self_internship_PR-wrap" class="wp-core-ui wp-editor-wrap tmce-active">
                                 <textarea class="um-form-field valid not-required  wp-editor-area" style="height: 100px; overflow: auto;" autocomplete="off" cols="40" name="self_internship_PR" id="self_internship_PR" aria-hidden="true">'.$self_internship_PR.'</textarea>
                             </div>
-                            <p><span class="description"></span></p>
+                            <p><span class="description">自分の強みだけでなく具体的なエピソードを添えて書いてみよう！</span></p>
                         </div>
                     </div>
                     <div class="um-field um-field-degree_of_internship_interest um-field-select um-field-type_select" data-key="degree_of_internship_interest">
