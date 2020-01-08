@@ -109,7 +109,9 @@ function template_event2_func($content){
         </div>';
     }
 
-    $table_body_html = add_to_table('開催日時', '<div>'.$event_date.'</div>');
+    if(!empty(get_field('開催日時1',$post_id)['日付'])){
+        $table_body_html = add_to_table('開催日時', '<div>'.$event_date.'</div>');
+    }
     if(!empty(get_field('開催場所名',$post_id))){
         $table_body_html.=add_to_table('場所', '<div>'.get_field('開催場所名',$post_id).'</div><div>'.get_field('開催場所住所',$post_id).'</div>'.$access_html.'<div class="respiframe">[acf type=area name=開催場所の地図]</div>');
     }
