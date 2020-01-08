@@ -4411,7 +4411,7 @@ top: -1px;
  }
 
  .um-cover-e img {
-     width: initial !important;
+     width: 100% !important;
      max-width: initial;
      height: 100%;
  }
