@@ -114,7 +114,7 @@ function view_applylist_func ( $atts ) {
             {{/BEFORE}}
               <tr>
                 <th>
-                  <a href="/user?um_user=${your-id}" style="color:white"><p><font size="1">[get_user_ruby field=login value="${your-id}"]</font><br>${your-name}</p><div>[get_avatar_sc user_login="${your-id}"]</div></a>
+                  <a href="/user?um_user=${your-id}" style="color:white"><p><font size="1">[get_user_ruby field=login value="${your-id}"]</font><br>${your-name}</p><div>[get_avatar_sc_re user_login="${your-id}"]</div></a>
                 </th>
                 <td label="大学">
                   <p>[my_get_userdata_by field=login value="${your-id}" data=univ]<br>[my_get_userdata_by field=login value="${your-id}" data=faculty]</p>
@@ -170,7 +170,7 @@ function view_applylist_func ( $atts ) {
             {{/BEFORE}}
               <tr>
                 <th>
-                  <a href="/user?um_user=${your-id}" style="color:white"><p><font size="1">[get_user_ruby field=login value="${your-id}"]</font><br>${your-name}</p><div>[get_avatar_sc user_login="${your-id}"]</div></a>
+                  <a href="/user?um_user=${your-id}" style="color:white"><p><font size="1">[get_user_ruby field=login value="${your-id}"]</font><br>${your-name}</p><div>[get_avatar_sc_re user_login="${your-id}"]</div></a>
                 </th>
                 <td label="大学">
                   <p>[my_get_userdata_by field=login value="${your-id}" data=univ]<br>[my_get_userdata_by field=login value="${your-id}" data=faculty]</p>
@@ -237,7 +237,7 @@ function view_intern_all_applylist_func ( $atts ) {
           {{/BEFORE}}
             <tr>
               <th>
-                <a href="/user?um_user=${your-id}" style="color:white"><p>${your-name}<br><font size="1">${your-id}</font></p><div>[get_avatar_sc user_login="${your-id}"]</div></a>
+                <a href="/user?um_user=${your-id}" style="color:white"><p>${your-name}<br><font size="1">${your-id}</font></p><div>[get_avatar_sc_re user_login="${your-id}"]</div></a>
               </th>
               <td label="大学">
                 <p>[my_get_userdata_by field=login value="${your-id}" data=univ]<br>[my_get_userdata_by field=login value="${your-id}" data=faculty]</p>

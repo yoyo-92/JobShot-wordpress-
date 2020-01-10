@@ -1716,11 +1716,19 @@ if (isset($_GET['freeword']) ) {
         $job_html .= $future_occupation.'<br>';
     }
     $email = get_user_by("id",$user_id)->data->user_email;
-
+    $image_date = date("YmdHis");
+	$upload_dir = wp_upload_dir();
+    $upload_file_name = $upload_dir['basedir'] . "/" .'profile_photo'.$user_id.'.png';
+    if(!file_exists($upload_file_name)){
+	  $photo = get_avatar($user_id);
+    }
+	else{
+	  $photo = '<img src="'.$upload_file_name.'?'.$image_date.'" class="gravatar avatar avatar-190 um-avatar avatar-search" />'; 
+    }
     $result_html.='
                 <tr>
                     <th>
-                        <a href="/user?um_user='.$user->user_login.'" style="color:white"><p>'.esc_html( $user->user_login ) .'<br></p><div>'.get_avatar($user->ID).'</div></a>
+                        <a href="/user?um_user='.$user->user_login.'" style="color:white"><p>'.esc_html( $user->user_login ) .'<br></p><div>'.$photo.'</div></a>
                     </th>
                     <td label="性別">'.$gender.'</td>
                     <td label="大学・所属">'.esc_html( get_univ_name($user)).'<br>'. esc_html( get_faculty_name($user)).'</td>
