@@ -234,16 +234,6 @@ function new_mypage_func(){
     </div>';
 
     if($login_user_id == $user_id){
-        // if(in_array("administrator", $user_roles)){
-        //     $test_html = '
-        //         <div class="profile_score_area">
-        //             <div class="user_score_circle">
-        //                 <h5 class="user_profile_score_title">プロフィールスコア</h5>
-        //                 <p class="user_profile_score_value">'.$user_profile_total_score.'</p>
-        //             </div>
-        //         </div>
-        //     ';
-        // }
         $header_html = '
         <div class="um-header">
             <div class="um-profile-edit um-profile-headericon um-trigger-menu-on-click">
@@ -336,6 +326,12 @@ function new_mypage_func(){
                 <div class="um-profile-status">
                 </div>
             </div>
+            <div class="profile_score_area only-pc">
+                <div class="user_score_circle">
+                    <h5 class="user_profile_score_title">プロフィールスコア</h5>
+                    <p class="user_profile_score_value">'.$user_profile_total_score.'</p>
+                </div>
+            </div>
         </div>
         ';
     }
@@ -363,6 +359,12 @@ function new_mypage_func(){
                     <div class="um-profile-connect um-member-connect"></div>
                 </div>
                 <div class="um-profile-status">
+                </div>
+            </div>
+            <div class="profile_score_area only-pc">
+                <div class="user_score_circle">
+                    <h5 class="user_profile_score_title">プロフィールスコア</h5>
+                    <p class="user_profile_score_value">'.$user_profile_total_score.'</p>
                 </div>
             </div>
         </div>
