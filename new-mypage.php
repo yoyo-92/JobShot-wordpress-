@@ -185,6 +185,7 @@ function new_mypage_func(){
       $attachment_id=2631;
       $upload_cover_name = wp_get_attachment_image_src($attachment_id,'full')[0];
     }
+    $home_url =esc_url( home_url( ));
     $cover_html = '
     <div class="um-cover has-cover um-trigger-menu-on-click" data-user_id="'.$user_id.'" data-ratio="2.7:1" style="height: 296px;">
         <div class="um-cover-e" data-ratio="2.7:1" style="height: 296px;">
@@ -244,15 +245,15 @@ function new_mypage_func(){
                         </div>
                         <ul>
                             <li></li>
-                            <li><a href="https://builds-story.com/user_account" class="real_url">マイアカウント</a></li>
-                            <li><a href="https://builds-story.com/?page_id=1603" class="real_url">ログアウト</a></li>
+                            <li><a href="'.$home_url.'/user_account" class="real_url">マイアカウント</a></li>
+                            <li><a href="'.$home_url.'/?page_id=1603" class="real_url">ログアウト</a></li>
                             <li><a href="javascript:void(0);" class="um-dropdown-hide">キャンセル</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="um-profile-photo um-trigger-menu-on-click" data-user_id="'.$user_id.'">
-                <a href="https://builds-story.com/user?um_user='.$user_name.'" class="um-profile-photo-img" title="'.$user_name.'">
+                <a href="'.$home_url.'/user?um_user='.$user_name.'" class="um-profile-photo-img" title="'.$user_name.'">
                 <span class="um-profile-photo-overlay">
                     <span class="um-profile-photo-overlay-s">
                         <ins>
@@ -266,7 +267,7 @@ function new_mypage_func(){
             <div class="um-profile-meta">
                 <div class="um-main-meta">
                     <div class="um-name">
-                        <a href="https://builds-story.com/user?um_user='.$user_name.'" title="'.$user_name.'">'.$user_name.'</a>
+                        <a href="'.$home_url.'/user?um_user='.$user_name.'" title="'.$user_name.'">'.$user_name.'</a>
                     </div>
                     <div class="um-clear"></div>
                     <div class="um-profile-connect um-member-connect"></div>
@@ -297,14 +298,14 @@ function new_mypage_func(){
                             <li><a href="/user?um_user='.$user_name.'&amp;um_action=um_deactivate&amp;uid='.$user_id.'" class="real_url um_deactivate-item">このアカウントを無効化</a></li>
                             <li><a href="/user?um_user='.$user_name.'&amp;um_action=um_delete&amp;uid='.$user_id.'" class="real_url um_delete-item">このユーザーを削除</a></li>
                             <li><a href="/user?um_user='.$user_name.'&amp;um_action=um_switch_user&amp;uid='.$user_id.'" class="real_url um_switch_user-item">このユーザーとしてログイン</a></li>
-                            <li><a href="https://builds-story.com/user?um_user='.$user_name.'&amp;um_action=edit" class="real_url">プロフィールを編集</a></li>
+                            <li><a href="'.$home_url.'/user?um_user='.$user_name.'&amp;um_action=edit" class="real_url">プロフィールを編集</a></li>
                             <li><a href="javascript:void(0);" class="um-dropdown-hide">キャンセル</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="um-profile-photo um-trigger-menu-on-click" data-user_id="'.$user_id.'">
-                <a href="https://builds-story.com/user?um_user='.$user_name.'" class="um-profile-photo-img" title="'.$user_name.'">
+                <a href="'.$home_url.'/user?um_user='.$user_name.'" class="um-profile-photo-img" title="'.$user_name.'">
                 <span class="um-profile-photo-overlay">
                     <span class="um-profile-photo-overlay-s">
                         <ins>
@@ -318,7 +319,7 @@ function new_mypage_func(){
             <div class="um-profile-meta">
                 <div class="um-main-meta">
                     <div class="um-name">
-                        <a href="https://builds-story.com/user?um_user='.$user_name.'" title="'.$user_name.'">'.$user_name.'</a>
+                        <a href="'.$home_url.'/user?um_user='.$user_name.'" title="'.$user_name.'">'.$user_name.'</a>
                     </div>
                     <div class="um-clear"></div>
                     <div class="um-profile-connect um-member-connect"></div>
@@ -339,7 +340,7 @@ function new_mypage_func(){
         $header_html = '
         <div class="um-header">
             <div class="um-profile-photo um-trigger-menu-on-click" data-user_id="'.$user_id.'">
-                <a href="https://builds-story.com/user?um_user='.$user_name.'" class="um-profile-photo-img" title="'.$user_name.'">
+                <a href="'.$home_url.'/user?um_user='.$user_name.'" class="um-profile-photo-img" title="'.$user_name.'">
                 <span class="um-profile-photo-overlay">
                     <span class="um-profile-photo-overlay-s">
                         <ins>
@@ -353,7 +354,7 @@ function new_mypage_func(){
             <div class="um-profile-meta">
                 <div class="um-main-meta">
                     <div class="um-name">
-                        <a href="https://builds-story.com/user?um_user='.$user_name.'" title="'.$user_name.'">'.$user_name.'</a>
+                        <a href="'.$home_url.'/user?um_user='.$user_name.'" title="'.$user_name.'">'.$user_name.'</a>
                     </div>
                     <div class="um-clear"></div>
                     <div class="um-profile-connect um-member-connect"></div>
@@ -990,19 +991,20 @@ function regist_file_up() {
     if (is_uploaded_file($_FILES["upfilename"]["tmp_name"])) {
 	    if(isset($_POST['user_id'])){
 		 	$user_id = $_POST['user_id']; 
-		}
+        }
+        $home_url =esc_url( home_url( ));
 	    $user_info = get_userdata($user_id);
         $user_name = $user_info->user_login;
 	    $chk = chk_ext($_FILES["upfilename"]["name"],$allow_exts=array( "png", "jpeg", "jpg","heic" ));
 	    if($chk == false){
 		  $alert = "<script type='text/javascript'>console('拡張子が異なります');</script>";
-		  header('Location: https://builds-story.com/user?um_user='.$user_name);
+		  header('Location: '.$home_url.'/user?um_user='.$user_name);
     	  die();
 		}
 	    $size = size_ext($_FILES["upfilename"]["size"]);
 	    if($size == false){
 		  $alert = "<script type='text/javascript'>console('サイズが大きすぎます');</script>";
-		  header('Location: https://builds-story.com/user?um_user='.$user_name);
+		  header('Location: '.$home_url.'/user?um_user='.$user_name);
     	  die();
 		}
         $upload_dir = wp_upload_dir();
@@ -1033,7 +1035,7 @@ function regist_file_up() {
 			}
         }
     }
-    header('Location: https://builds-story.com/user?um_user='.$user_name);
+    header('Location: '.$home_url.'/user?um_user='.$user_name);
     die();
 	}
 }
@@ -1047,17 +1049,18 @@ function regist_cover_up() {
     if (is_uploaded_file($_FILES["upcovername"]["tmp_name"])) {
 	    if(isset($_POST['user_id'])){
 		 	$user_id = $_POST['user_id'];
-		}
+        }
+        $home_url =esc_url( home_url( ));
 	    $user_info = get_userdata($user_id);
         $user_name = $user_info->user_login;
 	    $chk = chk_ext($_FILES["upcovername"]["name"],$allow_exts=array( "png", "jpeg", "jpg","heic" ));
 	    if($chk == false){
-		  header('Location: https://builds-story.com/user?um_user='.$user_name);
+		  header('Location: '.$home_url.'/user?um_user='.$user_name);
     	  die();
 		}
 	    $size = size_ext($_FILES["upcovername"]["size"]);
 	    if($size == false){
-		  header('Location: https://builds-story.com/user?um_user='.$user_name);
+		  header('Location: '.$home_url.'/user?um_user='.$user_name);
     	  die();
 		}
         $upload_dir = wp_upload_dir();
@@ -1088,7 +1091,7 @@ function regist_cover_up() {
 			}
         }
 	}
-	header('Location: https://builds-story.com/user?um_user='.$user_name);
+	header('Location: '.$home_url.'/user?um_user='.$user_name);
     die();
     }
 }

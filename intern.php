@@ -539,7 +539,7 @@ function template_internship2_func($content){
 	  $home_url =esc_url( home_url( ));
       $html.='<tr>
       <th>お祝い金</th>
-      <td>'.$scholarship_value.'<a href='.esc_url("'.$home_url.'/gift_money").'>　お祝い金制度とは</a>
+      <td>'.$scholarship_value.'<a href="'.$home_url.'/gift_money">　お祝い金制度とは</a>
       </td>
     </tr>';
     }

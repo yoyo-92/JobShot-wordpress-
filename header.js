@@ -2,7 +2,7 @@
 window.addEventListener('load', function () {
     var str = document.getElementsByClassName("um-right um-half");
     for (i = 0; i < str.length; i++) {
-        str[i].innerHTML = '<a href="http://builds-story.com/regist" class="um-button um-alt">新規登録</a>';
+        str[i].innerHTML = '<a href="https://jobshot.jp/regist" class="um-button um-alt">新規登録</a>';
       }
 });
 

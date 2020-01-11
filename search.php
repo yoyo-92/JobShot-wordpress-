@@ -226,16 +226,17 @@ function view_custom_search_func($atts){
             $first_category = $_GET["first_category"];
             $column_search_first_category = $first_category_column_array[$first_category];
             if(!empty($column_search_first_category)){
+                $home_url =esc_url( home_url());
                 $html .= '
                 <div class="column_navigation_bar">
                     <span>
-                        <a href="https://builds-story.com/column">
+                        <a href="'.$home_url.'/column">
                             <span>コラム記事トップ</span>
                         </a>
                     </span>
                     <i class="fa fa-angle-right"></i>
                     <span>
-                        <a href="https://builds-story.com/column?first_category='.$first_category.'">
+                        <a href="'.$home_url.'/column?first_category='.$first_category.'">
                             <span>'.$column_search_first_category.'</span>
                         </a>
                     </span>
@@ -310,19 +311,19 @@ function view_custom_search_func($atts){
                 $html .= '
                 <div class="column_navigation_bar">
                     <span>
-                        <a href="https://builds-story.com/column">
+                        <a href="'.$home_url.'/column">
                             <span>コラム記事トップ</span>
                         </a>
                     </span>
                     <i class="fa fa-angle-right"></i>
                     <span>
-                        <a href="https://builds-story.com/column?first_category='.$first_category.'">
+                        <a href="'.$home_url.'/column?first_category='.$first_category.'">
                             <span>'.$column_search_first_category.'</span>
                         </a>
                     </span>
                     <i class="fa fa-angle-right"></i>
                     <span>
-                        <a href="https://builds-story.com/column?second_category='.$second_category.'">
+                        <a href="'.$home_url.'/column?second_category='.$second_category.'">
                             <span>'.$column_search_second_category.'</span>
                         </a>
                     </span>

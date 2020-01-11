@@ -32,7 +32,7 @@ document.addEventListener('wpcf7mailsent', function( event ) {
                     // alert('error');
                 }
             });
-        location = 'https://builds-story.com/thank-you';
+        location = 'https://jobshot.jp/thank-you';
     }
 }, false );
 </script>
