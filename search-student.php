@@ -141,7 +141,7 @@ function student_search_form_func($atts) {
     　　　 bar.addEventListener("input", rangeValue(bar, target));
     　 }
     </script>';
-
+    $home_url =esc_url( home_url( ));
     $search_form_html = '
     <style>
         .cp_ipselect {
@@ -321,7 +321,7 @@ function student_search_form_func($atts) {
             $(".radio").prop("checked", false);
         }
     </script>
-    <form role="search" method="get" class="search-form" action="https://builds-story.com/student_search_result/">
+    <form role="search" method="get" class="search-form" action="'.$home_url.'/student_search_result/">
         <div class="tabs">
             <input id="all" type="radio" name="tab_item" checked>
                 <label class="tab_item" for="all">基本情報</label>

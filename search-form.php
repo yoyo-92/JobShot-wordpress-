@@ -142,9 +142,9 @@ function search_form_func($atts){
   $select_area = str_replace('&nbsp;&nbsp;&nbsp;', '┗', $select_area);
   $select_occupation=convert_to_dropdown_checkboxes(wp_dropdown_categories($args_occupation),"chk-op-","occupation","職種を選択",$occupation_tag);
   $select_business_type= convert_to_dropdown_checkboxes(wp_dropdown_categories($args_business_type),"chk-bt-","business_type","業種を選択",$business_type_tag);
-
+  $home_url =esc_url( home_url( ));
   $search_form_html.='
-  <form role="search" method="get" class="search-form" action="https://builds-story.com/'.$item_type.'" autocomplete="off"  name="form3">
+  <form role="search" method="get" class="search-form" action="'.$home_url.'/'.$item_type.'" autocomplete="off"  name="form3">
     <div class="form-selects-row search-row" id="br_tag">
       <div class="form-selects-container_test form-group_test select">';
 

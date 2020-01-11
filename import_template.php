@@ -24,36 +24,37 @@ function navigation_safearea(){
 add_action( 'wp_head', 'navigation_safearea');
 
 function navigation_tab(){
+  $home_url =esc_url( home_url());
   if ( is_user_logged_in() ){
     echo '
     <div class="navi-container">
       <ul class="navi-menu">
         <li class="navi-menu-button">
-          <a href="https://builds-story.com/" class="navi-menu-content navi-menu-content-home">
+          <a href="'.$home_url.'/" class="navi-menu-content navi-menu-content-home">
             <span class="navi-menu-icon navi-menu-icon-home"></span>
             <span class="navi-menu-text">ホーム</span>
           </a>
         </li>
         <li class="navi-menu-button">
-          <a href="https://builds-story.com/company" class="navi-menu-content navi-menu-content-recruit">
+          <a href="'.$home_url.'/company" class="navi-menu-content navi-menu-content-recruit">
             <span class="navi-menu-icon navi-menu-icon-recruit"></span>
             <span class="navi-menu-text">新卒</span>
           </a>
         </li>
         <li class="navi-menu-button navi-menu-content-intern">
-          <a href="https://builds-story.com/internship" class="navi-menu-content">
+          <a href="'.$home_url.'/internship" class="navi-menu-content">
             <span class="navi-menu-icon navi-menu-icon-intern"></span>
             <span class="navi-menu-text">インターン</span>
           </a>
         </li>
         <li class="navi-menu-button navi-menu-content-event">
-          <a href="https://builds-story.com/event" class="navi-menu-content">
+          <a href="'.$home_url.'/event" class="navi-menu-content">
             <span class="navi-menu-icon navi-menu-icon-event"></span>
             <span class="navi-menu-text">イベント</span>
           </a>
         </li>
         <li class="navi-menu-button navi-menu-content-mypage">
-          <a href="https://builds-story.com/user" class="navi-menu-content">
+          <a href="'.$home_url.'/user" class="navi-menu-content">
             <span class="navi-menu-icon navi-menu-icon-mypage"></span>
             <span class="navi-menu-text">マイページ</span>
           </a>
@@ -65,31 +66,31 @@ function navigation_tab(){
     <div class="navi-container">
       <ul class="navi-menu">
         <li class="navi-menu-button">
-          <a href="https://builds-story.com/" class="navi-menu-content navi-menu-content-home">
+          <a href="'.$home_url.'/" class="navi-menu-content navi-menu-content-home">
             <span class="navi-menu-icon navi-menu-icon-home"></span>
             <span class="navi-menu-text">ホーム</span>
           </a>
         </li>
         <li class="navi-menu-button">
-          <a href="https://builds-story.com/company" class="navi-menu-content navi-menu-content-recruit">
+          <a href="'.$home_url.'/company" class="navi-menu-content navi-menu-content-recruit">
             <span class="navi-menu-icon navi-menu-icon-recruit"></span>
             <span class="navi-menu-text">新卒</span>
           </a>
         </li>
         <li class="navi-menu-button navi-menu-content-intern">
-          <a href="https://builds-story.com/internship" class="navi-menu-content">
+          <a href="'.$home_url.'/internship" class="navi-menu-content">
             <span class="navi-menu-icon navi-menu-icon-intern"></span>
             <span class="navi-menu-text">インターン</span>
           </a>
         </li>
         <li class="navi-menu-button navi-menu-content-event">
-          <a href="https://builds-story.com/event" class="navi-menu-content">
+          <a href="'.$home_url.'/event" class="navi-menu-content">
             <span class="navi-menu-icon navi-menu-icon-event"></span>
             <span class="navi-menu-text">イベント</span>
           </a>
         </li>
         <li class="navi-menu-button navi-menu-content-mypage">
-          <a href="https://builds-story.com/login" class="navi-menu-content">
+          <a href="'.$home_url.'/login" class="navi-menu-content">
             <span class="navi-menu-icon navi-menu-icon-mypage"></span>
             <span class="navi-menu-text">ログイン</span>
           </a>

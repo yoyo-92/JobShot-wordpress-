@@ -77,11 +77,11 @@ function template_company_info2_func($content){
       text-align:center;
     }
   </style>';
-
+  $home_url =esc_url( home_url( ));
   if($company_name == $current_user_name){
-      $edit_company_html = '<div><a href="https://builds-story.com/edit_company?post_id='.$post_id.'"><button class="button favorite innactive" style="width:100%;">編集する</button></a></div>';
-      $edit_job_html = '<div class="company_edit"><a href="https://builds-story.com/new_post_job"><button class="button favorite innactive" style="width:40%; margin-top:15px; background-color:#f9b539; border-radius: 5px;">新規募集</button></a></div>';
-      $edit_internship_html = '<div class="company_edit"><a href="https://builds-story.com/new_post_internship"><button class="button favorite innactive" style="width:40%; margin-top:15px; background-color:#f9b539; border-radius: 5px;">新規募集</button></a></div>';
+      $edit_company_html = '<div><a href="'.$home_url.'/edit_company?post_id='.$post_id.'"><button class="button favorite innactive" style="width:100%;">編集する</button></a></div>';
+      $edit_job_html = '<div class="company_edit"><a href="'.$home_url.'/new_post_job"><button class="button favorite innactive" style="width:40%; margin-top:15px; background-color:#f9b539; border-radius: 5px;">新規募集</button></a></div>';
+      $edit_internship_html = '<div class="company_edit"><a href="'.$home_url.'/new_post_internship"><button class="button favorite innactive" style="width:40%; margin-top:15px; background-color:#f9b539; border-radius: 5px;">新規募集</button></a></div>';
       $edit_event_html = '<div class="company_edit"><a href=""><button class="button favorite innactive" style="width:40%; margin-top:15px; background-color:#f9b539; border-radius: 5px;">新規投稿</button></a></div>';
   }else{
       $edit_company_html = '';
@@ -246,17 +246,17 @@ function view_company_contents_func($company_user_id, $posttype){
     $applycnt=do_shortcode(' [cfdb-value form="/'.$formname.'.*/" filter="job-id='.$post_id.'" function="count"]');
 
     $favorite_count = get_favorites_count($post_id);
-
+    $home_url =esc_url( home_url( ));
     $relate_html.='
             <tr>
                 <th>
                     <p><strong>'.get_the_title( $post_id ).'</strong></p>
                 </th>
                 <td label="お気に入り数">
-                    <p><a href="https://builds-story.com/manage-favorite?pid='.$post_id.'"><b>'.$favorite_count.'名</b></a></p>
+                    <p><a href="'.$home_url.'/manage-favorite?pid='.$post_id.'"><b>'.$favorite_count.'名</b></a></p>
                 </td>
                 <td label="応募者数">
-                    <p><a href="https://builds-story.com/manage_application?pid='.$post_id.'"><b>'.$applycnt.'名</b></a></p>
+                    <p><a href="'.$home_url.'/manage_application?pid='.$post_id.'"><b>'.$applycnt.'名</b></a></p>
                 </td>
             </tr>';
     }
@@ -288,10 +288,10 @@ function edit_company_info(){
         text-align:center;
       }
     </style>';
-
+    $home_url =esc_url( home_url( ));
     $edit_html = $style_html.'
     <h2 class="maintitle">会社情報</h2>
-    <form action="https://builds-story.com/edit_company?post_id='.$post_id.'" method="POST" enctype="multipart/form-data">
+    <form action="'.$home_url.'/edit_company?post_id='.$post_id.'" method="POST" enctype="multipart/form-data">
         <div class="tab_content_description">
             <table class="demo01">
                 <tbody>
@@ -342,13 +342,13 @@ function edit_company_info(){
             <input type="hidden" name="edit_company" value="edit_company">
             <div class="company_edit">
                 <input class="button favorite innactive" style="width:40%; margin-top:15px; background-color:#f9b539; border-radius: 5px;" type="submit" value="更新する">
-                <a class="button favorite innactive" style="width:40%; margin-top:15px; border-radius: 5px;" href="https://builds-story.com/?company='.$post_title.'">戻る</a>
+                <a class="button favorite innactive" style="width:40%; margin-top:15px; border-radius: 5px;" href="'.$home_url.'/?company='.$post_title.'">戻る</a>
             </div>
         </div>
     </form>';
     return $edit_html;
   }else{
-    header('Location: https://builds-story.com/');
+    header('Location: '.$home_url.'/');
     die();
   }
 }
@@ -366,7 +366,7 @@ function update_company_info(){
     $representative = $_POST["representative"];
     $address_num = $_POST["address_num"];
     $address = $_POST["address"];
-
+    $home_url =esc_url( home_url( ));
     if($_POST["company_bussiness"]){
       update_post_meta($post_id, "事業内容", $company_bussiness);
     }
@@ -388,7 +388,7 @@ function update_company_info(){
     if($_POST["address"]){
       update_post_meta($post_id, "住所", $address);
     }
-    header('Location: https://builds-story.com/?company='.$post_title);
+    header('Location: '.$home_url.'/?company='.$post_title);
     die();
   }
 }
@@ -632,17 +632,18 @@ function view_company_contents_func_test(){
             </tr>
         </thead>
         <tbody class="manage_post_tbody">';
+    $home_url =esc_url( home_url( ));
     foreach ($post_ids as $post_id) {
         if($post_type=='internship'){
-            $edit_link = '<a href="https://builds-story.com/edit_internship?post_id='.$post_id.'">編集</a>';
+            $edit_link = '<a href="'.$home_url.'/edit_internship?post_id='.$post_id.'">編集</a>';
         }else if($post_type=='job'){
-            $edit_link = '<a href="https://builds-story.com/edit_job?post_id='.$post_id.'">編集</a>';
+            $edit_link = '<a href="'.$home_url.'/edit_job?post_id='.$post_id.'">編集</a>';
         }else if($post_type=='summer_internship'){
-            $edit_link = '<a href="https://builds-story.com/edit_summer_internship?post_id='.$post_id.'">編集</a>';
+            $edit_link = '<a href="'.$home_url.'/edit_summer_internship?post_id='.$post_id.'">編集</a>';
         }else if($post_type=='autumn_internship'){
-            $edit_link = '<a href="https://builds-story.com/edit_autumn_internship?post_id='.$post_id.'">編集</a>';
+            $edit_link = '<a href="'.$home_url.'/edit_autumn_internship?post_id='.$post_id.'">編集</a>';
         }else{
-            $edit_link = '<a href="https://builds-story.com/edit_event?post_id='.$post_id.'">編集</a>';
+            $edit_link = '<a href="'.$home_url.'/edit_event?post_id='.$post_id.'">編集</a>';
         }
         $applylist=do_shortcode(' [cfdb-table form="/'.$formname.'.*/" filter="job-id='.$post_id.'"]');
         $applycnt=do_shortcode(' [cfdb-value form="/'.$formname.'.*/" filter="job-id='.$post_id.'" function="count"]');
@@ -710,10 +711,10 @@ function view_company_contents_func_test(){
                     </form>
                 </td>
                 <td label="お気に入り数">
-                    <p><a href="https://builds-story.com/manage-favorite?pid='.$post_id.'"><b>'.$favorite_count.'名</b></a></p>
+                    <p><a href="'.$home_url.'/manage-favorite?pid='.$post_id.'"><b>'.$favorite_count.'名</b></a></p>
                 </td>
                 <td label="応募者数">
-                    <p><a href="https://builds-story.com/manage_application?pid='.$post_id.'"><b>'.$applycnt.'名</b></a></p>
+                    <p><a href="'.$home_url.'/manage_application?pid='.$post_id.'"><b>'.$applycnt.'名</b></a></p>
                 </td>
             </tr>';
     }

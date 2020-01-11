@@ -22,8 +22,9 @@
     $the_query = new WP_Query($args);
     $posts_per_page = 10;
     $html .= paginate( $the_query->max_num_pages, get_query_var( 'paged' ),$the_query->found_posts, $posts_per_page);
+    $home_url =esc_url( home_url( ));
     if($item_type == "internship"){
-      $html .= '<p style="text-align: right;"><a href="https://builds-story.com/?page_id=4899">応募者一覧はこちら</a></p>';
+      $html .= '<p style="text-align: right;"><a href="'.$home_url.'/?page_id=4899">応募者一覧はこちら</a></p>';
     }
     if ($the_query->have_posts()) :
       while ($the_query->have_posts()) :
@@ -194,8 +195,9 @@ function view_apply_fullwidth_event_card_func_test($post_id){
     $sanka_html.=  '<div><a href="'.get_the_permalink($sanka->ID).'">'.$sanka->post_title.'</a></div>';
   }
   $sanka_html.='</div>';
-  $detai_url = 'https://builds-story.com/manage_application_test?pid='.$post_id;
-  $favorite_url = 'https://builds-story.com/manage-favorite_test?pid='.$post_id;
+  $home_url =esc_url( home_url( ));
+  $detai_url = $home_url.'/manage_application_test?pid='.$post_id;
+  $favorite_url = $home_url.'/manage-favorite_test?pid='.$post_id;
   $card_html = '
   <div class="card full-card">
     <div class="full-card-main">

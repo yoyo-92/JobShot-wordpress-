@@ -38,7 +38,8 @@ function frontpage_view_pickups_func(){
         // }
     }
     $card_html .= '</div>';
-    $card_html .= '<p style="text-align: right; text-decoration: underline;"><a href="https://builds-story.com/internship">長期インターン案件をもっと見る</a></p>';
+    $home_url =esc_url( home_url( ));
+    $card_html .= '<p style="text-align: right; text-decoration: underline;"><a href="'.$home_url.'/internship">長期インターン案件をもっと見る</a></p>';
     return do_shortcode($card_html);
   }
 add_shortcode('view-top-intern-card','view_top_intern_card_func');

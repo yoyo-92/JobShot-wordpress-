@@ -43,8 +43,8 @@ function view_recruit_search(){
     $select_area =convert_to_dropdown_checkboxes(wp_dropdown_categories( $args_area ),"chk-ar-","area","エリアを選択");
     $select_occupation=convert_to_dropdown_checkboxes(wp_dropdown_categories($args_occupation),"chk-op-","occupation","職種を選択");
     $select_business_type= convert_to_dropdown_checkboxes(wp_dropdown_categories($args_business_type),"chk-bt-","business_type","業種を選択");
-
-    $search_form_html='<form role="search" method="get" class="search-form" action="https://builds-story.com/customsearch/">';
+    $home_url =esc_url( home_url( ));
+    $search_form_html='<form role="search" method="get" class="search-form" action="'.$home_url.'/customsearch/">';
     $search_form_html.='<div class="search-field-row search-row">
                             <label for="sw" class="search-field-label">キーワードから探す</label>
                             <div class="form-group">

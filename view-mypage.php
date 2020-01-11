@@ -102,8 +102,8 @@ function get_user_meta_data_func($atts){
   $post_name = $post->post_name;
   $company = get_userdata($post->post_author);
   $company_name = $company->data->display_name;
-
-  $html = '<a href="https://builds-story.com/?internship='.$post_name.'">'.$post_title.'</a><br><p>'.$company_name.'</p>';
+  $home_url =esc_url( home_url( ));
+  $html = '<a href='.$home_url.'/?internship='.$post_name.'">'.$post_title.'</a><br><p>'.$company_name.'</p>';
 
   return $html;
 }

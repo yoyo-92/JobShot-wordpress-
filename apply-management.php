@@ -1,6 +1,7 @@
 <?php
 
 function apply_management_func($atts){
+    $home_url =esc_url( home_url( ));
     extract(shortcode_atts(array(
         'item_type' => '',
     ), $atts));
@@ -24,7 +25,7 @@ function apply_management_func($atts){
     $posts_per_page = 10;
     $html .= paginate( $the_query->max_num_pages, get_query_var( 'paged' ),$the_query->found_posts, $posts_per_page);
     if($item_type == "internship"){
-      $html .= '<p style="text-align: right;"><a href="https://builds-story.com/?page_id=4899">応募者一覧はこちら</a></p>';
+      $html .= '<p style="text-align: right;"><a href="'.$home_url.'/?page_id=4899">応募者一覧はこちら</a></p>';
     }
     if ($the_query->have_posts()) :
       while ($the_query->have_posts()) :
@@ -314,7 +315,7 @@ add_shortcode('view-company-card','view_company_card_func');
  */
 
 function view_apply_fullwidth_job_card_func($post_id){
-
+  $home_url =esc_url( home_url( ));
   $post = get_post($post_id);
   $company = get_userdata($post->post_author);
   $company_name = $company->data->display_name;
@@ -324,8 +325,8 @@ function view_apply_fullwidth_job_card_func($post_id){
   $salary = get_field("給与",$post_id);
   $requirements = get_field("応募資格",$post_id);
   $work_contents = get_field("業務内容",$post_id);
-  $favorite_url = 'https://builds-story.com/manage-favorite?pid='.$post_id;
-  $detai_url = 'https://builds-story.com/manage_application?pid='.$post_id;
+  $favorite_url = $home_url.'/manage-favorite?pid='.$post_id;
+  $detai_url = $home_url.'/manage_application?pid='.$post_id;
 
   $card_html = '
   <div class="card full-card">
@@ -364,7 +365,7 @@ add_shortcode('view-fullwidth-job-card','view_fullwidth_job_card_func');
 
 
 function view_apply_fullwidth_intern_card_func($post_id){
-
+  $home_url =esc_url( home_url( ));
   $post = get_post($post_id);
   $post_title = get_the_title($post_id);
   $post_content = $post->post_content;
@@ -410,8 +411,8 @@ function view_apply_fullwidth_intern_card_func($post_id){
     }
   }
 
-  $favorite_url = 'https://builds-story.com/manage-favorite?pid='.$post_id;
-  $detai_url = 'https://builds-story.com/manage_application?pid='.$post_id;
+  $favorite_url = $home_url.'/manage-favorite?pid='.$post_id;
+  $detai_url = $home_url.'/manage_application?pid='.$post_id;
 
   $card_html = '
   <div class="card full-card">
@@ -469,8 +470,9 @@ function view_apply_fullwidth_event_card_func($post_id){
     $sanka_html.=  '<div><a href="'.get_the_permalink($sanka->ID).'">'.$sanka->post_title.'</a></div>';
   }
   $sanka_html.='</div>';
-  $detai_url = 'https://builds-story.com/manage_application?pid='.$post_id;
-  $favorite_url = 'https://builds-story.com/manage-favorite?pid='.$post_id;
+  $home_url =esc_url( home_url( ));
+  $detai_url = $home_url.'/manage_application?pid='.$post_id;
+  $favorite_url = $home_url.'/manage-favorite?pid='.$post_id;
   $card_html = '
   <div class="card full-card">
     <div class="full-card-main">
@@ -528,7 +530,7 @@ function view_apply_fullwidth_event_card_func($post_id){
 add_shortcode('view-fullwidth-event-card','view_fullwidth_event_card_func');
 
 function view_apply_fullwidth_summer_intern_card_func($post_id){
-
+  $home_url =esc_url( home_url( ));
   $post = get_post($post_id);
   $post_title = get_the_title($post_id);
   $company = get_userdata($post->post_author);
@@ -551,7 +553,7 @@ function view_apply_fullwidth_summer_intern_card_func($post_id){
   }else{
     $button_html = '<button class="button favorite innactive">'.get_favorites_button($post_id).'</button>';
   }
-  $company_url='https://builds-story.com/?company='.$company_name;
+  $company_url=$home_url.'/?company='.$company_name;
   $features = get_field('特徴',$post_id);
 
   if($features){
@@ -560,7 +562,7 @@ function view_apply_fullwidth_summer_intern_card_func($post_id){
       $features_html .=  '<div class="card-category" style="background-color:#f9b539;">'.$feature.'</div>';
     }
   }
-  $detai_url = 'https://builds-story.com/manage_application?pid='.$post_id;
+  $detai_url = $home_url.'/manage_application?pid='.$post_id;
 
   $card_html = '
   <div class="card full-card">
@@ -603,7 +605,7 @@ function view_apply_fullwidth_summer_intern_card_func($post_id){
 add_shortcode('view-fullwidth-intern-card','view_fullwidth_intern_card_func');
 
 function view_apply_fullwidth_autumn_intern_card_func($post_id){
-
+  $home_url =esc_url( home_url( ));
   $post = get_post($post_id);
   $post_title = get_the_title($post_id);
   $company = get_userdata($post->post_author);
@@ -626,7 +628,7 @@ function view_apply_fullwidth_autumn_intern_card_func($post_id){
   }else{
     $button_html = '<button class="button favorite innactive">'.get_favorites_button($post_id).'</button>';
   }
-  $company_url='https://builds-story.com/?company='.$company_name;
+  $company_url=$home_url.'/?company='.$company_name;
   $features = get_field('特徴',$post_id);
 
   if($features){
@@ -635,7 +637,7 @@ function view_apply_fullwidth_autumn_intern_card_func($post_id){
       $features_html .=  '<div class="card-category" style="background-color:#f9b539;">'.$feature.'</div>';
     }
   }
-  $detai_url = 'https://builds-story.com/manage_application?pid='.$post_id;
+  $detai_url = $home_url.'/manage_application?pid='.$post_id;
 
   $card_html = '
   <div class="card full-card">

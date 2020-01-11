@@ -36,7 +36,8 @@ function template_summer_internship2_func($content){
       $company_id = get_company_id($company);
       $company_bussiness = nl2br(get_field("事業内容",$company_id));
     }
-    $company_url='https://builds-story.com/?company='.$company_name;
+    $home_url =esc_url( home_url( ));
+    $company_url=$home_url.'/?company='.$company_name;
 
     $post_title = get_the_title($post_id);
     $image = get_field("トップイメージ画像",$post_id);
