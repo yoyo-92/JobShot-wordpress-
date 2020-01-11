@@ -34,6 +34,24 @@ add_shortcode('view_company_mypage','view_company_mypage_func');
   }
   add_shortcode('get_avatar_sc','get_avatar_sc_func');
 
+  function get_avatar_sc_func_re($atts){
+    extract( shortcode_atts( array(
+    'user_login' => '', 
+), $atts ) );
+$user_id=get_user_by('login',$user_login)->ID;
+$image_date = date("YmdHis");
+$upload_dir = wp_upload_dir();
+$upload_file_name = $upload_dir['basedir'] . "/" .'profile_photo'.$user_id.'.png';
+if(!file_exists($upload_file_name)){
+$photo = get_avatar($user_id);
+}
+else{
+$photo = '<img src="'.$upload_file_name.'?'.$image_date.'" class="gravatar avatar avatar-190 um-avatar avatar-search" />'; 
+}
+return $photo;
+}
+add_shortcode('get_avatar_sc_re','get_avatar_sc_func_re');
+
 function my_get_userdata_by_func($atts){
   extract( shortcode_atts( array(
     'field' => 'id',
