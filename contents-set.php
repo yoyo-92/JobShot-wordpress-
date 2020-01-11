@@ -128,16 +128,19 @@ add_shortcode('sethref', 'set_href_func');
 
 
 function set_address_func ( $atts, $content = null ) {
-	  return "<div><script type='text/javascript'>var e1 = document.getElementById('button_apply_internship');e1.href= 'https://builds-story.com/application_internship?jobid=".get_the_ID()."&jobname=".get_the_title()."';</script></div>"; 
+    $home_url =esc_url( home_url( ));
+    $url = $home_url."/application_internship?jobid=".get_the_ID()."&jobname=".get_the_title().";";
+    return "<div><script type='text/javascript'>var e1 = document.getElementById('button_apply_internship');e1.href=".$url."</script></div>";
 }
 add_shortcode('setaddress', 'set_address_func');
 
 function intern_apply_address_func(){
-return "https://builds-story.com/application_internship?jobid=".get_the_ID()."&jobname=".get_the_title();
+    return $home_url."/application_internship?jobid=".get_the_ID()."&jobname=".get_the_title();
 }
 add_shortcode('internapplyaddress', 'intern_apply_address_func');
 
 function get_form_address_func($atts){
+    $home_url =esc_url( home_url( ));
     extract( shortcode_atts( array(
         'formtype' => '',
         'form_id' => '',
@@ -146,9 +149,9 @@ function get_form_address_func($atts){
         'redirect' => ''
     ), $atts ) );
     if(!empty($redirect)){
-        return 'https://builds-story.com/'.$formtype.'?form_id='.$form_id.'&post_id='.$post_id.'&jobname='.$title.'&redirect='.$redirect;
+        return $home_url.'/'.$formtype.'?form_id='.$form_id.'&post_id='.$post_id.'&jobname='.$title.'&redirect='.$redirect;
     }
-    return 'https://builds-story.com/'.$formtype.'?form_id='.$form_id.'&post_id='.$post_id.'&jobname='.$title;
+    return $home_url.'/'.$formtype.'?form_id='.$form_id.'&post_id='.$post_id.'&jobname='.$title;
 }
 add_shortcode('get_form_address', 'get_form_address_func');
 

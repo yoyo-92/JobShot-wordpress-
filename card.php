@@ -257,7 +257,7 @@ add_shortcode('view-company-card','view_company_card_func');
  */
 
 function view_fullwidth_job_card_func($post_id){
-
+  $home_url =esc_url( home_url( ));
   $post = get_post($post_id);
   $company = get_userdata($post->post_author);
   $company_name = $company->data->display_name;
@@ -269,11 +269,11 @@ function view_fullwidth_job_card_func($post_id){
   $current_user = wp_get_current_user();
   $current_user_name = $current_user->data->display_name;
   if($company_name == $current_user_name){
-    $button_html = '<a href="https://builds-story.com/edit_job?post_id='.$post_id.'"><button class="button favorite innactive">編集をする</button></a>';
+    $button_html = '<a href="'.$home_url.'/edit_job?post_id='.$post_id.'"><button class="button favorite innactive">編集をする</button></a>';
   }else{
     $button_html = '<button class="button favorite innactive">'.get_favorites_button($post_id).'</button>';
   }
-  $company_url='https://builds-story.com/?company='.$company_name;
+  $company_url=$home_url.'/?company='.$company_name;
 
   $card_html = '
   <div class="card full-card">
@@ -313,7 +313,7 @@ add_shortcode('view-fullwidth-job-card','view_fullwidth_job_card_func');
 
 
 function view_fullwidth_intern_card_func($post_id){
-
+  $home_url =esc_url( home_url( ));
   $post = get_post($post_id);
   $post_title = get_the_title($post_id);
   $post_content = $post->post_content;
@@ -371,7 +371,7 @@ function view_fullwidth_intern_card_func($post_id){
   $current_user = wp_get_current_user();
   $current_user_name = $current_user->data->display_name;
   if($company_name == $current_user_name){
-    $button_html = '<a href="https://builds-story.com/edit_internship?post_id='.$post_id.'"><button class="button favorite innactive">編集をする</button></a>';
+    $button_html = '<a href="'.$home_url.'/edit_internship?post_id='.$post_id.'"><button class="button favorite innactive">編集をする</button></a>';
   }else{
     $button_html = '<button class="button favorite innactive">'.get_favorites_button($post_id).'</button>';
   }
@@ -435,7 +435,8 @@ function view_fullwidth_event_card_func($post_id){
     $sanka_html.=  '<div><a href="'.get_the_permalink($sanka->ID).'">'.$sanka->post_title.'</a></div>';
   }
   $sanka_html.='</div>';
-  $detai_url = 'https://builds-story.com/manage_application?pid='.$post_id;
+  $home_url =esc_url( home_url( ));
+  $detai_url = $home_url.'/manage_application?pid='.$post_id;
 
   $post = get_post($post_id);
   $company = get_userdata($post->post_author);

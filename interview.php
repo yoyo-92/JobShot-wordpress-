@@ -1,6 +1,7 @@
 <?php
 
 function about_interview(){
+    $home_url =esc_url( home_url( ));
     $html='
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <style>
@@ -46,7 +47,7 @@ function about_interview(){
         }
     </style>
     <section>
-        <img src="https://builds-story.com/wp-content/uploads/2019/09/c7b52d093ae61f8c6d8350c2f44d6aaf-e1568541207179.png">
+        <img src="'.$home_url.'/wp-content/uploads/2019/09/c7b52d093ae61f8c6d8350c2f44d6aaf-e1568541207179.png">
         <div class="card-category-container event">
             <div class="card-category">本番同様の面接対策とフィードバックにより合格率200%UP！！！</div><br>
             <div class="card-category">人事と接点のある社員から人事が何をどのように評価しているのか学ぶ！</div><br>
@@ -59,7 +60,7 @@ function about_interview(){
                 <tr>
                     <th>開催日時</th>
                     <td>
-                        <div><a href="https://builds-story.com/interview/apply">こちらからお選びください</a></div>
+                        <div><a href="'.$home_url.'/interview/apply">こちらからお選びください</a></div>
                     </td>
                 </tr>
                 <tr>
@@ -83,7 +84,7 @@ function about_interview(){
         </table>
     </section>
     <div class="fixed-buttom">
-        <a href="https://builds-story.com/interview/apply">
+        <a href="'.$home_url.'/interview/apply">
             <button class="button button-apply">申し込みはこちらから</button>
         </a>
     </div>';

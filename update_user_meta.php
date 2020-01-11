@@ -37,4 +37,21 @@ function update_univ_community(){
     }
 }
 add_shortcode('update_univ_community','update_univ_community');
+
+function update_user_score(){
+    $user = wp_get_current_user();
+    $user_id = $user->data->ID;
+    $user_base_profile_score = get_user_meta( $user_id, 'user_base_profile_score',false)[0];
+    update_user_base_profile_score($user_id);
+    update_user_univ_profile_score($user_id);
+    update_user_abroad_profile_score($user_id);
+    update_user_programming_profile_score($user_id);
+    update_user_skill_profile_score($user_id);
+    update_user_community_profile_score($user_id);
+    update_user_internship_profile_score($user_id);
+    update_user_interest_profile_score($user_id);
+    update_user_experience_profile_score($user_id);
+    update_user_total_profile_score($user_id);
+}
+add_shortcode('update_user_score','update_user_score');
 ?>

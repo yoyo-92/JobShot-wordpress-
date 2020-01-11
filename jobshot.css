@@ -5732,3 +5732,35 @@ font-size: 13px !important;
 .column_navigation_bar{
   margin-top: 40px;
 }
+/* プロフィール充実度 */
+.profile_score_area{
+  float: right;
+  margin-right: 15px;
+  margin-top: -350px;
+}
+.user_score_circle{
+  width: 120px;
+  height: 120px;
+  border-radius: 150px;
+  background: #f9b539;
+  margin: 0 auto;
+  position: relative;
+  color: #fff;
+  text-align: center;
+}
+.user_profile_score_title{
+  padding-top: 35px;
+  font-size: 13px;
+  letter-spacing: -1px;
+  color: white;
+  font-weight: 600;
+}
+.user_profile_score_value{
+  position: absolute;
+  left: 0;
+  top: 0px;
+  line-height: 150px;
+  width: 120px;
+  font-size: 48px;
+  font-weight: 600;
+}
