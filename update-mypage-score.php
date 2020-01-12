@@ -265,6 +265,27 @@ function update_user_experience_profile_score($user_id){
     }
     update_user_meta( $user_id, 'user_experience_profile_score', $user_experience_profile_score);
 }
+// プロフィール画像の情報をもとにスコアを更新する関数
+function update_user_picture_profile_score($user_id){
+    $user_picture_profile_score = 0;
+    $upload_file_name = $upload_dir['basedir'] . "/" .'profile_photo'.$user_id.'.png';
+    if(!file_exists($upload_file_name)){
+      $attachment_id=2632;
+      $upload_file_src = wp_get_attachment_image_src($attachment_id)[0];
+      if($upload_file_src){
+        $user_picture_profile_score += 15;
+      }
+    }
+    $upload_cover_name = $upload_dir['basedir']."/".'cover_photo'.$user_id.'.png';
+    if(!file_exists($upload_cover_name)){
+      $attachment_id=2631;
+      $upload_cover_src = wp_get_attachment_image_src($attachment_id,'full')[0];
+      if($upload_cover_src){
+        $user_picture_profile_score += 10;
+      }
+    }
+    update_user_meta( $user_id, 'user_picture_profile_score', $user_picture_profile_score);
+}
 // 全てのカテゴリーの点数を合計して更新する関数
 function update_user_total_profile_score($user_id){
     $user_profile_total_score = 0;
@@ -277,6 +298,7 @@ function update_user_total_profile_score($user_id){
     update_user_internship_profile_score($user_id);
     update_user_interest_profile_score($user_id);
     update_user_experience_profile_score($user_id);
+    update_user_picture_profile_score($user_id);
     $user_base_profile_score = get_user_meta( $user_id, 'user_base_profile_score',false)[0];
     $user_univ_profile_score = get_user_meta( $user_id, 'user_univ_profile_score',false)[0];
     $user_abroad_profile_score = get_user_meta( $user_id, 'user_abroad_profile_score',false)[0];
@@ -286,7 +308,8 @@ function update_user_total_profile_score($user_id){
     $user_internship_profile_score = get_user_meta( $user_id, 'user_internship_profile_score',false)[0];
     $user_interest_profile_score = get_user_meta( $user_id, 'user_interest_profile_score',false)[0];
     $user_experience_profile_score = get_user_meta( $user_id, 'user_experience_profile_score',false)[0];
-    $user_profile_total_score = array_sum(array($user_base_profile_score,$user_univ_profile_score,$user_abroad_profile_score,$user_programming_profile_score,$user_skill_profile_score,$user_community_profile_score,$user_internship_profile_score,$user_interest_profile_score,$user_experience_profile_score));
+    $user_picture_profile_score = get_user_meta( $user_id, 'user_picture_profile_score',false)[0];
+    $user_profile_total_score = array_sum(array($user_base_profile_score,$user_univ_profile_score,$user_abroad_profile_score,$user_programming_profile_score,$user_skill_profile_score,$user_community_profile_score,$user_internship_profile_score,$user_interest_profile_score,$user_experience_profile_score,$user_picture_profile_score));
     update_user_meta( $user_id, 'user_profile_total_score', $user_profile_total_score);
     return $user_profile_total_score;
 }

@@ -51,6 +51,7 @@ function update_user_score(){
     update_user_internship_profile_score($user_id);
     update_user_interest_profile_score($user_id);
     update_user_experience_profile_score($user_id);
+    update_user_picture_profile_score($user_id);
     update_user_total_profile_score($user_id);
 }
 add_shortcode('update_user_score','update_user_score');
