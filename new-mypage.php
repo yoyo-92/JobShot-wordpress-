@@ -281,6 +281,15 @@ function new_mypage_func(){
                     <p class="user_profile_score_value">'.$user_profile_total_score.'</p>
                 </div>
             </div>
+            <div class="score-card only-sp">
+                <div class="score-area">
+                    <p>'.$user_profile_total_score.'</p>
+                </div>
+                <div class="info-area">
+                    <h3>プロフィールスコア</h3>
+                    <p>プロフィールを充実させてスカウトを受け取ろう</p>
+                </div>
+            </div>
         </div>
         ';
 
@@ -333,6 +342,15 @@ function new_mypage_func(){
                     <p class="user_profile_score_value">'.$user_profile_total_score.'</p>
                 </div>
             </div>
+            <div class="score-card only-sp">
+                <div class="score-area">
+                    <p>'.$user_profile_total_score.'</p>
+                </div>
+                <div class="info-area">
+                    <h3>プロフィールスコア</h3>
+                    <p>プロフィールを充実させてスカウトを受け取ろう</p>
+                </div>
+            </div>
         </div>
         ';
     }
@@ -366,6 +384,15 @@ function new_mypage_func(){
                 <div class="user_score_circle">
                     <h5 class="user_profile_score_title">プロフィールスコア</h5>
                     <p class="user_profile_score_value">'.$user_profile_total_score.'</p>
+                </div>
+            </div>
+            <div class="score-card only-sp">
+                <div class="score-area">
+                    <p>'.$user_profile_total_score.'</p>
+                </div>
+                <div class="info-area">
+                    <h3>プロフィールスコア</h3>
+                    <p>プロフィールを充実させてスカウトを受け取ろう</p>
                 </div>
             </div>
         </div>
