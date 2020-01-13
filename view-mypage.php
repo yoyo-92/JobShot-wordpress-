@@ -292,9 +292,15 @@ function get_user_bussiness_type($atts){
   $user_id = $user->data->ID;
   $user_bussiness_types = get_user_meta($user_id,'bussiness_type',false);
   $user_bussiness_types = $user_bussiness_types[0];
+  $numItems = count($user_bussiness_types);
+  $i = 0;
   $html = '';
-  foreach($user_bussiness_types as $user_bussiness_type){
-    $html .= $user_bussiness_type.'<br>';
+  foreach($user_bussiness_types as $key => $user_bussiness_type){
+    if(++$i !== $numItems){
+      $html .= $user_bussiness_type.'・';
+    }else{
+      $html .= $user_bussiness_type.' ';
+    }
   }
   return $html;
 }
