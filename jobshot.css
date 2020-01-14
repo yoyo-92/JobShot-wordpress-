@@ -1072,8 +1072,8 @@ tr {
 /* url:/student-search */
 /* 固定ページ名：学生検索 */
 .avatar-search {
-  width: 100% !important;
-  height: 100% !important;
+  width: 96px !important;
+  height: 96px !important;
   object-fit: cover !important;
 }
 .tabs {
