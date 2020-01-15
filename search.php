@@ -243,8 +243,7 @@ function view_custom_search_func($atts){
                 </div>';
                 $html .= '<h2 class="column_search_category">『'.$column_search_first_category.'』の記事一覧</h2>';
             }
-        }
-        if(isset($_GET["second_category"])){
+        }elseif(isset($_GET["second_category"])){
             $second_category_column_array = array(
                 'columm' => 'コラム',
                 'experience' => '体験記',
@@ -330,6 +329,9 @@ function view_custom_search_func($atts){
                 </div>';
                 $html .= '<h2 class="column_search_category">『'.$column_search_second_category.'』の記事一覧</h2>';
             }
+
+        }else{
+            $html .= '<h2 class="column_search_category">新着記事一覧</h2>';
         }
     }else{
         $html = paginate($cat_query->max_num_pages, get_query_var( 'paged' ), $cat_query->found_posts, $posts_per_page);

@@ -607,3 +607,11 @@ jQuery(function () {
 	  jQuery(this).find("ul").slideToggle(300);
   });
 });
+jQuery(function(){
+    var w = jQuery(window).width();
+    var x = 480;
+    if (w <= x) {
+        jQuery(".column-navi h2").html("カテゴリーから探す");
+    } else if(w > x) {
+    }
+});
