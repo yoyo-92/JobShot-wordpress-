@@ -5585,6 +5585,27 @@ font-size: 13px !important;
       height: 200px;
   }
 }
+@media screen and (max-width: 782px) {
+  .job-template-default .recruit-img {
+      top: 30%;
+  }
+  .job-template-default .recruit-img h1 {
+      padding: 0 10%;
+  }
+  .job-template-default .recruit-img a p {
+      display: inline-block;
+      margin-top: 5px;
+      font-size: 15px;
+      border-radius: 0;
+      border: none;
+      border-bottom: 2px solid #ffc778;
+      padding: 3px;
+  }
+  .job-template-default .recruit-img a p:hover {
+      color: #fff;
+      border: none;
+  }
+}
 /* コラムページ */
 
 .column-navi h2{
