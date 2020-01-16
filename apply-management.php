@@ -81,6 +81,7 @@ function view_applylist_func ( $atts ) {
 
   $f=false;
   $f=is_this_my_content($post_id);
+  $style_html = '';
 
   $participant_num = do_shortcode(' [cfdb-count form="/'.$formname.'.*/" filter="job-id='.$post_id.'"]');
   if($mode=='dbview'){
@@ -88,63 +89,97 @@ function view_applylist_func ( $atts ) {
     $phtml.=do_shortcode(' [cfdb-datatable form="/'.$formname.'.*/" filter="job-id='.$post_id.'"]');
   }else{
     if(get_post_type($post_id)=='event'){
-      $phtml.='
-        <a href="'.$_SERVER["REQUEST_URI"].'&mode=dbview">データベース表示に切り替え（検索・並べ替え可能）</a>';
+      $style_html = '
+      <style type="text/css">
+        table.tbl02 tbody th {
+          padding: 10px 15px;
+          color: #000;
+          vertical-align: middle;
+          background: #A9A9A9;
+          border-right: #000 solid 1px;
+          border-bottom: #000 solid 1px;
+          font-size: 15px;
+        }
+        table.tbl02 tbody td {
+          padding: 10px 15px;
+          vertical-align: middle;
+          background: #FFF;
+          border-bottom: #000 solid 1px;
+          border-left: #000 solid 1px;
+          color:#000;
+          font-size: 12px;
+        }
+        table.tbl02 tbody tr:last-child th {
+          border-bottom: #000 solid 1px;
+        }
+        table {
+          margin: 40px;
+          table-layout:fixed;
+          font-size: 10px;
+          width:320px;
+          border-collapse: collapse;
+          color:#000
+        }
+        tbody, td, tr {
+          border-collapse: collapse;
+          border: 1px solid black;
+        }
+        .info {
+          display:inline-block;
+        }
+        .center {
+          text-align: center;
+        }
+        td.name {
+          font-weight: bold;
+          font-size: 15px !important;
+        }
+        td.furigana{
+          border-bottom:#000 dotted 1px !iomportant;
+        }
+        td.over {
+          word-wrap: break-word;
+        }
+        table.tbl02 tbody tr:last-child td {
+          width: 320px;
+        }
+      </style>';
         $phtml.='<p>'."全".$participant_num."件".'<p>';
         $phtml.=
         do_shortcode('[cfdb-html form="/'.$formname.'.*/" orderby="Submitted desc" filter="job-id='.$post_id.'"]
-        {{BEFORE}}
         <font size="2">
-          <table class="tbl02" style="font-size: small;">
-            <thead>
-              <tr>
-                <th width="15%"></th>
-                <th>大学</th>
-                <th>性別</th>
-                <th>学年</th>
-                <th>卒業年度</th>
-                <th>応募日時</th>
-                <th>連絡先</th>
-                <th>資格・その他スキル</th>
-                <th>プログラミング・留学経験</th>
-                <th>所属団体</th>
-                <th>興味のある業界</th>
-              </tr>
-            </thead>
-            <tbody>
-            {{/BEFORE}}
-              <tr>
-                <th>
-                  <a href="/user?um_user=${your-id}" style="color:white"><p><font size="1">[get_user_ruby field=login value="${your-id}"]</font><br>${your-name}</p><div>[get_avatar_sc_re user_login="${your-id}"]</div></a>
-                </th>
-                <td label="大学">
-                  <p>[my_get_userdata_by field=login value="${your-id}" data=univ]<br>[my_get_userdata_by field=login value="${your-id}" data=faculty]</p>
-                </td>
-                [get_user_meta_info field=login value="${your-id}"]
-                <td label="応募日時">
-                  <p>[submitted2str sbm="${Submitted}"]</p>
-                </td>
-                <td label="連絡先">
-                  <p>[get_user_mobile_number field=login value="${your-id}"]<br>[get_user_email field=login value="${your-id}"]</p>
-                </td>
-                <td label="資格・その他スキル">
-                  <p>[get_user_skill field=login value="${your-id}"]</p>
-                </td>
-                <td label="プログラミング・留学経験">
-                  <p>プログラミング：[get_user_experience_programming field=login value="${your-id}"]<br>留学：[get_user_studied_abroad field=login value="${your-id}"]</p>
-                </td>
-                <td label="所属団体">
-                  <p>[get_user_univ_community field=login value="${your-id}"]<br>[get_user_community_univ field=login value="${your-id}"]</p>
-                </td>
-                <td label="興味のある業界">
-                  <p>[get_user_bussiness_type field=login value="${your-id}"]</p>
-                </td>
-              </tr>
-            {{AFTER}}
-            </tbody>
-          </table>
+            <div class = "info">
+              <table class="tbl02">
+                <tbody>
+                  <tr>
+                    <th>フリガナ</th>
+                    <td class="modi center furigana"><p><font size="1">[get_user_ruby field=login value="${your-id}"]</font></p></td>
+                    <td class="modi center" rowspan="2">[get_user_sex field=login value="${your-id}"]</td>
+                  </tr>
+                    <th>名前</th>
+                    <td class="modi center name"><p>${your-name}</p></td>
+                  <tr>
+                    <th>大学・学部</th>
+                    <td class="modi center" colspan="2"><p>[my_get_userdata_by field=login value="${your-id}" data=univ]<br>[my_get_userdata_by field=login value="${your-id}" data=faculty]</p></td>
+                  </tr>
+                  <tr>
+                    <th>卒業年度</th>
+                    <td class="modi center" colspan="2" height="20" width="300"><p>[get_user_graduate_year field=login value="${your-id}"]</p><p>[get_user_school_year ield=login value="${your-id}"]</p></td>
+                  </tr>
+                  <tr>
+                    <th>資格</th>
+                    <td class="modi center" colspan="2"><p>[get_user_skill field=login value="${your-id}"]</td>
+                  </tr>
+                    <th>経歴</th>
+                    <td class="modi center" colspan="2"><p>プログラミング：[get_user_experience_programming field=login value="${your-id}"]<br>留学：[get_user_studied_abroad field=login value="${your-id}"]</p></td>
+                  <tr>
+                    <th>興味ある業界</th>
+                    <td  colspan="2" height="100" class="over"><div class="modi center" ><p>[get_user_bussiness_type field=login value="${your-id}"]</div></p></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
         </font>
-        {{/AFTER}}
         [/cfdb-html]');
         $phtml.='<p>'."全".$participant_num."件".'<p>';
     }else{
@@ -193,7 +228,7 @@ function view_applylist_func ( $atts ) {
         $phtml.='<p>'."全".$participant_num."件".'<p>';
     }
   }
-  return $phtml;
+  return $style_html.$phtml;
 }
 add_shortcode('view_applylist','view_applylist_func');
 

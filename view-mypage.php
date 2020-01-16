@@ -428,5 +428,71 @@ function scout_button(){
 
 add_shortcode('scout_button','scout_button');
 
+function get_user_sex_func($atts){
+  extract( shortcode_atts( array(
+    'field' => 'id',
+    'value'=> '',
+  ), $atts ) );
+
+  $user = get_user_by($field,$value);
+  $user_id = $user->data->ID;
+  $user_meta = get_user_meta($user_id);
+  $gender = get_user_meta($user_id,'gender',false)[0][0];
+  $info_html = '
+    <p>'.$gender.'</p>
+  ';
+  return $info_html;
+}
+add_shortcode('get_user_sex','get_user_sex_func');
+
+function get_user_graduate_year_func($atts){
+  extract( shortcode_atts( array(
+    'field' => 'id',
+    'value'=> '',
+  ), $atts ) );
+
+  $user = get_user_by($field,$value);
+  $user_id = $user->data->ID;
+  $user_meta = get_user_meta($user_id);
+  $graduate_year = get_user_meta($user_id,'graduate_year',false)[0];
+  if($graduate_year == 2020){
+      $graduate_year = "2020(2019年4月時点で大学4年生/大学院2年生)";
+  }
+  if($graduate_year == 2021){
+      $graduate_year = "2021(2019年4月時点で大学3年生/大学院1年生)";
+  }
+  if($graduate_year == 2022){
+      $graduate_year = "2022(2019年4月時点で大学2年生)";
+  }
+  if($graduate_year == 2023){
+      $graduate_year = "2023(2019年4月時点で大学1年生)";
+  }
+
+  $info_html = '
+    <p>'.$graduate_year.'</p>
+  ';
+  return $info_html;
+}
+add_shortcode('get_user_graduate_year','get_user_graduate_year_func');
+
+function get_user_school_year_func($atts){
+extract( shortcode_atts( array(
+    'field' => 'id',
+    'value'=> '',
+  ), $atts ) );
+
+  $user = get_user_by($field,$value);
+  $user_id = $user->data->ID;
+  $user_meta = get_user_meta($user_id);
+  $gender = get_user_meta($user_id,'gender',false)[0][0];
+  $school_year = get_user_meta($user_id,'school_year',false)[0];
+
+
+  $info_html = '
+    <p>'.$school_year.'</p>
+  ';
+  return $info_html;
+}
+add_shortcode('get_user_school_year','get_user_school_year_func');
 
 ?>
