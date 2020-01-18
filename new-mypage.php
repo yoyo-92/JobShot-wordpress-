@@ -1015,7 +1015,7 @@ add_shortcode('new_mypage','new_mypage_func');
 //プロフィール写真の更新
 function regist_file_up() {
     if(isset($_POST['user_id'])){
-        $user_id = $_POST['user_id']; 
+        $user_id = $_POST['user_id'];
     }
     $home_url =esc_url( home_url( ));
     $user_info = get_userdata($user_id);
@@ -1258,14 +1258,12 @@ function profilepage(){
         $user_id = $user->data->ID;
         $user_info = get_userdata($user_id);
         $user_name = $user_info->user_login;
-        header('Location: https://jobshot.jp/user?um_user='.$user_name);
-        exit;
-    } 
+        if(!in_array("company", $user_roles)){
+            header('Location: https://jobshot.jp/user?um_user='.$user_name);
+            exit;
+          }
+    }
     }
     add_shortcode('profilepage','profilepage');
-    <img src="<?php echo wp_upload_dir()['basedir']."/" .'profile_photo'.um_profile_id().'.png'; ?>"></a>
-    <div class="um-account-meta-img">
-					<a href="<?php echo esc_url( um_user_profile_url() ); ?>"><?php echo get_avatar( um_user( 'ID' ), 120 ); ?></a>
-				</div>
 
 ?>
