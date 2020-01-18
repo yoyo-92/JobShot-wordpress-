@@ -297,9 +297,9 @@ function get_user_bussiness_type($atts){
   $html = '';
   foreach($user_bussiness_types as $key => $user_bussiness_type){
     if(++$i !== $numItems){
-      $html .= $user_bussiness_type.'・';
+      $html .= $user_bussiness_type.'・test';
     }else{
-      $html .= $user_bussiness_type.' ';
+      $html .= $user_bussiness_type.' test';
     }
   }
   return $html;
