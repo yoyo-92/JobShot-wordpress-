@@ -107,6 +107,37 @@ function scholarship_index(){
 }
 add_shortcode("scholarship_index","scholarship_index");
 
+function top_campaign(){
+  $style_html = '
+  .banner-container{
+    padding: 20px;
+    /* background-color: #4e4e4e; */
+    background-color: #312e2e;
+    margin-top: -20px;
+    text-align: center;
+    font-size: 25px;
+    height: 30px;
+    font-family: Meiryo;
+    font-weight: 600;
+    color: white;
+  }
+  .banner-container i{
+    color: #dc9f12;
+    margin: 0 10px;
+  }
+  .banner-container span{
+    color: #d63b3b;
+    margin: 0 10px;
+  }
+  ';
+  $html = '
+  <a href="https://jobshot.jp/gift_money">
+    <div class="banner-container">
+      <p>お祝い金<i class="fas fa-coins"></i>最大<span>10,000円</span>プレゼント！</p>
+    </div>
+  </a>';
+  return $html;
+}
 
 
 ?>

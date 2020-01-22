@@ -108,6 +108,15 @@ function template_event2_func($content){
             </a>
         </div>';
     }
+    // スカイライト用
+    if($post_id == 8505){
+        $entry_html = '
+        <div class="fixed-buttom">
+            <a href="https://job.axol.jp/gs/c/skylight/entry_5715120011/agreement">
+                <button class="button button-apply">イベントに応募する</button>
+            </a>
+        </div>';
+    }
 
     if(!empty(get_field('開催日時1',$post_id)['日付'])){
         $table_body_html = add_to_table('開催日時', '<div>'.$event_date.'</div>');
