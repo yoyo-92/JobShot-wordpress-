@@ -258,8 +258,12 @@ function template_internship2_func($content){
       </section>
       `;
   }
+  $user_roles = $current_user->roles;
+  if(!in_array("company", $user_roles)){
+    $top_campaign_html = top_campaign();
+  }
 
-  $html = $button_html.'
+  $html = $top_campaign_html.$button_html.'
   <div class="card-detail-container">
     <div class="only-sp">
       <div class="full-card-img intern-detail-img">

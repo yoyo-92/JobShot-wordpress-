@@ -2657,6 +2657,7 @@ i.material-icons:hover {
 }
 .scholarship-main-description section{
   padding-bottom: 15px;
+  margin: 0 10px;
 }
 .scholarship-main-description h2, .pr-example-box h2{
   position: relative;
@@ -2706,15 +2707,85 @@ i.material-icons:hover {
 #flow-section1 img{
   width: 90%;
 }
+@media only screen and (min-width: 1024px){
+  .pages-apply-flow{
+    width: 1040px;
+    margin: 0 auto;
+  }
+}
+@media only screen and (min-width: 960px){
+  .pages-apply-flow{
+    width: 940px;
+    max-width: 100%;
+  }
+}
 .scholarship-feature{
   display: flex;
   flex-wrap: wrap;
   list-style: none;
   padding-left: 0px;
 }
+@media only screen and (min-width: 1024px){
+  .scholarship-feature-1:after{
+    position: absolute;
+    content: "";
+    display: block;
+    width: 12px;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    border-left: 12px solid #666666;
+    top: 16%;
+    left: 16.5%;
+  }
+  .scholarship-feature-2:after{
+    position: absolute;
+    content: "";
+    display: block;
+    width: 12px;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    border-left: 12px solid #666666;
+    top: 16%;
+    left: 33%;
+  }
+  .scholarship-feature-3:after{
+    position: absolute;
+    content: "";
+    display: block;
+    width: 12px;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    border-left: 12px solid #666666;
+    top: 16%;
+    left: 49.5%;
+  }
+  .scholarship-feature-4:after{
+    position: absolute;
+    content: "";
+    display: block;
+    width: 12px;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    border-left: 12px solid #666666;
+    top: 16%;
+    left: 66%;
+  }
+  .scholarship-feature-5:after{
+    position: absolute;
+    content: "";
+    display: block;
+    width: 12px;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    border-left: 12px solid #666666;
+    top: 16%;
+    left: 82.5%;
+  }
+}
 @media screen and (max-width: 782px) {
     .scholarship-feature li{
-        width: calc(100%/2) !important;
+        width: calc(100%/3) !important;
+        margin: 1.5em 0 !important;
     }
     .big_icon{
         font-size: 4rem !important;;
@@ -2724,13 +2795,16 @@ i.material-icons:hover {
     }
 }
 .scholarship-feature li{
-  width: calc(100%/3);
+  /* width: calc(100%/3); */
   text-align: center;
   color: #666666;
-  margin: 1.5em 0;
+  margin: 1.5em 1em;
 }
 .scholarship-flow-figure-text{
   margin-top: 1em !important;
+}
+.scholarship-flow-figure{
+  margin: 20px 0;
 }
 .big_icon{
   font-size: 3rem;
@@ -3011,8 +3085,15 @@ background-position: center center;
   right: 35px;
   transition: 0.5s;
 }
-.widget-title .scholarship-flow-title{
-  margin-bottom: 0 !important;
+.scholarship-main-description .scholarship-flow-title{
+  margin-bottom: 0;
+  font-size: 2rem !important;
+  text-align: center;
+}
+.scholarship-flow-sub-title{
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
 }
 /* @media */
 @media only screen and (min-width: 1024px){
@@ -3160,6 +3241,28 @@ background-position: center center;
       top: 26px;
       right: 20px;
   }
+}
+/* お祝い金キャンペーン用追加 */
+.banner-container{
+  padding: 20px;
+  /* background-color: #4e4e4e; */
+  background-color: #312e2e;
+  margin-top: -20px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 25px;
+  height: 30px;
+  font-family: Meiryo;
+  font-weight: 600;
+  color: white;
+}
+.banner-container i{
+  color: #dc9f12;
+  margin: 0 10px;
+}
+.banner-container span{
+  color: #d63b3b;
+  margin: 0 10px;
 }
 /* interview */
 #um-submit-btn:hover{

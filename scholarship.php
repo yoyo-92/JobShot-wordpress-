@@ -39,30 +39,31 @@ function scholarship_index(){
         </div><!-- .scholarship_wrap -->
         <div class="pages-apply-flow">
           <article class="scholarship-main-description">
-            <h3 class="widget-title scholarship-flow-title">お祝い金支給までの流れ</h3>
+            <h3 class="scholarship-flow-title">〜お祝い金支給までの流れ〜</h3>
+            <p class="scholarship-flow-sub-title">最大10,000円プレゼント</p>
             <div class="scholarship-flow-figure">
               <ul class="scholarship-feature">
-                <li>
+                <li class="scholarship-feature-1">
                   <p><i class="fas fa-pencil-alt big_icon"></i></p>
                   <p class="scholarship-flow-figure-text"><span class="emphasis-text">【STEP1】<br>長期インターンに応募</span></p>
                 </li>
-                <li>
+                <li class="scholarship-feature-2">
                   <p><i class="far fa-calendar-alt big_icon"></i></p>
                   <p class="scholarship-flow-figure-text"><span class="emphasis-text">【STEP2】<br>企業と面接日程の決定</span></p>
                 </li>
-                <li>
+                <li class="scholarship-feature-3">
                   <p><i class="far fa-handshake big_icon"></i></p>
                   <p class="scholarship-flow-figure-text"><span class="emphasis-text">【STEP3】<br>当日企業と面接を実施</span></p>
                 </li>
-                <li>
+                <li class="scholarship-feature-4">
                   <p><i class="fas fa-address-card big_icon"></i></p>
                   <p class="scholarship-flow-figure-text"><span class="emphasis-text">【STEP4】<br>採用、初出勤日を報告</span></p>
                 </li>
-                <li>
+                <li class="scholarship-feature-5">
                   <p><i class="fas fa-file-alt big_icon"></i></p>
                   <p class="scholarship-flow-figure-text"><span class="emphasis-text">【STEP5】<br>3ヶ月後体験記を記入</span></p>
                 </li>
-                <li>
+                <li class="scholarship-feature-6">
                   <p><i class="fas fa-coins big_icon"></i></p>
                   <p class="scholarship-flow-figure-text"><span class="emphasis-text">【STEP6】<br>お祝い金を獲得！</span></p>
                 </li>
@@ -108,36 +109,14 @@ function scholarship_index(){
 add_shortcode("scholarship_index","scholarship_index");
 
 function top_campaign(){
-  $style_html = '
-  .banner-container{
-    padding: 20px;
-    /* background-color: #4e4e4e; */
-    background-color: #312e2e;
-    margin-top: -20px;
-    text-align: center;
-    font-size: 25px;
-    height: 30px;
-    font-family: Meiryo;
-    font-weight: 600;
-    color: white;
-  }
-  .banner-container i{
-    color: #dc9f12;
-    margin: 0 10px;
-  }
-  .banner-container span{
-    color: #d63b3b;
-    margin: 0 10px;
-  }
-  ';
   $html = '
   <a href="https://jobshot.jp/gift_money">
-    <div class="banner-container">
+    <div class="banner-container only-pc">
       <p>お祝い金<i class="fas fa-coins"></i>最大<span>10,000円</span>プレゼント！</p>
     </div>
   </a>';
   return $html;
 }
-
+add_shortcode("top_campaign","top_campaign");
 
 ?>
