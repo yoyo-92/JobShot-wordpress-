@@ -1139,7 +1139,7 @@ table.demo01, .table__base {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0 20px;
-  padding: 0 15px 0 30px;
+  padding: 0 15px 0 15px;
   margin-bottom: 30px;
   overflow: hidden;
 }
