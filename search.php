@@ -275,7 +275,7 @@ function view_custom_search_func($atts){
                 'experience' => 'internship',
                 'basic_knowledge' => 'beginner',
                 'schedule' => 'beginner',
-                'entry_sheet' => 'beginner',
+                'entry_sheet' => 'selection',
                 'test' => 'selection',
                 'discussion' => 'selection',
                 'interview' => 'selection',
