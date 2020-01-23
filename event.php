@@ -117,6 +117,12 @@ function template_event2_func($content){
             </a>
         </div>';
     }
+    $user = wp_get_current_user();
+    $user_login = $user->data->user_login;
+    $event_apply_value = do_shortcode('[cfdb-count form="/イベント応募.*/" filter="job-id='.$post_id.'&&your-id='.$user_login.'"]');
+    if($event_apply_value > 0){
+        $entry_html = '<a>申し込み済み</a>';
+    }
 
     if(!empty(get_field('開催日時1',$post_id)['日付'])){
         $table_body_html = add_to_table('開催日時', '<div>'.$event_date.'</div>');
