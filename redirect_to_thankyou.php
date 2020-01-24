@@ -80,4 +80,15 @@ function past_self_internship_PR_func(){
     return $izimodal_content;
 }
 add_shortcode("past_self_internship_PR","past_self_internship_PR_func");
+
+function es_menjo(){
+    $post_id = $_GET['post_id'];
+    $es = get_field('ES',$post_id);
+    $results = "";
+    if(in_array('応募の際にESを不要とする', $es, true)){
+          $results = '<p id="esmenjo">本インターンでは応募の際に自己PRは不要です</p>';
+      }
+    return $results;
+  }
+  add_shortcode("es_menjo","es_menjo");
 ?>

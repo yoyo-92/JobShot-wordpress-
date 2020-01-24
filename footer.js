@@ -615,3 +615,20 @@ jQuery(function(){
     } else if(w > x) {
     }
 });
+
+jQuery(function($){
+    if(document.URL.match("https://jobshot.jp/apply")) {
+		if($('#esmenjo').length){
+			$(".entry-seat").css('display','none');
+			$(".es-example").css('display','none');
+			$("#esmenjo").css('display','none');
+　		}
+    }
+});
+
+jQuery(function(){
+    if(jQuery('#canworktime').length){
+       jQuery("#canworktime br")[0].remove();
+       jQuery("#canworktime br")[0].remove();
+    }
+});
