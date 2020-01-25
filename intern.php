@@ -646,6 +646,13 @@ function edit_internship_info(){
         $feature_html .= '<div><label class=""><input type="checkbox" name="feature[]" id="" value="'.$feature.'">'.$feature.'</label></div>';
       }
     }
+    $es = get_field('ES',$post_id);
+    $es_html = '';
+    if(in_array('応募の際にESを不要とする', $es, true)){
+      $es_html .= '<div><label class=""><input type="checkbox" name="es[]" id="" value="応募の際にESを不要とする" checked>応募の際にESを不要とする</label></div>';
+    }else{
+      $es_html .= '<div><label class=""><input type="checkbox" name="es[]" id="" value="応募の際にESを不要とする">応募の際にESを不要とする</label></div>';
+    }
     $post_button_html = '
     <div class="submitbox">
       <div id="minor-publishing">
@@ -818,6 +825,12 @@ function edit_internship_info(){
                             <div class="arrow"></div><div class="company-capital"><p>採用</p></div>
                         </td>
                     </tr>
+                    <tr>
+                      <th align="left" nowrap="nowrap">ES</th>
+                      <td>
+                          <div class="company-capital new_intern_feature">'.$es_html.'</div>
+                      </td>
+                    </tr>
                     '.$intern_day_html_re.'
                     <tr>
                       <th align="left" nowrap="nowrap">働いているインターン生の声</th>
@@ -933,6 +946,7 @@ function update_internship_info(){
     $picture2 = $_FILES["picture2"];
     $picture3 = $_FILES["picture3"];
     $picture4 = $_FILES["picture4"];
+    $es = $_POST["ES"];
     $selection_flows = "";
     for ($i=0; $i<count($_POST["selection_flow"]); $i++){
       $selection_flows .= $_POST["selection_flow"][$i];
@@ -1018,6 +1032,7 @@ function update_internship_info(){
     if($_POST["oneday_flow"]){
       update_post_meta($post_id,'1日の流れ', $intern_days);
     }
+    update_post_meta($post_id,'ES', $es);
     if(!empty($_POST["save"])){
       $post_status = "draft";
     }
@@ -1071,7 +1086,8 @@ function new_internship_form(){
   foreach($features_array as $feature){
     $feature_html .= '<div><label class=""><input type="checkbox" name="feature[]" id="" value="'.$feature.'">'.$feature.'</label></div>';
   }
-
+  $es_html = "";
+  $es_html = '<div><label class=""><input type="checkbox" name="es[]" id="" value="応募の際にESを不要とする">応募の際にESを不要とする</label></div>';
   $style_html = "
   <style type='text/css'>
   </style>
@@ -1211,6 +1227,12 @@ function new_internship_form(){
                         </td>
                   </tr>
                   <tr>
+                      <th align="left" nowrap="nowrap">ES</th>
+                      <td>
+                          <div class="company-capital new_intern_feature">'.$es_html.'</div>
+                      </td>
+                  </tr>
+                  <tr>
                       <th align="left" nowrap="nowrap">働いているインターン生の声</th>
                       <td>
                           <div class="company-capital"><textarea name="intern_student_voice" id="" cols="30" rows="5"></textarea></div>
@@ -1340,7 +1362,7 @@ function new_company_post_internship(){
         $intern_days .= $_POST["oneday_flow"][$i];
         $intern_days .= "</br>";
 	  }
-
+      $es = $_POST["es"];
       $post_value = array(
           'post_author' => get_current_user_id(),
           'post_title' => $post_title,
@@ -1383,6 +1405,7 @@ function new_company_post_internship(){
           add_custom_image($insert_id, 'イメージ画像4', $picture4);
           update_post_meta($insert_id, '選考フロー', $selection_flows);
           update_post_meta($insert_id, '1日の流れ', $intern_days);
+          update_post_meta($insert_id,'ES',$es);
           wp_set_object_terms( $insert_id, $occupation, 'occupation');
 		  $home_url =esc_url( home_url( ));
           if($prefecture == "東京都"){
@@ -1443,3 +1466,13 @@ function get_company_id($company){
 }
 
 ?>
+
+
+
+
+検索項目
+：資格、性格（抽象的な）とかwantedly
+プロフィール欄に時間割、週何日、週何時間勤務できるか等の情報
+学生検索に勤務可能時間の欄を追加したい
+検索候補を出す
+企業ページに企業のイメージや案内などをのせるようにするタイムライン的な
