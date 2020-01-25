@@ -615,3 +615,52 @@ jQuery(function(){
     } else if(w > x) {
     }
 });
+
+// プロフィール画像
+jQuery(function(){
+	var w = jQuery(window).width();
+	var x = 480;
+	if (w <= x) {
+		jQuery(".um-profile-photo-img").on('click',function(){
+			jQuery(".upload-photo").slideDown("fast");
+		});
+		jQuery(".upload-photo　.photo-cancel button").on('click',function(){
+			jQuery(".upload-photo").slideUp();
+		});
+	} else if(w > x) {
+	}
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+	//画像ファイルプレビュー表示
+	//  jQueryの $('input[type="file"]')相当
+	// addEventListenerは on("change", function(e){}) 相当
+	document.querySelector('input[name="upfilename"]').addEventListener('change', function(e) {
+		var file = e.target.files[0],
+			reader = new FileReader(),
+			$preview =  document.querySelector(".photo-img-preview"), // jQueryの $(".preview")相当
+			t = this;
+
+		// 画像ファイル以外の場合は何もしない
+		if(file.type.indexOf("image") < 0){
+		return false;
+		}
+
+		reader.onload = (function(file) {
+		return function(e) {
+			//jQueryの$preview.empty(); 相当
+			while ($preview.firstChild) $preview.removeChild($preview.firstChild);
+
+			// imgタグを作成
+			var img = document.createElement( 'img' );
+			img.setAttribute('src',  e.target.result);
+			img.setAttribute('width', '150px');
+			img.setAttribute('title',  file.name);
+			// imgタグを$previeの中に追加
+			$preview.appendChild(img);
+		};
+		})(file);
+
+		reader.readAsDataURL(file);
+	});
+});

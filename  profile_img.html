@@ -15,7 +15,6 @@
     s.parentNode.insertBefore(wf, s);
 	})();
 </script>
-<link rel="stylesheet" href="/Users/suzukitakaya/Desktop/JobShot-wordpress-/jobshot.css">
 <style id="jetpack-custom-fonts-css">.wf-active h1, .wf-active h2, .wf-active h3, .wf-active h4, .wf-active h5, .wf-active h6{font-family:"Lato",sans-serif;font-weight:400;font-style:normal}.wf-active h1{font-style:normal;font-weight:400}.wf-active .masthead h1.logo{font-style:normal;font-weight:400}.wf-active .masthead h2.description{font-style:normal;font-weight:400}.wf-active .primary-content .primary-wrapper .item .image-meta h2{font-style:normal;font-weight:400}.wf-active .showcase .item h2{font-style:normal;font-weight:400}.wf-active .main .main-post-list article h2{font-style:normal;font-weight:400}.wf-active .sidebar-category-summaries .item h3{font-style:normal;font-weight:400}.wf-active h2{font-style:normal;font-weight:400}.wf-active h3{font-style:normal;font-weight:400}.wf-active h4{font-style:normal;font-weight:400}.wf-active h5{font-style:normal;font-weight:400}.wf-active h6{font-style:normal;font-weight:400}</style>
 <script>
         var ajaxurl ='https://jobshot.jp/wp-admin/admin-ajax.php';
@@ -708,6 +707,9 @@ body.custom-background { background-color: #ffffff; }
 	<![endif]--><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:r&amp;subset=latin,latin-ext" media="all">
 
 <link rel="stylesheet" type="text/css" id="gravatar-card-css" href="https://secure.gravatar.com/dist/css/hovercard.min.css?ver=2020Janaa"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="https://secure.gravatar.com/dist/css/services.min.css?ver=2020Janaa"></head>
+<!-- 変更点 -->
+<link rel="stylesheet" href="/Users/suzukitakaya/Desktop/JobShot-wordpress-/jobshot.css">
+
 
 <body class="page-template-default page page-id-1599 logged-in custom-background um-page-user um-page-loggedin um-own-profile singular themes-sidebar1-active themes-sidebar2-active themes-sidebar3-inactive themes-category-summaries-inactive themes-no-featured-posts themes-no-primary-content custom-colors has-site-logo date-hidden categories-hidden tags-hidden author-hidden">
 
@@ -781,6 +783,9 @@ body.custom-background { background-color: #ffffff; }
                 <td class="photo-title">プロフィール写真</td>
                 <td class="photo-upload">
                     <form method="post" action="" enctype="multipart/form-data" id="profile">
+                        <div class="photo-img-preview">
+                            <img src="" alt="">
+                        </div>
                         <input accept="image/*" type="file" name="upfilename">
                         <input type="hidden" name="user_id" value="568">
                         <input type="submit" value="アップロード">
@@ -796,6 +801,9 @@ body.custom-background { background-color: #ffffff; }
                 <td class="photo-title">カバー写真</td>
                 <td class="photo-upload">
                     <form method="post" action="" enctype="multipart/form-data" id="cover">
+                        <div class="coverphoto-img-preview">
+                            <img src="" alt="">
+                        </div>
                         <input accept="image/*" type="file" name="upcovername">
                         <input type="hidden" name="user_id" value="568">
                         <input type="submit" value="アップロード">
@@ -2697,6 +2705,93 @@ var um_scripts = {"nonce":"9f2f7a505c"};
 			jQuery( '#request' ).val( '' );
 		</script>
 	
+<!-- 変更点 -->
+<script>
+    // プロフィール画像
+jQuery(function(){
+	var w = jQuery(window).width();
+	var x = 480;
+	if (w <= x) {
+		jQuery(".um-profile-photo-img").on('click',function(){
+			jQuery(".upload-photo").slideDown("fast");
+        });
+        jQuery(".um-cover-overlay").on('click',function(){
+			jQuery(".upload-coverphoto").slideDown("fast");
+		});
+		jQuery(".upload-photo .photo-cancel button.favorite.innactive").on('click',function(){
+            console.log(unnko);
+            jQuery(".upload-photo").slideUp();
+            console.log(unnko2);
+        });
+        jQuery(".upload-coverphoto .photo-cancel button.favorite.innactive").on('click',function(){
+			jQuery(".upload-coverphoto").slideUp();
+		});
+	} else if(w > x) {
+        jQuery(".um-profile-photo-img").on('click',function(){
+			jQuery(".upload-photo").fadeIn("fast");
+        });
+        jQuery(".um-cover-overlay").on('click',function(){
+			jQuery(".upload-coverphoto").fadeIn("fast");
+		});
+		jQuery(".upload-photo .photo-cancel button.favorite.innactive").on('click',function(){
+            console.log(unnko);
+            jQuery(".upload-photo").fadeOut();
+            console.log(unnko2);
+        });
+        jQuery(".upload-coverphoto .photo-cancel button.favorite.innactive").on('click',function(){
+			jQuery(".upload-coverphoto").fadeOut();
+		});
+	}
+});
 
+document.addEventListener('DOMContentLoaded', function() {
+	document.querySelector('input[name="upfilename"]').addEventListener('change', function(e) {
+		var file = e.target.files[0],
+			reader = new FileReader(),
+			$preview =  document.querySelector(".photo-img-preview"),
+			t = this;
+		if(file.type.indexOf("image") < 0){
+		return false;
+		}
 
+		reader.onload = (function(file) {
+		return function(e) {
+			while ($preview.firstChild) $preview.removeChild($preview.firstChild);
+			var img = document.createElement( 'img' );
+			img.setAttribute('src',  e.target.result);
+			img.setAttribute('width', '200px');
+			img.setAttribute('title',  file.name);
+			$preview.appendChild(img);
+		};
+		})(file);
+
+		reader.readAsDataURL(file);
+	});
+});
+document.addEventListener('DOMContentLoaded', function() {
+	document.querySelector('input[name="upcovername"]').addEventListener('change', function(e) {
+		var file = e.target.files[0],
+			reader = new FileReader(),
+			$preview =  document.querySelector(".coverphoto-img-preview"),
+			t = this;
+		if(file.type.indexOf("image") < 0){
+		return false;
+		}
+
+		reader.onload = (function(file) {
+		return function(e) {
+			while ($preview.firstChild) $preview.removeChild($preview.firstChild);
+			var img = document.createElement( 'img' );
+			img.setAttribute('src',  e.target.result);
+			img.setAttribute('width', '200px');
+			img.setAttribute('title',  file.name);
+			$preview.appendChild(img);
+		};
+		})(file);
+
+		reader.readAsDataURL(file);
+	});
+});
+
+</script>
 </body></html>
