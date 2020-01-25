@@ -615,8 +615,13 @@ jQuery(function(){
     } else if(w > x) {
     }
 });
-
-    // プロフィール画像
+jQuery(function(){
+    if(jQuery('#canworktime').length){
+       jQuery("#canworktime br")[0].remove();
+       jQuery("#canworktime br")[0].remove();
+    }
+});
+// プロフィール画像
 jQuery(function(){
 	var w = jQuery(window).width();
 	var x = 480;

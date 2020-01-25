@@ -5976,7 +5976,9 @@ font-size: 13px !important;
   border-radius: 10px;
   width: calc(100% - 20px) !important;
 }
-
+.font-serif{
+  font-family: serif !important;
+}
 /* プロフィール画像 */
 .user_score_circle {
   z-index: 1;
