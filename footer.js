@@ -616,43 +616,42 @@ jQuery(function(){
     }
 });
 
-// プロフィール画像
+    // プロフィール画像
 jQuery(function(){
 	var w = jQuery(window).width();
 	var x = 480;
 	if (w <= x) {
 		jQuery(".um-profile-photo-img").on('click',function(){
 			jQuery(".upload-photo").slideDown("fast");
-		});
-		jQuery(".um-cover-overlay").on('click',function(){
+        });
+        jQuery(".um-cover-overlay").on('click',function(){
 			jQuery(".upload-coverphoto").slideDown("fast");
 		});
 		jQuery(".upload-photo .photo-cancel button.favorite.innactive").on('click',function(){
-			console.log(unnko);
-			jQuery(".upload-photo").slideUp();
-			console.log(unnko2);
-		});
-		jQuery(".upload-coverphoto .photo-cancel button.favorite.innactive").on('click',function(){
+            console.log(unnko);
+            jQuery(".upload-photo").slideUp();
+            console.log(unnko2);
+        });
+        jQuery(".upload-coverphoto .photo-cancel button.favorite.innactive").on('click',function(){
 			jQuery(".upload-coverphoto").slideUp();
 		});
 	} else if(w > x) {
-		jQuery(".um-profile-photo-img").on('click',function(){
+        jQuery(".um-profile-photo-img").on('click',function(){
 			jQuery(".upload-photo").fadeIn("fast");
-		});
-		jQuery(".um-cover-overlay").on('click',function(){
+        });
+        jQuery(".um-cover-overlay").on('click',function(){
 			jQuery(".upload-coverphoto").fadeIn("fast");
 		});
 		jQuery(".upload-photo .photo-cancel button.favorite.innactive").on('click',function(){
-			console.log(unnko);
-			jQuery(".upload-photo").fadeOut();
-			console.log(unnko2);
-		});
-		jQuery(".upload-coverphoto .photo-cancel button.favorite.innactive").on('click',function(){
+            console.log(unnko);
+            jQuery(".upload-photo").fadeOut();
+            console.log(unnko2);
+        });
+        jQuery(".upload-coverphoto .photo-cancel button.favorite.innactive").on('click',function(){
 			jQuery(".upload-coverphoto").fadeOut();
 		});
 	}
 });
-
 document.addEventListener('DOMContentLoaded', function() {
 	document.querySelector('input[name="upfilename"]').addEventListener('change', function(e) {
 		var file = e.target.files[0],

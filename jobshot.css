@@ -6083,6 +6083,21 @@ font-size: 13px !important;
   display: none;
 }
 
+@media screen and (min-width: 480px) {
+  .um-profile-body .um-header{
+    position: relative;
+  }
+  .profile_score_area {
+    position: absolute;
+    right: 140px;
+    margin: 0;
+  }
+  .user_score_circle {
+    position: fixed;
+    top: 115px;
+  }
+}
+
 @media screen and (max-width: 480px) {
   .um-cover.um-trigger-menu-on-click .um-cover-e {
       position: relative;
@@ -6091,9 +6106,6 @@ font-size: 13px !important;
       width: 100vw;
       margin-top: -50px;
   }
-  /* .um-cover-overlay .um-cover-overlay-s ins .um-faicon-picture-o:before {
-      left: -5px;
-  } */
   .upload-photo, .upload-coverphoto{
       top: initial;
       bottom: 0;
@@ -6132,7 +6144,10 @@ font-size: 13px !important;
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    background: rgba(0,0,0,.55);
+    background-color: rgba(0,0,0,.4) !important;
+  }
+  .um-main-meta {
+    z-index: 2;
   }
   .um-profile.um .um-name a {
     color: #fff;
@@ -6147,12 +6162,21 @@ font-size: 13px !important;
     box-shadow: none;
   }
   .score-card .score-area {
-    width: 80px;
-    border-radius: 40px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    box-shadow: 0 3px 15px rgba(51, 51, 51, 0.2);
+  }
+  .score-card .score-area p {
+    padding-top: 20px;
   }
   .score-card .info-area {
     border-top: 1px solid #cecece;
     border-bottom: 1px solid #cecece;
+    padding: 10px 15px 7px 30px;
+  }
+  .score-card .info-area h3 {
+    margin-top: 15px;
   }
 }
 
