@@ -1020,14 +1020,14 @@ add_shortcode('new_mypage','new_mypage_func');
 
 //プロフィール写真の更新
 function regist_file_up() {
+    if(isset($_POST['user_id'])){
+        $user_id = $_POST['user_id'];
+    }
+    $home_url =esc_url( home_url( ));
+    $user_info = get_userdata($user_id);
+    $user_name = $user_info->user_login;
     if (!empty($_FILES["upfilename"])){
     if (is_uploaded_file($_FILES["upfilename"]["tmp_name"])) {
-	    if(isset($_POST['user_id'])){
-		 	$user_id = $_POST['user_id']; 
-        }
-        $home_url =esc_url( home_url( ));
-	    $user_info = get_userdata($user_id);
-        $user_name = $user_info->user_login;
 	    $chk = chk_ext($_FILES["upfilename"]["name"],$allow_exts=array( "png", "jpeg", "jpg","heic" ));
 	    if($chk == false){
 		  $alert = "<script type='text/javascript'>console('拡張子が異なります');</script>";
@@ -1036,9 +1036,43 @@ function regist_file_up() {
 		}
 	    $size = size_ext($_FILES["upfilename"]["size"]);
 	    if($size == false){
-		  $alert = "<script type='text/javascript'>console('サイズが大きすぎます');</script>";
+            $image = wp_get_image_editor($_FILES["upfilename"]["tmp_name"]);
+            $image->resize( 150, 150, true );
+            $upload_dir = wp_upload_dir();
+            $upload_file_name_kari = $upload_dir['basedir'] . "/" .'profile_photo'.$user_id.'kari.png';
+            $image->save($upload_file_name_kari);
+            $size_re = size_ext(filesize($upload_file_name_kari));
+            if($size_re == false){
+                header('Location: '.$home_url.'/user?um_user='.$user_name);
+                die();
+            }
+        else{
+			$upload_file_name = $upload_dir['basedir'] . "/" .'profile_photo'.$user_id.'.png';
+			$image->save($upload_file_name);
+			if(file_exists($upload_file_name_kari)){
+			  unlink($upload_file_name_kari);
+			}
+			if (! is_wp_error($image)) {
+				$exif = exif_read_data($upload_file_name);
+				$orientation = $exif['Orientation'];
+				if (! empty($orientation)) {
+					switch ($orientation) {
+						case 8:
+							$image->rotate(90);
+							break;
+						case 3:
+							$image->rotate(180);
+							break;
+						case 6:
+							$image->rotate(-90);
+							break;
+					}
+					$image->save($upload_file_name);
+				}
+			}
+		  }
 		  header('Location: '.$home_url.'/user?um_user='.$user_name);
-    	  die();
+		  die();
 		}
         $upload_dir = wp_upload_dir();
 		$upload_file_name = $upload_dir['basedir'] . "/" .'profile_photo'.$user_id.'.png';
@@ -1078,14 +1112,14 @@ add_action('template_redirect', 'regist_file_up');
 
 //カバー写真の更新
 function regist_cover_up() {
+    if(isset($_POST['user_id'])){
+        $user_id = $_POST['user_id'];
+   }
+    $home_url =esc_url( home_url( ));
+	$user_info = get_userdata($user_id);
+    $user_name = $user_info->user_login;
     if (!empty($_FILES["upcovername"])){
     if (is_uploaded_file($_FILES["upcovername"]["tmp_name"])) {
-	    if(isset($_POST['user_id'])){
-		 	$user_id = $_POST['user_id'];
-        }
-        $home_url =esc_url( home_url( ));
-	    $user_info = get_userdata($user_id);
-        $user_name = $user_info->user_login;
 	    $chk = chk_ext($_FILES["upcovername"]["name"],$allow_exts=array( "png", "jpeg", "jpg","heic" ));
 	    if($chk == false){
 		  header('Location: '.$home_url.'/user?um_user='.$user_name);
@@ -1093,8 +1127,43 @@ function regist_cover_up() {
 		}
 	    $size = size_ext($_FILES["upcovername"]["size"]);
 	    if($size == false){
+		   $image = wp_get_image_editor($_FILES["upcovername"]["tmp_name"]);
+		  $image->resize( 400, 150, true );
+		  $upload_dir = wp_upload_dir();
+		  $upload_file_name_kari = $upload_dir['basedir'] . "/" .'cover_photo'.$user_id.'kari.png';
+		  $image->save($upload_file_name_kari);
+		  $size_re = size_ext(filesize($upload_file_name_kari));
+		  if($size_re == false){
+			header('Location: '.$home_url.'/user?um_user='.$user_name);
+			die();
+		  }
+		  else{
+			$upload_file_name = $upload_dir['basedir'] . "/" .'cover_photo'.$user_id.'.png';
+			$image->save($upload_file_name);
+			if(file_exists($upload_file_name_kari)){
+			  unlink($upload_file_name_kari);
+			}
+			if (! is_wp_error($image)) {
+				$exif = exif_read_data($upload_file_name);
+				$orientation = $exif['Orientation'];
+				if (! empty($orientation)) {
+					switch ($orientation) {
+						case 8:
+							$image->rotate(90);
+							break;
+						case 3:
+							$image->rotate(180);
+							break;
+						case 6:
+							$image->rotate(-90);
+							break;
+					}
+					$image->save($upload_file_name);
+				}
+			}
+		  }
 		  header('Location: '.$home_url.'/user?um_user='.$user_name);
-    	  die();
+		  die();
 		}
         $upload_dir = wp_upload_dir();
 		$upload_file_name = $upload_dir['basedir'] . "/" .'cover_photo'.$user_id.'.png';
@@ -1128,7 +1197,7 @@ function regist_cover_up() {
     die();
     }
 }
-add_action('template_redirect', 'regist_cover_up');
+add_action('template_redirect', 'regist_cover_up');;
 
 //拡張子のチェック
 function chk_ext( $chk_name, $allow_exts=array( "png", "jpeg", "jpg","heic" ) ) {
@@ -1187,5 +1256,24 @@ function get_univ_community_edit_html($user_id){
     }
     return $univ_community_edit_html;
 }
+
+function profilepage(){
+    if ( is_user_logged_in() ) {
+        //echo 'Welcome, registered user!';
+        $user = wp_get_current_user();
+        $user_id = $user->data->ID;
+        $user_info = get_userdata($user_id);
+        $user_name = $user_info->user_login;
+        if(!in_array("company", $user_roles)){
+            header('Location: https://jobshot.jp/user?um_user='.$user_name);
+            exit;
+          }
+          else{
+            header('Location: https://jobshot.jp/);
+            exit;
+          }
+    }
+    }
+    add_shortcode('profilepage','profilepage');
 
 ?>
