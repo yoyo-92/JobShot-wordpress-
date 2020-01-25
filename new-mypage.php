@@ -1267,13 +1267,12 @@ function profilepage(){
         if(!in_array("company", $user_roles)){
             header('Location: https://jobshot.jp/user?um_user='.$user_name);
             exit;
-          }
-          else{
-            header('Location: https://jobshot.jp/);
+        }else{
+            header('Location: https://jobshot.jp/');
             exit;
-          }
+        }
     }
-    }
-    add_shortcode('profilepage','profilepage');
+}
+add_shortcode('profilepage','profilepage');
 
 ?>
