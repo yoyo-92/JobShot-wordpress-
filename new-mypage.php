@@ -1262,6 +1262,10 @@ function profilepage(){
             header('Location: https://jobshot.jp/user?um_user='.$user_name);
             exit;
           }
+          else{
+            header('Location: https://jobshot.jp/);
+            exit;
+          }
     }
     }
     add_shortcode('profilepage','profilepage');
