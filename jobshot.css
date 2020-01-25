@@ -6039,8 +6039,17 @@ font-size: 13px !important;
   margin-bottom: 40px;
 }
 .um-profile .photo-img-preview img, .um-profile .coverphoto-img-preview img{
+  display: block;
   width: 250px;
   margin: 0 auto 0 !important;
+}
+.um-profile .photo-img-preview div, .um-profile .coverphoto-img-preview div{
+  display: block;
+  width: 250px;
+  height: 250px;
+  margin: 0 auto 0 !important;
+  background-color: #eee;
+  position: relative;
 }
 .photo-upload form input {
   text-align: center;
@@ -6070,7 +6079,6 @@ font-size: 13px !important;
   width: 100%;
   background-color: #fff;
   color: #555;
-  /* border-top: 1px solid #555; */
   border-top: solid 1px #e6e6e6;
   padding-bottom: constant(safe-area-inset-bottom);
   border-bottom-left-radius: 10px;
@@ -6132,6 +6140,24 @@ font-size: 13px !important;
   .um-profile .photo-img-preview img, .um-profile .coverphoto-img-preview img{
     width: 200px;
     margin: 0 auto 40px !important;
+  }
+  .um-profile .photo-img-preview div, .um-profile .coverphoto-img-preview div{
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 40px !important;
+    background-color: #eee;
+    position: relative;
+  }
+  .um-profile .photo-img-preview div:before, .um-profile .coverphoto-img-preview div:before {
+    font-family: 'Material Icons';
+    content: "\e3b0";
+    font-size: 80px;
+    color: #aaa;
+    display: block;
+    width: 80px;
+    position: absolute;
+    top: 60px;
+    left: 60px;
   }
   .photo-upload form input[type="file"] {
     margin-bottom: 100px;
