@@ -147,9 +147,52 @@ function view_applylist_func ( $atts ) {
         [/cfdb-html]');
         $phtml.='<p>'."全".$participant_num."件".'<p>';
     }else{
+      $custom_key='apply_status_'.strval($post_id);
+      $current_user = get_current_user_id();
+      $apply_status=get_user_meta($current_user,$custom_key);
+      $select_box='';
+      if(empty($apply_status) || strcmp($apply_status,'未対応')==0){
+        $select_box.='
+        <select name="応募ステータス[]">
+        <option value="未対応" selected>未対応</option>
+        <option value="対応中">対応中</option>
+        <option value="不採用">不採用</option>
+        <option value="採用済み">採用済み</option>
+        </select>';
+      }elseif(strcmp($apply_status,'対応中')==0){
+        $select_box.='
+        <select name="応募ステータス[]">
+        <option value="未対応">未対応</option>
+        <option value="対応中" selected>対応中</option>
+        <option value="不採用">不採用</option>
+        <option value="採用済み">採用済み</option>
+        </select>';
+      }elseif(strcmp($apply_status,'不採用')==0){
+        $select_box.='
+        <select name="応募ステータス[]">
+        <option value="未対応">未対応</option>
+        <option value="対応中">対応中</option>
+        <option value="不採用" selected>不採用</option>
+        <option value="採用済み">採用済み</option>
+        </select>';
+      }elseif(strcmp($apply_status,'採用済み')==0){
+        $select_box.='
+        <select name="応募ステータス[]">
+        <option value="未対応">未対応</option>
+        <option value="対応中">対応中</option>
+        <option value="不採用">不採用</option>
+        <option value="採用済み" selected>採用済み</option>
+        </select>';
+      }
       $phtml.='
         <a href="'.$_SERVER["REQUEST_URI"].'&mode=dbview">データベース表示に切り替え（検索・並べ替え可能）</a>';
         $phtml.='<p>'."全".$participant_num."件".'<p>';
+        $phtml.='
+        <input type="hidden" name="apply_status" value="apply_status">
+        <input type="hidden" name="post_id" value='.$post_id.'>
+        <div>
+          <input type="submit" name="update" value="更新" class="button save_post_button">
+        </div>';
         $phtml.=
         do_shortcode('[cfdb-html form="/'.$formname.'.*/" orderby="Submitted desc" filter="job-id='.$post_id.'"]
         {{BEFORE}}
@@ -164,6 +207,7 @@ function view_applylist_func ( $atts ) {
                 <th>卒業年度</th>
                 <th>応募日時</th>
                 <th>連絡先</th>
+                <th>応募ステータス</th>
               </tr>
             </thead>
             <tbody>
@@ -181,6 +225,9 @@ function view_applylist_func ( $atts ) {
                 </td>
                 <td label="連絡先">
                 <p>[get_user_mobile_number field=login value="${your-id}"]<br>[get_user_email field=login value="${your-id}"]</p>
+                </td>
+                <td label="応募ステータス">
+                  <p>'.$select_box.'</p>
                 </td>
               </tr>
             {{AFTER}}
@@ -216,7 +263,7 @@ function view_intern_all_applylist_func ( $atts ) {
   $select_box='';
   if(empty($apply_status) || strcmp($apply_status,'未対応')==0){
     $select_box.='
-    <select name="応募ステータス">
+    <select name="応募ステータス[]">
     <option value="未対応" selected>未対応</option>
     <option value="対応中">対応中</option>
     <option value="不採用">不採用</option>
@@ -224,7 +271,7 @@ function view_intern_all_applylist_func ( $atts ) {
     </select>';
   }elseif(strcmp($apply_status,'対応中')==0){
     $select_box.='
-    <select name="応募ステータス">
+    <select name="応募ステータス[]">
     <option value="未対応">未対応</option>
     <option value="対応中" selected>対応中</option>
     <option value="不採用">不採用</option>
@@ -232,7 +279,7 @@ function view_intern_all_applylist_func ( $atts ) {
     </select>';
   }elseif(strcmp($apply_status,'不採用')==0){
     $select_box.='
-    <select name="応募ステータス">
+    <select name="応募ステータス[]">
     <option value="未対応">未対応</option>
     <option value="対応中">対応中</option>
     <option value="不採用" selected>不採用</option>
@@ -240,7 +287,7 @@ function view_intern_all_applylist_func ( $atts ) {
     </select>';
   }elseif(strcmp($apply_status,'採用済み')==0){
     $select_box.='
-    <select name="応募ステータス">
+    <select name="応募ステータス[]">
     <option value="未対応">未対応</option>
     <option value="対応中">対応中</option>
     <option value="不採用">不採用</option>
@@ -256,6 +303,12 @@ function view_intern_all_applylist_func ( $atts ) {
     $phtml.='
     <a href="'.$_SERVER["REQUEST_URI"].'&mode=dbview">データベース表示に切り替え（検索・並べ替え可能）</a>';
     $phtml.='<p>'."全".$participant_num."件".'<p>';
+    $phtml.='
+    <input type="hidden" name="apply_status" value="apply_status">
+    <input type="hidden" name="post_id" value='.$post_id.'>
+    <div>
+      <input type="submit" name="update" value="更新" class="button save_post_button">
+    </div>';
     $phtml.=
     do_shortcode('[cfdb-html form="'.$formname.'" orderby="Submitted desc"]
     {{BEFORE}}
@@ -304,6 +357,157 @@ function view_intern_all_applylist_func ( $atts ) {
   return $phtml;
 }
 add_shortcode('view_intern_all_applylist','view_intern_all_applylist_func');
+
+function update_apply_status(){
+  if(!empty($_POST["apply_status"])){
+    $post_id = $_GET["post_id"];
+    // $post = get_post($post_id);
+    $post = get_post($post_id);
+    $company = get_userdata($post->post_author);
+    $company_name = $company->data->display_name;
+
+    $post_title = $_POST["post_title"];
+    $occupation = $_POST["occupation"];
+    $salary = $_POST["salary"];
+    $worktime = $_POST["worktime"];
+    $requirements = $_POST["requirements"];
+    $require_person = $_POST["require_person"];
+    $intern_contents = $_POST["intern_contents"];
+    $intern_day = $_POST["intern_day"];
+    $skills = $_POST["skills"];
+    $address = $_POST["address"];
+    $skill_requirements = $_POST["skill_requirements"];
+    $prospective_employer = $_POST["prospective_employer"];
+    $intern_student_voice = $_POST["intern_student_voice"];
+    $feature = $_POST["feature"];
+    $picture = $_FILES["picture"];
+    $picture2 = $_FILES["picture2"];
+    $picture3 = $_FILES["picture3"];
+    $picture4 = $_FILES["picture4"];
+    $selection_flows = "";
+    for ($i=0; $i<count($_POST["selection_flow"]); $i++){
+      $selection_flows .= $_POST["selection_flow"][$i];
+      $selection_flows .= "</br>";
+    }
+    $intern_days = "";
+      for ($i=0; $i<count($_POST["start"]); $i++){
+        $intern_days .= $_POST["start"][$i];
+        $intern_days .= "</br>";
+        $intern_days .= $_POST["end"][$i];
+        $intern_days .= "</br>";
+        $intern_days .= $_POST["oneday_flow"][$i];
+        $intern_days .= "</br>";
+	  }
+    if($_POST["post_title"]){
+      $my_post = array('ID' => $post_id,'post_title' => $post_title,'post_content' => '',);
+      wp_update_post( $my_post );
+      update_post_meta($post_id, '募集タイトル', $post_title);
+    }
+    if($_POST["occupation"]){
+      wp_set_object_terms( $post_id, $occupation, 'occupation');
+    }
+    if($_POST["salary"]){
+      update_post_meta($post_id, "給与", $salary);
+    }
+    if($_POST["worktime"]){
+      update_post_meta($post_id, "勤務可能時間", $worktime);
+    }
+    if($_POST["requirements"]){
+      update_post_meta($post_id, "勤務条件", $requirements);
+    }
+    if($_POST["require_person"]){
+      update_post_meta($post_id, "求める人物像", $require_person);
+    }
+    if($_POST["intern_contents"]){
+      update_post_meta($post_id, "業務内容", $intern_contents);
+    }
+    if($_POST["intern_day"]){
+      update_post_meta($post_id, "1日の流れ", $intern_day);
+    }
+    if($_POST["skills"]){
+      update_post_meta($post_id, "身につくスキル", $skills);
+    }
+    if($_POST["address"]){
+      update_post_meta($post_id, "勤務地", $address);
+      preg_match("/(東京都|北海道|(?:京都|大阪)府|.{6,9}県)((?:四日市|廿日市|野々市|臼杵|かすみがうら|つくばみらい|いちき串木野)市|(?:杵島郡大町|余市郡余市|高市郡高取)町|.{3,12}市.{3,12}区|.{3,9}区|.{3,15}市(?=.*市)|.{3,15}市|.{6,27}町(?=.*町)|.{6,27}町|.{9,24}村(?=.*村)|.{9,24}村)(.*)/",$_POST["address"],$result);
+      $prefecture = $result[1];
+      $area = $result[2];
+      if($prefecture == "東京都"){
+        wp_set_object_terms( $post_id, $area, 'area');
+      }else{
+        wp_set_object_terms( $post_id, $prefecture, 'area');
+      }
+    }
+    if($_POST["skill_requirements"]){
+      update_post_meta($post_id, "応募資格", $skill_requirements);
+    }
+    if($_POST["prospective_employer"]){
+      update_post_meta($post_id, "インターン卒業生の内定先", $prospective_employer);
+    }
+    if($_POST["intern_student_voice"]){
+      update_post_meta($post_id, "働いているインターン生の声", $intern_student_voice);
+    }
+    if($_POST["feature"]){
+      update_post_meta($post_id, "特徴", $feature);
+    }
+    if($_FILES["picture"]){
+      add_custom_image($post_id, "イメージ画像", $picture);
+    }
+    if($_FILES["picture2"]){
+      add_custom_image($post_id, "イメージ画像2", $picture2);
+    }
+    if($_FILES["picture3"]){
+      add_custom_image($post_id, "イメージ画像3", $picture3);
+    }
+    if($_FILES["picture4"]){
+      add_custom_image($post_id, "イメージ画像4", $picture4);
+    }
+    if($_POST["selection_flow"]){
+      update_post_meta($post_id, '選考フロー', $selection_flows);
+    }
+    if($_POST["oneday_flow"]){
+      update_post_meta($post_id,'1日の流れ', $intern_days);
+    }
+    if(!empty($_POST["save"])){
+      $post_status = "draft";
+    }
+    if(!empty($_POST["preview"])){
+      $post_status = "draft";
+    }
+    if(!empty($_POST["publish"])){
+      $post_status = "publish";
+    }
+    $post_value = array(
+      'post_author' => get_current_user_id(),
+      'post_title' => $post_title,
+      'post_type' => 'internship',
+      'post_status' => $post_status,
+      'ID' => $post_id,
+    );
+    $insert_id2 = wp_insert_post($post_value); //上書き（投稿ステータスを公開に）
+
+    if($insert_id2) {
+        /* 投稿に成功した時の処理等を記述 */
+        if(!empty($_POST["publish"])){
+          header('Location: '.get_permalink($insert_id2));
+        }
+        if(!empty($_POST["preview"])){
+          header('Location: '.get_permalink($insert_id2));
+        }
+        if(!empty($_POST["save"])){
+          header('Location: https://builds-story.com/manage_post?posttype=internship');
+        }
+        die();
+        $html = '<p>success</p>';
+    } else {
+        /* 投稿に失敗した時の処理等を記述 */
+        $html = '<p>error1</p>';
+    }
+    header('Location: https://builds-story.com/manage_post?posttype=internship');
+    die();
+  }
+}
+add_action('template_redirect', 'update_apply_status');
 
 
 function view_apply_card_func($post_id){
