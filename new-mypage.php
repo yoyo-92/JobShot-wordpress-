@@ -207,6 +207,9 @@ function new_mypage_func(){
                 <td class="photo-title">プロフィール写真</td>
                 <td class="photo-upload">
                     <form method="post" action="" enctype="multipart/form-data" id="profile">
+                        <div class="photo-img-preview">
+                            <div></div>
+                        </div>
                         <input accept="image/*" type="file" name="upfilename" />
                         <input type="hidden" name="user_id" value="'.$user_id.'">
                         <input type="submit" value="アップロード">
@@ -222,6 +225,9 @@ function new_mypage_func(){
                 <td class="photo-title">カバー写真</td>
                 <td class="photo-upload">
                     <form method="post" action="" enctype="multipart/form-data" id="cover">
+                        <div class="coverphoto-img-preview">
+                            <div></div>
+                        </div>
                         <input accept="image/*" type="file" name="upcovername" />
                         <input type="hidden" name="user_id" value="'.$user_id.'">
                         <input type="submit" value="アップロード">
