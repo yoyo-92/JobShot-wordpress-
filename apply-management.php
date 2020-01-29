@@ -13,15 +13,115 @@ function apply_management_func($atts){
       'posts_per_page' => 10,                                     //posts_per_pageの指定
       'paged' => $paged,                                          //pagedの指定
     );
+    if (!empty($_GET['sw'])) {
+        $keyword = my_esc_sql($_GET['sw']);
+        $args += array('s' => $keyword);
+    }
+    if(isset($_GET["feature"])){
+        $features = $_GET["feature"];
+        foreach($features as $feature){
+            $metaquerysp[] = array('key'=>'特徴','value'=> $feature,'compare'=>'LIKE');
+        }
+        $args += array('meta_query' => $metaquerysp);
+    }
     if($item_type=="event"){
-      $args += array(
-        'orderby' => 'meta_value',
-        'meta_key' => '開催日',
-        'order'   => 'DESC',
-      );
+        $args += array('orderby' => 'meta_value','meta_key' => '開催日','order'   => 'DESC','meta_query' => array('value' => date('Y/m/d'),'compare' => '>=','type' => 'DATE'));
+    }
+    //新卒投稿をしている企業のみを取得
+    if($item_type=="company"){
+        $args1=array('post_type' => array('job'),'posts_per_page' => -1);
+        $job_posts=get_posts($args1);
+        $author_id = array();
+        foreach($job_posts as $job_post){
+            if (!in_array($job_post->post_author, $author_id)) {
+                $author_id[]= $job_post->post_author;
+            }
+        }
+        $args += array('author__in'=>$author_id,);
+    }
+    //コラムのカテゴリー取得
+    if($item_type=="column"){
+        if(isset($_GET["first_category"])){
+            $first_category = $_GET["first_category"];
+            $first_category_metaquery = array('key'=>'first_category','value'=> $first_category,'compare'=>'LIKE');
+            $args += array('meta_query' => array($first_category_metaquery));
+        }
+        if(isset($_GET["second_category"])){
+            $second_category = $_GET["second_category"];
+            $second_category_metaquery = array('key'=>'second_category','value'=> $second_category,'compare'=>'LIKE');
+            $args += array('meta_query' => array($second_category_metaquery));
+        }
+    }
+
+    // 業種のタクソノミーは企業情報に基づいているので該当する企業投稿を検索→authorに追加
+    if (!empty($_GET['business_type'])) {
+        if($item_type!="company"){
+            $args2=array('post_type' => array('company'),'posts_per_page' => -1);
+            $tax_obj2=get_taxonomy('business_type');
+            $terms2= get_view_get_values('business_type',$tax_obj2->labels->name,true);
+            $taxq2 = array('relation' => 'AND',);
+            array_push($taxq2, array(
+                'taxonomy' => 'business_type',
+                'field' => 'slug',
+                'terms' => $terms2,
+                'include_children' => true,
+                'operator' => 'IN',
+            ));
+            $args2 += array('tax_query' => $taxq2);
+            $company_posts=get_posts($args2);
+            $author_id2 = array();
+            foreach($company_posts as $company_post){
+                if (!in_array($company_post->post_author, $author_id2)) {
+                    $author_id2[]= $company_post->post_author;
+                }
+            }
+            $args+=array('author__in'=>$author_id2,);
+        }
+    }
+
+    $tax_query = array('relation' => 'AND',);
+    $tax_slugs = array('occupation','area','business_type');
+    foreach ($tax_slugs as $tax_slug){
+        if(!($tax_slug =='business_type' and ($item_type=="internship" or $item_type=="summer_internship" or $item_type=="autumn_internship"))){
+            $tax_obj = get_taxonomy($tax_slug);
+            $terms = get_view_get_values($tax_slug,$tax_obj->labels->name,true);
+            if(!empty($terms)){
+                array_push($tax_query, array(
+                    'taxonomy' => $tax_slug,
+                    'field' => 'slug',
+                    'terms' => $terms,
+                    'include_children' => true,
+                    'operator' => 'IN',
+                ));
+            }
+        }
+    }
+    $args += array('tax_query' => $tax_query);
+
+    if (isset($_GET['sort'])) {
+        $sort = my_esc_sql($_GET['sort']);
+        switch($sort){
+            case 'popular':
+                $args += array('meta_key' => 'week_views_count','orderby' => 'meta_value_num',);
+                break;
+            case 'new':
+                $args += array('order'   => 'DESC',);
+                break;
+            case 'recommend':
+            	unset($args['posts_per_page']);
+            	$args += array(
+                	'posts_per_page' => -1,
+            	);
+                break;
+        }
+    }
+
+    if($sort == 'recommend'){
+    	$the_query = recommend_score($args);
+    }else{
+      $the_query = new WP_Query($args);
     }
     $html = "";
-    $the_query = new WP_Query($args);
     $posts_per_page = 10;
     $html .= paginate( $the_query->max_num_pages, get_query_var( 'paged' ),$the_query->found_posts, $posts_per_page);
     if($item_type == "internship"){
