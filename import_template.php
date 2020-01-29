@@ -23,6 +23,11 @@ function navigation_safearea(){
 }
 add_action( 'wp_head', 'navigation_safearea');
 
+function import_Google_Search_Console(){
+  echo '<meta name="google-site-verification" content="iKzXL1QDakUAnzl2wnV8s4tYyj1q8eHW2_preEu6J7c"/>';
+}
+add_action( 'wp_head', 'import_Google_Search_Console');
+
 function navigation_tab(){
   $home_url =esc_url( home_url());
   if ( is_user_logged_in() ){
