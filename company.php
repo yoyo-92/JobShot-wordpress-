@@ -634,17 +634,7 @@ function view_company_contents_func_test(){
         <tbody class="manage_post_tbody">';
     $home_url =esc_url( home_url( ));
     foreach ($post_ids as $post_id) {
-        if($post_type=='internship'){
-            $edit_link = '<a href="'.$home_url.'/edit_internship?post_id='.$post_id.'">編集</a>';
-        }else if($post_type=='job'){
-            $edit_link = '<a href="'.$home_url.'/edit_job?post_id='.$post_id.'">編集</a>';
-        }else if($post_type=='summer_internship'){
-            $edit_link = '<a href="'.$home_url.'/edit_summer_internship?post_id='.$post_id.'">編集</a>';
-        }else if($post_type=='autumn_internship'){
-            $edit_link = '<a href="'.$home_url.'/edit_autumn_internship?post_id='.$post_id.'">編集</a>';
-        }else{
-            $edit_link = '<a href="'.$home_url.'/edit_event?post_id='.$post_id.'">編集</a>';
-        }
+        $edit_link = '<a href="'.$home_url.'/edit_'.$post_type.'?post_id='.$post_id.'">編集</a>';
         $applylist=do_shortcode(' [cfdb-table form="/'.$formname.'.*/" filter="job-id='.$post_id.'"]');
         $applycnt=do_shortcode(' [cfdb-value form="/'.$formname.'.*/" filter="job-id='.$post_id.'" function="count"]');
         $occupation = get_the_terms($post_id,"occupation")[0]->name;

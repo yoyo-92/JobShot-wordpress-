@@ -286,45 +286,99 @@ function view_applylist_func ( $atts ) {
       $phtml.='
         <a href="'.$_SERVER["REQUEST_URI"].'&mode=dbview">データベース表示に切り替え（検索・並べ替え可能）</a>';
         $phtml.='<p>'."全".$participant_num."件".'<p>';
-        $phtml.=
-        do_shortcode('[cfdb-html form="/'.$formname.'.*/" orderby="Submitted desc" filter="job-id='.$post_id.'"]
-        {{BEFORE}}
-        <font size="2">
-          <table class="tbl02">
-            <thead>
-              <tr>
-                <th width="15%"></th>
-                <th>大学</th>
-                <th>性別</th>
-                <th>学年</th>
-                <th>卒業年度</th>
-                <th>応募日時</th>
-                <th>連絡先</th>
-              </tr>
-            </thead>
-            <tbody>
-            {{/BEFORE}}
-              <tr>
-                <th>
-                  <a href="/user?um_user=${your-id}" style="color:white"><p><font size="1">[get_user_ruby field=login value="${your-id}"]</font><br>${your-name}</p><div>[get_avatar_sc_re user_login="${your-id}"]</div></a>
-                </th>
-                <td label="大学">
-                  <p>[my_get_userdata_by field=login value="${your-id}" data=univ]<br>[my_get_userdata_by field=login value="${your-id}" data=faculty]</p>
-                </td>
-                [get_user_meta_info field=login value="${your-id}"]
-                <td label="応募日時">
-                  <p>[submitted2str sbm="${Submitted}"]</p>
-                </td>
-                <td label="連絡先">
-                <p>[get_user_mobile_number field=login value="${your-id}"]<br>[get_user_email field=login value="${your-id}"]</p>
-                </td>
-              </tr>
-            {{AFTER}}
-            </tbody>
-          </table>
-        </font>
-        {{/AFTER}}
-        [/cfdb-html]');
+        if(current_user_can( 'administrator' )){
+          $phtml.=
+          do_shortcode('[cfdb-html form="/'.$formname.'.*/" orderby="Submitted desc" filter="job-id='.$post_id.'"]
+          {{BEFORE}}
+          <font size="2">
+            <table class="tbl02">
+              <thead>
+                <tr>
+                  <th width="15%"></th>
+                  <th>大学</th>
+                  <th>性別</th>
+                  <th>学年</th>
+                  <th>卒業年度</th>
+                  <th>応募日時</th>
+                  <th>連絡先</th>
+                  <th>選考状況</th>
+                </tr>
+              </thead>
+              <tbody>
+              {{/BEFORE}}
+                <tr>
+                  <th>
+                    <a href="/user?um_user=${your-id}" style="color:white"><p><font size="1">[get_user_ruby field=login value="${your-id}"]</font><br>${your-name}</p><div>[get_avatar_sc_re user_login="${your-id}"]</div></a>
+                  </th>
+                  <td label="大学">
+                    <p>[my_get_userdata_by field=login value="${your-id}" data=univ]<br>[my_get_userdata_by field=login value="${your-id}" data=faculty]</p>
+                  </td>
+                  [get_user_meta_info field=login value="${your-id}"]
+                  <td label="応募日時">
+                    <p>[submitted2str sbm="${Submitted}"]</p>
+                  </td>
+                  <td label="連絡先">
+                    <p>[get_user_mobile_number field=login value="${your-id}"]<br>[get_user_email field=login value="${your-id}"]</p>
+                  </td>
+                  <td label="選考状況">
+                    <form action="" method="POST">
+                      <div>
+                        <p>[get_user_selection_status post_id='.$post_id.' value="${your-id}" ]<p>
+                        <input type="hidden" name="update_user_selection_status" value="update_user_selection_status">
+                        <input type="hidden" name="post_id" value="'.$post_id.'">
+                        <input type="hidden" name="user_id" value="${your-id}">
+                        <input type="submit" value="更新">
+                      </div>
+                    </form>
+                  </td>
+                </tr>
+              {{AFTER}}
+              </tbody>
+            </table>
+          </font>
+          {{/AFTER}}
+          [/cfdb-html]');
+        }else{
+          $phtml.=
+          do_shortcode('[cfdb-html form="/'.$formname.'.*/" orderby="Submitted desc" filter="job-id='.$post_id.'"]
+          {{BEFORE}}
+          <font size="2">
+            <table class="tbl02">
+              <thead>
+                <tr>
+                  <th width="15%"></th>
+                  <th>大学</th>
+                  <th>性別</th>
+                  <th>学年</th>
+                  <th>卒業年度</th>
+                  <th>応募日時</th>
+                  <th>連絡先</th>
+                </tr>
+              </thead>
+              <tbody>
+              {{/BEFORE}}
+                <tr>
+                  <th>
+                    <a href="/user?um_user=${your-id}" style="color:white"><p><font size="1">[get_user_ruby field=login value="${your-id}"]</font><br>${your-name}</p><div>[get_avatar_sc_re user_login="${your-id}"]</div></a>
+                  </th>
+                  <td label="大学">
+                    <p>[my_get_userdata_by field=login value="${your-id}" data=univ]<br>[my_get_userdata_by field=login value="${your-id}" data=faculty]</p>
+                  </td>
+                  [get_user_meta_info field=login value="${your-id}"]
+                  <td label="応募日時">
+                    <p>[submitted2str sbm="${Submitted}"]</p>
+                  </td>
+                  <td label="連絡先">
+                  <p>[get_user_mobile_number field=login value="${your-id}"]<br>[get_user_email field=login value="${your-id}"]</p>
+                  </td>
+                </tr>
+              {{AFTER}}
+              </tbody>
+            </table>
+          </font>
+          {{/AFTER}}
+          [/cfdb-html]');
+        }
         $phtml.='<p>'."全".$participant_num."件".'<p>';
     }
   }
