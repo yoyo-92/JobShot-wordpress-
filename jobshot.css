@@ -4473,7 +4473,7 @@ top: -1px;
 
  
  .um-cover, .um-cover-e{
-     height: 300px !important;
+     height: 200px !important;
  }
 
  div.uimob500 .um-profile-photo {
@@ -4481,16 +4481,17 @@ top: -1px;
  }
 
  div.uimob340 .um-profile-photo{
-     top: -190px;
+     top: -170px;
  }
 
  .um-main-meta {
      position: absolute;
-     top: -80px;
+     top: -50px;
      left: initial;
-     width: 100%;
+     width: 80%;
      text-align: center;
      padding: 0;
+     margin: 0 10%;
  }
 
  .um-univ-meta-meta{
@@ -5866,7 +5867,7 @@ font-size: 13px !important;
 .profile_score_area{
   float: right;
   margin-right: 15px;
-  margin-top: -350px;
+  margin-top: -44%;
 }
 .user_score_circle{
   width: 120px;
@@ -6083,13 +6084,13 @@ font-size: 13px !important;
   font-family: serif !important;
 }
 /* プロフィール画像 */
-.user_score_circle {
+.zindex1 {
   z-index: 1;
 }
-.um-cover-overlay {
+.zindex2 {
   z-index: 2;
 }
-.um-profile-photo-img {
+.zindex3 {
   z-index: 3;
 }
 .upload-photo, .upload-coverphoto{
@@ -6129,7 +6130,7 @@ font-size: 13px !important;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
-.photo-upload {
+.widthmax {
   width: 100%;
 }
 .photo-upload form {
@@ -6155,6 +6156,17 @@ font-size: 13px !important;
   margin: 0 auto 0 !important;
   background-color: #eee;
   position: relative;
+}
+.um-profile .photo-img-preview div:before, .um-profile .coverphoto-img-preview div:before {
+  font-family: 'Material Icons';
+  content: "\e3b0";
+  font-size: 80px;
+  color: #cacaca;
+  display: block;
+  width: 80px;
+  position: absolute;
+  top: 95px;
+  left: 85px;
 }
 .photo-upload form input {
   text-align: center;
@@ -6192,25 +6204,9 @@ font-size: 13px !important;
 .photo-cancel button.favorite.innactive:hover {
   background-color: #e6e6e6;
 }
-.um-profile-nav {
+.hidden {
   display: none;
 }
-
-@media screen and (min-width: 480px) {
-  .um-profile-body .um-header{
-    position: relative;
-  }
-  .profile_score_area {
-    position: absolute;
-    right: 140px;
-    margin: 0;
-  }
-  .user_score_circle {
-    position: fixed;
-    top: 115px;
-  }
-}
-
 @media screen and (max-width: 480px) {
   .um-cover.um-trigger-menu-on-click .um-cover-e {
       position: relative;
@@ -6232,8 +6228,8 @@ font-size: 13px !important;
     border-radius: 0;
   }
   .photo-upload form {
-      margin-top: 100px;
-      height: 200px;
+    margin-top: 200px;
+    height: 200px;
   }
   .um-profile .photo-img-preview, .um-profile .coverphoto-img-preview {
     height: 200px;
@@ -6254,14 +6250,7 @@ font-size: 13px !important;
     position: relative;
   }
   .um-profile .photo-img-preview div:before, .um-profile .coverphoto-img-preview div:before {
-    font-family: 'Material Icons';
-    content: "\e3b0";
-    font-size: 80px;
-    color: #aaa;
-    display: block;
-    width: 80px;
-    position: absolute;
-    top: 60px;
+    top: 65px;
     left: 60px;
   }
   .photo-upload form input[type="file"] {
@@ -6277,9 +6266,6 @@ font-size: 13px !important;
     width: 100vw;
     background-color: rgba(0,0,0,.4) !important;
   }
-  .um-main-meta {
-    z-index: 2;
-  }
   .um-profile.um .um-name a {
     color: #fff;
   }
@@ -6287,7 +6273,8 @@ font-size: 13px !important;
     color: #fff;
   }
   .um-header .score-card {
-    margin-top: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
   .score-card {
     box-shadow: none;
@@ -6296,7 +6283,6 @@ font-size: 13px !important;
     width: 100px;
     height: 100px;
     border-radius: 50px;
-    box-shadow: 0 3px 15px rgba(51, 51, 51, 0.2);
   }
   .score-card .score-area p {
     padding-top: 20px;
