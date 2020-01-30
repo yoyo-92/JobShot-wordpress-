@@ -615,3 +615,104 @@ jQuery(function(){
     } else if(w > x) {
     }
 });
+
+jQuery(function($){
+    if(document.URL.match("https://jobshot.jp/apply")) {
+		if($('#esmenjo').length){
+			$(".entry-seat").remove();
+			$(".es-example").remove();
+			$("#esmenjo").remove();
+　		}
+    }
+});
+
+jQuery(function(){
+    if(jQuery('#canworktime').length){
+       jQuery("#canworktime br")[0].remove();
+       jQuery("#canworktime br")[0].remove();
+    }
+});
+// プロフィール画像
+jQuery(function(){
+	var w = jQuery(window).width();
+	var x = 480;
+	if (w <= x) {
+		jQuery(".um-profile-photo-img").on('click',function(){
+			jQuery(".upload-photo").slideDown("fast");
+        });
+        jQuery(".um-cover-overlay").on('click',function(){
+			jQuery(".upload-coverphoto").slideDown("fast");
+		});
+		jQuery(".upload-photo .photo-cancel button.favorite.innactive").on('click',function(){
+            console.log(unnko);
+            jQuery(".upload-photo").slideUp();
+            console.log(unnko2);
+        });
+        jQuery(".upload-coverphoto .photo-cancel button.favorite.innactive").on('click',function(){
+			jQuery(".upload-coverphoto").slideUp();
+		});
+	} else if(w > x) {
+        jQuery(".um-profile-photo-img").on('click',function(){
+			jQuery(".upload-photo").fadeIn("fast");
+        });
+        jQuery(".um-cover-overlay").on('click',function(){
+			jQuery(".upload-coverphoto").fadeIn("fast");
+		});
+		jQuery(".upload-photo .photo-cancel button.favorite.innactive").on('click',function(){
+            console.log(unnko);
+            jQuery(".upload-photo").fadeOut();
+            console.log(unnko2);
+        });
+        jQuery(".upload-coverphoto .photo-cancel button.favorite.innactive").on('click',function(){
+			jQuery(".upload-coverphoto").fadeOut();
+		});
+	}
+});
+document.addEventListener('DOMContentLoaded', function() {
+	document.querySelector('input[name="upfilename"]').addEventListener('change', function(e) {
+		var file = e.target.files[0],
+			reader = new FileReader(),
+			$preview =  document.querySelector(".photo-img-preview"),
+			t = this;
+		if(file.type.indexOf("image") < 0){
+		return false;
+		}
+
+		reader.onload = (function(file) {
+		return function(e) {
+			while ($preview.firstChild) $preview.removeChild($preview.firstChild);
+			var img = document.createElement( 'img' );
+			img.setAttribute('src',  e.target.result);
+			img.setAttribute('width', '200px');
+			img.setAttribute('title',  file.name);
+			$preview.appendChild(img);
+		};
+		})(file);
+
+		reader.readAsDataURL(file);
+	});
+});
+document.addEventListener('DOMContentLoaded', function() {
+	document.querySelector('input[name="upcovername"]').addEventListener('change', function(e) {
+		var file = e.target.files[0],
+			reader = new FileReader(),
+			$preview =  document.querySelector(".coverphoto-img-preview"),
+			t = this;
+		if(file.type.indexOf("image") < 0){
+		return false;
+		}
+
+		reader.onload = (function(file) {
+		return function(e) {
+			while ($preview.firstChild) $preview.removeChild($preview.firstChild);
+			var img = document.createElement( 'img' );
+			img.setAttribute('src',  e.target.result);
+			img.setAttribute('width', '200px');
+			img.setAttribute('title',  file.name);
+			$preview.appendChild(img);
+		};
+		})(file);
+
+		reader.readAsDataURL(file);
+	});
+});

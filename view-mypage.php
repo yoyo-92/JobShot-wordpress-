@@ -81,18 +81,20 @@ function get_user_meta_info_func($atts){
   $user_meta = get_user_meta($user_id);
   $gender = get_user_meta($user_id,'gender',false)[0][0];
   $school_year = get_user_meta($user_id,'school_year',false)[0];
-  $graduate_year = get_user_meta($user_id,'graduate_year',false)[0];
+  $graduate_year_input = get_user_meta($user_id,'graduate_year',false)[0];
+  preg_match('/[0-9]{4}/', $graduate_year_input, $graduate_year);
+  $graduate_year = $graduate_year[0];
   if($graduate_year == 2020){
-      $graduate_year = "2020(2019年4月時点で大学4年生/大学院2年生)";
+      $graduate_year = "20卒";
   }
   if($graduate_year == 2021){
-      $graduate_year = "2021(2019年4月時点で大学3年生/大学院1年生)";
+      $graduate_year = "21卒";
   }
   if($graduate_year == 2022){
-      $graduate_year = "2022(2019年4月時点で大学2年生)";
+      $graduate_year = "22卒";
   }
   if($graduate_year == 2023){
-      $graduate_year = "2023(2019年4月時点で大学1年生)";
+      $graduate_year = "23卒";
   }
 
   $info_html = '
@@ -176,9 +178,22 @@ function get_user_graduate_year(){
 
   $user = get_user_by($field,$value);
   $user_id = $user->data->ID;
-  $user_meta = get_user_meta($user_id);
-  $user_meta = $user_meta;
-  return $user_meta;
+  $graduate_year_input = get_user_meta($user_id,'graduate_year',false)[0];
+  preg_match('/[0-9]{4}/', $graduate_year_input, $graduate_year);
+  $graduate_year = $graduate_year[0];
+  if($graduate_year == 2020){
+      $graduate_year = "20卒";
+  }
+  if($graduate_year == 2021){
+      $graduate_year = "21卒";
+  }
+  if($graduate_year == 2022){
+      $graduate_year = "22卒";
+  }
+  if($graduate_year == 2023){
+      $graduate_year = "23卒";
+  }
+  return $graduate_year;
 }
 add_shortcode('get_user_graduate_year','get_user_graduate_year');
 
@@ -453,19 +468,20 @@ function get_user_graduate_year_func($atts){
 
   $user = get_user_by($field,$value);
   $user_id = $user->data->ID;
-  $user_meta = get_user_meta($user_id);
-  $graduate_year = get_user_meta($user_id,'graduate_year',false)[0];
+  $graduate_year_input = get_user_meta($user_id,'graduate_year',false)[0];
+  preg_match('/[0-9]{4}/', $graduate_year_input, $graduate_year);
+  $graduate_year = $graduate_year[0];
   if($graduate_year == 2020){
-      $graduate_year = "2020(2019年4月時点で大学4年生/大学院2年生)";
+      $graduate_year = "20卒";
   }
   if($graduate_year == 2021){
-      $graduate_year = "2021(2019年4月時点で大学3年生/大学院1年生)";
+      $graduate_year = "21卒";
   }
   if($graduate_year == 2022){
-      $graduate_year = "2022(2019年4月時点で大学2年生)";
+      $graduate_year = "22卒";
   }
   if($graduate_year == 2023){
-      $graduate_year = "2023(2019年4月時点で大学1年生)";
+      $graduate_year = "23卒";
   }
 
   $info_html = '
@@ -495,4 +511,85 @@ extract( shortcode_atts( array(
 }
 add_shortcode('get_user_school_year','get_user_school_year_func');
 
+function get_user_selection_status($atts){
+  extract( shortcode_atts( array(
+    'post_id' => '',
+    'field' => 'id',
+    'value'=> '',
+  ), $atts ) );
+
+  $user_id = $value;
+  $selection_status = get_post_meta($post_id,'selection_status',false)[0][$user_id];
+  if(empty($selection_status)){
+    $selection_status = 'outstanding';
+  }
+  switch($selection_status){
+    case 'outstanding':
+        $status_html = '
+          <div class="select_box select_box_01">
+            <select name="selection_status">
+                <option value="outstanding" selected>未対応</option>
+                <option value="processing">対応中</option>
+                <option value="closed">採用済</option>
+                <option value="no_offer">不採用</option>
+            </select>
+          </div>';
+        break;
+    case 'processing':
+        $status_html = '
+          <div class="select_box select_box_01">
+            <select name="selection_status">
+              <option value="outstanding">未対応</option>
+              <option value="processing" selected>対応中</option>
+              <option value="closed">採用済</option>
+              <option value="no_offer">不採用</option>
+            </select>
+          </div>';
+        break;
+    case 'closed':
+        $status_html = '
+          <div class="select_box select_box_01">
+            <select name="selection_status">
+              <option value="outstanding">未対応</option>
+              <option value="processing">対応中</option>
+              <option value="closed" selected>採用済</option>
+              <option value="no_offer">不採用</option>
+            </select>
+          </div>';
+        break;
+    case 'no_offer':
+        $status_html = '
+          <div class="select_box select_box_01">
+            <select name="selection_status">
+              <option value="outstanding">未対応</option>
+              <option value="processing">対応中</option>
+              <option value="closed">採用済</option>
+              <option value="no_offer" selected>不採用</option>
+            </select>
+          </div>';
+        break;
+  }
+  return $status_html;
+}
+add_shortcode('get_user_selection_status','get_user_selection_status');
+
+function update_user_selection_status(){
+  if(!empty($_POST["update_user_selection_status"])){
+    /**
+     * $selection_status = array( "user_id" =>  "status", "user_id" =>  "status", ...);
+     */
+    $user_id = $_POST["user_id"];
+    $post_id = $_POST["post_id"];
+    $status = $_POST["selection_status"];
+    $selection_status = get_post_meta($post_id,'selection_status',false)[0];
+    if(array_key_exists($user_id, $selection_status)){
+      $selection_status[$user_id] = $status;
+    }else{
+      $selection_status += array($user_id =>  $status);
+    }
+    update_post_meta($post_id,'selection_status',$selection_status);
+    return;
+  }
+}
+add_action('template_redirect', 'update_user_selection_status');
 ?>
