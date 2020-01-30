@@ -1736,14 +1736,25 @@ if (isset($_GET['freeword']) ) {
                     <td label="ログイン日時">'.$last_login_date.'</td>';
     $sta=get_remain_mail_num_for_stu_func($user);
     if(in_array("company", $roles) ){
+	    $user_name = $user->data->user_login;
+		$scouted_user = scout_manage_func();
+	    $user_link = 'https://jobshot.jp/user?um_user='.$user_name;
         if($sta['remain']>0){
+		    if(!in_array($user_name,$scouted_user,false)){
             $result_html.='<td label="スカウト"><a href="'.scoutlink($user).'">'.$sta['status'].'<br>スカウトする</a></td>';
+			}else
+			{
+			  $result_html.='<td label="スカウト"><a href="'.$user_link.'">'.$sta['status'].'<br>スカウト済み</a></td>';
+			}
         }else{
+		  if(!in_array($user_name,$scouted_user,false)){
             $result_html.='<td label="スカウト"><a href="'.scoutlink($user).'">'.$sta['status'].'<br>スカウトする</a></td>';
+		  }else{
+			$result_html.='<td label="スカウト"><a href="'.$user_link.'">'.$sta['status'].'<br>スカウト済み</a></td>';
+		  }
         }
         // $result_html.='<td label="スカウト"><a href="'.scoutlink($user).'">スカウトする</a></td>';
     }
-
 
     if( in_array("administrator", $roles) ){
         $result_html.='<td label="接触記録"><a href="'.student_contact_form_link($user).'">接触記録を入力</a></td>';
@@ -1763,4 +1774,12 @@ if (isset($_GET['freeword']) ) {
 }
 add_shortcode('student_search_result','student_search_result_func');
 
+function scout_manage_func(){
+    $company = wp_get_current_user();
+    $company_user_login=$company->data->display_name;
+    $scouted_user = do_shortcode('[cfdb-value form="企業スカウトメール送信フォーム" filter="your-name='.$company_user_login.'" show="partner-id"]');
+    $scouted_user  = str_replace(array(" ", "　"), "", $scouted_user);
+    $scouted_users = explode(",",$scouted_user);
+    return $scouted_users;
+  }
 ?>
