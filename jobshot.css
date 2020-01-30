@@ -1025,6 +1025,9 @@ table.tbl02 tbody td {
   background: #fff;
   border-bottom: #03c4b0 solid 1px;
   border-left: #03c4b0 solid 1px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 12px;
 }
 table.tbl02 tbody .txtarea {
   max-width: 10%;
@@ -6309,4 +6312,54 @@ font-size: 13px !important;
   .score-card .info-area h3 {
     margin-top: 15px;
   }
+}
+.select_box {
+	overflow: hidden;
+	width: 90%;
+	margin-bottom: 10px;
+	text-align: center;
+}
+.select_box select {
+	width: 100%;
+	padding-right: 1em;
+	cursor: pointer;
+	text-indent: 0.01px;
+	text-overflow: ellipsis;
+	border: none;
+	outline: none;
+	background: transparent;
+	background-image: none;
+	box-shadow: none;
+	-webkit-appearance: none;
+	appearance: none;
+}
+.select_box select::-ms-expand {
+    display: none;
+}
+.select_box.select_box_01 {
+	position: relative;
+	border: 1px solid #bbbbbb;
+	border-radius: 2px;
+  background: #ffffff;
+  min-width: 90px;
+}
+.select_box.select_box_01::before {
+	position: absolute;
+	top: 0.8em;
+	right: 0.9em;
+	width: 0;
+	height: 0;
+	padding: 0;
+	content: '';
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	border-top: 6px solid #666666;
+	pointer-events: none;
+}
+.select_box.select_box_01 select {
+	color: #666666;
+}
+.tbl02 .status-update-button{
+  color: white;
+  min-width: 70px;
 }

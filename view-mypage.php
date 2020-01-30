@@ -178,9 +178,22 @@ function get_user_graduate_year(){
 
   $user = get_user_by($field,$value);
   $user_id = $user->data->ID;
-  $user_meta = get_user_meta($user_id);
-  $user_meta = $user_meta;
-  return $user_meta;
+  $graduate_year_input = get_user_meta($user_id,'graduate_year',false)[0];
+  preg_match('/[0-9]{4}/', $graduate_year_input, $graduate_year);
+  $graduate_year = $graduate_year[0];
+  if($graduate_year == 2020){
+      $graduate_year = "20卒";
+  }
+  if($graduate_year == 2021){
+      $graduate_year = "21卒";
+  }
+  if($graduate_year == 2022){
+      $graduate_year = "22卒";
+  }
+  if($graduate_year == 2023){
+      $graduate_year = "23卒";
+  }
+  return $graduate_year;
 }
 add_shortcode('get_user_graduate_year','get_user_graduate_year');
 
@@ -455,7 +468,6 @@ function get_user_graduate_year_func($atts){
 
   $user = get_user_by($field,$value);
   $user_id = $user->data->ID;
-  $user_meta = get_user_meta($user_id);
   $graduate_year_input = get_user_meta($user_id,'graduate_year',false)[0];
   preg_match('/[0-9]{4}/', $graduate_year_input, $graduate_year);
   $graduate_year = $graduate_year[0];
@@ -514,39 +526,47 @@ function get_user_selection_status($atts){
   switch($selection_status){
     case 'outstanding':
         $status_html = '
+          <div class="select_box select_box_01">
             <select name="selection_status">
                 <option value="outstanding" selected>未対応</option>
                 <option value="processing">対応中</option>
                 <option value="closed">採用済</option>
                 <option value="no_offer">不採用</option>
-            </select>';
+            </select>
+          </div>';
         break;
     case 'processing':
         $status_html = '
+          <div class="select_box select_box_01">
             <select name="selection_status">
               <option value="outstanding">未対応</option>
               <option value="processing" selected>対応中</option>
               <option value="closed">採用済</option>
               <option value="no_offer">不採用</option>
-            </select>';
+            </select>
+          </div>';
         break;
     case 'closed':
         $status_html = '
+          <div class="select_box select_box_01">
             <select name="selection_status">
               <option value="outstanding">未対応</option>
               <option value="processing">対応中</option>
               <option value="closed" selected>採用済</option>
               <option value="no_offer">不採用</option>
-            </select>';
+            </select>
+          </div>';
         break;
     case 'no_offer':
         $status_html = '
+          <div class="select_box select_box_01">
             <select name="selection_status">
               <option value="outstanding">未対応</option>
               <option value="processing">対応中</option>
-              <option value="closed" selected>採用済</option>
-              <option value="no_offer">不採用</option>
-            </select>';
+              <option value="closed">採用済</option>
+              <option value="no_offer" selected>不採用</option>
+            </select>
+          </div>';
         break;
   }
   return $status_html;
@@ -561,7 +581,7 @@ function update_user_selection_status(){
     $user_id = $_POST["user_id"];
     $post_id = $_POST["post_id"];
     $status = $_POST["selection_status"];
-    $selection_status = get_post_meta($post_id,'selection_status',false);
+    $selection_status = get_post_meta($post_id,'selection_status',false)[0];
     if(array_key_exists($user_id, $selection_status)){
       $selection_status[$user_id] = $status;
     }else{
