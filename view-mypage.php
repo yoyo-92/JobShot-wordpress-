@@ -518,8 +518,8 @@ function get_user_selection_status($atts){
     'value'=> '',
   ), $atts ) );
 
-  $user_id = $value;
-  $selection_status = get_post_meta($post_id,'selection_status',false)[0][$user_id];
+  $user_login_name = $value;
+  $selection_status = get_post_meta($post_id,'selection_status',false)[0][$user_login_name];
   if(empty($selection_status)){
     $selection_status = 'outstanding';
   }
@@ -576,16 +576,16 @@ add_shortcode('get_user_selection_status','get_user_selection_status');
 function update_user_selection_status(){
   if(!empty($_POST["update_user_selection_status"])){
     /**
-     * $selection_status = array( "user_id" =>  "status", "user_id" =>  "status", ...);
+     * $selection_status = array( "user_login_name" =>  "status", "user_login_name" =>  "status", ...);
      */
-    $user_id = $_POST["user_id"];
+    $user_login_name = $_POST["user_login_name"];
     $post_id = $_POST["post_id"];
     $status = $_POST["selection_status"];
     $selection_status = get_post_meta($post_id,'selection_status',false)[0];
-    if(array_key_exists($user_id, $selection_status)){
-      $selection_status[$user_id] = $status;
+    if(array_key_exists($user_login_name, $selection_status)){
+      $selection_status[$user_login_name] = $status;
     }else{
-      $selection_status += array($user_id =>  $status);
+      $selection_status += array($user_login_name =>  $status);
     }
     update_post_meta($post_id,'selection_status',$selection_status);
     return;
