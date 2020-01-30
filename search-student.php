@@ -1739,21 +1739,11 @@ if (isset($_GET['freeword']) ) {
 	    $user_name = $user->data->user_login;
 		$scouted_user = scout_manage_func();
 	    $user_link = 'https://jobshot.jp/user?um_user='.$user_name;
-        if($sta['remain']>0){
-		    if(!in_array($user_name,$scouted_user,false)){
+		if(!in_array($user_name,$scouted_user,false)){
             $result_html.='<td label="スカウト"><a href="'.scoutlink($user).'">'.$sta['status'].'<br>スカウトする</a></td>';
-			}else
-			{
-			  $result_html.='<td label="スカウト"><a href="'.$user_link.'">'.$sta['status'].'<br>スカウト済み</a></td>';
-			}
-        }else{
-		  if(!in_array($user_name,$scouted_user,false)){
-            $result_html.='<td label="スカウト"><a href="'.scoutlink($user).'">'.$sta['status'].'<br>スカウトする</a></td>';
-		  }else{
-			$result_html.='<td label="スカウト"><a href="'.$user_link.'">'.$sta['status'].'<br>スカウト済み</a></td>';
-		  }
-        }
-        // $result_html.='<td label="スカウト"><a href="'.scoutlink($user).'">スカウトする</a></td>';
+		}else{
+		    $result_html.='<td label="スカウト"><a href="'.$user_link.'">'.$sta['status'].'<br>スカウト済み</a></td>';
+		}
     }
 
     if( in_array("administrator", $roles) ){
@@ -1769,7 +1759,7 @@ if (isset($_GET['freeword']) ) {
     </font>';
 
     $result_html.= paginate( $num_pages, $current_page, $total_users, $users_per_page);
-    
+
     return do_shortcode($result_html);
 }
 add_shortcode('student_search_result','student_search_result_func');
