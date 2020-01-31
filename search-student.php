@@ -1663,7 +1663,6 @@ if (isset($_GET['freeword']) ) {
     $students=new WP_User_Query( $args );//get_users($args);
     $company_name = wp_get_current_user()->data->display_name;
     if($company_name == "株式会社Builds"){
-	    reset_remain_mail_num_func(wp_get_current_user());
 	    $result_html='' .'今月のスカウトメール送信可能件数は'.view_remain_mail_num_func(wp_get_current_user()).'<br>';
 	}
 
