@@ -431,12 +431,16 @@ function scout_button(){
   $user_roles = $user->roles;
 
   if(in_array("company", $user_roles) && in_array("student", $umuser->roles)){
-    $scout_html = '
-        <a href="'.scoutlink($umuser).'">
-            <button class="button button-apply">スカウトメールを送る</button>
-        </a>';
-    $html = '<div class="fixed-buttom">'.$scout_html.'</div>';
-    return $html;
+    $sta=get_remain_mail_num_for_stu_func($umuser);
+    if($sta["remain"]>0){
+      $scout_html = '
+          <a href="'.scoutlink($umuser).'">
+              <button class="button button-apply">スカウトメールを送る</button>
+          </a>';
+        $html = '<div class="fixed-buttom">'.$scout_html.'</div>';
+        return $html;
+    }
+    return;
   }
   return;
 }

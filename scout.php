@@ -8,8 +8,8 @@ $all_nums = array(
 //多い順に
 if(in_array("company", $user_roles)){
 $all_nums = array(
-"general" => 5,
-"engineer" => 3,
+"general" => 75,
+"engineer" => 75,
 );
 }else if(in_array("company", $user_roles)){
 $all_nums = array(
@@ -526,4 +526,54 @@ function get_company_logo_data($atts){
     return $company_logo_data;
 }
 add_shortcode('get_company_logo_data','get_company_logo_data');
+
+//企業の送信可能スカウトメールをリセットする
+function reset_company_remain_num_func(){
+    $user_query = new WP_User_Query( array( 'role' => 'company' ) );
+    if ( ! empty( $user_query->results ) ) {
+        foreach ( $user_query->results as $user ) {
+            reset_remain_mail_num_func($user);
+        }
+    }
+}
+add_action('reset_company_remain_num', 'reset_company_remain_num_func');
+
+//wp-cronに月初めに更新するスケジュールを追加
+function my_interval($schedules) {
+    date_default_timezone_set( 'Asia/Tokyo' );
+    $dt = new DateTime('now');
+    $dt_2 = new DateTime('midnight first day of next month');
+    $d = $dt_2->diff($dt, true);
+    $dt_array = get_object_vars($d);
+    $day = $dt_array["d"] * 24 * 60 * 60;
+    $hour = $dt_array["h"] * 60 * 60;
+    $minutes = $dt_array["i"] * 60;
+    $second = $dt_array["s"];
+    $difftime = $day + $hour + $minutes + $second + 60;
+    $schedules['Nextmonth'] = array(
+        'interval' => $difftime,
+        'display' => 'Nextmonth'
+    );
+    return $schedules;
+}
+add_filter('cron_schedules', 'my_interval' );
+
+//イベントが登録されていなければ登録する
+function my_activation_remain() {
+    if(!wp_next_scheduled('reset_company_remain_num')){
+        wp_schedule_event(time(), 'Nextmonth', 'reset_company_remain_num');
+    }
+}
+add_action('wp', 'my_activation_remain');
+
+/*
+    イベント排除
+    月によって日にちが異なるので、ページを開くたびにスケジュールの削除と登録をすることによって
+    調整している。ちょっと重いかも
+*/
+function my_deactivation() {
+    wp_clear_scheduled_hook('reset_company_remain_num');
+}
+register_deactivation_hook(__FILE__, 'my_deactivation');
+
 ?>

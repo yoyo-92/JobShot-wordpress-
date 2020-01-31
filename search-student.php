@@ -1661,6 +1661,11 @@ if (isset($_GET['freeword']) ) {
     //$result_html='' .'残りスカウトメール送信可能件数は'.view_remain_mail_num_func(wp_get_current_user()).'<br>';
     $result_html='';
     $students=new WP_User_Query( $args );//get_users($args);
+    $company_name = wp_get_current_user()->data->display_name;
+    if($company_name == "株式会社Builds"){
+	    reset_remain_mail_num_func(wp_get_current_user());
+	    $result_html='' .'今月のスカウトメール送信可能件数は'.view_remain_mail_num_func(wp_get_current_user()).'<br>';
+	}
 
     $total_users = $students->get_total(); // How many users we have in total (beyond the current page)
     $num_pages = ceil($total_users / $users_per_page);
@@ -1678,7 +1683,7 @@ if (isset($_GET['freeword']) ) {
             $result_html.= name_of_student_item_func($i).'>'.$eval[$i].', ';
         }
     }
-    
+
     $result_html.=paginate( $num_pages, $current_page, $total_users, $users_per_page);
     $result_html.='
     <font size="2">
@@ -1734,15 +1739,20 @@ if (isset($_GET['freeword']) ) {
                     <td label="大学・所属">'.esc_html( get_univ_name($user)).'<br>'. esc_html( get_faculty_name($user)).'</td>
                     <td label="職種">'.$job_html.'</td>
                     <td label="ログイン日時">'.$last_login_date.'</td>';
-    $sta=get_remain_mail_num_for_stu_func($user);
     if(in_array("company", $roles) ){
+        $sta=get_remain_mail_num_for_stu_func($user);
 	    $user_name = $user->data->user_login;
 		$scouted_user = scout_manage_func();
 	    $user_link = 'https://jobshot.jp/user?um_user='.$user_name;
-		if(!in_array($user_name,$scouted_user,false)){
-            $result_html.='<td label="スカウト"><a href="'.scoutlink($user).'">'.$sta['status'].'<br>スカウトする</a></td>';
+	    if($sta["remain"]>0){
+		 	if(!in_array($user_name,$scouted_user,false)){
+            	$result_html.='<td label="スカウト"><a href="'.scoutlink($user).'">'.$sta['status'].'<br>スカウトする</a></td>';
+			}else{
+		    	$result_html.='<td label="スカウト"><a href="'.$user_link.'">'.$sta['status'].'<br>スカウト済み</a></td>';
+			}
 		}else{
-		    $result_html.='<td label="スカウト"><a href="'.$user_link.'">'.$sta['status'].'<br>スカウト済み</a></td>';
+		    $result_html.='<td label="スカウト"><a href="'.$user_link.'">'.$sta['status'].'</a></td>';
+			}
 		}
     }
 
