@@ -6364,3 +6364,84 @@ font-size: 13px !important;
   color: white;
   min-width: 70px;
 }
+
+/* 応募ページ */
+.wpcf7-form {
+  width: 762px;
+  margin: 0 auto;
+}
+.wpcf7-form-control-container {
+  padding: 45px 0 45px 0;
+  border-bottom: 0.3px solid #e6e6e6;
+  position: relative;
+}
+.noborder {
+  border: none;
+}
+#canworktime {
+  padding: 40px 0 120px 0;
+}
+.form-necessarily {
+  font-size: 16px;
+  font-weight: lighter;
+}
+.form-necessarily:before {
+  content: "必須";
+  color: #fff;
+  background: #BE3D3D 0% 0% no-repeat padding-box;
+  border-radius: 2px;
+  padding: 4px 6px;
+  margin-right: 10px;
+}
+.wpcf7-form-control-container label {
+  font-weight: normal;
+}
+.wpcf7-form-control-wrap.job-name {
+  margin: 0;
+}
+.wpcf7-form-control-wrap.your-name, .wpcf7-form-control-wrap.your-email, .your-date-container {
+  position: absolute;
+  left: 270px;
+}
+.your-date-container label{
+  padding-top: 20px;
+  line-height: 30px;
+}
+.your-date-container span:first-child {
+  padding-right: 20px;
+}
+.wpcf7-form-control-wrap input {
+  margin: 0;
+  padding: 5px;
+}
+.wpcf7-form-control-wrap input[name="job-name"] {
+  border: none;
+  box-shadow: none;
+  width: 100%;
+  font-size: 25px !important;
+  padding: 20px 0 20px 0;
+  margin: 0;
+}
+.wpcf7-form-control-wrap.your-date input, .wpcf7-form-control-wrap.your-time input {
+  margin: 0 5px;
+}
+.entry-seat {
+  margin: -24px 0 0 270px;
+  width: 492px;
+}
+.es-example {
+  margin: 0 0 0 270px;
+}
+.wpcf7-form-control-btn {
+  text-align: center;
+}
+.wpcf7-form-control-btn input[type="submit"] {
+  height: 50px;
+  width: 370px;
+  color: #fff;
+  font-size: 25px;
+  font-weight: normal;
+  background-color: #EFB753;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 25px;
+}
