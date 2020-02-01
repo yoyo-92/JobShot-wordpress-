@@ -6270,7 +6270,15 @@ font-size: 13px !important;
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    background-color: rgba(0,0,0,.4) !important;
+  }
+  div.uimob340 .um-cover-e img:before {
+    content: "";
+    background-color: rgba(0,0,0,.3);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
   }
   .um-profile.um .um-name a {
     color: #fff;
