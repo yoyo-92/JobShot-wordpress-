@@ -238,7 +238,7 @@ function my_form_tag_filter($tag){
     //         }
     //     }
     // }
-    $partner_name = $_GET['pid'];
+    $partner_name = $_GET['user_name'];
     $partner = get_user_by( 'login', $partner_name );
     $partner_email = $partner->data->user_email;
 
@@ -262,9 +262,9 @@ function my_form_tag_filter($tag){
             $tag['values'] = (array) $_GET['pname'];
         }
     }
-    if(isset($_GET['pid'])){
+    if(isset($_GET['user_name'])){
         if($tag['name'] == 'partner-id'){
-            $tag['values'] = (array) $_GET['pid'];
+            $tag['values'] = (array) $_GET['user_name'];
         }
     }
     if($tag['name'] == 'partner-email'){
