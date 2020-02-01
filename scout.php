@@ -388,7 +388,7 @@ function scoutlink($umuser){
     $user_id=$user->ID;
     $umuser_id=$umuser->ID;
     if($user_id!=$umuser_id){
-        return home_url('scoutform?pid='. $umuser->user_login.'&pname='.urlencode($umuser->last_name.' '.$umuser->first_name));
+        return home_url('scoutform?user_name='. $umuser->user_login);
     }
 }
 
