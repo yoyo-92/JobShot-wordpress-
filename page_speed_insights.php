@@ -122,7 +122,7 @@ add_action('wp_enqueue_scripts', 'my_enqueue_scripts');
 
 function enqueue_js_footer() {
     // jQuery3系
-    if(is_page( array('user','register','login','user_account','mypage_test','apply','interview_apply','contact','published_contact','scout','intern_test') )){
+    if(is_page( array('user','register','login','user_account','mypage_test','interview_apply','contact','published_contact','scout','intern_test') )){
         wp_enqueue_script('jquery3','https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js',array(),'3.1.1');
     }
     // jQuery2系
