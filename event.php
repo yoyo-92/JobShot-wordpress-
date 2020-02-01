@@ -49,14 +49,6 @@ function template_event2_func($content){
     $event_image = get_field("イメージ画像",$post_id);
     $event_image_url = $event_image["url"];
     $event_name = get_field('イベント名',$post_id);
-    /*
-    $event_date = get_field('開催日時1',$post_id)['日付'].' '.get_field('開催日時1',$post_id)['開始時刻'].'-'.get_field('開催日時1',$post_id)['終了時刻'];
-    $event_due_date = get_field('開催日時1',$post_id)['日付'].' '.get_field('開催日時1',$post_id)['終了時刻'];
-    $event_due_date = str_replace('年', '-', $event_due_date);
-    $event_due_date = str_replace('月', '-', $event_due_date);
-    $event_due_date = str_replace('日', '', $event_due_date);
-    $event_due_date .= ':00';
-    */
 
     $event_date = get_field('開催日時',$post_id);
     $event_due_date = get_field('申込締切日時',$post_id);
@@ -72,7 +64,6 @@ function template_event2_func($content){
     foreach($points as $point){
 	    $points_html.= '<div class="card-category">'.$point.'</div><br>';
     }
-    //if(strtotime(get_field('申込締切日時',$post_id))>strtotime('now')){
     if(strtotime($event_due_date)>strtotime('now')){
         if($event_type == "job"){
             $entry_html = '
