@@ -272,7 +272,7 @@ function new_mypage_func(){
             </div>
             <div class="um-profile-meta">
                 <div class="um-main-meta">
-                    <div class="um-name">
+                    <div class="um-name zindex2">
                         <a href="'.$home_url.'/user?um_user='.$user_name.'" title="'.$user_name.'">'.$user_name.'</a>
                     </div>
                     <div class="um-clear"></div>

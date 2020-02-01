@@ -4476,7 +4476,7 @@ top: -1px;
 
  
  .um-cover, .um-cover-e{
-     height: 200px !important;
+     height: 250px !important;
  }
 
  div.uimob500 .um-profile-photo {
@@ -6164,11 +6164,11 @@ font-size: 13px !important;
   font-family: 'Material Icons';
   content: "\e3b0";
   font-size: 80px;
-  color: #cacaca;
+  color: #dcdcdc;
   display: block;
   width: 80px;
   position: absolute;
-  top: 95px;
+  top: 75px;
   left: 85px;
 }
 .photo-upload form input {
@@ -6235,7 +6235,7 @@ font-size: 13px !important;
     height: 200px;
     max-height: 200px;
     overflow: hidden;
-    margin-bottom: 40px;
+    margin-bottom: 70px;
     margin-top: 0;
   }
   .um-profile .photo-img-preview img, .um-profile .coverphoto-img-preview img{
@@ -6250,15 +6250,18 @@ font-size: 13px !important;
     position: relative;
   }
   .um-profile .photo-img-preview div:before, .um-profile .coverphoto-img-preview div:before {
-    top: 65px;
+    top: 50px;
     left: 60px;
   }
   .photo-upload form input[type="file"] {
-    margin-bottom: 100px;
+    margin-bottom: 70px;
   }
   .um-profile-edit {
     top: -40px;
     right: -15px;
+  }
+  .um-profile-infomation {
+    margin-top: 10px;
   }
   div.uimob340 .um-cover-overlay {
     left: 50%;
@@ -6273,7 +6276,7 @@ font-size: 13px !important;
     color: #fff;
   }
   .um-header .score-card {
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 20px;
   }
   .score-card {
