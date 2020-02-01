@@ -6207,9 +6207,6 @@ font-size: 13px !important;
 .photo-cancel button.favorite.innactive:hover {
   background-color: #e6e6e6;
 }
-.hidden {
-  display: none;
-}
 @media screen and (max-width: 480px) {
   .um-cover.um-trigger-menu-on-click .um-cover-e {
       position: relative;
