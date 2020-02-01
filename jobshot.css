@@ -6271,7 +6271,7 @@ font-size: 13px !important;
     transform: translateX(-50%);
     width: 100vw;
   }
-  div.uimob340 .um-cover-e img:before {
+  div.uimob340 .um-cover-e:before {
     content: "";
     background-color: rgba(0,0,0,.3);
     position: absolute;
