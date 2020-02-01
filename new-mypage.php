@@ -188,10 +188,10 @@ function new_mypage_func(){
     $home_url =esc_url( home_url( ));
     $cover_html = '
     <div class="um-cover has-cover um-trigger-menu-on-click" data-user_id="'.$user_id.'" data-ratio="2.7:1" style="height: 296px;">
-        <div class="um-cover-e" data-ratio="2.7:1" style="height: 296px;">
+        <div class="um-cover-e zindex1" data-ratio="2.7:1" style="height: 296px;">
             <img src="'.$upload_cover_name.'?'.$image_date.'" scale="2" />
         </div>
-        <span class="um-cover-overlay zindex2" style="display: none;">
+        <span class="um-cover-overlay zindex3" style="display: none;">
             <span class="um-cover-overlay-s">
                 <ins>
                     <i class="um-faicon-picture-o"></i>
@@ -259,7 +259,7 @@ function new_mypage_func(){
                 </div>
             </div>
             <div class="um-profile-photo um-trigger-menu-on-click" data-user_id="'.$user_id.'">
-                <a href="'.$home_url.'/user?um_user='.$user_name.'" class="um-profile-photo-img zindex3" title="'.$user_name.'">
+                <a href="'.$home_url.'/user?um_user='.$user_name.'" class="um-profile-photo-img zindex4" title="'.$user_name.'">
                 <span class="um-profile-photo-overlay">
                     <span class="um-profile-photo-overlay-s">
                         <ins>
@@ -271,8 +271,8 @@ function new_mypage_func(){
                 </a>
             </div>
             <div class="um-profile-meta">
-                <div class="um-main-meta">
-                    <div class="um-name zindex2">
+                <div class="um-main-meta zindex4">
+                    <div class="um-name">
                         <a href="'.$home_url.'/user?um_user='.$user_name.'" title="'.$user_name.'">'.$user_name.'</a>
                     </div>
                     <div class="um-clear"></div>
@@ -282,7 +282,7 @@ function new_mypage_func(){
                 </div>
             </div>
             <div class="profile_score_area only-pc">
-                <div class="user_score_circle zindex1">
+                <div class="user_score_circle zindex2">
                     <h5 class="user_profile_score_title">プロフィールスコア</h5>
                     <p class="user_profile_score_value">'.$user_profile_total_score.'</p>
                 </div>

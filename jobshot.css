@@ -6096,6 +6096,9 @@ font-size: 13px !important;
 .zindex3 {
   z-index: 3;
 }
+.zindex4 {
+  z-index: 4;
+}
 .upload-photo, .upload-coverphoto{
   display: none;
   z-index: 1001;
