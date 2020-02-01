@@ -321,7 +321,7 @@ function student_search_form_func($atts) {
             $(".radio").prop("checked", false);
         }
     </script>
-    <form role="search" method="get" class="search-form" action="'.$home_url.'/student_search_result/">
+    <form role="search" method="get" class="search-form" action="'.$home_url.'/scout_result/">
         <div class="tabs">
             <input id="all" type="radio" name="tab_item" checked>
                 <label class="tab_item" for="all">基本情報</label>
