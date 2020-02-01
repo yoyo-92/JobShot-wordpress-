@@ -6209,20 +6209,20 @@ font-size: 13px !important;
 }
 @media screen and (max-width: 480px) {
   .um-cover.um-trigger-menu-on-click .um-cover-e {
-      position: relative;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100vw;
-      margin-top: -50px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    margin-top: -50px;
   }
   .upload-photo, .upload-coverphoto{
-      top: initial;
-      bottom: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      border-radius: 0;
-      box-shadow: initial;
+    top: initial;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+    box-shadow: initial;
   }
   .photo-title {
     border-radius: 0;
