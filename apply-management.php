@@ -325,7 +325,7 @@ function view_applylist_func ( $atts ) {
                       <p>[get_user_selection_status post_id='.$post_id.' value="${your-id}" ]<p>
                       <input type="hidden" name="update_user_selection_status" value="update_user_selection_status">
                       <input type="hidden" name="post_id" value="'.$post_id.'">
-                      <input type="hidden" name="user_id" value="${your-id}">
+                      <input type="hidden" name="user_login_name" value="${your-id}">
                       <input type="submit" value="更新" class="status-update-button">
                     </div>
                   </form>
@@ -454,7 +454,7 @@ function view_intern_all_applylist_func ( $atts ) {
                     <p>[get_user_selection_status post_id="${job-id}" value="${your-id}" ]<p>
                     <input type="hidden" name="update_user_selection_status" value="update_user_selection_status">
                     <input type="hidden" name="post_id" value="${job-id}">
-                    <input type="hidden" name="user_id" value="${your-id}">
+                    <input type="hidden" name="user_login_name" value="${your-id}">
                     <input type="submit" value="更新" class="status-update-button">
                   </div>
                 </form>
