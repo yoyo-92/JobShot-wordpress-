@@ -60,6 +60,7 @@ function Ajax_Univ(){
     <div class="um-field-area um-field-area-univ inactive">
         <div class="um-field-value">';
     $user_array = array(
+        "大学"  =>  "university",
         "学部系統"  =>  "faculty_lineage",
         "学部・学科"  =>  "faculty_department",
         "卒業年"  =>  "graduate_year",
