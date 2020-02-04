@@ -432,11 +432,11 @@ function scout_button(){
 
   if(in_array("company", $user_roles) && in_array("student", $umuser->roles)){
     /*
-    $sta["status"]でその学生の分類(エンジニアor一般)、$sta["remain"]で学生の分類に対して送れる
+    $status_stu["status"]でその学生の分類(エンジニアor一般)、$status_stu["remain"]で学生の分類に対して送れる
     残りスカウトメールの数を表示
     */
-    $sta=get_remain_mail_num_for_stu_func($umuser);
-    if($sta["remain"]>0){
+    $status_stu=get_remain_mail_num_for_stu_func($umuser);
+    if($status_stu["remain"]>0){
       $scout_html = '
           <a href="'.scoutlink($umuser).'">
               <button class="button button-apply">スカウトメールを送る</button>
