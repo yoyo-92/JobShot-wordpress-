@@ -43,7 +43,7 @@ function company_side_bar_func($content){
         <div class="navigation-section">
             <div class="navigation-section-head">スカウト</div>
             <div class="navigation-section-container">
-                <a class="link-section" href="'.$home_url.'/student-search"><div class="link-title">スカウトメールを送る</div></a>
+                <a class="link-section" href="'.$home_url.'/scout"><div class="link-title">スカウトメールを送る</div></a>
                 <a class="link-section" href="'.$home_url.'/manage_scout"><div class="link-title">スカウトメール管理</div></a>
             </div>
         </div>

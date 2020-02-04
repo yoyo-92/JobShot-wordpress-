@@ -744,7 +744,7 @@ function student_search_form_func($atts) {
     </div><br>';
 
   if(in_array("administrator", $user_roles)){
-    $search_form_html.= 
+    $search_form_html.=
     '<div align="right">
         <label class="btn active">
             <input type="checkbox" name="mail_can_send" value="mail_can_send" class="checkbox"><span class="builds_mail">  Buildsからのメール配信希望者 </span>
@@ -906,6 +906,7 @@ function remove_check(){
 }
 
 function student_search_result_func($atts){
+    $home_url =esc_url( home_url( ));
     extract( shortcode_atts( array(
     ), $atts ) );
 
@@ -1661,6 +1662,10 @@ if (isset($_GET['freeword']) ) {
     //$result_html='' .'残りスカウトメール送信可能件数は'.view_remain_mail_num_func(wp_get_current_user()).'<br>';
     $result_html='';
     $students=new WP_User_Query( $args );//get_users($args);
+    $company_name = wp_get_current_user()->data->display_name;
+    if($company_name == "株式会社Builds"){
+	    $result_html='' .'今月のスカウトメール送信可能件数は'.view_remain_num_func(wp_get_current_user(),'remain-mail-num').'<br>';
+	}
 
     $total_users = $students->get_total(); // How many users we have in total (beyond the current page)
     $num_pages = ceil($total_users / $users_per_page);
@@ -1678,7 +1683,7 @@ if (isset($_GET['freeword']) ) {
             $result_html.= name_of_student_item_func($i).'>'.$eval[$i].', ';
         }
     }
-    
+
     $result_html.=paginate( $num_pages, $current_page, $total_users, $users_per_page);
     $result_html.='
     <font size="2">
@@ -1706,43 +1711,48 @@ if (isset($_GET['freeword']) ) {
 
     if ( $students->get_results() ) foreach( $students->get_results() as $user )  {
 
-    $user_id = $user->data->ID;
-    $gender = get_user_meta($user_id,'gender',false)[0][0];
-    $future_occupations = get_user_meta($user_id,'future_occupations',false)[0];
-    $last_login = get_user_meta($user_id,'_um_last_login',false);
-    $last_login_date = date('Y年m月d日',$last_login[0]).'<br>'.date('H時i分',$last_login[0]);
-    $job_html = '';
-    foreach($future_occupations as $future_occupation){
-        $job_html .= $future_occupation.'<br>';
-    }
-    $email = get_user_by("id",$user_id)->data->user_email;
-    $image_date = date("YmdHis");
-	$upload_dir = wp_upload_dir();
-    $upload_file_name = $upload_dir['basedir'] . "/" .'profile_photo'.$user_id.'.png';
-    if(!file_exists($upload_file_name)){
-	  $photo = get_avatar($user_id);
-    }
-	else{
-	  $photo = '<img src="'.$upload_file_name.'?'.$image_date.'" class="gravatar avatar avatar-190 um-avatar avatar-search" />'; 
-    }
-    $result_html.='
-                <tr>
-                    <th>
-                        <a href="/user?um_user='.$user->user_login.'" style="color:white"><p>'.esc_html( $user->user_login ) .'<br></p><div>'.$photo.'</div></a>
-                    </th>
-                    <td label="性別">'.$gender.'</td>
-                    <td label="大学・所属">'.esc_html( get_univ_name($user)).'<br>'. esc_html( get_faculty_name($user)).'</td>
-                    <td label="職種">'.$job_html.'</td>
-                    <td label="ログイン日時">'.$last_login_date.'</td>';
-    $sta=get_remain_mail_num_for_stu_func($user);
-    if(in_array("company", $roles) ){
-	    $user_name = $user->data->user_login;
-		$scouted_user = scout_manage_func();
-	    $user_link = 'https://jobshot.jp/user?um_user='.$user_name;
-		if(!in_array($user_name,$scouted_user,false)){
-            $result_html.='<td label="スカウト"><a href="'.scoutlink($user).'">'.$sta['status'].'<br>スカウトする</a></td>';
-		}else{
-		    $result_html.='<td label="スカウト"><a href="'.$user_link.'">'.$sta['status'].'<br>スカウト済み</a></td>';
+        $user_id = $user->data->ID;
+        $gender = get_user_meta($user_id,'gender',false)[0][0];
+        $future_occupations = get_user_meta($user_id,'future_occupations',false)[0];
+        $last_login = get_user_meta($user_id,'_um_last_login',false);
+        $last_login_date = date('Y年m月d日',$last_login[0]).'<br>'.date('H時i分',$last_login[0]);
+        $job_html = '';
+        foreach($future_occupations as $future_occupation){
+            $job_html .= $future_occupation.'<br>';
+        }
+        $email = get_user_by("id",$user_id)->data->user_email;
+        $image_date = date("YmdHis");
+        $upload_dir = wp_upload_dir();
+        $upload_file_name = $upload_dir['basedir'] . "/" .'profile_photo'.$user_id.'.png';
+        if(!file_exists($upload_file_name)){
+            $photo = get_avatar($user_id);
+        }
+        else{
+            $photo = '<img src="'.$upload_file_name.'?'.$image_date.'" class="gravatar avatar avatar-190 um-avatar avatar-search" />'; 
+        }
+        $result_html.='
+                    <tr>
+                        <th>
+                            <a href="/user?um_user='.$user->user_login.'" style="color:white"><p>'.esc_html( $user->user_login ) .'<br></p><div>'.$photo.'</div></a>
+                        </th>
+                        <td label="性別">'.$gender.'</td>
+                        <td label="大学・所属">'.esc_html( get_univ_name($user)).'<br>'. esc_html( get_faculty_name($user)).'</td>
+                        <td label="職種">'.$job_html.'</td>
+                        <td label="ログイン日時">'.$last_login_date.'</td>';
+        if(in_array("company", $roles) ){
+            $scout_status = get_remain_num_for_stu_func($user, 'remain-mail-num');
+            $user_name = $user->data->user_login;
+            $scouted_users = scout_manage_func();
+            $user_link = $home_url.'/user?um_user='.$user_name;
+            if($scout_status["remain"]>0){
+                if(!in_array($user_name,$scouted_users,false)){
+                    $result_html.='<td label="スカウト"><a href="'.scoutlink($user).'">'.$scout_status['status'].'<br>スカウトする</a></td>';
+                }else{
+                    $result_html.='<td label="スカウト"><a href="'.$user_link.'">'.$scout_status['status'].'<br>スカウト済み</a></td>';
+                }
+            }else{
+                $result_html.='<td label="スカウト"><a href="'.$user_link.'">'.$scout_status['status'].'</a></td>';
+            }
 		}
     }
 
@@ -1751,7 +1761,6 @@ if (isset($_GET['freeword']) ) {
     }
     if( $user_login_name == "kotaro" || $user_login_name == "amano1104"|| $user_login_name == "yuu"){
         $result_html.='<td label="メールアドレス">'.$email.'</td>';
-    }
     }
     $result_html.='
             </tbody>

@@ -431,12 +431,20 @@ function scout_button(){
   $user_roles = $user->roles;
 
   if(in_array("company", $user_roles) && in_array("student", $umuser->roles)){
-    $scout_html = '
-        <a href="'.scoutlink($umuser).'">
-            <button class="button button-apply">スカウトメールを送る</button>
-        </a>';
-    $html = '<div class="fixed-buttom">'.$scout_html.'</div>';
-    return $html;
+    /*
+    $scout_status["status"]でその学生の分類(エンジニアor一般)、$scout_status["remain"]で学生の分類に対して送れる
+    残りスカウトメールの数を表示
+    */
+    $scout_status=get_remain_mail_num_for_stu_func($umuser);
+    if($scout_status["remain"]>0){
+      $scout_html = '
+          <a href="'.scoutlink($umuser).'">
+              <button class="button button-apply">スカウトメールを送る</button>
+          </a>';
+        $html = '<div class="fixed-buttom">'.$scout_html.'</div>';
+        return $html;
+    }
+    return;
   }
   return;
 }
@@ -580,12 +588,12 @@ function update_user_selection_status(){
      */
     $user_login_name = $_POST["user_login_name"];
     $post_id = $_POST["post_id"];
-    $status = $_POST["selection_status"];
+    $new_status = $_POST["selection_status"];
     $selection_status = get_post_meta($post_id,'selection_status',false)[0];
     if(array_key_exists($user_login_name, $selection_status)){
-      $selection_status[$user_login_name] = $status;
+      $selection_status[$user_login_name] = $new_status;
     }else{
-      $selection_status += array($user_login_name =>  $status);
+      $selection_status += array($user_login_name =>  $new_status);
     }
     update_post_meta($post_id,'selection_status',$selection_status);
     return;
