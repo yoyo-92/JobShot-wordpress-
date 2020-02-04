@@ -152,8 +152,8 @@ function decrease_remain_num_func($company, $student,$meta_name, $num){
 $cid=$company->ID;
 $remain_num=get_remain_num_func($company, $meta_name);
 if($remain_num){
-$status_scout=get_remain_num_for_stu_func($student,$meta_name);
-$remain_num[$status_scout['key']]-=$num;
+$scout_status=get_remain_num_for_stu_func($student,$meta_name);
+$remain_num[$scout_status['key']]-=$num;
 update_user_meta($cid, $meta_name,$remain_num);
 }else{
 //	return false;
@@ -172,8 +172,8 @@ decrease_remain_num_func($company, $student,'remain-mail-num', 1);
 $cid=$cuser->ID;
 $remain_num=get_remain_mail_num_func($cuser);
 if($remain_num){
-$status_scout=get_remain_mail_num_for_stu_func(get_user_by('login',$posted_data['partner-id']));
-$remain_num[$status_scout['key']]-=1;
+$scout_status=get_remain_mail_num_for_stu_func(get_user_by('login',$posted_data['partner-id']));
+$remain_num[$scout_status['key']]-=1;
 update_user_meta($cid, $meta_name,$remain_num);
 }else{
 //	return false;
@@ -277,23 +277,23 @@ echo '企業ユーザーが見つかりませんでした。';
 }*/
 
 /*学生の分類(エンジニアor一般)を取得し、その分類の学生に送ることが出来る可能件数を取得
-$status_scout["status"]と$status_scout["remain"]に格納して返す
+$scout_status["status"]と$scout_status["remain"]に格納して返す
 */
 function get_remain_num_for_stu_func($student, $meta_name){
     $remains=get_remain_num_func(wp_get_current_user(), $meta_name);
-    $status_scout=array();
+    $scout_status=array();
     $user_id = $student->ID;
     $future_occupations = get_user_meta($user_id,'future_occupations',false)[0];
     if(in_array('エンジニア',$future_occupations)){
-        $status_scout['status']='エンジニア学生';
-        $status_scout['remain']=$remains['engineer'];
-        $status_scout['key']='engineer';
+        $scout_status['status']='エンジニア学生';
+        $scout_status['remain']=$remains['engineer'];
+        $scout_status['key']='engineer';
     }else{
-        $status_scout['status']='一般学生';
-        $status_scout['remain']=$remains['general'];
-        $status_scout['key']='general';
+        $scout_status['status']='一般学生';
+        $scout_status['remain']=$remains['general'];
+        $scout_status['key']='general';
     }
-    return $status_scout;
+    return $scout_status;
 }
 
 //スカウトメールについてget_remain_num_for_stu_funcを実行
@@ -309,20 +309,20 @@ return get_remain_num_for_stu_func($student, 'remain-view-num-lv'.$info_level);
 /*
 function get_remain_mail_num_for_stu_func($student){
 $remains=get_remain_mail_num_func(wp_get_current_user());
-$status_scout=array();
+$scout_status=array();
 if(has_skill($student, 'engineer')){
-$status_scout['status']='エンジニア学生';
-$status_scout['remain']=$remains['engineer'];
-$status_scout['key']='engineer';
+$scout_status['status']='エンジニア学生';
+$scout_status['remain']=$remains['engineer'];
+$scout_status['key']='engineer';
 
 $remain=$remains['engineer'];
 }else{
-$status_scout['status']='一般学生';
-$status_scout['remain']=$remains['general'];
-$status_scout['key']='general';
+$scout_status['status']='一般学生';
+$scout_status['remain']=$remains['general'];
+$scout_status['key']='general';
 $remain=$remains['general'];
 }
-return $status_scout;
+return $scout_status;
 }*/
 
 //現在不使用
@@ -358,7 +358,7 @@ return '';
 
 $student_login=$_GET['um_user'];
 $student=get_user_by('login',$student_login);
-$status_scout=get_remain_userinfo_num_for_stu_func($student, $info_level);
+$scout_status=get_remain_userinfo_num_for_stu_func($student, $info_level);
 $meta_name_users='accessible-students';
 $cuser=wp_get_current_user();
 $accessible_students=get_user_meta($cuser->ID, $meta_name_users,true);
@@ -372,8 +372,8 @@ $lv_now=get_info_level_for_stu_func($cuser,$student_login,$meta_name_users);
 $html='現在の情報レベル： '.$lv_now.'<br>';
 
 if($_POST['action']!='upgrade' || empty($_POST['level'])){
-if($status_scout['remain']>0){
-return $html.send_upgrade_userinfo_button_func($status_scout['remain']);
+if($scout_status['remain']>0){
+return $html.send_upgrade_userinfo_button_func($scout_status['remain']);
 }else{
 return $html.'アップグレードの制限数を超えました。';
 }
@@ -384,7 +384,7 @@ if($lv_now>0){
 return $html.'アップグレード済みです。';
 }
 
-if($status_scout['remain']<1){return $html.'アップグレードの制限数を超えました。';}
+if($scout_status['remain']<1){return $html.'アップグレードの制限数を超えました。';}
 if($accessible_students){
 $accessible_students_updated=array_merge($accessible_students,array($student_login=>$info_level));
 update_user_meta($cuser->ID, $meta_name_users,$accessible_students_updated);
@@ -420,9 +420,9 @@ $pid= esc_sql($_GET['pid']);
 }else{
 return 'エラー';
 }
-$status_scout=get_remain_mail_num_for_stu_func(get_user_by('login',$pid));
-if($status_scout['remain']>0){
-$html='対象学生ステータス：'.$status_scout['status'].'<br>';
+$scout_status=get_remain_mail_num_for_stu_func(get_user_by('login',$pid));
+if($scout_status['remain']>0){
+$html='対象学生ステータス：'.$scout_status['status'].'<br>';
 $html.='[contact-form-7 id="1583" title="企業スカウトメール送信フォーム"]';
 $html.='現在の残り送信可能数'.view_remain_mail_num_func($user).'';
 return do_shortcode($html);
