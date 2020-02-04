@@ -431,6 +431,10 @@ function scout_button(){
   $user_roles = $user->roles;
 
   if(in_array("company", $user_roles) && in_array("student", $umuser->roles)){
+    /*
+    $sta["status"]でその学生の分類(エンジニアor一般)、$sta["remain"]で学生の分類に対して送れる
+    残りスカウトメールの数を表示
+    */
     $sta=get_remain_mail_num_for_stu_func($umuser);
     if($sta["remain"]>0){
       $scout_html = '

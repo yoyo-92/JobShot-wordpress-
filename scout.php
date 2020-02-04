@@ -1,24 +1,22 @@
 <?php
+//１ヶ月に送信できるメール数を取得する
 function get_all_mail_num_per_month_func($user){
 $user_roles=$user->roles;
 $all_nums = array(
 "general" => 0,
 "engineer" => 0,
 );
-//多い順に
+
 if(in_array("company", $user_roles)){
 $all_nums = array(
 "general" => 75,
 "engineer" => 75,
 );
-}else if(in_array("company", $user_roles)){
-$all_nums = array(
-"general" => 3,
-"engineer" => 2,
-); }
+}
 return $all_nums;
 }
 
+//１ヶ月に取得できるユーザーの情報を取得する(現在不使用)
 function get_all_userinfo_num_per_month_func($user, $info_level){
 $user_roles=$user->roles;
 $all_nums = array(
@@ -46,19 +44,20 @@ break;
 return $all_nums;
 }
 
-function get_all_num_per_month_func($user, $meta_name){
+//１ヶ月に取得することが出来る件数($meta_nameで場合分け)
+function get_all_num_per_month_func($company, $meta_name){
 switch($meta_name){
 case 'remain-mail-num':
-return get_all_mail_num_per_month_func($user);
+return get_all_mail_num_per_month_func($company);
 break;
 case 'remain-view-num-lv1':
-return get_all_userinfo_num_per_month_func($user, 1);
+return get_all_userinfo_num_per_month_func($company, 1);
 break;
 }
 }
 
 
-
+//現在不使用
 function has_skill($user, $skill_type){
     switch ($skill_type) {
         case "engineer":
@@ -73,24 +72,26 @@ function has_skill($user, $skill_type){
     }
 }
 
-
-function get_remain_num_func($user,$meta_name){
-$cid=$user->ID;
+//１ヶ月で使用できる件数の取得($meta_name(remain-mail-num(メールの件数),remain-view-num-lv(現在不使用)))
+function get_remain_num_func($company,$meta_name){
+$cid=$company->ID;
 $p_num=get_user_meta( $cid, $meta_name, true);
 if($p_num){
 return $p_num;
 }else{
-add_user_meta($cid, $meta_name, get_all_num_per_month_func($user,$meta_name));
+add_user_meta($cid, $meta_name, get_all_num_per_month_func($company,$meta_name));
 return get_user_meta( $cid, $meta_name, true);
 }
 }
 
-function get_remain_mail_num_func($user){
-return get_remain_num_func($user,'remain-mail-num');
+//送信可能スカウトメールの件数の取得
+function get_remain_mail_num_func($company){
+return get_remain_num_func($company,'remain-mail-num');
 }
 
-function get_remain_userinfo_num_func($user, $info_level){
-return get_remain_num_func($user,'remain-view-num-lv'.$info_level);
+//獲得できるユーザー情報の数の取得(現在不使用)
+function get_remain_userinfo_num_func($company, $info_level){
+return get_remain_num_func($company,'remain-view-num-lv'.$info_level);
 }
 
 /*
@@ -106,8 +107,9 @@ return get_user_meta( $cid, $meta_name, true);
 }
 }*/
 
-function view_remain_num_func($user,$meta_name){
-$vals=get_remain_num_func($user,$meta_name);
+//企業が使用できる件数の表示($meta_name(remain-mail-num(メールの件数),remain-view-num-lv(現在不使用)))
+function view_remain_num_func($company,$meta_name){
+$vals=get_remain_num_func($company,$meta_name);
 $html='';
 $labels = array(
 "general" => '一般学生',
@@ -119,11 +121,13 @@ $html.='<div>'.$labels[$key].': '.$value.'件</div>';
 return $html;
 }
 
-function view_remain_mail_num_func($user){
-return view_remain_num_func($user,'remain-mail-num');
+//送信可能スカウトメールの件数の表示
+function view_remain_mail_num_func($company){
+return view_remain_num_func($company,'remain-mail-num');
 }
-function view_remain_userinfo_num_func($user, $info_level){
-return view_remain_num_func($user,'remain-view-num-lv'.$info_level);
+//獲得できるユーザー情報の数の取得(現在不使用)
+function view_remain_userinfo_num_func($company, $info_level){
+return view_remain_num_func($company,'remain-view-num-lv'.$info_level);
 }
 
 /*
@@ -142,9 +146,10 @@ return $html;
 }
 */
 
-function decrease_remain_num_func($cuser, $student,$meta_name, $num){
-$cid=$cuser->ID;
-$p_num=get_remain_num_func($cuser, $meta_name);
+//残り件数を減少させる
+function decrease_remain_num_func($company, $student,$meta_name, $num){
+$cid=$company->ID;
+$p_num=get_remain_num_func($company, $meta_name);
 if($p_num){
 $sta=get_remain_num_for_stu_func($student,$meta_name);
 $p_num[$sta['key']]-=$num;
@@ -154,13 +159,14 @@ update_user_meta($cid, $meta_name,$p_num);
 }
 }
 
+//スカウトメールを送信したら残り件数を１件減らす
 function minus1_remain_mail_num_func( $contact_form ) { 
 $submission = WPCF7_Submission::get_instance();  
 if ( $submission ) {  
 $posted_data = $submission->get_posted_data();  
-$cuser=get_user_by('login',$posted_data['your-id']);
+$company=get_user_by('login',$posted_data['your-id']);
 $student=get_user_by('login',$posted_data['partner-id']);
-decrease_remain_num_func($cuser, $student,'remain-mail-num', 1);
+decrease_remain_num_func($company, $student,'remain-mail-num', 1);
 /*	  
 $cid=$cuser->ID;
 $p_num=get_remain_mail_num_func($cuser);
@@ -175,16 +181,19 @@ update_user_meta($cid, $meta_name,$p_num);
 }
 add_action( 'wpcf7_mail_sent', 'minus1_remain_mail_num_func', 10, 1 ); 
 
-function reset_remain_num_func($user, $meta_name){
-$cid=$user->ID;
+//企業の１ヶ月の可能件数をリセットする
+function reset_remain_num_func($company, $meta_name){
+$cid=$company->ID;
 delete_user_meta( $cid, $meta_name);
-add_user_meta($cid, $meta_name, get_all_num_per_month_func($user, $meta_name));
+add_user_meta($cid, $meta_name, get_all_num_per_month_func($company, $meta_name));
 }
 
+//企業の１ヶ月のスカウトメール送信可能件数をリセットする
 function reset_remain_mail_num_func($user){
 return reset_remain_num_func($user, 'remain-mail-num');
 }
 
+//企業の１ヶ月のユーザー情報可能件数をリセットする(現在不使用)
 function reset_remain_userinfo_num_func($user, $info_level){
 return reset_remain_num_func($user,'remain-view-num-lv'.$info_level);
 }
@@ -206,6 +215,7 @@ add_user_meta($cid, $meta_name, get_all_mail_num_per_month_func($user));
 }
 }*/
 
+//現在不使用
 function reset_weall_remain_num_func($meta_name){
 date_default_timezone_set('Asia/Tokyo');
 if(!current_user_can('administrator') )  {
@@ -228,10 +238,13 @@ echo '企業ユーザーが見つかりませんでした。';
 }
 }
 
+//現在不使用
 function reset_weall_remain_mail_num_func(){
 return reset_weall_remain_num_func('remain-mail-num');
 }
 add_shortcode('reset_weall_remain_mail_num','reset_weall_remain_mail_num_func');
+
+//現在不使用
 function reset_weall_remain_userinfo_num_func($atts ) {
 extract( shortcode_atts( array(
 'info_level' => '', 
@@ -262,7 +275,9 @@ echo '企業ユーザーが見つかりませんでした。';
 }
 }*/
 
-
+/*学生の分類(エンジニアor一般)を取得し、その分類の学生に送ることが出来る可能件数を取得
+$sta["status"]と$sta["remain"]に格納して返す
+*/
 function get_remain_num_for_stu_func($student, $meta_name){
     $remains=get_remain_num_func(wp_get_current_user(), $meta_name);
     $sta=array();
@@ -280,10 +295,12 @@ function get_remain_num_for_stu_func($student, $meta_name){
     return $sta;
 }
 
+//スカウトメールについてget_remain_num_for_stu_funcを実行
 function get_remain_mail_num_for_stu_func($student){
     return get_remain_num_for_stu_func($student, 'remain-mail-num');
 }
 
+//学生の情報についてget_remain_num_for_stu_funcを実行(現在不使用)
 function get_remain_userinfo_num_for_stu_func($student, $info_level){
 return get_remain_num_for_stu_func($student, 'remain-view-num-lv'.$info_level);
 }
@@ -307,6 +324,7 @@ $remain=$remains['general'];
 return $sta;
 }*/
 
+//現在不使用
 function send_upgrade_userinfo_button_func($num) {
 $html='<form action = "https://'.$_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"].'" method = "post">
 <input type = "hidden" name ="action" value="upgrade">
@@ -318,6 +336,7 @@ return $html;
 //add_shortcode('send_upgrade_userinfo_button','send_upgrade_userinfo_button_func');
 
 
+//現在不使用
 function get_info_level_for_stu_func($cuser,$student_login,$meta_name_users){
 $accessible_students=get_user_meta($cuser->ID, $meta_name_users,true);
 if(array_key_exists($student_login,$accessible_students)){
@@ -326,9 +345,10 @@ return $accessible_students[$student_login];
 return 0;
 }
 
+//現在不使用
 function upgrade_userinfo_level_func( $atts ) {
 extract( shortcode_atts( array(
-'info_level' => '', 
+'info_level' => '',
 ), $atts ) );
 
 if(empty($_GET['um_user'])){
@@ -339,11 +359,11 @@ $student_login=$_GET['um_user'];
 $student=get_user_by('login',$student_login);
 $sta=get_remain_userinfo_num_for_stu_func($student, $info_level);
 $meta_name_users='accessible-students';
-$cuser=wp_get_current_user();  
+$cuser=wp_get_current_user();
 $accessible_students=get_user_meta($cuser->ID, $meta_name_users,true);
 
 if($_GET['um_user']==$cuser->user_login){
-return '';	
+return '';
 }
 
 
@@ -541,9 +561,12 @@ add_action('reset_company_remain_num', 'reset_company_remain_num_func');
 //wp-cronに月初めに更新するスケジュールを追加
 function my_interval($schedules) {
     date_default_timezone_set( 'Asia/Tokyo' );
-    $dt = new DateTime('now');
-    $dt_2 = new DateTime('midnight first day of next month');
-    $d = $dt_2->diff($dt, true);
+    //今の時刻を取得
+    $dt_now = new DateTime('now');
+    //翌月の１日の０時の時刻を取得
+    $dt_next = new DateTime('midnight first day of next month');
+    //$dtとdt_2の差を計算して、翌月の１日に発生するスケジュールを登録
+    $d = $dt_next->diff($dt_now, true);
     $dt_array = get_object_vars($d);
     $day = $dt_array["d"] * 24 * 60 * 60;
     $hour = $dt_array["h"] * 60 * 60;
