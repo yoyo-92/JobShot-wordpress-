@@ -75,6 +75,7 @@ function has_skill($user, $skill_type){
 //１ヶ月で使用できる件数の取得($meta_name(remain-mail-num(メールの件数),remain-view-num-lv(現在不使用)))
 function get_remain_num_func($company,$meta_name){
 $cid=$company->ID;
+//残り件数を$p_numで取得($meta_nameで場合分け(remain-mail-num(メールの件数),remain-view-num-lv(現在不使用)))
 $p_num=get_user_meta( $cid, $meta_name, true);
 if($p_num){
 return $p_num;
