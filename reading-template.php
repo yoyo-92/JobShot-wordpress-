@@ -4,21 +4,33 @@ function import_template2_func( $content ) {
     if( is_single() && ! empty( $GLOBALS['post'] ) ) {
         if ( $GLOBALS['post']->ID == get_the_ID() ) {
           if( get_post_type() =='event' ) {
-            $content = template_event2_func($content);
-            return $content;
+            if(is_user_logged_in()){
+              $content = template_event2_func($content);
+              return $content;
+            }else{
+              return apply_redirect();
+            }
           }
           if( get_post_type() == 'internship' ) {
-            if( !is_bot() ){
-              setDayViews(get_the_ID());
-              setWeekViews(get_the_ID());
-              setPostViews(get_the_ID());
+            if(is_user_logged_in()){
+              if( !is_bot() ){
+                setDayViews(get_the_ID());
+                setWeekViews(get_the_ID());
+                setPostViews(get_the_ID());
+              }
+              $content = template_internship2_func($content);
+              return $content;
+            }else{
+              return apply_redirect();
             }
-            $content = template_internship2_func($content);
-            return $content;
           }
           if( get_post_type() == 'job' ) {
-            $content = template_job2_func($content);
-            return $content;
+            if(is_user_logged_in()){
+              $content = template_job2_func($content);
+              return $content;
+            }else{
+              return apply_redirect();
+            }
           }
           if( get_post_type() == 'company' ) {
             $content=template_company_info2_func($content);

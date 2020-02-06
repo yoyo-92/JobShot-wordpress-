@@ -61,10 +61,10 @@ function dequeue_plugins_style() {
         wp_deregister_style( 'um_raty' );
         wp_deregister_style( 'um_scrollbar' );
         wp_deregister_style( 'um_datetime' );
-        wp_deregister_style( 'um_default_css' );
+        // wp_deregister_style( 'um_default_css' );
         wp_deregister_style( 'um_fonticons_fa' );
-        wp_deregister_style( 'um_fonticons_ii' );
-        wp_deregister_style( 'um_styles' );
+        // wp_deregister_style( 'um_fonticons_ii' );
+        // wp_deregister_style( 'um_styles' );
         wp_dequeue_style( 'select2' );
     }
     // // wp_dequeue_style( 'wpcom-text-widget-styles' );
