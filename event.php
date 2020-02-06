@@ -4,6 +4,7 @@ function template_event2_func($content){
     global $post;
     date_default_timezone_set('Asia/Tokyo');
 
+    $home_url =esc_url( home_url( ));
     $post_id = $post->ID;
     $event_type= get_field('イベントタイプ',$post_id);
     $capacity = get_field('定員',$post_id);
@@ -21,12 +22,28 @@ function template_event2_func($content){
 
     $sankas=textarea2array(get_field('参加企業',$post_id));
     $sanka_company_link_array=textarea2array(get_field('参加企業注釈',$post_id));
-    $sanka_html='<div>';
-    foreach($sankas as $key => $sanka){
-        $sanka_company_link = $sanka_company_link_array[$key];
-        $sanka_html.=  '<div><a href="'.$sanka_company_link.'"><i class="fas fa-building" style="color:#03c4b0;"></i> '.$sanka.'</a></div>';
+    $sanka_company_logo_link_array=textarea2array(get_field('参加企業ロゴリンク',$post_id));
+    if($sanka_company_logo_link_arra){
+        $sanka_html='<div class="company-logo-box">';
+        foreach($sankas as $key => $sanka){
+            $sanka_company_link = $sanka_company_link_array[$key];
+            $sanka_html.=  '
+                <div class="company-logo event-logo-width">
+                    <a href="'.$sanka_company_link.'">
+                        <img src="'.$sanka_company_logo_link_array[$key].'">
+                    </a>
+                    <p class="small-font-size"><i class="fas fa-building"></i> '.$sanka.'</p>
+                </div>';
+        }
+        $sanka_html.='</div>';
+    }else{
+        $sanka_html='<div>';
+        foreach($sankas as $key => $sanka){
+            $sanka_company_link = $sanka_company_link_array[$key];
+            $sanka_html.=  '<div><a href="'.$sanka_company_link.'"><i class="fas fa-building" style="color:#03c4b0;"></i> '.$sanka.'</a></div>';
+        }
+        $sanka_html.='</div>';
     }
-    $sanka_html.='</div>';
 
     $contents=textarea2array(get_field('コンテンツ',$post_id));
     if($contents[0]=='' && count($contents)==1){
@@ -63,6 +80,33 @@ function template_event2_func($content){
     $points_html = '';
     foreach($points as $point){
 	    $points_html.= '<div class="card-category">'.$point.'</div><br>';
+    }
+
+    $student_voice = get_field('過去参加者の声',$post_id);
+    if(!empty($student_voice)){
+        $student_voice_html = '
+        <section>
+            <h2 class="maintitle">過去参加者の声</h2>
+            <div class="sectionVoice">
+                <div class="sectionVoice__img">
+                    <img src="'.$home_url.'/wp-content/uploads/2020/02/1544077817-1.png" alt="">
+                </div>
+                <div class="sectionVoice__comment">
+                    <p class="sectionVoice__ttl">早稲田大学・文系</p>
+                    <p class="sectionVoice__txt">これからのキャリアを考える上で、参考になる話ばかりを聞けました。また就活だけでなく、入社後に心がけるべき考え方を学べて良かったです。</p>
+                </div>
+            </div>
+            <div class="sectionVoice">
+                <div class="sectionVoice__img">
+                    <img src="'.$home_url.'/wp-content/uploads/2020/02/1544077823-1.png" alt="">
+                </div>
+                <div class="sectionVoice__comment">
+                    <p class="sectionVoice__ttl">東京理科大学・理系</p>
+                    <p class="sectionVoice__txt">"フィードバックをしっかりもらえて良かったです。とても楽しく就活に役立ち勉強になるイベントでした。"</p>
+                </div>
+            </div>
+        </section>
+        ';
     }
     if(strtotime($event_due_date)>strtotime('now')){
         if($event_type == "job"){
@@ -127,8 +171,11 @@ function template_event2_func($content){
         $entry_html = '<a>申し込み済み</a>';
     }
 
+    if(!empty(get_field('概要',$post_id))){
+        $table_body_html .= add_to_table('概要', '<div>'.get_field('概要',$post_id).'</div>');
+    }
     if(!empty(get_field('開催日時',$post_id))){
-        $table_body_html = add_to_table('開催日時', '<div>'.$event_date.'</div>');
+        $table_body_html .= add_to_table('開催日時', '<div>'.$event_date.'</div>');
     }
     if(!empty(get_field('開催場所名',$post_id))){
         $table_body_html.=add_to_table('場所', '<div>'.get_field('開催場所名',$post_id).'</div><div>'.get_field('開催場所住所',$post_id).'</div>'.$access_html.'<div class="respiframe">[acf type=area name=開催場所の地図]</div>');
@@ -197,7 +244,7 @@ function template_event2_func($content){
             <tbody>'.$table_body_html.'</tbody>
         </table>
     </section>
-    '.$entry_html;
+    '.$student_voice_html.$entry_html;
 
   return do_shortcode($html);
 }

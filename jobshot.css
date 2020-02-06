@@ -1451,6 +1451,133 @@ a {
 .fixed-buttom .button-apply:hover {
   background-color: #e4ab55;
 }
+.company-logo-box{
+  display: flex;
+  flex-wrap: wrap;
+}
+.event-logo-width{
+  overflow:hidden;
+  text-align: center;
+  width: 50%;
+  min-width: 140px;
+}
+.event-logo-width img:hover{
+  opacity: 0.75;
+}
+.small-font-size{
+  font-size: 0.8em;
+}
+.event-template-default .maintitle {
+  border-bottom: solid 3px #03C4B0;
+  font-size: 1.7em !important;
+  padding: 5px 0;
+  color: #666;
+  position: relative;
+}
+.event-template-default .maintitle:after {
+  position: absolute;
+  content: " ";
+  display: block;
+  background-color: #fff;
+  border-bottom: none;
+  border-bottom: solid 3px #ffc778;
+  bottom: -3px;
+  width: 30%;
+}
+.sectionVoice{
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  max-width: 1060px;
+  margin: 0 auto 90px;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.sectionVoice:first-of-type {
+  margin-top: 72px;
+}
+.sectionVoice__img {
+  -webkit-box-flex: 0;
+  -ms-flex: none;
+  flex: none;
+  width: 160px;
+  height: 160px;
+}
+.sectionVoice__img img {
+  width: 100%;
+  height: auto;
+}
+.sectionVoice__comment {
+  position: relative;
+  width: 794px;
+  padding: 32px;
+  margin-left: 40px;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  font-size: 20px;
+  color: #053053;
+}
+.sectionVoice__comment:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -20px;
+  display: block;
+  margin-top: -30px;
+  border-top: 30px solid transparent;
+  border-right: 50px solid #f7f7f7;
+  border-bottom: 30px solid transparent;
+}
+.sectionVoice__ttl {
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+.sectionVoice__txt {
+  font-weight: 100;
+  line-height: 1.7;
+}
+@media only screen and (max-width: 782px) {
+  .sectionVoice:first-of-type {
+    margin-top: 35px;
+  }
+  .sectionVoice {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 45px;
+  }
+  .sectionVoice__img {
+    -webkit-box-flex: 0;
+    -ms-flex: none;
+    flex: none;
+    width: 80px;
+    height: 80px;
+  }
+  .sectionVoice__comment {
+    width: 100%;
+    margin-left: 30px;
+    padding: 16px;
+    font-size: 12px;
+  }
+  .sectionVoice__ttl {
+    margin-bottom: 5px;
+    font-weight: 700;
+  }
+  .sectionVoice__txt {
+    font-weight: 100;
+    line-height: 1.4;
+  }
+  .sectionVoice__comment:after {
+    margin-top: -15px;
+    border-top: 15px solid transparent;
+    border-right: 25px solid #f7f7f7;
+    border-bottom: 15px solid transparent;
+  }
+}
+.sectionVoice:first-of-type {
+    margin-top: 35px;
+}
 /* インターン詳細ページ */
 /* url:/?internship= */
 /* code:intern.php */
@@ -6361,3 +6488,4 @@ font-size: 13px !important;
   color: white;
   min-width: 70px;
 }
+/* イベントページ追加 */
