@@ -741,7 +741,7 @@ function view_fullwidth_column_card_func($post_id){
   $post = get_post($post_id);
   $post_title = get_the_title($post_id);
   $description = get_post_meta($post_id, '_aioseop_description', true);
-  $post_date = $post->post_date;
+  $post_date = get_the_date( 'Y-m-d', $post_id );
   $image_url = get_the_post_thumbnail_url( $post_id , 'medium' );
 
   $card_html = '
