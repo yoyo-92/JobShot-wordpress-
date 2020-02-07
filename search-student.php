@@ -1664,7 +1664,7 @@ if (isset($_GET['freeword']) ) {
     $students=new WP_User_Query( $args );//get_users($args);
     $company_name = wp_get_current_user()->data->display_name;
     if($company_name == "株式会社Builds"){
-	    $result_html='' .'今月のスカウトメール送信可能件数は'.view_remain_num_func(wp_get_current_user(),'remain-mail-num').'<br>';
+	    $result_html= '今月のスカウトメール送信可能件数は'.view_remain_num_func(wp_get_current_user(),'remain-mail-num').'<br>';
 	}
 
     $total_users = $students->get_total(); // How many users we have in total (beyond the current page)
