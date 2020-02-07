@@ -423,7 +423,7 @@ function view_fullwidth_event_card_func($post_id){
   $post_title = get_the_title($post_id);
   $image = get_field("イメージ画像",$post_id);
   $image_url = $image["url"];
-  $event_date = get_field('開催日時1',$post_id)['日付'].' '.get_field('開催日時1',$post_id)['開始時刻'].'〜'.get_field('開催日時1',$post_id)['終了時刻'];
+  $event_date = get_field('開催日時',$post_id);
   $event_day=get_field('開催日',$post_id);
   $today=date("Y/m/d");
   $area = get_the_terms($post_id,"area")[0]->name;
