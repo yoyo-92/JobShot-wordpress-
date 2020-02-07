@@ -55,7 +55,34 @@ function template_internship2_func($content){
   $skill_requirements = nl2br(get_field('応募資格',$post_id));
   $prospective_employer = nl2br(get_field('インターン卒業生の内定先',$post_id));
   $intern_student_voice = nl2br(get_field('働いているインターン生の声',$post_id));
+
   $builds_voice = nl2br(get_field('Builds担当者の声',$post_id));
+    if(!empty($student_voice)){
+        $student_voice_html = '
+        <section>
+            <h2 class="maintitle">Builds担当者の声</h2>
+            <div class="sectionVoice">
+                <div class="sectionVoice__img">
+                    <img src="'.$home_url.'/wp-content/uploads/2020/02/1544077817-1.png" alt="">
+                </div>
+                <div class="sectionVoice__comment">
+                    <p class="sectionVoice__ttl">早稲田大学・文系</p>
+                    <p class="sectionVoice__txt">これからのキャリアを考える上で、参考になる話ばかりを聞けました。また就活だけでなく、入社後に心がけるべき考え方を学べて良かったです。</p>
+                </div>
+            </div>
+            <div class="sectionVoice">
+                <div class="sectionVoice__img">
+                    <img src="'.$home_url.'/wp-content/uploads/2020/02/1544077823-1.png" alt="">
+                </div>
+                <div class="sectionVoice__comment">
+                    <p class="sectionVoice__ttl">東京理科大学・理系</p>
+                    <p class="sectionVoice__txt">"フィードバックをしっかりもらえて良かったです。とても楽しく就活に役立ち勉強になるイベントでした。"</p>
+                </div>
+            </div>
+        </section>
+        ';
+    }
+
   $features = get_field('特徴',$post_id);
   $selection_flows_re = get_field("選考フロー",$post_id);
   $selection_flows_re = explode("</br>", $selection_flows_re); // とりあえず行に分割
