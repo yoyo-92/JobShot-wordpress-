@@ -23,7 +23,7 @@ function template_event2_func($content){
     $sankas=textarea2array(get_field('参加企業',$post_id));
     $sanka_company_link_array=textarea2array(get_field('参加企業注釈',$post_id));
     $sanka_company_logo_link_array=textarea2array(get_field('参加企業ロゴリンク',$post_id));
-    if($sanka_company_logo_link_arra){
+    if($sanka_company_logo_link_array){
         $sanka_html='<div class="company-logo-box">';
         foreach($sankas as $key => $sanka){
             $sanka_company_link = $sanka_company_link_array[$key];
