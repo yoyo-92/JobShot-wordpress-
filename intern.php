@@ -56,32 +56,25 @@ function template_internship2_func($content){
   $prospective_employer = nl2br(get_field('インターン卒業生の内定先',$post_id));
   $intern_student_voice = nl2br(get_field('働いているインターン生の声',$post_id));
 
-  $builds_voice = nl2br(get_field('Builds担当者の声',$post_id));
-    if(!empty($student_voice)){
-        $student_voice_html = '
-        <section>
-            <h2 class="maintitle">Builds担当者の声</h2>
-            <div class="sectionVoice">
-                <div class="sectionVoice__img">
-                    <img src="'.$home_url.'/wp-content/uploads/2020/02/1544077817-1.png" alt="">
-                </div>
-                <div class="sectionVoice__comment">
-                    <p class="sectionVoice__ttl">早稲田大学・文系</p>
-                    <p class="sectionVoice__txt">これからのキャリアを考える上で、参考になる話ばかりを聞けました。また就活だけでなく、入社後に心がけるべき考え方を学べて良かったです。</p>
-                </div>
+  $salesman_name = CFS()->get('salesman_name',$post_id);
+  $salesman_picture = CFS()->get('salesman_picture',$post_id);
+  $salesman_voice = CFS()->get('salesman_voice',$post_id);
+  if(!empty($salesman_voice)){
+    $builds_voice_html = '
+    <section>
+        <h2 class="maintitle">Builds担当者の声</h2>
+        <div class="sectionVoice">
+            <div class="sectionVoice__img">
+                <img src="'.$salesman_picture.'" alt="">
             </div>
-            <div class="sectionVoice">
-                <div class="sectionVoice__img">
-                    <img src="'.$home_url.'/wp-content/uploads/2020/02/1544077823-1.png" alt="">
-                </div>
-                <div class="sectionVoice__comment">
-                    <p class="sectionVoice__ttl">東京理科大学・理系</p>
-                    <p class="sectionVoice__txt">"フィードバックをしっかりもらえて良かったです。とても楽しく就活に役立ち勉強になるイベントでした。"</p>
-                </div>
+            <div class="sectionVoice__comment">
+                <p class="sectionVoice__ttl">JobShot営業担当・'.$salesman_name.'</p>
+                <p class="sectionVoice__txt">'.$salesman_voice.'</p>
             </div>
-        </section>
-        ';
-    }
+        </div>
+    </section>
+    ';
+  }
 
   $features = get_field('特徴',$post_id);
   $selection_flows_re = get_field("選考フロー",$post_id);
@@ -275,16 +268,6 @@ function template_internship2_func($content){
           <button class="button button-apply">インターンに応募する</button>
       </a>';
 
-
-  $builds_voice_html = '';
-  if($builds_voice){
-      $builds_voice_html = `
-      <section>
-          <h2 class="maintitle">Builds担当者からの声</h2>
-          <p>'.$builds_voice.'</p>
-      </section>
-      `;
-  }
   $user_roles = $current_user->roles;
   if(!in_array("company", $user_roles)){
     $top_campaign_html = top_campaign();
@@ -1493,13 +1476,3 @@ function get_company_id($company){
 }
 
 ?>
-
-
-
-
-検索項目
-：資格、性格（抽象的な）とかwantedly
-プロフィール欄に時間割、週何日、週何時間勤務できるか等の情報
-学生検索に勤務可能時間の欄を追加したい
-検索候補を出す
-企業ページに企業のイメージや案内などをのせるようにするタイムライン的な
