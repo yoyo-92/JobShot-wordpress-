@@ -102,7 +102,7 @@ function template_event2_func($content){
                 </div>
                 <div class="sectionVoice__comment">
                     <p class="sectionVoice__ttl">東京理科大学・理系</p>
-                    <p class="sectionVoice__txt">"フィードバックをしっかりもらえて良かったです。とても楽しく就活に役立ち勉強になるイベントでした。"</p>
+                    <p class="sectionVoice__txt">フィードバックをしっかりもらえて良かったです。とても楽しく就活に役立ち勉強になるイベントでした。</p>
                 </div>
             </div>
         </section>
