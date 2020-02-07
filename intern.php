@@ -1245,18 +1245,6 @@ function new_internship_form(){
                       </td>
                   </tr>
                   <tr>
-                      <th align="left" nowrap="nowrap">働いているインターン生の声</th>
-                      <td>
-                          <div class="company-capital"><textarea name="intern_student_voice" id="" cols="30" rows="5"></textarea></div>
-                      </td>
-                  </tr>
-                  <tr>
-                      <th align="left" nowrap="nowrap">インターン卒業生の内定先</th>
-                      <td>
-                          <div class="company-capital"><textarea name="prospective_employer" id="" cols="30" rows="5"></textarea></div>
-                      </td>
-                  </tr>
-                  <tr>
                       <th align="left" nowrap="nowrap">イメージ画像*<br>(社内イメージ)</th>
                       <td>
                         <div class="input_file">
