@@ -8,7 +8,14 @@ function import_template2_func( $content ) {
               $content = template_event2_func($content);
               return $content;
             }else{
-              return apply_redirect();
+              global $post;
+              $post_id = $post->ID;
+              if($post_id == 9146){
+                $content = template_event2_func($content);
+                return $content;
+              }else{
+                return apply_redirect();
+              }
             }
           }
           if( get_post_type() == 'internship' ) {
