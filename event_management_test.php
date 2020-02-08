@@ -82,12 +82,68 @@ function view_applylist_func_test ( $atts ) {
    */
   $style_html = '
   <style type="text/css">
+  table.tbl02 tbody th {
+    padding: 10px 15px;
+    color: #000;
+    vertical-align: middle;
+    background: #A9A9A9;
+    border-right: #000 solid 1px;
+    border-bottom: #000 solid 1px;
+    font-size: 15px;
+  }
+
+  table.tbl02 tbody td {
+    padding: 10px 15px;
+    vertical-align: middle;
+    background: #FFF;
+    border-bottom: #000 solid 1px;
+    border-left: #000 solid 1px;
+    color:#000;
+    font-size: 12px;
+  }
+
+  table.tbl02 tbody tr:last-child th {
+    border-bottom: #000 solid 1px;
+  }
+
+  table {
+    margin: 40px;
+    table-layout:fixed;
+    font-size: 10px;
+    width:320px;
+    border-collapse: collapse;
+    color:#000
+  }
+
+  tbody, td, tr {
+    border-collapse: collapse;
+    border: 1px solid black;
+  }
+
+  .info {
+    display:inline-block;
+  }
+  .center {
+    text-align: center;
+  }
+
+  td.name {
+    font-weight: bold;
+    font-size: 15px !important;
+  }
+
+  td.furigana{
+    border-bottom:#000 dotted 1px !iomportant;
+  }
+
+  td.over {
+    word-wrap: break-word;
+  }
+
+  table.tbl02 tbody tr:last-child td {
+    width: 320px;
+  }
   </style>';
-
-
-
-
-
 
 
   /**
