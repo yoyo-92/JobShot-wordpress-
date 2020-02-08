@@ -6491,6 +6491,9 @@ font-size: 13px !important;
 /* イベントページ追加 */
 
 /* インターン線 */
-.intern-detail-table {
+/* .intern-detail-table {
   background-color: black;
+} */
+tr.intern_line_border_bottom {
+  border-bottom:thin groove #ffffff;;
 }
