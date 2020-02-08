@@ -13,6 +13,7 @@ if (!(is_admin() )) {
     function add_async_to_enqueue_script( $url ) {
         if ( FALSE === strpos( $url, '.js' ) ) return $url;       //.js以外は対象外
         if ( strpos( $url, 'jquery.min.js' ) ) return $url;       //'jquery.min.js'は、asyc対象外
+        if (strpos($url,'.js')) return $url;
         return "$url' async charset='UTF-8";                      // async属性を付与
     }
     add_filter( 'clean_url', 'add_async_to_enqueue_script', 11, 1 );
