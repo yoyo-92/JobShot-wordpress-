@@ -6489,3 +6489,8 @@ font-size: 13px !important;
   min-width: 70px;
 }
 /* イベントページ追加 */
+
+/* インターン線 */
+.intern-detail-table {
+  background-color: black;
+}
