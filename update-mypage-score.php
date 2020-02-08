@@ -260,7 +260,7 @@ function update_user_experience_profile_score($user_id){
     $student_experience = get_user_meta( $user_id, 'student_experience',false)[0];
 
     $user_experience_profile_score = 0;
-    if($bussiness_type){
+    if($student_experience){
         $user_experience_profile_score += 5;
     }
     update_user_meta( $user_id, 'user_experience_profile_score', $user_experience_profile_score);
