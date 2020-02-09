@@ -6494,6 +6494,6 @@ font-size: 13px !important;
 /* .intern-detail-table {
   background-color: black;
 } */
-tr.intern_line_border_bottom {
-  border-bottom:thin groove #ffffff;;
+.intern_line_border_bottom {
+  border-bottom:thin groove rgba(255,255,255,.5);
 }
